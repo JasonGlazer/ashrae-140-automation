@@ -1,2 +1,2 @@
 # for local testing
-flake8==3.8.4
+flake8==3.9.2
