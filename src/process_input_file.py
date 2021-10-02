@@ -2,7 +2,10 @@ import argparse
 import logging
 import re
 import os
+import pathlib
 from logger import Logger
+
+root_directory = pathlib.Path(__file__).parent.parent.resolve()
 
 
 def get_property(prop):
@@ -53,23 +56,46 @@ def build_parser():  # pragma: no cover
     return parser
 
 
+class VerifyInputFile:
+    """
+    Verify that a valid file is passed to the class
+    """
+    def __get__(self, obj, owner):
+        input_file_location = obj._input_file_location
+        return input_file_location
+
+    def __set__(self, obj, value):
+        if not re.match(r'.*\.xls((x){0,1}|(m){0,1})$', value):
+            obj.logger.error('File type is not currently supported: {}'.format(value))
+            obj._input_file_location = None
+            return
+        if root_directory.joinpath(value).is_file():
+            obj._input_file_location = root_directory.joinpath(value)
+        else:
+            obj.logger.error('Input file not found {}'.format(value))
+            obj._input_file_location = None
+        return
+
+
 class InputProcessor(Logger):
     """
     Verify Input file and create a cleansed epJSON file for data visualizations
     """
 
+    input_file_location = VerifyInputFile()
+
     def __init__(
             self,
-            input_file,
+            input_file_location,
             logger_level="WARNING",
             logger_name="console_only_logger"):
         """
         :param logger_level: Logging level
         :param logger_name: Specified logger to use
-        :param input_file: input file to verify and process
+        :param input_file_location: input file to verify and process
         """
         super().__init__(logger_level=logger_level, logger_name=logger_name)
-        self.input_file = input_file
+        self.input_file_location = input_file_location
         return
 
 
@@ -85,8 +111,10 @@ def main(args=None):
         logger_name = 'file_logger'
     else:
         logger_name = 'console_only_logger'
-    ip = InputProcessor(logger_level=args.logger_level, logger_name=logger_name, input_file=args.files)
-    ip.logger.info(args.files)
+    for f in args.files:
+        ip = InputProcessor(logger_level=args.logger_level, logger_name=logger_name, input_file_location=f)
+        if ip.input_file_location:
+            ip.logger.info('Processing file: {}'.format(ip.input_file_location))
     return
 
 
