@@ -130,7 +130,7 @@ dmypy.json
 
 # intellij files
 .idea
-.iml
+*.iml
 
 # reference files
 reference/
