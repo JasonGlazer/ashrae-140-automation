@@ -45,6 +45,11 @@ def build_parser():  # pragma: no cover
         '-wl',
         action='store_true',
         help='Write logs to file')
+    parser.add_argument(
+        "--files",
+        '-f',
+        nargs='+',
+        help='Path of input file to process')
     return parser
 
 
@@ -53,8 +58,18 @@ class InputProcessor(Logger):
     Verify Input file and create a cleansed epJSON file for data visualizations
     """
 
-    def __init__(self, logger_level="WARNING", logger_name="console_only_logger"):
+    def __init__(
+            self,
+            input_file,
+            logger_level="WARNING",
+            logger_name="console_only_logger"):
+        """
+        :param logger_level: Logging level
+        :param logger_name: Specified logger to use
+        :param input_file: input file to verify and process
+        """
         super().__init__(logger_level=logger_level, logger_name=logger_name)
+        self.input_file = input_file
         return
 
 
@@ -70,13 +85,21 @@ def main(args=None):
         logger_name = 'file_logger'
     else:
         logger_name = 'console_only_logger'
-    ip = InputProcessor(logger_level=args.logger_level, logger_name=logger_name)
-    ip.logger.info('test')
+    ip = InputProcessor(logger_level=args.logger_level, logger_name=logger_name, input_file=args.files)
+    ip.logger.info(args.files)
     return
 
 
 if __name__ == "__main__":
     ip_parser = build_parser()
     ip_parser_args, unknown_args = ip_parser.parse_known_args()
+    # If unknown arguments are passed, and no file specified, then put the arguments
+    #  in the file namespace.
+    if not ip_parser_args.files and unknown_args:
+        ip_parser_args.files = unknown_args
+    if not ip_parser_args.files:
+        ip_parser.print_help()
+        print('------------------------------')
+        raise FileNotFoundError('No Files specified for processing')
     main(ip_parser_args)
     logging.shutdown()

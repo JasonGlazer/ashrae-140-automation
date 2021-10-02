@@ -1,0 +1,18 @@
+[flake8]
+ignore = E501
+per-file-ignores =
+    tests/*: E402
+max-line-length = 100
+exclude =
+    .git,
+    .github,
+    .idea,
+    .tox,
+    conf.py,
+    setup.py
+    cover,
+    design,
+    docs,
+    logs,
+    reference,
+    venv
