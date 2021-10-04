@@ -134,3 +134,6 @@ dmypy.json
 
 # reference files
 reference/
+
+# coverage reports
+cover/

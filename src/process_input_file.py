@@ -4,6 +4,7 @@ import re
 import os
 import pathlib
 from logger import Logger
+from custom_exceptions import ASHRAE140FileNotFoundError, ASHRAE140TypeError
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
 
@@ -65,15 +66,29 @@ class VerifyInputFile:
         return input_file_location
 
     def __set__(self, obj, value):
-        if not re.match(r'.*\.xls((x){0,1}|(m){0,1})$', value):
-            obj.logger.error('File type is not currently supported: {}'.format(value))
-            obj._input_file_location = None
-            return
         if root_directory.joinpath(value).is_file():
             obj._input_file_location = root_directory.joinpath(value)
         else:
-            obj.logger.error('Input file not found {}'.format(value))
             obj._input_file_location = None
+            raise ASHRAE140FileNotFoundError('Input file not found {}'.format(value))
+        return
+
+
+class SetProcessingPipeline:
+    """
+    Set the processing path based on the input file type
+    """
+    def __get__(self, obj, owner):
+        processing_pipeline = obj._processing_pipeline
+        return processing_pipeline
+
+    def __set__(self, obj, value):
+        # set processing pipeline type, return error if unexpected extension found
+        if re.match(r'.*\.xls((x){0,1}|(m){0,1})$', value):
+            obj._processing_pipeline = 'excel'
+        else:
+            obj._processing_pipeline = None
+            raise ASHRAE140TypeError('File type is not currently supported: {}'.format(value))
         return
 
 
@@ -83,6 +98,7 @@ class InputProcessor(Logger):
     """
 
     input_file_location = VerifyInputFile()
+    processing_pipeline = SetProcessingPipeline()
 
     def __init__(
             self,
@@ -96,7 +112,12 @@ class InputProcessor(Logger):
         """
         super().__init__(logger_level=logger_level, logger_name=logger_name)
         self.input_file_location = input_file_location
+        self.processing_pipeline = str(self.input_file_location)
         return
+
+    def __repr__(self):
+        rep = 'InputProcessor(input_file_location=' + str(self.input_file_location) + ')'
+        return rep
 
 
 def main(args=None):
