@@ -38,7 +38,7 @@ class TestInputProcessor(unittest.TestCase):
         ip = InputProcessor(input_file_location='input/RESULTS5-2A-EnergyPlus-9.0.1.xlsx')
         self.assertRegex(
             str(ip.input_file_location),
-            r'.*/input/RESULTS5-2A-EnergyPlus-9\.0\.1\.xlsx$')
+            r'.*(/|\\)input(/|\\)RESULTS5-2A-EnergyPlus-9\.0\.1\.xlsx$')
         self.assertEqual(
             ip.processing_pipeline,
             'excel')

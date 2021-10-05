@@ -16,6 +16,12 @@ class CustomException(Logger, Exception):
         return self.msg
 
 
+class ASHRAE140ProcessingError(CustomException):
+    """
+    General file processing errors
+    """
+    pass
+
 class ASHRAE140FileNotFoundError(CustomException, FileNotFoundError):
     pass
 

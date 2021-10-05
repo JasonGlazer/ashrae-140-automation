@@ -6,7 +6,7 @@ Automation of ASHRAE 140 Testing Verification
 ### Example Creation  
 1. Read in tables from RESULTS-2A.xlsx for standard programs (make as a file in 'inputs' folder)
 2. Format as JSON objects in 'processed' folder
-3. Make a rendering in jupyter notebook
+3. Make a rendering in jupyter notebook (Fig. B8-9)
 4. Export rendering to html and save in a 'static' folder.
 
 
