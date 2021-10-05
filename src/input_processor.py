@@ -4,7 +4,9 @@ import re
 import os
 import pathlib
 from logger import Logger
-from custom_exceptions import ASHRAE140FileNotFoundError, ASHRAE140TypeError
+from src.descriptors import VerifyInputFile
+from src.excel_processor import ExcelProcessor
+from custom_exceptions import ASHRAE140TypeError
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
 
@@ -16,10 +18,11 @@ def get_property(prop):
     :return: Return value for a given property
     """
     try:
-        result = re.search(
-            r'{}\s*=\s*[\'"]([^\'"]*)[\'"]'.format(prop),
-            open(os.path.join(os.path.dirname(__file__), '__init__.py')).read())
-        output = result.group(1)
+        with open(os.path.join(os.path.dirname(__file__), '__init__.py')) as f:
+            result = re.search(
+                r'{}\s*=\s*[\'"]([^\'"]*)[\'"]'.format(prop),
+                f.read())
+            output = result.group(1)
     except AttributeError:
         output = '{} could not be found'.format(prop)
     return output
@@ -57,23 +60,6 @@ def build_parser():  # pragma: no cover
     return parser
 
 
-class VerifyInputFile:
-    """
-    Verify that a valid file is passed to the class
-    """
-    def __get__(self, obj, owner):
-        input_file_location = obj._input_file_location
-        return input_file_location
-
-    def __set__(self, obj, value):
-        if root_directory.joinpath(value).is_file():
-            obj._input_file_location = root_directory.joinpath(value)
-        else:
-            obj._input_file_location = None
-            raise ASHRAE140FileNotFoundError('Input file not found {}'.format(value))
-        return
-
-
 class SetProcessingPipeline:
     """
     Set the processing path based on the input file type
@@ -84,7 +70,7 @@ class SetProcessingPipeline:
 
     def __set__(self, obj, value):
         # set processing pipeline type, return error if unexpected extension found
-        if re.match(r'.*\.xls((x){0,1}|(m){0,1})$', value):
+        if re.match(r'.*\.xls((x)?|(m)?)$', value):
             obj._processing_pipeline = 'excel'
         else:
             obj._processing_pipeline = None
@@ -103,21 +89,59 @@ class InputProcessor(Logger):
     def __init__(
             self,
             input_file_location,
+            data_sources=None,
             logger_level="WARNING",
             logger_name="console_only_logger"):
         """
         :param logger_level: Logging level
         :param logger_name: Specified logger to use
         :param input_file_location: input file to verify and process
+        :param data_sources: dictionary of
         """
         super().__init__(logger_level=logger_level, logger_name=logger_name)
+        self.input_processing_map = {
+            'excel': ExcelProcessor}
         self.input_file_location = input_file_location
         self.processing_pipeline = str(self.input_file_location)
+        try:
+            processing_class = self.input_processing_map[self.processing_pipeline](
+                file_location=self.input_file_location)
+        except KeyError:
+            raise ASHRAE140TypeError('Specified processing pipeline does not have processing class implemented {}.'
+                                     .format(self.processing_pipeline))
+        print(processing_class)
+        processing_class.run()
         return
 
     def __repr__(self):
         rep = 'InputProcessor(input_file_location=' + str(self.input_file_location) + ')'
         return rep
+
+    def _process_file(
+            self,
+            file_location: str,
+            pipeline: str) -> dict:
+        """
+        Take class attributes describing input file and perform processing inputs
+
+        :param file_location: Location of file to be processed
+        :param pipeline: valid pipeline type to select for processing
+            Valid options: excel
+        :return: class attribute with input data loaded as dictionary object.  Also return it as the function default.
+        """
+        # Get appropriate pipeline for processing
+        valid_pipelines = {'excel', }
+        if pipeline not in valid_pipelines:
+            raise ASHRAE140TypeError('Specified processing pipeline is invalid {}.  The valid pipeline options'
+                                     'are {}'.format(pipeline, valid_pipelines))
+        try:
+            processing_function = self.input_processing_map[pipeline]
+        except KeyError:
+            raise ASHRAE140TypeError('Specified processing pipeline does not have processing function implemented {}.'
+                                     .format(pipeline))
+        # execute pipeline class which will return a cleansed data object
+        processing_function(file_location=file_location)
+        return
 
 
 def main(args=None):
@@ -133,7 +157,10 @@ def main(args=None):
     else:
         logger_name = 'console_only_logger'
     for f in args.files:
-        ip = InputProcessor(logger_level=args.logger_level, logger_name=logger_name, input_file_location=f)
+        ip = InputProcessor(
+            logger_level=args.logger_level,
+            logger_name=logger_name,
+            input_file_location=f)
         if ip.input_file_location:
             ip.logger.info('Processing file: {}'.format(ip.input_file_location))
     return
