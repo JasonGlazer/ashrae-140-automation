@@ -22,6 +22,7 @@ class ASHRAE140ProcessingError(CustomException):
     """
     pass
 
+
 class ASHRAE140FileNotFoundError(CustomException, FileNotFoundError):
     pass
 

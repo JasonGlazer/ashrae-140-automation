@@ -2,7 +2,6 @@ import pathlib
 import pandas as pd
 from descriptors import VerifyInputFile
 from logger import Logger
-from custom_exceptions import ASHRAE140TypeError
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
 
@@ -65,7 +64,7 @@ class ExcelProcessor(Logger):
         try:
             data_source = self.data_sources['conditioned_zone_loads_non_free_float']
         except KeyError:
-            self.logger.error('Test data for Conditioned Zone Loads (Non-Free-Float Test Cases) was not found.  ' \
+            self.logger.error('Test data for Conditioned Zone Loads (Non-Free-Float Test Cases) was not found.  '
                               'Data will not be processed')
             return {}
         data_tab, skip_rows, excel_cols, n_rows = data_source
