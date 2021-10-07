@@ -1,7 +1,10 @@
 import pathlib
+import re
 import pandas as pd
 from descriptors import VerifyInputFile
 from logger import Logger
+from custom_exceptions import ASHRAE140ProcessingError
+from src.data_cleanser import DataCleanser
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
 
@@ -10,6 +13,13 @@ class SetDataSources:
     """
     Set the data extraction instructions.  Currently, this is a very simple descriptor, but it is created for
     future versions where data source location may change.
+
+    data_sources formatting:
+        0 - tab
+        1 - start row
+        2 - columns
+        3 - number of rows to parse
+        4 - dictionary of additional arguments to pd.read_excel
     """
     def __get__(self, obj, owner):
         data_sources = obj._data_sources
@@ -20,6 +30,7 @@ class SetDataSources:
             obj._data_sources = value
         else:
             obj._data_sources = {
+                'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
                 'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46)
             }
         return
@@ -46,6 +57,9 @@ class ExcelProcessor(Logger):
         self.file_location = file_location
         self.data_sources = data_sources
         self.test_data = {}
+        self.software_name = None
+        self.software_version = None
+        self.software_release_date = None
         return
 
     def __repr__(self):
@@ -54,6 +68,53 @@ class ExcelProcessor(Logger):
               ')'
         return rep
 
+    def _get_data(self, section_name) -> pd.DataFrame:
+        """
+        Retrieve section of data and return it as a pandas dataframe
+
+        :param section_name: Named section of data in the data_sources class object.
+        :return: Section of excel file converted to dataframe
+        """
+        try:
+            data_source = self.data_sources[section_name]
+        except KeyError:
+            raise ASHRAE140ProcessingError('Data extraction instructions for Identifying Information section '
+                                           'was not found')
+        data_tab, skip_rows, excel_cols, n_rows, kwargs = [*list(data_source) + [{}] * 5][:5]
+        df = pd.read_excel(
+            self.file_location,
+            sheet_name=data_tab,
+            skiprows=skip_rows,
+            usecols=excel_cols,
+            nrows=n_rows,
+            **kwargs)
+        # todo_140: Write simple verifications that data loaded
+        return df
+
+    def _extract_identifying_information(self):
+        """
+        Retrieve information data and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        if not re.match(r'^Software.*', df.iloc[0, 0]):
+            self.logger.error('Software name information not found')
+            self.software_name = None
+        else:
+            self.software_name = df.iloc[0, 1]
+        if not re.match(r'^Version.*', df.iloc[1, 0]):
+            self.logger.error('Software version information not found')
+            self.software_version = None
+        else:
+            self.software_version = df.iloc[1, 1]
+        if not re.match(r'^Date.*', df.iloc[2, 0]):
+            self.logger.error('Software release date information not found')
+            self.software_release_date = None
+        else:
+            self.software_release_date = df.iloc[2, 1]
+        return
+
     def _extract_conditioned_zone_loads_non_free_float(self) -> dict:
         """
         Retrieve and format data from the
@@ -61,49 +122,15 @@ class ExcelProcessor(Logger):
 
         :return: dictionary to be merged into main testing output dictionary
         """
-        try:
-            data_source = self.data_sources['conditioned_zone_loads_non_free_float']
-        except KeyError:
-            self.logger.error('Test data for Conditioned Zone Loads (Non-Free-Float Test Cases) was not found.  '
-                              'Data will not be processed')
-            return {}
-        data_tab, skip_rows, excel_cols, n_rows = data_source
-        df = pd.read_excel(
-            self.file_location,
-            sheet_name=data_tab,
-            skiprows=skip_rows,
-            usecols=excel_cols,
-            nrows=n_rows)
+        df = self._get_data('conditioned_zone_loads_non_free_float')
         # format and verify dataframe
+        # todo_140: All of these verification steps can be moved to an input agnostic class for checking data.
         df.columns = ['case', 'annual_heating_MWh', 'annual_cooling_MWh', 'peak_heating_kW', 'peak_heating_month',
                       'peak_heating_day', 'peak_heating_hour', 'peak_cooling_kW', 'peak_cooling_month',
                       'peak_cooling_day', 'peak_cooling_hour']
-        numeric_columns = [1, 2, 3, 5, 6, 7, 9, 10]
-        try:
-            df.iloc[:, numeric_columns] = df.iloc[:, numeric_columns].apply(pd.to_numeric, errors='raise')
-        except ValueError:
-            self.logger.error('Failed to verify numeric columns in Conditioned Zone Loads '
-                              '(Non-Free-Float Test Cases)')
-            return {}
-        cases = {'600', '610', '620', '630', '640', '650', '660', '670', '680', '685', '695', '900', '910', '920',
-                 '930', '940', '950', '960', '980', '985', '995', '195', '200', '210', '215', '220', '230', '240',
-                 '250', '270', '280', '290', '300', '310', '320', '395', '400', '410', '420', '430', '440', '450',
-                 '460', '470', '800', '810'}
-        failed_cases = df['case'][~df['case'].astype(str).isin(cases)]
-        if len(failed_cases) > 0:
-            self.logger.error('Invalid Case referenced in Conditioned Zone Loads '
-                              '(Non-Free-Float Test Cases): {}'.format(failed_cases))
-        try:
-            failed_heating_hour = df['peak_heating_hour'].apply(lambda x: 0 < int(x) < 25)
-            failed_heating_hour = df['peak_heating_hour'][~failed_heating_hour]
-        except ValueError:
-            self.logger.error('Invalid peak heating hour in Conditioned Zone Loads '
-                              '(Non-Free-Float Test Cases)')
-            return {}
-        if len(failed_heating_hour) > 0:
-            self.logger.error('Invalid peak heating hour in Conditioned Zone Loads '
-                              '(Non-Free-Float Test Cases): {}'.format(failed_heating_hour))
-            return {}
+        df['case'] = df['case'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_conditioned_zone_loads_non_free_float()
         # format cleansed dataframe into dictionary
         data_d = {}
         for idx, row in df.iterrows():
@@ -119,6 +146,14 @@ class ExcelProcessor(Logger):
 
         :return: json object of input data
         """
-        conditioned_zone_loads_non_free_float_data = self._extract_conditioned_zone_loads_non_free_float()
-        self.test_data.update({'conditioned_zone_loads_non_free_float': conditioned_zone_loads_non_free_float_data})
+        self._extract_identifying_information()
+        self.test_data.update({
+            'identifying_information': {
+                'software_name': self.software_name,
+                'software_version': self.software_version,
+                'software_release_date': str(self.software_release_date)
+            }
+        })
+        self.test_data.update(
+            {'conditioned_zone_loads_non_free_float': self._extract_conditioned_zone_loads_non_free_float()})
         return self

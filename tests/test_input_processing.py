@@ -6,7 +6,7 @@ from argparse import Namespace
 
 this_script_path = pathlib.Path(__file__)
 sys.path.append(str(this_script_path.parent.parent.joinpath('src', )))
-from src.input_processor import main
+from src.main import main
 from src.input_processor import InputProcessor
 from src.descriptors import ASHRAE140FileNotFoundError
 from src.input_processor import ASHRAE140TypeError

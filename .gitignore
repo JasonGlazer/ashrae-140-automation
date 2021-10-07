@@ -137,3 +137,6 @@ reference/
 
 # coverage reports
 cover/
+
+# excel lock files
+\.~*\.xlsx#
