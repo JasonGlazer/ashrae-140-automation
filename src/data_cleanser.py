@@ -38,6 +38,7 @@ class DataCleanser(Logger):
         :return: boolean series to filter input dataframe.  The internal cleansed dataframe is also updated with
             erroneous entries removed.
         """
+        self.logger.info('Cleansing column {}'.format(check_column))
         try:
             failed_cases = ~self.df[check_column].astype(str).isin(self.valid_cases)
             if failed_cases.any():
@@ -60,6 +61,7 @@ class DataCleanser(Logger):
         :return: boolean series to filter input dataframe.  The internal cleansed dataframe is also updated with
             erroneous entries removed.
         """
+        self.logger.info('Cleansing column {}'.format(check_column))
         try:
             failed_numeric = pd.to_numeric(self.df[check_column], errors='coerce').isnull()
             if failed_numeric.any():
@@ -83,26 +85,21 @@ class DataCleanser(Logger):
                               .format(check_column))
         return failed_limit
 
-    def cleanse_conditioned_zone_loads_non_free_float(
-            self,
-            case_column: str = 'case',
-            numeric_columns: list = (
-                    ('peak_heating_hour', {'lower_limit': 1, 'upper_limit': 24}), )):
+    def _check_columns(self, column_check_function, column_list):
         """
-        Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
+        format instructions and iterate a column check function
 
-        :param case_column: column containing test case identifiers
-        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
-            0 - column name
-            1 - kwargs for numeric check function
-        :return: Cleansed pandas DataFrame
+        :param column_check_function: function to iterate
+        :param column_list: list of columns to iterate over. This is a
+            tuple of tuple containing numeric check, where inner tuple is:
+                0 - column name
+                1 - kwargs for numeric check function
+        :return: Updated self.df dataframe
         """
-        # check case column
-        self._check_cases(case_column)
-        # reformat numeric columns in case it was accidentally passed as string
-        if isinstance(numeric_columns, str):
-            numeric_columns = [numeric_columns, ]
-        for numeric_check_instructions in numeric_columns:
+        # reformat numeric column list in case it was accidentally passed as string
+        if isinstance(column_list, str):
+            column_list = [column_list, ]
+        for numeric_check_instructions in column_list:
             # process if kwargs were given
             if isinstance(numeric_check_instructions, (tuple, list)):
                 column_name, kwargs = [*list(numeric_check_instructions) + [{}] * 2][:2]
@@ -113,8 +110,30 @@ class DataCleanser(Logger):
             else:
                 self.logger.error('Error: Invalid numeric columns input.  This validation was not performed')
                 return self.df
-            self._check_numeric_with_limits(check_column=column_name, **kwargs)
-        return self.df
+            column_check_function(check_column=column_name, **kwargs)
+        return
 
+    def cleanse_conditioned_zone_loads_non_free_float(
+            self,
+            case_column: str = 'case',
+            numeric_columns: list = (
+                ('peak_heating_hour', {'lower_limit': 1, 'upper_limit': 24}),
+                ('peak_cooling_hour', {'lower_limit': 1, 'upper_limit': 24}), ), ):
+        """
+        Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
+
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing Conditioned Zone Loads (Non-Free-Float Test Cases) table')
+        # check case column
+        self._check_cases(case_column)
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
 
     # todo_140: Make a set of verification test that ensure the data is good for a specific output graphic
