@@ -1,0 +1,17 @@
+[run]
+source =
+        src
+
+omit =
+        /usr/*
+        /tmp/*
+        .tox/*
+        *.pyenv*
+        *venv*
+        setup.py
+
+[report]
+exclude_lines =
+        pragma: no cover
+
+show_missing = True

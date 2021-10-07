@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# intellij files
+.idea
+*.iml
+
+# reference files
+reference/
+
+# coverage reports
+cover/
+
+# excel lock files
+\.~*\.xlsx#
