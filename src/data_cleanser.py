@@ -117,8 +117,8 @@ class DataCleanser(Logger):
             self,
             case_column: str = 'case',
             numeric_columns: list = (
-                ('peak_heating_hour', {'lower_limit': 1, 'upper_limit': 24}),
-                ('peak_cooling_hour', {'lower_limit': 1, 'upper_limit': 24}), ), ):
+                ('peak_heating_hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('peak_cooling_hour', {'lower_limit': 0, 'upper_limit': 24}), ), ):
         """
         Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
 
