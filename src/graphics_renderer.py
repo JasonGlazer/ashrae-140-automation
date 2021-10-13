@@ -1,10 +1,9 @@
 import pathlib
 import json
-import os
 import pandas as pd
 import numpy as np
 from IPython.display import display_html
-from itertools import chain,cycle
+from itertools import chain, cycle
 
 from logger import Logger
 
