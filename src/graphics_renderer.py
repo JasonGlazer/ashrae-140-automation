@@ -3,6 +3,8 @@ import json
 import os
 import pandas as pd
 import numpy as np
+from IPython.display import display_html
+from itertools import chain,cycle
 
 from logger import Logger
 
@@ -27,6 +29,13 @@ class GraphicsRenderer(Logger):
         :param logger_name: logger object to use.
         """
         super().__init__(logger_level=logger_level, logger_name=logger_name)
+        self.case_detailed_df = pd.DataFrame.from_dict(
+            {
+                '195': ['195 Solid Conduction', 22],
+                '600': ['600 Base Case, South Windows', 1]
+            },
+            orient='index',
+            columns=['case_name', 'case_order'])
         if not processed_file_directory:
             self.processed_file_directory = root_directory.joinpath('processed')
         else:
@@ -42,6 +51,9 @@ class GraphicsRenderer(Logger):
         else:
             self.baseline_model_list = base_model_list
         self.model_results_file = model_results_file
+        # try to extract the model name from the file name for the tested model and base models
+        self.baseline_model_names = [i.replace('.json', '') for i in self.baseline_model_list]
+        self.model_name = self.model_results_file.replace('.json', '')
         # create an object that keeps the information needed to make the row index for each table object.
         # 0 - json key name
         # 1 - list to make row index
@@ -63,12 +75,13 @@ class GraphicsRenderer(Logger):
         :return: Updated class objects that represent the data as a json object and pandas dataframe
         """
         table_objects = {}
-        for f in self.baseline_model_list + [self.model_results_file, ]:
-            base_name = str(os.path.basename(f)).replace('.json', '')
+        for f, model_name in zip(
+                self.baseline_model_list + [self.model_results_file, ],
+                self.baseline_model_names + [self.model_name, ]):
             with open(self.processed_file_directory.joinpath(f), 'r') as jf:
                 data = json.load(jf)
                 # load json objects as objects with the file name as the key
-                self.json_data.update({base_name: data})
+                self.json_data.update({model_name: data})
                 # load each table, if exists into a dataframe of the json key name
                 for tbl, row_index in self.table_lookup:
                     tbl_data = data.get(tbl)
@@ -80,7 +93,7 @@ class GraphicsRenderer(Logger):
                         # Format the json data to a multiIndex table with a meaningful row index
                         tmp_df = pd.json_normalize(tbl_data)
                         tmp_df.columns = pd.MultiIndex.from_tuples([i.split('.') for i in tmp_df.columns])
-                        tmp_df['program_name'] = str(os.path.basename(f)).replace('.json', '')
+                        tmp_df['program_name'] = model_name
                         tmp_df = tmp_df.set_index(row_index)
                         table_objects.update({tbl: pd.concat([table_objects[tbl], tmp_df])})
         self.df_data = table_objects
@@ -95,13 +108,32 @@ class GraphicsRenderer(Logger):
         fig.tight_layout()
         return fig, ax
 
+    @staticmethod
+    def display_side_by_side(*args, titles=cycle([''])):
+        html_str = ''
+        html_str += '<table class="pandas-tbl"><tr>'
+        for idx, (df, title) in enumerate(zip(args, chain(titles, cycle([''])))):
+            html_str += '<th style="text-align:center"><td style="vertical-align:top">'
+            if not title:
+                html_str += '<h2 class="pandas-super-header"><span class="placeholder-span">ht</span></h2>'
+            else:
+                html_str += f'<h2><p class="pandas-super-header">{title}</p></h2>'
+            if idx == 0:
+                class_val = 'pandas-sub-tbl-with-cases'
+            else:
+                class_val = 'pandas-sub-tbl'
+            html_str += df.to_html(index=False, classes=class_val).replace('table', 'table style="display:inline"')
+            html_str += '</td></th>'
+        html_str += '</tr></table>'
+        return display_html(html_str, raw=True)
+
     def render_section_5_2a_table_b_8_1(self):
         """
         Create dataframe from class dataframe object for table 5-2A B8-1
 
         :return: pandas dataframe
         """
-        df_formatted_table = pd.DataFrame()
+        table_html = None
         msg = None
         try:
             # get and format dataframe into required shape
@@ -122,12 +154,42 @@ class GraphicsRenderer(Logger):
             df_formatted_table.columns = df_formatted_table_column_names
             # Create calculated columns df and append them to the base table.
             base_file_names = [i.replace('.json', '') for i in self.baseline_model_list]
-            calculated_df = pd.DataFrame()
-            calculated_df['min'] = df_formatted_table[base_file_names].min(axis=1)
-            df_formatted_table = pd.concat([df_formatted_table, calculated_df], axis=1)
+            df_formatted_table['col_min'] = df_formatted_table[base_file_names].min(axis=1)
+            df_formatted_table['col_max'] = df_formatted_table[base_file_names].max(axis=1)
+            df_formatted_table['col_mean'] = df_formatted_table[base_file_names].mean(axis=1)
+            df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
+                lambda x: np.nan if x.col_mean == 0 else abs((x.col_max - x.col_min) / x.col_mean), axis=1)
+            program_df = df_formatted_table[[self.model_name, ]].copy()
+            statistics_df = df_formatted_table[['col_min', 'col_max', 'col_mean', '(max - min) / mean %']].rename(
+                columns={
+                    'col_min': 'min',
+                    'col_max': 'max',
+                    'col_mean': 'mean'})
+            df_formatted_table = df_formatted_table.drop(
+                [self.model_name, 'col_min', 'col_max', 'col_mean', '(max - min) / mean %'], axis=1)
+            # rename cases using join and re-order them
+            df_formatted_table = df_formatted_table\
+                .merge(
+                    self.case_detailed_df,
+                    how='left',
+                    left_on=['cases', ],
+                    right_index=True)\
+                .sort_values(['case_order'])\
+                .drop(['cases', 'case_order'], axis=1)\
+                .rename(columns={'case_name': 'cases'})
+            # reorder dataframe
+            column_list = ['cases', ] + [i for i in df_formatted_table.columns if i != 'cases']
+            df_formatted_table = df_formatted_table[column_list]
+            table_html = self.display_side_by_side(
+                df_formatted_table,
+                statistics_df,
+                program_df,
+                titles=['Simulation Model', 'Statistics for Example Results', ''])
         except KeyError:
+            import traceback
+            print(traceback.print_exc())
             msg = 'Section 5-2A B8-1 Failed to be processed'
-        return df_formatted_table, msg
+        return table_html, msg
 
     def render_section_5_2a_figure_b_8_9(self, fig, ax):
         """
