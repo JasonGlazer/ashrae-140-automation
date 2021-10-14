@@ -136,4 +136,24 @@ class DataCleanser(Logger):
             column_list=numeric_columns)
         return self.df
 
+    def cleanse_annual_solar_radiation_direct_and_diffuse(
+            self,
+            case_column: str = 'case',
+            numeric_columns: list = (
+                ('kWh/m2', {'lower_limit': 0}), )):
+        """
+        Perform operations to cleanse and verify data for the Annual Solar Radiation (Direct + Diffuse)
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing Annual Solar Radiation (Direct + Diffuse) table')
+        # check case column
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
     # todo_140: Make a set of verification test that ensure the data is good for a specific output graphic

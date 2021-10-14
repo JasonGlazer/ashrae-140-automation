@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from IPython.display import display_html
 from itertools import chain, cycle
+from textwrap import wrap
 
 from logger import Logger
 
@@ -153,15 +154,17 @@ class GraphicsRenderer(Logger):
         return fig, ax
 
     @staticmethod
-    def display_side_by_side(*args, titles=cycle([''])):
+    def display_side_by_side(*args, titles=cycle(['']), caption=None):
         html_str = ''
         html_str += '<table class="pandas-tbl"><tr>'
+        if caption:
+            html_str += f'<caption>{caption}</caption>'
         for idx, (df, title) in enumerate(zip(args, chain(titles, cycle([''])))):
             html_str += '<th style="text-align:center"><td style="vertical-align:top">'
             if not title:
-                html_str += '<h2 class="pandas-super-header"><span class="placeholder-span">ht</span></h2>'
+                html_str += '<h2><span class="placeholder-span">ht</span></h2>'
             else:
-                html_str += f'<h2><p class="pandas-super-header">{title}</p></h2>'
+                html_str += f'<h2>{title}</h2>'
             if idx == 0:
                 class_val = 'pandas-sub-tbl-with-cases'
             else:
@@ -171,11 +174,14 @@ class GraphicsRenderer(Logger):
         html_str += '</tr></table>'
         return display_html(html_str, raw=True)
 
-    def render_section_5_2a_table_b_8_1(self):
+    def render_section_5_2a_table_b_8_1(
+            self,
+            output_value='annual_heating_MWh',
+            caption='Table B8-1. Annual Heating Loads (MWh)'):
         """
         Create dataframe from class dataframe object for table 5-2A B8-1
 
-        :return: pandas dataframe
+        :return: pandas dataframe and output msg for general navigation.
         """
         table_html = None
         msg = None
@@ -185,7 +191,7 @@ class GraphicsRenderer(Logger):
                 .loc[
                     :,
                     self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1) == 'annual_heating_MWh']
+                        .columns.get_level_values(1) == output_value]
             df.columns = df.columns.droplevel(level=1)
             df_formatted_table = df.unstack()\
                 .reset_index()\
@@ -197,10 +203,9 @@ class GraphicsRenderer(Logger):
             df_formatted_table_column_names[0] = 'cases'
             df_formatted_table.columns = df_formatted_table_column_names
             # Create calculated columns df and append them to the base table.
-            base_file_names = [i.replace('.json', '') for i in self.baseline_model_list]
-            df_formatted_table['col_min'] = df_formatted_table[base_file_names].min(axis=1)
-            df_formatted_table['col_max'] = df_formatted_table[base_file_names].max(axis=1)
-            df_formatted_table['col_mean'] = df_formatted_table[base_file_names].mean(axis=1)
+            df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1)
+            df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1)
+            df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1)
             df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
                 lambda x: np.nan if x.col_mean == 0 else abs((x.col_max - x.col_min) / x.col_mean), axis=1)
             program_df = df_formatted_table[[self.model_name, ]].copy()
@@ -228,12 +233,53 @@ class GraphicsRenderer(Logger):
                 df_formatted_table,
                 statistics_df,
                 program_df,
-                titles=['Simulation Model', 'Statistics for Example Results', ''])
+                titles=['Simulation Model', 'Statistics for Example Results', ''],
+                caption=caption)
         except KeyError:
-            import traceback
-            print(traceback.print_exc())
             msg = 'Section 5-2A B8-1 Failed to be processed'
         return table_html, msg
+
+    def render_section_5_2a_table_b_8_2(self):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-2
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        table_html, msg = self.render_section_5_2a_table_b_8_1(
+            output_value='annual_cooling_MWh',
+            caption='Table B8.2 Annual Sensible Cooling Loads (MWh)'
+        )
+        return table_html, msg
+
+    def render_section_5_2a_figure_b_8_1(self, fig, ax):
+        """
+        Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        width = 0.1
+        data = []
+        surfaces = ['HORZ', 'NORTH', 'EAST', 'SOUTH', 'WEST']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for surface in surfaces:
+                if json_obj.get('annual_solar_radiation_direct_and_diffuse') and json_obj[
+                        'annual_solar_radiation_direct_and_diffuse']['600']['Surface'].get(surface):
+                    tmp_data.append(json_obj['annual_solar_radiation_direct_and_diffuse']['600']['Surface'][surface].get('kWh/m2'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        ax.set_xticks(np.arange(max([len(i) for i in data])))
+        ax.set_title('Figure B8-1.  Annual Incident Solar Radiation', fontsize=30)
+        ax.set_xticklabels(['600 ' + i for i in surfaces])
+        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
+            x = np.arange(len(d))
+            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
+            ax.bar_label(rects, padding=5, rotation="vertical")
+        ax.grid(which='major', axis='y')
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
+        ax.set_ylim(0, 2000)
+        return fig, ax
 
     def render_section_5_2a_figure_b_8_9(self, fig, ax):
         """
@@ -255,7 +301,10 @@ class GraphicsRenderer(Logger):
             programs.insert(idx, json_obj['identifying_information']['software_name'])
         ax.set_xticks(np.arange(max([len(i) for i in data])))
         ax.set_title('Figure B8-9.  Basic: Low Mass Peak Heating', fontsize=30)
-        ax.set_xticklabels(cases)
+        ax.set_xticklabels(
+            [
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases])
         for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
             x = np.arange(len(d))
             rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)

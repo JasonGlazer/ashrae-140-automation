@@ -1,4 +1,25 @@
 {
+    "annual_solar_radiation_direct_and_diffuse": {
+        "600": {
+            "Surface": {
+                "EAST": {
+                    "kWh/m2": 1062.16
+                },
+                "HORZ": {
+                    "kWh/m2": 1664.34
+                },
+                "NORTH": {
+                    "kWh/m2": 438.24
+                },
+                "SOUTH": {
+                    "kWh/m2": 1370.48
+                },
+                "WEST": {
+                    "kWh/m2": 967.28
+                }
+            }
+        }
+    },
     "conditioned_zone_loads_non_free_float": {
         "195": {
             "annual_cooling_MWh": 0.612,

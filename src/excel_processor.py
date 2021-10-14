@@ -31,7 +31,8 @@ class SetDataSources:
         else:
             obj._data_sources = {
                 'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
-                'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46)
+                'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46),
+                'annual_solar_radiation_direct_and_diffuse': ('YourData', 153, 'B:C', 5)
             }
         return
 
@@ -124,7 +125,6 @@ class ExcelProcessor(Logger):
         """
         df = self._get_data('conditioned_zone_loads_non_free_float')
         # format and verify dataframe
-        # todo_140: All of these verification steps can be moved to an input agnostic class for checking data.
         df.columns = ['case', 'annual_heating_MWh', 'annual_cooling_MWh', 'peak_heating_kW', 'peak_heating_month',
                       'peak_heating_day', 'peak_heating_hour', 'peak_cooling_kW', 'peak_cooling_month',
                       'peak_cooling_day', 'peak_cooling_hour']
@@ -138,6 +138,22 @@ class ExcelProcessor(Logger):
             row_obj = df.iloc[idx, 1:].to_dict()
             data_d.update({
                 str(case_number): row_obj})
+        return data_d
+
+    def _extract_annual_solar_radiation_direct_and_diffuse(self) -> dict:
+        """
+        Retrieve and format data from the Annual Solar Radiation Section (Direct + Diffuse)
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('annual_solar_radiation_direct_and_diffuse')
+        df.columns = ['Surface', 'kWh/m2']
+        dc = DataCleanser(df)
+        df = dc.cleanse_annual_solar_radiation_direct_and_diffuse()
+        data_d = {'600': {'Surface': {}}}
+        for idx, row in df.iterrows():
+            data_d['600']['Surface'].update({
+                str(row['Surface'].replace('.', '')): {'kWh/m2': row['kWh/m2']}})
         return data_d
 
     def run(self):
@@ -155,5 +171,7 @@ class ExcelProcessor(Logger):
             }
         })
         self.test_data.update(
-            {'conditioned_zone_loads_non_free_float': self._extract_conditioned_zone_loads_non_free_float()})
+            {
+                'conditioned_zone_loads_non_free_float': self._extract_conditioned_zone_loads_non_free_float(),
+                'annual_solar_radiation_direct_and_diffuse': self._extract_annual_solar_radiation_direct_and_diffuse()})
         return self
