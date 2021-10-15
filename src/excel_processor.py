@@ -9,6 +9,24 @@ from src.data_cleanser import DataCleanser
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
 
 
+class SectionType:
+    """
+    Identify Section Type based on input file name
+    """
+    def __get__(self, obj, owner):
+        section_type = obj._section_type
+        return section_type
+
+    def __set__(self, obj, value):
+        if re.match(r'^results5-2a.*', str(value.name), re.IGNORECASE):
+            obj._section_type = '5-2A'
+        else:
+            obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
+                             'the referenced section at the beginning of the name is not supported'
+                             .format(str(value.name)))
+        return
+
+
 class SetDataSources:
     """
     Set the data extraction instructions.  Currently, this is a very simple descriptor, but it is created for
@@ -29,11 +47,33 @@ class SetDataSources:
         if isinstance(value, dict) and value:
             obj._data_sources = value
         else:
-            obj._data_sources = {
-                'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
-                'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46),
-                'annual_solar_radiation_direct_and_diffuse': ('YourData', 153, 'B:C', 5)
-            }
+            if obj.section_type == '5-2A':
+                obj._data_sources = {
+                    'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
+                    'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46),
+                    'annual_solar_radiation_direct_and_diffuse': ('YourData', 153, 'B:C', 5)
+                }
+            else:
+                obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
+        return
+
+
+class SetProcessingFunctions:
+    """
+    Set the functions to perform for processing.
+    """
+    def __get__(self, obj, owner):
+        processing_functions = obj._processing_functions
+        return processing_functions
+
+    def __set__(self, obj, value):
+        if value == '5-2A':
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information(),
+                'conditioned_zone_loads_non_free_float': obj._extract_conditioned_zone_loads_non_free_float(),
+                'annual_solar_radiation_direct_and_diffuse': obj._extract_annual_solar_radiation_direct_and_diffuse()}
+        else:
+            obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
 
 
@@ -46,7 +86,9 @@ class ExcelProcessor(Logger):
     """
 
     file_location = VerifyInputFile()
+    section_type = SectionType()
     data_sources = SetDataSources()
+    processing_functions = SetProcessingFunctions()
 
     def __init__(
             self,
@@ -56,7 +98,9 @@ class ExcelProcessor(Logger):
             logger_name="console_only_logger"):
         super().__init__(logger_level=logger_level, logger_name=logger_name)
         self.file_location = file_location
+        self.section_type = self.file_location
         self.data_sources = data_sources
+        self.processing_functions = self.section_type
         self.test_data = {}
         self.software_name = None
         self.software_version = None
@@ -69,15 +113,15 @@ class ExcelProcessor(Logger):
               ')'
         return rep
 
-    def _get_data(self, section_name) -> pd.DataFrame:
+    def _get_data(self, region_name) -> pd.DataFrame:
         """
         Retrieve section of data and return it as a pandas dataframe
 
-        :param section_name: Named section of data in the data_sources class object.
+        :param region_name: Named section of data in the data_sources class object.
         :return: Section of excel file converted to dataframe
         """
         try:
-            data_source = self.data_sources[section_name]
+            data_source = self.data_sources[region_name]
         except KeyError:
             raise ASHRAE140ProcessingError('Data extraction instructions for Identifying Information section '
                                            'was not found')
@@ -114,7 +158,12 @@ class ExcelProcessor(Logger):
             self.software_release_date = None
         else:
             self.software_release_date = df.iloc[2, 1]
-        return
+        data_d = {
+            'software_name': self.software_name,
+            'software_version': self.software_version,
+            'software_release_date': str(self.software_release_date)
+        }
+        return data_d
 
     def _extract_conditioned_zone_loads_non_free_float(self) -> dict:
         """
@@ -158,20 +207,9 @@ class ExcelProcessor(Logger):
 
     def run(self):
         """
-        Peform operations to convert Excel file into dictionary of dataframes.
+        Perform operations to convert Excel file into dictionary of dataframes.
 
         :return: json object of input data
         """
-        self._extract_identifying_information()
-        self.test_data.update({
-            'identifying_information': {
-                'software_name': self.software_name,
-                'software_version': self.software_version,
-                'software_release_date': str(self.software_release_date)
-            }
-        })
-        self.test_data.update(
-            {
-                'conditioned_zone_loads_non_free_float': self._extract_conditioned_zone_loads_non_free_float(),
-                'annual_solar_radiation_direct_and_diffuse': self._extract_annual_solar_radiation_direct_and_diffuse()})
+        self.test_data.update(self.processing_functions)
         return self
