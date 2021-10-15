@@ -575,8 +575,8 @@
         }
     },
     "identifying_information": {
-        "software_name": "EnergyPlus",
-        "software_release_date": "2018-10-19 00:00:00",
-        "software_version": "Version 9.0.1"
+        "software_name": "TestSoftware",
+        "software_release_date": "2000-01-01 00:00:00",
+        "software_version": "0.0.0"
     }
 }

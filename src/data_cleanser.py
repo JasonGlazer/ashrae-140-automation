@@ -117,8 +117,8 @@ class DataCleanser(Logger):
             self,
             case_column: str = 'case',
             numeric_columns: list = (
-                ('peak_heating_hour', {'lower_limit': 1, 'upper_limit': 24}),
-                ('peak_cooling_hour', {'lower_limit': 1, 'upper_limit': 24}), ), ):
+                ('peak_heating_hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('peak_cooling_hour', {'lower_limit': 0, 'upper_limit': 24}), ), ):
         """
         Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
 
@@ -131,6 +131,26 @@ class DataCleanser(Logger):
         self.logger.info('Cleansing Conditioned Zone Loads (Non-Free-Float Test Cases) table')
         # check case column
         self._check_cases(case_column)
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_annual_solar_radiation_direct_and_diffuse(
+            self,
+            case_column: str = 'case',
+            numeric_columns: list = (
+                ('kWh/m2', {'lower_limit': 0}), )):
+        """
+        Perform operations to cleanse and verify data for the Annual Solar Radiation (Direct + Diffuse)
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing Annual Solar Radiation (Direct + Diffuse) table')
+        # check case column
         self._check_columns(
             column_check_function=self._check_numeric_with_limits,
             column_list=numeric_columns)

@@ -9,10 +9,6 @@ pm.execute_notebook(
     root_directory.joinpath('rendered', 'base', 'RESULTS5-2A.ipynb'),
     root_directory.joinpath('rendered', 'notebooks', notebook_name),
     parameters=dict(
-        root_directory=str(root_directory),
-        json_file_list=[
-            'processed/RESULTS5-2A-EnergyPlus-9.0.1.json',
-            'processed/RESULTS5-2A-CSE-0.861.1.json'],
         notebook_name=str(root_directory.joinpath('rendered', 'notebooks', notebook_name))
     )
 )
