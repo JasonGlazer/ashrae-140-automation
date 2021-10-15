@@ -54,7 +54,7 @@ def build_parser():  # pragma: no cover
         "--files",
         '-f',
         nargs='+',
-        help='Path of input file to process')
+        help='Path of input file to process.  Providing a directory will process all files within the target.')
     return parser
 
 
@@ -71,21 +71,28 @@ def main(args=None):
     else:
         logger_name = 'console_only_logger'
     for f in args.files:
-        try:
-            ip = InputProcessor(
-                logger_level=args.logger_level,
-                logger_name=logger_name,
-                input_file_location=f)
+        # Check files argument input.  If it's a directory then make a list of all files contained within.
+        f = pathlib.Path(f).joinpath(root_directory, f)
+        if pathlib.Path(f).exists() and pathlib.Path(f).is_dir():
+            input_files = [str(i) for i in f.iterdir()]
+        else:
+            input_files = [str(f), ]
+        for input_file in input_files:
             try:
-                if ip.input_file_location:
-                    ip.logger.info('Processing file: {}'.format(ip.input_file_location))
-                    ip.run()
+                ip = InputProcessor(
+                    logger_level=args.logger_level,
+                    logger_name=logger_name,
+                    input_file_location=input_file)
+                try:
+                    if ip.input_file_location:
+                        ip.logger.info('Processing file: {}'.format(ip.input_file_location))
+                        ip.run()
+                except ASHRAE140TypeError:
+                    ip.logger.error('Failed to process file: {}'.format(str(input_file)))
+                    continue
             except ASHRAE140TypeError:
-                ip.logger.error('Failed to process file: {}'.format(str(f)))
+                print('failed to process file: {}'.format(str(input_file)))
                 continue
-        except ASHRAE140TypeError:
-            print('failed to process file: {}'.format(str(f)))
-            continue
     return
 
 
@@ -98,7 +105,6 @@ if __name__ == "__main__":
         ip_parser_args.files = unknown_args
     if not ip_parser_args.files:
         ip_parser.print_help()
-        print('------------------------------')
         raise FileNotFoundError('No Files specified for processing')
     main(ip_parser_args)
     logging.shutdown()

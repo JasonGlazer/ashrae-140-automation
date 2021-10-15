@@ -6,8 +6,6 @@ from logger import Logger
 from custom_exceptions import ASHRAE140ProcessingError
 from src.data_cleanser import DataCleanser
 
-root_directory = pathlib.Path(__file__).parent.parent.resolve()
-
 
 class SectionType:
     """
