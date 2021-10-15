@@ -153,7 +153,7 @@ class ExcelProcessor(Logger):
         data_d = {'600': {'Surface': {}}}
         for idx, row in df.iterrows():
             data_d['600']['Surface'].update({
-                str(row['Surface'].replace('.', '')): {'kWh/m2': row['kWh/m2']}})
+                str(row['Surface']): {'kWh/m2': row['kWh/m2']}})
         return data_d
 
     def run(self):

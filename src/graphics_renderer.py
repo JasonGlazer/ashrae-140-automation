@@ -105,6 +105,8 @@ class GraphicsRenderer(Logger):
         self.table_lookup = [
             ('conditioned_zone_loads_non_free_float', ['program_name', ])
         ]
+        # dictionary to map file names to clean model names.  This dictionary is filled on data loading.
+        self.cleansed_model_names = {}
         # instantiate objects to store data as a dictionary of json objects, and a dictionary of pandas dataframes
         self.json_data = {}
         self.df_data = {}
@@ -127,6 +129,13 @@ class GraphicsRenderer(Logger):
                 data = json.load(jf)
                 # load json objects as objects with the file name as the key
                 self.json_data.update({model_name: data})
+                # make mapping dictionary of file name to cleansed model name
+                if data.get('identifying_information') and data[
+                        'identifying_information'].get('software_name') and data[
+                        'identifying_information'].get('software_version'):
+                    self.cleansed_model_names[model_name] = '-'.join([
+                        str(data['identifying_information']['software_name']),
+                        str(data['identifying_information']['software_version'])])
                 # load each table, if exists into a dataframe of the json key name
                 for tbl, row_index in self.table_lookup:
                     tbl_data = data.get(tbl)
@@ -136,8 +145,9 @@ class GraphicsRenderer(Logger):
                         except KeyError:
                             table_objects[tbl] = pd.DataFrame()
                         # Format the json data to a multiIndex table with a meaningful row index
-                        tmp_df = pd.json_normalize(tbl_data)
-                        tmp_df.columns = pd.MultiIndex.from_tuples([i.split('.') for i in tmp_df.columns])
+                        # Make the separator something uncommon for easier splitting and re-leveling
+                        tmp_df = pd.json_normalize(tbl_data, sep=">")
+                        tmp_df.columns = pd.MultiIndex.from_tuples([i.split('>') for i in tmp_df.columns])
                         tmp_df['program_name'] = model_name
                         tmp_df = tmp_df.set_index(row_index)
                         table_objects.update({tbl: pd.concat([table_objects[tbl], tmp_df])})
@@ -154,12 +164,12 @@ class GraphicsRenderer(Logger):
         return fig, ax
 
     @staticmethod
-    def display_side_by_side(*args, titles=cycle(['']), caption=None):
+    def display_side_by_side(*args, titles=(), caption=None):
         html_str = ''
         html_str += '<table class="pandas-tbl"><tr>'
         if caption:
             html_str += f'<caption>{caption}</caption>'
-        for idx, (df, title) in enumerate(zip(args, chain(titles, cycle([''])))):
+        for idx, (df, title) in enumerate(zip(args, chain(titles, cycle(['', ])))):
             html_str += '<th style="text-align:center"><td style="vertical-align:top">'
             if not title:
                 html_str += '<h2><span class="placeholder-span">ht</span></h2>'
@@ -208,7 +218,14 @@ class GraphicsRenderer(Logger):
             df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1)
             df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
                 lambda x: np.nan if x.col_mean == 0 else abs((x.col_max - x.col_min) / x.col_mean), axis=1)
+            # separate dataframes for side by side visualization
             program_df = df_formatted_table[[self.model_name, ]].copy()
+            # change program model column to cleansed name
+            program_df.columns = [
+                self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
+                else i
+                for i in program_df.columns]
+            # make statistics dataframe for side by side
             statistics_df = df_formatted_table[['col_min', 'col_max', 'col_mean', '(max - min) / mean %']].rename(
                 columns={
                     'col_min': 'min',
@@ -216,7 +233,7 @@ class GraphicsRenderer(Logger):
                     'col_mean': 'mean'})
             df_formatted_table = df_formatted_table.drop(
                 [self.model_name, 'col_min', 'col_max', 'col_mean', '(max - min) / mean %'], axis=1)
-            # rename cases using join and re-order them
+            # rename cases by joining the detailed description table and re-order them
             df_formatted_table = df_formatted_table\
                 .merge(
                     self.case_detailed_df,
@@ -226,9 +243,15 @@ class GraphicsRenderer(Logger):
                 .sort_values(['case_order'])\
                 .drop(['cases', 'case_order'], axis=1)\
                 .rename(columns={'case_name': 'cases'})
-            # reorder dataframe
+            # reorder dataframe columns
             column_list = ['cases', ] + [i for i in df_formatted_table.columns if i != 'cases']
             df_formatted_table = df_formatted_table[column_list]
+            # Rename model columns to cleansed names
+            df_formatted_table.columns = [
+                self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
+                else i
+                for i in df_formatted_table.columns]
+            # Create side by side tables
             table_html = self.display_side_by_side(
                 df_formatted_table,
                 statistics_df,
@@ -258,14 +281,15 @@ class GraphicsRenderer(Logger):
         """
         width = 0.1
         data = []
-        surfaces = ['HORZ', 'NORTH', 'EAST', 'SOUTH', 'WEST']
+        surfaces = ['HORZ.', 'NORTH', 'EAST', 'SOUTH', 'WEST']
         programs = []
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             tmp_data = []
             for surface in surfaces:
                 if json_obj.get('annual_solar_radiation_direct_and_diffuse') and json_obj[
                         'annual_solar_radiation_direct_and_diffuse']['600']['Surface'].get(surface):
-                    tmp_data.append(json_obj['annual_solar_radiation_direct_and_diffuse']['600']['Surface'][surface].get('kWh/m2'))
+                    tmp_data.append(
+                        json_obj['annual_solar_radiation_direct_and_diffuse']['600']['Surface'][surface].get('kWh/m2'))
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
         ax.set_xticks(np.arange(max([len(i) for i in data])))
