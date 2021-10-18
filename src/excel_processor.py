@@ -49,7 +49,8 @@ class SetDataSources:
                 obj._data_sources = {
                     'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
                     'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46),
-                    'annual_solar_radiation_direct_and_diffuse': ('YourData', 153, 'B:C', 5)
+                    'annual_solar_radiation_direct_and_diffuse': ('YourData', 153, 'B:C', 5),
+                    'sky_temperature_output': ('YourData', 176, 'B:K', 1)
                 }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
@@ -69,7 +70,8 @@ class SetProcessingFunctions:
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information(),
                 'conditioned_zone_loads_non_free_float': obj._extract_conditioned_zone_loads_non_free_float(),
-                'annual_solar_radiation_direct_and_diffuse': obj._extract_annual_solar_radiation_direct_and_diffuse()}
+                'annual_solar_radiation_direct_and_diffuse': obj._extract_annual_solar_radiation_direct_and_diffuse(),
+                'sky_temperature_output': obj._sky_temperature_output()}
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -201,6 +203,31 @@ class ExcelProcessor(Logger):
         for idx, row in df.iterrows():
             data_d['600']['Surface'].update({
                 str(row['Surface']): {'kWh/m2': row['kWh/m2']}})
+        return data_d
+
+    def _sky_temperature_output(self) -> dict:
+        """
+        Retrieve and format data from the Sky Temperature Output table
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('sky_temperature_output')
+        df.columns = ['case', 'Ann. Hourly Average C', 'Minimum C', 'Minimum Month', 'Minimum Day', 'Minimum Hour',
+                      'Maximum C', 'Maximum Month', 'Maximum Day', 'Maximum Hour']
+        dc = DataCleanser(df)
+        df = dc.cleanse_sky_temperature_output()
+        data_d = {'600': {}}
+        for idx, row in df.iterrows():
+            data_d['600'].update({'Average': {'C': row['Ann. Hourly Average C']}})
+            data_d['600'].update({'Minimum': {
+                'C': row['Minimum C'],
+                'Month': row['Minimum Month'],
+                'Hour': row['Minimum Hour']}})
+            data_d['600'].update({'Maximum': {
+                'C': row['Maximum C'],
+                'Month': row['Maximum Month'],
+                'Hour': row['Maximum Hour']
+            }})
         return data_d
 
     def run(self):

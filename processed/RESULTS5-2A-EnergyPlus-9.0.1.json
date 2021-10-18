@@ -578,5 +578,22 @@
         "software_name": "EnergyPlus",
         "software_release_date": "2018-10-19 00:00:00",
         "software_version": "Version 9.0.1"
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": -2.02
+            },
+            "Maximum": {
+                "C": 24.73,
+                "Hour": 16,
+                "Month": "Aug"
+            },
+            "Minimum": {
+                "C": -37.98,
+                "Hour": 24,
+                "Month": "Dec"
+            }
+        }
     }
 }

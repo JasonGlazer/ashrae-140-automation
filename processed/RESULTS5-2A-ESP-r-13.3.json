@@ -578,5 +578,22 @@
         "software_name": "ESP-r",
         "software_release_date": "26th April 2019",
         "software_version": 13.3
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": -5.17
+            },
+            "Maximum": {
+                "C": 26.7,
+                "Hour": 15,
+                "Month": "Aug"
+            },
+            "Minimum": {
+                "C": -46.9,
+                "Hour": 23,
+                "Month": "Dec"
+            }
+        }
     }
 }

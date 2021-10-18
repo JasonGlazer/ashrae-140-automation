@@ -578,5 +578,22 @@
         "software_name": "CSE",
         "software_release_date": "2019-04-15 09:46:38.913000",
         "software_version": "0.861.1"
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": -3.93067013428873
+            },
+            "Maximum": {
+                "C": 30.08121,
+                "Hour": 15,
+                "Month": "Jun"
+            },
+            "Minimum": {
+                "C": -46.22457,
+                "Hour": 24,
+                "Month": "Dec"
+            }
+        }
     }
 }

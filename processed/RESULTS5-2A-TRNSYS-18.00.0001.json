@@ -578,5 +578,22 @@
         "software_name": "TRNSYS",
         "software_release_date": "2019-04-25 00:00:00",
         "software_version": "TRNSYS 18.00.0001"
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": -5.05874429223744
+            },
+            "Maximum": {
+                "C": 26.0292789683711,
+                "Hour": 18,
+                "Month": "Jun"
+            },
+            "Minimum": {
+                "C": -46.1617316150124,
+                "Hour": 24,
+                "Month": "Dec"
+            }
+        }
     }
 }

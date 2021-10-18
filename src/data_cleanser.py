@@ -129,7 +129,6 @@ class DataCleanser(Logger):
         :return: Cleansed pandas DataFrame
         """
         self.logger.info('Cleansing Conditioned Zone Loads (Non-Free-Float Test Cases) table')
-        # check case column
         self._check_cases(case_column)
         self._check_columns(
             column_check_function=self._check_numeric_with_limits,
@@ -151,6 +150,33 @@ class DataCleanser(Logger):
         """
         self.logger.info('Cleansing Annual Solar Radiation (Direct + Diffuse) table')
         # check case column
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_sky_temperature_output(
+            self,
+            case_column: str = 'case',
+            numeric_columns: list = (
+                    ('Ann. Hourly Average C', {'lower_limit': -50, 'upper_limit': 50}),
+                    ('Minimum C', {'lower_limit': -100, 'upper_limit': 100}),
+                    ('Minimum Day', {'lower_limit': 1, 'upper_limit': 31}),
+                    ('Minimum Hour', {'lower_limit': 0, 'upper_limit': 24}),
+                    ('Maximum C', {'lower_limit': -100, 'upper_limit': 100}),
+                    ('Maximum Day', {'lower_limit': 1, 'upper_limit': 31}),
+                    ('Maximum Hour', {'lower_limit': 0, 'upper_limit': 24}))):
+        """
+        Perform operations to cleanse and verify data for the Sky Temperature Output table
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing sky temperature output')
+        # check case column
+        self._check_cases(case_column)
         self._check_columns(
             column_check_function=self._check_numeric_with_limits,
             column_list=numeric_columns)

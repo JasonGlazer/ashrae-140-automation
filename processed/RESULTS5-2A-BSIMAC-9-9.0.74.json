@@ -578,5 +578,22 @@
         "software_name": "BSIMAC 9",
         "software_release_date": "2019-05-25 00:00:00",
         "software_version": "9.0.74"
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": NaN
+            },
+            "Maximum": {
+                "C": NaN,
+                "Hour": NaN,
+                "Month": NaN
+            },
+            "Minimum": {
+                "C": NaN,
+                "Hour": NaN,
+                "Month": NaN
+            }
+        }
     }
 }

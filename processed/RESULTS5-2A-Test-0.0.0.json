@@ -578,5 +578,22 @@
         "software_name": "TestSoftware",
         "software_release_date": "2000-01-01 00:00:00",
         "software_version": "0.0.0"
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": NaN
+            },
+            "Maximum": {
+                "C": NaN,
+                "Hour": NaN,
+                "Month": NaN
+            },
+            "Minimum": {
+                "C": NaN,
+                "Hour": NaN,
+                "Month": NaN
+            }
+        }
     }
 }

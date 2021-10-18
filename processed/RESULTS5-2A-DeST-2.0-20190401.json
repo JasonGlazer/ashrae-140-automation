@@ -578,5 +578,22 @@
         "software_name": "DeST",
         "software_release_date": "May 20. 2019",
         "software_version": "2.0-20190401"
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": -5.9
+            },
+            "Maximum": {
+                "C": 24.62,
+                "Hour": 15,
+                "Month": "Aug"
+            },
+            "Minimum": {
+                "C": -46.85,
+                "Hour": 23,
+                "Month": "Dec"
+            }
+        }
     }
 }
