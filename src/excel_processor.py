@@ -1,4 +1,3 @@
-import pathlib
 import re
 import pandas as pd
 from descriptors import VerifyInputFile
@@ -50,7 +49,8 @@ class SetDataSources:
                     'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
                     'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46),
                     'annual_solar_radiation_direct_and_diffuse': ('YourData', 153, 'B:C', 5),
-                    'sky_temperature_output': ('YourData', 176, 'B:K', 1)
+                    'sky_temperature_output': ('YourData', 176, 'B:K', 1),
+                    'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149)
                 }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
@@ -71,7 +71,8 @@ class SetProcessingFunctions:
                 'identifying_information': obj._extract_identifying_information(),
                 'conditioned_zone_loads_non_free_float': obj._extract_conditioned_zone_loads_non_free_float(),
                 'annual_solar_radiation_direct_and_diffuse': obj._extract_annual_solar_radiation_direct_and_diffuse(),
-                'sky_temperature_output': obj._sky_temperature_output()}
+                'sky_temperature_output': obj._extract_sky_temperature_output(),
+                'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data()}
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -205,7 +206,7 @@ class ExcelProcessor(Logger):
                 str(row['Surface']): {'kWh/m2': row['kWh/m2']}})
         return data_d
 
-    def _sky_temperature_output(self) -> dict:
+    def _extract_sky_temperature_output(self) -> dict:
         """
         Retrieve and format data from the Sky Temperature Output table
 
@@ -228,6 +229,20 @@ class ExcelProcessor(Logger):
                 'Month': row['Maximum Month'],
                 'Hour': row['Maximum Hour']
             }})
+        return data_d
+
+    def _extract_hourly_annual_zone_temperature_bin_data(self) -> dict:
+        """
+        Retrieve and format data from the Hourly Annual Zone Temperature Bin Data table
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('annual_hourly_zone_temperature_bin_data')
+        df.columns = ['temperature_bin_c', 'number_of_hours']
+        data_d = {'900FF': {'temperature_bin_c': {}}}
+        for idx, row in df.iterrows():
+            data_d['900FF']['temperature_bin_c'].update(
+                {int(row['temperature_bin_c']): {'number_of_hours': float(row['number_of_hours'])}})
         return data_d
 
     def run(self):

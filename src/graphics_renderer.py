@@ -5,6 +5,7 @@ import numpy as np
 from IPython.display import display_html
 from itertools import chain, cycle
 from textwrap import wrap
+import matplotlib.pyplot as plt
 
 from logger import Logger
 
@@ -274,11 +275,13 @@ class GraphicsRenderer(Logger):
         )
         return table_html, msg
 
-    def render_section_5_2a_figure_b_8_1(self, fig, ax):
+    def render_section_5_2a_figure_b_8_1(self):
         """
         Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
         width = 0.1
         data = []
         surfaces = ['HORZ.', 'NORTH', 'EAST', 'SOUTH', 'WEST']
@@ -290,6 +293,8 @@ class GraphicsRenderer(Logger):
                         'annual_solar_radiation_direct_and_diffuse']['600']['Surface'].get(surface):
                     tmp_data.append(
                         json_obj['annual_solar_radiation_direct_and_diffuse']['600']['Surface'][surface].get('kWh/m2'))
+                else:
+                    tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
         ax.set_xticks(np.arange(max([len(i) for i in data])))
@@ -305,11 +310,12 @@ class GraphicsRenderer(Logger):
         ax.set_ylim(0, 2000)
         return fig, ax
 
-    def render_section_5_2a_figure_b_8_9(self, fig, ax):
+    def render_section_5_2a_figure_b_8_9(self):
         """
         Render Section 5 2A Figure B8-9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
         fig, ax = self._set_theme(fig, ax)
         cases = ['395', '430', '600', '610', '620', '630', '640', '650']
         width = 0.1
@@ -321,6 +327,8 @@ class GraphicsRenderer(Logger):
                 if json_obj.get('conditioned_zone_loads_non_free_float') and json_obj[
                         'conditioned_zone_loads_non_free_float'].get(case):
                     tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('peak_heating_kW'))
+                else:
+                    tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
         ax.set_xticks(np.arange(max([len(i) for i in data])))
@@ -337,4 +345,159 @@ class GraphicsRenderer(Logger):
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel('Peak Heating Load (kWh/h)', fontsize=14)
         ax.set_ylim(0, 5)
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_17(self):
+        """
+        Render Section 5 2A Figure B8-17 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        fig, ax = plt.subplots(1, 3, figsize=(18, 8), sharex='none', sharey='all')
+        fig, ax = self._set_theme(fig, ax)
+        cases = ['600', '610', '620', '900', '920', '930']
+        width = 0.1
+        data_lists = [[] for n in range(3)]
+        programs = []
+        xticklabels = [
+            [
+                '610-600 Low Mass, S. Shade Heating',
+                '610-600 Low Mass, S. Shade Cooling',
+                '910-900 High Mass, S. Shade Heating',
+                '910-900 High Mass, S. Shade Cooling'
+            ],
+            [
+                '620-600 Low Mass, E&W Or., Heating',
+                '620-600 Low Mass, E&W Or., Cooling',
+                '920-900 High Mass, E&W Or., Heating',
+                '920-900 High Mass, E&W Or., Cooling',
+            ],
+            [
+                '630-620 Low Mass. E&W Shd., Heating',
+                '630-620 Low Mass. E&W Shd., Cooling',
+                '930-920 Low Mass. E&W Shd., Heating',
+                '930-920 Low Mass. E&W Shd., Cooling',
+            ]
+        ]
+        sub_title = [
+            'South Shading',
+            'East/West',
+            'E/W Shading'
+        ]
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            if json_obj.get('conditioned_zone_loads_non_free_float') and all([
+                    case in json_obj['conditioned_zone_loads_non_free_float'].keys() for case in cases]):
+                # Left chart data
+                tmp_data = []
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['610']
+                        .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['600']
+                        .get('annual_heating_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['610']
+                        .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['600']
+                        .get('annual_cooling_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['910']
+                        .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['900']
+                        .get('annual_heating_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['910']
+                        .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['900']
+                        .get('annual_cooling_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                data_lists[0].insert(idx, tmp_data)
+                # Mid chart data
+                tmp_data = []
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['620']
+                        .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['600']
+                        .get('annual_heating_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['620']
+                        .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['600']
+                        .get('annual_cooling_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['920']
+                        .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['900']
+                        .get('annual_heating_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['920']
+                        .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['900']
+                        .get('annual_cooling_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                data_lists[1].insert(idx, tmp_data)
+                # Right chart data
+                tmp_data = []
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['630']
+                        .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['620']
+                        .get('annual_heating_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['630']
+                        .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['620']
+                        .get('annual_cooling_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['930']
+                        .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['920']
+                        .get('annual_heating_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float']['930']
+                        .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['920']
+                        .get('annual_cooling_MWh'))
+                except TypeError:
+                    tmp_data.append(None)
+                data_lists[2].insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        for didx, data in enumerate(data_lists):
+            for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
+                x = np.arange(len(d))
+                rects = ax[didx].bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
+                ax[didx].bar_label(rects, padding=5, rotation="vertical")
+                ax[didx].grid(which='major', axis='y')
+                ax[didx].set_xticks(np.arange(max([len(i) for i in data])))
+                ax[didx].set_xticklabels(
+                    ['\n'.join(wrap(i, 15)) for i in xticklabels[didx]]
+                )
+                ax[didx].set_title(sub_title[didx], fontsize=18)
+        # set legend for all plots
+        ax.flatten()[-2].legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=len(programs), fontsize=16)
+        # Make title, adjust plots, and set y values
+        fig.suptitle('Figure B8-17. Basic: Window Shading and Orientation (Delta) '
+                     'Annual Heating and Sensible Cooling', fontsize=30, y=0.9)
+        fig.subplots_adjust(top=0.8, wspace=0.001)
+        ax[0].set_ylim(-2.5, 2.5)
+        ax[0].set_yticks(np.arange(-2.5, 2.5, 0.5))
+        ax[0].set_ylabel('Load Difference (MWh)', fontsize=14)
         return fig, ax

@@ -159,13 +159,13 @@ class DataCleanser(Logger):
             self,
             case_column: str = 'case',
             numeric_columns: list = (
-                    ('Ann. Hourly Average C', {'lower_limit': -50, 'upper_limit': 50}),
-                    ('Minimum C', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('Minimum Day', {'lower_limit': 1, 'upper_limit': 31}),
-                    ('Minimum Hour', {'lower_limit': 0, 'upper_limit': 24}),
-                    ('Maximum C', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('Maximum Day', {'lower_limit': 1, 'upper_limit': 31}),
-                    ('Maximum Hour', {'lower_limit': 0, 'upper_limit': 24}))):
+                ('Ann. Hourly Average C', {'lower_limit': -50, 'upper_limit': 50}),
+                ('Minimum C', {'lower_limit': -100, 'upper_limit': 100}),
+                ('Minimum Day', {'lower_limit': 1, 'upper_limit': 31}),
+                ('Minimum Hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('Maximum C', {'lower_limit': -100, 'upper_limit': 100}),
+                ('Maximum Day', {'lower_limit': 1, 'upper_limit': 31}),
+                ('Maximum Hour', {'lower_limit': 0, 'upper_limit': 24}))):
         """
         Perform operations to cleanse and verify data for the Sky Temperature Output table
         :param case_column: column containing test case identifiers
