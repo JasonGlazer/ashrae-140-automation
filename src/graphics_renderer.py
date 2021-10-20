@@ -555,8 +555,8 @@ class GraphicsRenderer(Logger):
         ax.set_yticks(np.arange(0, 500, 100))
         # get minimum/maximum of all x rounded to nearest ten, then increment by 5
         ax.set_xticks(np.arange(
-            math.floor(min([min(i) for i in data_x])/10) * 10,
-            math.ceil(max([max(i) for i in data_x])/10) * 10,
+            math.floor(min([min(i) for i in data_x]) / 10) * 10,
+            math.ceil(max([max(i) for i in data_x]) / 10) * 10,
             5))
         ax.set_title('Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency', fontsize=30)
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
