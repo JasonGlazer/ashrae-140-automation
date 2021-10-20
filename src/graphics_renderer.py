@@ -2,6 +2,7 @@ import pathlib
 import json
 import pandas as pd
 import numpy as np
+import math
 from IPython.display import display_html
 from itertools import chain, cycle
 from textwrap import wrap
@@ -113,6 +114,8 @@ class GraphicsRenderer(Logger):
         self.df_data = {}
         # set hatches list for visualization objects
         self.hatches = ['/', '-', 'x', '\\', '//', 'o', '||', '+', 'O', '.', '*']
+        self.colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'black']
+        self.markers = ['o', '^', 'h', 'x', 'D', '*', '>']
         self._get_data()
         return
 
@@ -479,7 +482,7 @@ class GraphicsRenderer(Logger):
                 except TypeError:
                     tmp_data.append(None)
                 data_lists[2].insert(idx, tmp_data)
-            programs.insert(idx, json_obj['identifying_information']['software_name'])
+                programs.insert(idx, json_obj['identifying_information']['software_name'])
         for didx, data in enumerate(data_lists):
             for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
                 x = np.arange(len(d))
@@ -500,4 +503,63 @@ class GraphicsRenderer(Logger):
         ax[0].set_ylim(-2.5, 2.5)
         ax[0].set_yticks(np.arange(-2.5, 2.5, 0.5))
         ax[0].set_ylabel('Load Difference (MWh)', fontsize=14)
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h1(self):
+        """
+        Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
+        data_x = []
+        data_y = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            if json_obj.get('hourly_annual_zone_temperature_bin_data') and json_obj[
+                    'hourly_annual_zone_temperature_bin_data'].get('900FF'):
+                try:
+                    data_obj = json_obj['hourly_annual_zone_temperature_bin_data']['900FF']['temperature_bin_c']
+                    bin_list = []
+                    count_list = []
+                    # Make ordered lists based on the integer value of the key
+                    for k, v in data_obj.items():
+                        if not bin_list:
+                            bin_list.append(int(k))
+                            count_list.append(int(v['number_of_hours']))
+                            continue
+                        last_item = -float('inf')
+                        for bidx, bin_item in enumerate(bin_list):
+                            if last_item < int(k) <= bin_item:
+                                bin_list.insert(bidx, int(k))
+                                count_list.insert(bidx, int(v['number_of_hours']))
+                                break
+                            if bidx == len(bin_list) - 1:
+                                bin_list.append(int(k))
+                                count_list.append(int(v['number_of_hours']))
+                                break
+                            last_item = bin_item
+                    data_x.append(bin_list)
+                    data_y.append(count_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    import traceback
+                    print(traceback.print_exc())
+                    data_x.append([])
+                    data_y.append([])
+        # Add line plots for each program
+        for dx, dy, p, c, m in zip(data_x, data_y, programs, self.colors, self.markers):
+            ax.plot(dx, dy, color=c, marker=m, label=p)
+        # Format plot area
+        ax.grid(which='major', axis='y')
+        ax.set_yticks(np.arange(0, 500, 100))
+        # get minimum/maximum of all x rounded to nearest ten, then increment by 5
+        ax.set_xticks(np.arange(
+            math.floor(min([min(i) for i in data_x])/10) * 10,
+            math.ceil(max([max(i) for i in data_x])/10) * 10,
+            5))
+        ax.set_title('Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency', fontsize=30)
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_ylabel('Number of Occurrences', fontsize=14)
+        ax.set_xlim(-5, 55)
         return fig, ax

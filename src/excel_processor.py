@@ -242,7 +242,7 @@ class ExcelProcessor(Logger):
         data_d = {'900FF': {'temperature_bin_c': {}}}
         for idx, row in df.iterrows():
             data_d['900FF']['temperature_bin_c'].update(
-                {int(row['temperature_bin_c']): {'number_of_hours': float(row['number_of_hours'])}})
+                {int(row['temperature_bin_c']): {'number_of_hours': int(row['number_of_hours'])}})
         return data_d
 
     def run(self):

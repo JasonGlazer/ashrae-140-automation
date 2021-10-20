@@ -578,451 +578,451 @@
         "900FF": {
             "temperature_bin_c": {
                 "-50": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-49": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-48": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-47": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-46": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-45": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-44": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-43": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-42": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-41": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-40": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-39": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-38": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-37": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-36": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-35": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-34": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-33": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-32": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-31": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-30": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-29": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-28": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-27": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-26": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-25": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-24": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-23": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-22": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-21": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-20": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-19": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-18": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-17": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-16": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-15": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-14": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-13": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-12": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-11": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-10": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-9": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-8": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-7": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-6": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-5": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-4": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-3": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-2": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "-1": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "0": {
-                    "number_of_hours": 3.0
+                    "number_of_hours": 3
                 },
                 "1": {
-                    "number_of_hours": 13.0
+                    "number_of_hours": 13
                 },
                 "2": {
-                    "number_of_hours": 32.0
+                    "number_of_hours": 32
                 },
                 "3": {
-                    "number_of_hours": 41.0
+                    "number_of_hours": 41
                 },
                 "4": {
-                    "number_of_hours": 57.0
+                    "number_of_hours": 57
                 },
                 "5": {
-                    "number_of_hours": 63.0
+                    "number_of_hours": 63
                 },
                 "6": {
-                    "number_of_hours": 67.0
+                    "number_of_hours": 67
                 },
                 "7": {
-                    "number_of_hours": 87.0
+                    "number_of_hours": 87
                 },
                 "8": {
-                    "number_of_hours": 97.0
+                    "number_of_hours": 97
                 },
                 "9": {
-                    "number_of_hours": 104.0
+                    "number_of_hours": 104
                 },
                 "10": {
-                    "number_of_hours": 155.0
+                    "number_of_hours": 155
                 },
                 "11": {
-                    "number_of_hours": 151.0
+                    "number_of_hours": 151
                 },
                 "12": {
-                    "number_of_hours": 142.0
+                    "number_of_hours": 142
                 },
                 "13": {
-                    "number_of_hours": 156.0
+                    "number_of_hours": 156
                 },
                 "14": {
-                    "number_of_hours": 170.0
+                    "number_of_hours": 170
                 },
                 "15": {
-                    "number_of_hours": 166.0
+                    "number_of_hours": 166
                 },
                 "16": {
-                    "number_of_hours": 211.0
+                    "number_of_hours": 211
                 },
                 "17": {
-                    "number_of_hours": 199.0
+                    "number_of_hours": 199
                 },
                 "18": {
-                    "number_of_hours": 211.0
+                    "number_of_hours": 211
                 },
                 "19": {
-                    "number_of_hours": 257.0
+                    "number_of_hours": 257
                 },
                 "20": {
-                    "number_of_hours": 318.0
+                    "number_of_hours": 318
                 },
                 "21": {
-                    "number_of_hours": 263.0
+                    "number_of_hours": 263
                 },
                 "22": {
-                    "number_of_hours": 269.0
+                    "number_of_hours": 269
                 },
                 "23": {
-                    "number_of_hours": 273.0
+                    "number_of_hours": 273
                 },
                 "24": {
-                    "number_of_hours": 260.0
+                    "number_of_hours": 260
                 },
                 "25": {
-                    "number_of_hours": 308.0
+                    "number_of_hours": 308
                 },
                 "26": {
-                    "number_of_hours": 339.0
+                    "number_of_hours": 339
                 },
                 "27": {
-                    "number_of_hours": 330.0
+                    "number_of_hours": 330
                 },
                 "28": {
-                    "number_of_hours": 341.0
+                    "number_of_hours": 341
                 },
                 "29": {
-                    "number_of_hours": 409.0
+                    "number_of_hours": 409
                 },
                 "30": {
-                    "number_of_hours": 382.0
+                    "number_of_hours": 382
                 },
                 "31": {
-                    "number_of_hours": 426.0
+                    "number_of_hours": 426
                 },
                 "32": {
-                    "number_of_hours": 433.0
+                    "number_of_hours": 433
                 },
                 "33": {
-                    "number_of_hours": 391.0
+                    "number_of_hours": 391
                 },
                 "34": {
-                    "number_of_hours": 332.0
+                    "number_of_hours": 332
                 },
                 "35": {
-                    "number_of_hours": 291.0
+                    "number_of_hours": 291
                 },
                 "36": {
-                    "number_of_hours": 244.0
+                    "number_of_hours": 244
                 },
                 "37": {
-                    "number_of_hours": 184.0
+                    "number_of_hours": 184
                 },
                 "38": {
-                    "number_of_hours": 167.0
+                    "number_of_hours": 167
                 },
                 "39": {
-                    "number_of_hours": 145.0
+                    "number_of_hours": 145
                 },
                 "40": {
-                    "number_of_hours": 102.0
+                    "number_of_hours": 102
                 },
                 "41": {
-                    "number_of_hours": 76.0
+                    "number_of_hours": 76
                 },
                 "42": {
-                    "number_of_hours": 41.0
+                    "number_of_hours": 41
                 },
                 "43": {
-                    "number_of_hours": 27.0
+                    "number_of_hours": 27
                 },
                 "44": {
-                    "number_of_hours": 22.0
+                    "number_of_hours": 22
                 },
                 "45": {
-                    "number_of_hours": 5.0
+                    "number_of_hours": 5
                 },
                 "46": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "47": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "48": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "49": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "50": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "51": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "52": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "53": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "54": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "55": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "56": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "57": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "58": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "59": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "60": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "61": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "62": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "63": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "64": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "65": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "66": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "67": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "68": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "69": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "70": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "71": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "72": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "73": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "74": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "75": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "76": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "77": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "78": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "79": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "80": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "81": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "82": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "83": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "84": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "85": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "86": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "87": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "88": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "89": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "90": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "91": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "92": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "93": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "94": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "95": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "96": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "97": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 },
                 "98": {
-                    "number_of_hours": 0.0
+                    "number_of_hours": 0
                 }
             }
         }
