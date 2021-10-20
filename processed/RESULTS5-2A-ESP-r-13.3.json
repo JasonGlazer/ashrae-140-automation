@@ -574,9 +574,479 @@
             "peak_heating_month": "Feb"
         }
     },
+    "hourly_annual_zone_temperature_bin_data": {
+        "900FF": {
+            "temperature_bin_c": {
+                "-50": {
+                    "number_of_hours": 0
+                },
+                "-49": {
+                    "number_of_hours": 0
+                },
+                "-48": {
+                    "number_of_hours": 0
+                },
+                "-47": {
+                    "number_of_hours": 0
+                },
+                "-46": {
+                    "number_of_hours": 0
+                },
+                "-45": {
+                    "number_of_hours": 0
+                },
+                "-44": {
+                    "number_of_hours": 0
+                },
+                "-43": {
+                    "number_of_hours": 0
+                },
+                "-42": {
+                    "number_of_hours": 0
+                },
+                "-41": {
+                    "number_of_hours": 0
+                },
+                "-40": {
+                    "number_of_hours": 0
+                },
+                "-39": {
+                    "number_of_hours": 0
+                },
+                "-38": {
+                    "number_of_hours": 0
+                },
+                "-37": {
+                    "number_of_hours": 0
+                },
+                "-36": {
+                    "number_of_hours": 0
+                },
+                "-35": {
+                    "number_of_hours": 0
+                },
+                "-34": {
+                    "number_of_hours": 0
+                },
+                "-33": {
+                    "number_of_hours": 0
+                },
+                "-32": {
+                    "number_of_hours": 0
+                },
+                "-31": {
+                    "number_of_hours": 0
+                },
+                "-30": {
+                    "number_of_hours": 0
+                },
+                "-29": {
+                    "number_of_hours": 0
+                },
+                "-28": {
+                    "number_of_hours": 0
+                },
+                "-27": {
+                    "number_of_hours": 0
+                },
+                "-26": {
+                    "number_of_hours": 0
+                },
+                "-25": {
+                    "number_of_hours": 0
+                },
+                "-24": {
+                    "number_of_hours": 0
+                },
+                "-23": {
+                    "number_of_hours": 0
+                },
+                "-22": {
+                    "number_of_hours": 0
+                },
+                "-21": {
+                    "number_of_hours": 0
+                },
+                "-20": {
+                    "number_of_hours": 0
+                },
+                "-19": {
+                    "number_of_hours": 0
+                },
+                "-18": {
+                    "number_of_hours": 0
+                },
+                "-17": {
+                    "number_of_hours": 0
+                },
+                "-16": {
+                    "number_of_hours": 0
+                },
+                "-15": {
+                    "number_of_hours": 0
+                },
+                "-14": {
+                    "number_of_hours": 0
+                },
+                "-13": {
+                    "number_of_hours": 0
+                },
+                "-12": {
+                    "number_of_hours": 0
+                },
+                "-11": {
+                    "number_of_hours": 0
+                },
+                "-10": {
+                    "number_of_hours": 0
+                },
+                "-9": {
+                    "number_of_hours": 0
+                },
+                "-8": {
+                    "number_of_hours": 0
+                },
+                "-7": {
+                    "number_of_hours": 0
+                },
+                "-6": {
+                    "number_of_hours": 0
+                },
+                "-5": {
+                    "number_of_hours": 0
+                },
+                "-4": {
+                    "number_of_hours": 0
+                },
+                "-3": {
+                    "number_of_hours": 0
+                },
+                "-2": {
+                    "number_of_hours": 0
+                },
+                "-1": {
+                    "number_of_hours": 0
+                },
+                "0": {
+                    "number_of_hours": 0
+                },
+                "1": {
+                    "number_of_hours": 3
+                },
+                "2": {
+                    "number_of_hours": 6
+                },
+                "3": {
+                    "number_of_hours": 19
+                },
+                "4": {
+                    "number_of_hours": 29
+                },
+                "5": {
+                    "number_of_hours": 29
+                },
+                "6": {
+                    "number_of_hours": 43
+                },
+                "7": {
+                    "number_of_hours": 66
+                },
+                "8": {
+                    "number_of_hours": 74
+                },
+                "9": {
+                    "number_of_hours": 96
+                },
+                "10": {
+                    "number_of_hours": 110
+                },
+                "11": {
+                    "number_of_hours": 141
+                },
+                "12": {
+                    "number_of_hours": 200
+                },
+                "13": {
+                    "number_of_hours": 203
+                },
+                "14": {
+                    "number_of_hours": 196
+                },
+                "15": {
+                    "number_of_hours": 238
+                },
+                "16": {
+                    "number_of_hours": 271
+                },
+                "17": {
+                    "number_of_hours": 271
+                },
+                "18": {
+                    "number_of_hours": 310
+                },
+                "19": {
+                    "number_of_hours": 340
+                },
+                "20": {
+                    "number_of_hours": 323
+                },
+                "21": {
+                    "number_of_hours": 319
+                },
+                "22": {
+                    "number_of_hours": 319
+                },
+                "23": {
+                    "number_of_hours": 285
+                },
+                "24": {
+                    "number_of_hours": 272
+                },
+                "25": {
+                    "number_of_hours": 270
+                },
+                "26": {
+                    "number_of_hours": 270
+                },
+                "27": {
+                    "number_of_hours": 272
+                },
+                "28": {
+                    "number_of_hours": 318
+                },
+                "29": {
+                    "number_of_hours": 296
+                },
+                "30": {
+                    "number_of_hours": 327
+                },
+                "31": {
+                    "number_of_hours": 363
+                },
+                "32": {
+                    "number_of_hours": 374
+                },
+                "33": {
+                    "number_of_hours": 403
+                },
+                "34": {
+                    "number_of_hours": 390
+                },
+                "35": {
+                    "number_of_hours": 336
+                },
+                "36": {
+                    "number_of_hours": 292
+                },
+                "37": {
+                    "number_of_hours": 237
+                },
+                "38": {
+                    "number_of_hours": 178
+                },
+                "39": {
+                    "number_of_hours": 117
+                },
+                "40": {
+                    "number_of_hours": 71
+                },
+                "41": {
+                    "number_of_hours": 45
+                },
+                "42": {
+                    "number_of_hours": 21
+                },
+                "43": {
+                    "number_of_hours": 14
+                },
+                "44": {
+                    "number_of_hours": 3
+                },
+                "45": {
+                    "number_of_hours": 0
+                },
+                "46": {
+                    "number_of_hours": 0
+                },
+                "47": {
+                    "number_of_hours": 0
+                },
+                "48": {
+                    "number_of_hours": 0
+                },
+                "49": {
+                    "number_of_hours": 0
+                },
+                "50": {
+                    "number_of_hours": 0
+                },
+                "51": {
+                    "number_of_hours": 0
+                },
+                "52": {
+                    "number_of_hours": 0
+                },
+                "53": {
+                    "number_of_hours": 0
+                },
+                "54": {
+                    "number_of_hours": 0
+                },
+                "55": {
+                    "number_of_hours": 0
+                },
+                "56": {
+                    "number_of_hours": 0
+                },
+                "57": {
+                    "number_of_hours": 0
+                },
+                "58": {
+                    "number_of_hours": 0
+                },
+                "59": {
+                    "number_of_hours": 0
+                },
+                "60": {
+                    "number_of_hours": 0
+                },
+                "61": {
+                    "number_of_hours": 0
+                },
+                "62": {
+                    "number_of_hours": 0
+                },
+                "63": {
+                    "number_of_hours": 0
+                },
+                "64": {
+                    "number_of_hours": 0
+                },
+                "65": {
+                    "number_of_hours": 0
+                },
+                "66": {
+                    "number_of_hours": 0
+                },
+                "67": {
+                    "number_of_hours": 0
+                },
+                "68": {
+                    "number_of_hours": 0
+                },
+                "69": {
+                    "number_of_hours": 0
+                },
+                "70": {
+                    "number_of_hours": 0
+                },
+                "71": {
+                    "number_of_hours": 0
+                },
+                "72": {
+                    "number_of_hours": 0
+                },
+                "73": {
+                    "number_of_hours": 0
+                },
+                "74": {
+                    "number_of_hours": 0
+                },
+                "75": {
+                    "number_of_hours": 0
+                },
+                "76": {
+                    "number_of_hours": 0
+                },
+                "77": {
+                    "number_of_hours": 0
+                },
+                "78": {
+                    "number_of_hours": 0
+                },
+                "79": {
+                    "number_of_hours": 0
+                },
+                "80": {
+                    "number_of_hours": 0
+                },
+                "81": {
+                    "number_of_hours": 0
+                },
+                "82": {
+                    "number_of_hours": 0
+                },
+                "83": {
+                    "number_of_hours": 0
+                },
+                "84": {
+                    "number_of_hours": 0
+                },
+                "85": {
+                    "number_of_hours": 0
+                },
+                "86": {
+                    "number_of_hours": 0
+                },
+                "87": {
+                    "number_of_hours": 0
+                },
+                "88": {
+                    "number_of_hours": 0
+                },
+                "89": {
+                    "number_of_hours": 0
+                },
+                "90": {
+                    "number_of_hours": 0
+                },
+                "91": {
+                    "number_of_hours": 0
+                },
+                "92": {
+                    "number_of_hours": 0
+                },
+                "93": {
+                    "number_of_hours": 0
+                },
+                "94": {
+                    "number_of_hours": 0
+                },
+                "95": {
+                    "number_of_hours": 0
+                },
+                "96": {
+                    "number_of_hours": 0
+                },
+                "97": {
+                    "number_of_hours": 0
+                },
+                "98": {
+                    "number_of_hours": 0
+                }
+            }
+        }
+    },
     "identifying_information": {
         "software_name": "ESP-r",
         "software_release_date": "26th April 2019",
         "software_version": 13.3
+    },
+    "sky_temperature_output": {
+        "600": {
+            "Average": {
+                "C": -5.17
+            },
+            "Maximum": {
+                "C": 26.7,
+                "Hour": 15,
+                "Month": "Aug"
+            },
+            "Minimum": {
+                "C": -46.9,
+                "Hour": 23,
+                "Month": "Dec"
+            }
+        }
     }
 }
