@@ -114,7 +114,7 @@ class GraphicsRenderer(Logger):
         self.df_data = {}
         # set hatches list for visualization objects
         self.hatches = ['/', '-', 'x', '\\', '//', 'o', '||', '+', 'O', '.', '*']
-        self.colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'black']
+        self.colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'black', 'orange']
         self.markers = ['o', '^', 'h', 'x', 'D', '*', '>']
         self._get_data()
         return
@@ -543,8 +543,6 @@ class GraphicsRenderer(Logger):
                     data_y.append(count_list)
                     programs.append(json_obj['identifying_information']['software_name'])
                 except (TypeError, KeyError):
-                    import traceback
-                    print(traceback.print_exc())
                     data_x.append([])
                     data_y.append([])
         # Add line plots for each program
@@ -562,4 +560,6 @@ class GraphicsRenderer(Logger):
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel('Number of Occurrences', fontsize=14)
         ax.set_xlim(-5, 55)
+        ax.set_ylim(0, 500)
+        ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
         return fig, ax
