@@ -17,6 +17,8 @@ class SectionType:
     def __set__(self, obj, value):
         if re.match(r'^results5-2a.*', str(value.name), re.IGNORECASE):
             obj._section_type = '5-2A'
+        elif re.match(r'^results5-2b.*', str(value.name), re.IGNORECASE):
+            obj._section_type = '5-2B'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -52,6 +54,11 @@ class SetDataSources:
                     'sky_temperature_output': ('YourData', 176, 'B:K', 1),
                     'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149)
                 }
+            elif obj.section_type == '5-2B':
+                obj._data_sources = {
+                    'identifying_information': ('YourData', 4, 'E:I', 4, {'header': None}),
+                    'steady_state_cases': ('YourData', 57, 'D:H', 6, {'header': None})
+                }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -68,11 +75,16 @@ class SetProcessingFunctions:
     def __set__(self, obj, value):
         if value == '5-2A':
             obj._processing_functions = {
-                'identifying_information': obj._extract_identifying_information(),
+                'identifying_information': obj._extract_identifying_information_2a(),
                 'conditioned_zone_loads_non_free_float': obj._extract_conditioned_zone_loads_non_free_float(),
                 'annual_solar_radiation_direct_and_diffuse': obj._extract_annual_solar_radiation_direct_and_diffuse(),
                 'sky_temperature_output': obj._extract_sky_temperature_output(),
                 'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data()}
+        elif value == '5-2B':
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information_2b(),
+                'steady_state_cases': obj._extract_steady_state_cases()
+            }
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -137,9 +149,10 @@ class ExcelProcessor(Logger):
         # todo_140: Write simple verifications that data loaded
         return df
 
-    def _extract_identifying_information(self):
+    # Section 5-2A data
+    def _extract_identifying_information_2a(self):
         """
-        Retrieve information data and store it as class attributes.
+        Retrieve information data from section 2A submittal and store it as class attributes.
 
         :return: Class attributes identifying software program.
         """
@@ -243,6 +256,41 @@ class ExcelProcessor(Logger):
         for idx, row in df.iterrows():
             data_d['900FF']['temperature_bin_c'].update(
                 {int(row['temperature_bin_c']): {'number_of_hours': int(row['number_of_hours'])}})
+        return data_d
+
+    # Section 5-2B data
+    def _extract_identifying_information_2b(self):
+        """
+        Retrieve information data from section 2A submittal and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        self.software_name = df.iloc[2, 4]
+        self.software_version = str(df.iloc[0, 0]).replace(str(df.iloc[2, 4]), '').strip()
+        self.software_release_date = str(df.iloc[1, 4])
+        data_d = {
+            'program_name_and_version': df.iloc[0, 0],
+            'program_version_release_date': str(df.iloc[1, 4]),
+            'program_name_short': df.iloc[2, 4],
+            'results_submittal_date': str(df.iloc[3, 4])}
+        return data_d
+
+    def _extract_steady_state_cases(self):
+        """
+        Retrieve and format data from the Steady State table (5-2B)
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('steady_state_cases')
+        df.columns = ['cases', 'qfloor', 'qzone', 'Tzone', 'tsim']
+        data_d = {}
+        for idx, row in df.iterrows():
+            data_d[row['cases']] = {
+                'qfloor': row['qfloor'],
+                'qzone': row['qzone'],
+                'Tzone': row['Tzone'],
+                'tsim': row['tsim']}
         return data_d
 
     def run(self):

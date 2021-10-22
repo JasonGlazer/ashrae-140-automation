@@ -1,5 +1,6 @@
 import pathlib
 import json
+import re
 import pandas as pd
 import numpy as np
 import math
@@ -13,10 +14,32 @@ from logger import Logger
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
 
 
+class SectionType:
+    """
+    Identify Section Type based on input file name
+    """
+    def __get__(self, obj, owner):
+        section_type = obj._section_type
+        return section_type
+
+    def __set__(self, obj, value):
+        if re.match(r'^results5-2a.*', str(value), re.IGNORECASE):
+            obj._section_type = '5-2A'
+        elif re.match(r'^results5-2b.*', str(value), re.IGNORECASE):
+            obj._section_type = '5-2B'
+        else:
+            obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
+                             'the referenced section at the beginning of the name is not supported'
+                             .format(str(value)))
+        return
+
+
 class GraphicsRenderer(Logger):
     """
     Create graphs and tables from a model_results_file.
     """
+
+    section_type = SectionType()
 
     def __init__(
             self,
@@ -32,69 +55,91 @@ class GraphicsRenderer(Logger):
         """
         super().__init__(logger_level=logger_level, logger_name=logger_name)
         # make dataframe of case names and rank orders
-        self.case_detailed_df = pd.DataFrame.from_dict(
-            {
-                '600': ['600 Base Case, South Windows', 1],
-                '610': ['610 S. Windows + Overhang', 2],
-                '620': ['620 East & West Windows', 3],
-                '630': ['630 E&W Windows + Overhang & Fins', 4],
-                '640': ['640 Case 600 with Htg Temp. Setback', 5],
-                '650': ['650 Case 600 with Night Ventilation', 6],
-                '660': ['660 Low-E Windows', 7],
-                '670': ['670 Single-Pane Windows', 8],
-                '680': ['680 Case 600 with Increased Insulation', 9],
-                '685': ['685 Case 600 with "20/20" Thermostat', 10],
-                '695': ['695 Case 685 with Increased Insulation', 11],
-                '900': ['900 South Windows', 12],
-                '910': ['910 S. Windows + Overhang', 13],
-                '920': ['920 East & West Windows', 14],
-                '930': ['930 E&W Windows + Overhang + Fins', 15],
-                '940': ['940 Case 900 with Htg Temp. Setback', 16],
-                '950': ['950 Case 900 with Night Ventilation', 17],
-                '960': ['960 Sunspace', 18],
-                '980': ['980 Case 900 with Increased Insulation', 19],
-                '985': ['985 Case 900 with "20/20" Thermostat', 20],
-                '995': ['995 Case 985 with Increased Insulation', 21],
-                '195': ['195 Solid Conduction', 22],
-                '200': ['200 Surface Convection (Int & Ext IR="off")', 23],
-                '210': ['210 Infrared Radiation (Int IR="off", Ext IR="on")', 24],
-                '215': ['215 Infrared Radiation (Int IR="on", Ext IR="off")', 25],
-                '220': ['220 In-Depth Base Case', 26],
-                '230': ['230 Infiltration', 27],
-                '240': ['240 Internal Gains', 28],
-                '250': ['250 Exterior Shortwave Absoptance', 29],
-                '270': ['270 South Solar Windows', 30],
-                '280': ['280 Cavity Albedo', 31],
-                '290': ['290 South Shading', 32],
-                '300': ['300 East/West Window', 33],
-                '310': ['310 East/West Shading', 34],
-                '320': ['320 Thermostat', 35],
-                '395': ['395 Low Mass Solid Conduction', 36],
-                '400': ['400 Low Mass High Cond. Wall Elements', 37],
-                '410': ['410 Low Mass Infiltration', 38],
-                '420': ['420 Low Mass Internal Gains', 39],
-                '430': ['430 Low Mass Ext. Shortwave Absoptance', 40],
-                '440': ['440 Low Mass Cavity Albedo', 41],
-                '450': ['450 Constant Interior and Exterior Surf Coeffs', 42],
-                '460': ['460 Constant Interior Surface Coefficients', 43],
-                '470': ['470 Constant Exterior Surface Coefficients', 44],
-                '800': ['800 High Mass Hig Cond. Wall Elements', 45],
-                '810': ['810 HIgh Mass Cavity Albedo', 46]
-            },
-            orient='index',
-            columns=['case_name', 'case_order'])
+        self.section_type = str(model_results_file)
+        self.analytical_solutions = {
+            'steady_state_cases': {
+                'GC10': {
+                    'qfloor': 2432.597
+                }
+            }
+        }
+        if self.section_type == '5-2A':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    '600': ['600 Base Case, South Windows', 1],
+                    '610': ['610 S. Windows + Overhang', 2],
+                    '620': ['620 East & West Windows', 3],
+                    '630': ['630 E&W Windows + Overhang & Fins', 4],
+                    '640': ['640 Case 600 with Htg Temp. Setback', 5],
+                    '650': ['650 Case 600 with Night Ventilation', 6],
+                    '660': ['660 Low-E Windows', 7],
+                    '670': ['670 Single-Pane Windows', 8],
+                    '680': ['680 Case 600 with Increased Insulation', 9],
+                    '685': ['685 Case 600 with "20/20" Thermostat', 10],
+                    '695': ['695 Case 685 with Increased Insulation', 11],
+                    '900': ['900 South Windows', 12],
+                    '910': ['910 S. Windows + Overhang', 13],
+                    '920': ['920 East & West Windows', 14],
+                    '930': ['930 E&W Windows + Overhang + Fins', 15],
+                    '940': ['940 Case 900 with Htg Temp. Setback', 16],
+                    '950': ['950 Case 900 with Night Ventilation', 17],
+                    '960': ['960 Sunspace', 18],
+                    '980': ['980 Case 900 with Increased Insulation', 19],
+                    '985': ['985 Case 900 with "20/20" Thermostat', 20],
+                    '995': ['995 Case 985 with Increased Insulation', 21],
+                    '195': ['195 Solid Conduction', 22],
+                    '200': ['200 Surface Convection (Int & Ext IR="off")', 23],
+                    '210': ['210 Infrared Radiation (Int IR="off", Ext IR="on")', 24],
+                    '215': ['215 Infrared Radiation (Int IR="on", Ext IR="off")', 25],
+                    '220': ['220 In-Depth Base Case', 26],
+                    '230': ['230 Infiltration', 27],
+                    '240': ['240 Internal Gains', 28],
+                    '250': ['250 Exterior Shortwave Absoptance', 29],
+                    '270': ['270 South Solar Windows', 30],
+                    '280': ['280 Cavity Albedo', 31],
+                    '290': ['290 South Shading', 32],
+                    '300': ['300 East/West Window', 33],
+                    '310': ['310 East/West Shading', 34],
+                    '320': ['320 Thermostat', 35],
+                    '395': ['395 Low Mass Solid Conduction', 36],
+                    '400': ['400 Low Mass High Cond. Wall Elements', 37],
+                    '410': ['410 Low Mass Infiltration', 38],
+                    '420': ['420 Low Mass Internal Gains', 39],
+                    '430': ['430 Low Mass Ext. Shortwave Absoptance', 40],
+                    '440': ['440 Low Mass Cavity Albedo', 41],
+                    '450': ['450 Constant Interior and Exterior Surf Coeffs', 42],
+                    '460': ['460 Constant Interior Surface Coefficients', 43],
+                    '470': ['470 Constant Exterior Surface Coefficients', 44],
+                    '800': ['800 High Mass Hig Cond. Wall Elements', 45],
+                    '810': ['810 HIgh Mass Cavity Albedo', 46]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
         if not processed_file_directory:
             self.processed_file_directory = root_directory.joinpath('processed')
         else:
             self.processed_file_directory = processed_file_directory
         if not base_model_list:
-            self.baseline_model_list = [
-                'RESULTS5-2A-BSIMAC-9-9.0.74.json',
-                'RESULTS5-2A-CSE-0.861.1.json',
-                'RESULTS5-2A-DeST-2.0-20190401.json',
-                'RESULTS5-2A-EnergyPlus-9.0.1.json',
-                'RESULTS5-2A-ESP-r-13.3.json',
-                'RESULTS5-2A-TRNSYS-18.00.0001.json']
+            if self.section_type == '5-2A':
+                self.baseline_model_list = [
+                    'RESULTS5-2A-BSIMAC-9-9.0.74.json',
+                    'RESULTS5-2A-CSE-0.861.1.json',
+                    'RESULTS5-2A-DeST-2.0-20190401.json',
+                    'RESULTS5-2A-EnergyPlus-9.0.1.json',
+                    'RESULTS5-2A-ESP-r-13.3.json',
+                    'RESULTS5-2A-TRNSYS-18.00.0001.json']
+            elif self.section_type == '5-2B':
+                self.baseline_model_list = [
+                    'RESULTS5-2B-Basecalc-1.0e.json',
+                    'RESULTS5-2B-EnergyPlus-9.0.1.json',
+                    'RESULTS5-2B-ESP-r-0.json',
+                    'RESULTS5-2B-FLUENT-6.1.json',
+                    'RESULTS5-2B-GHT-2.02.json',
+                    'RESULTS5-2B-MATLAB-7.0.4.365-R14-SP2.json',
+                    'RESULTS5-2B-SUNREL-GC-1.14.02.json',
+                    'RESULTS5-2B-TRNSYS-16.1.json',
+                    'RESULTS5-2B-VA114-2.20.json'
+                ]
         else:
             self.baseline_model_list = base_model_list
         self.model_results_file = model_results_file
@@ -104,9 +149,14 @@ class GraphicsRenderer(Logger):
         # create an object that keeps the information needed to make the row index for each table object.
         # 0 - json key name
         # 1 - list to make row index
-        self.table_lookup = [
-            ('conditioned_zone_loads_non_free_float', ['program_name', ])
-        ]
+        if self.section_type == '5-2A':
+            self.table_lookup = [
+                ('conditioned_zone_loads_non_free_float', ['program_name', ])
+            ]
+        elif self.section_type == '5-2B':
+            self.table_lookup = [
+                ('steady_state_cases', ['program_name', ])
+            ]
         # dictionary to map file names to clean model names.  This dictionary is filled on data loading.
         self.cleansed_model_names = {}
         # instantiate objects to store data as a dictionary of json objects, and a dictionary of pandas dataframes
@@ -114,7 +164,7 @@ class GraphicsRenderer(Logger):
         self.df_data = {}
         # set hatches list for visualization objects
         self.hatches = ['/', '-', 'x', '\\', '//', 'o', '||', '+', 'O', '.', '*']
-        self.colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'black']
+        self.colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'black', 'orange']
         self.markers = ['o', '^', 'h', 'x', 'D', '*', '>']
         self._get_data()
         return
@@ -166,6 +216,50 @@ class GraphicsRenderer(Logger):
         """
         fig.tight_layout()
         return fig, ax
+
+    @staticmethod
+    def _set_html_style():
+        """
+        Provide CSS styles for html output
+        :return: CSS style text
+        """
+        css_text = """
+            <style>
+            .jp-RenderedImage {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+            }
+            .placeholder-span {
+                visibility: hidden;
+            }
+            .pandas-tbl h2 {
+                height: 25px;
+                line-height: 18px;
+                font-size: 18px;
+                text-align: center;
+            }
+            .pandas-tbl caption {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: left;
+            }
+            .dataframe.pandas-sub-tbl th, .dataframe.pandas-sub-tbl-with-cases th {
+                height: 50px;
+                line-height: 14px;
+                font-size: 14px;
+                text-align: center;
+            }
+            .dataframe.pandas-sub-tbl td, .dataframe.pandas-sub-tbl-with-cases td {
+                font-size: 12px;
+            }
+            .dataframe.pandas-sub-tbl-with-cases td:first-child {
+                min-width: 300px;
+                text-align: left;
+            }
+            </style>
+        """
+        return css_text
 
     @staticmethod
     def display_side_by_side(*args, titles=(), caption=None):
@@ -543,8 +637,6 @@ class GraphicsRenderer(Logger):
                     data_y.append(count_list)
                     programs.append(json_obj['identifying_information']['software_name'])
                 except (TypeError, KeyError):
-                    import traceback
-                    print(traceback.print_exc())
                     data_x.append([])
                     data_y.append([])
         # Add line plots for each program
@@ -562,4 +654,18 @@ class GraphicsRenderer(Logger):
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel('Number of Occurrences', fontsize=14)
         ax.set_xlim(-5, 55)
+        ax.set_ylim(0, 500)
+        ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
         return fig, ax
+
+    def render_section_5_2b_table_b_8_2_1(
+            self,
+            output_value='annual_heating_MWh',
+            caption='Table B8.2-1 "a"-Series Case Summary, Numerical Model Verification'):
+        """
+        Create dataframe from class dataframe object for table 5-2B B8.2-1
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        df = self.df_data['steady_state_cases']
+        return df

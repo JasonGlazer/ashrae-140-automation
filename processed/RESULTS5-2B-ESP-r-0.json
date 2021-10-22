@@ -1,0 +1,46 @@
+{
+    "identifying_information": {
+        "program_name_and_version": "Basesimp/ESP-r",
+        "program_name_short": "ESP-r",
+        "program_version_release_date": "2006-03-23 00:00:00",
+        "results_submittal_date": "2010-01-01 00:00:00"
+    },
+    "steady_state_cases": {
+        "GC10a": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC30a": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC30b": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC30c": {
+            "Tzone": 30.0,
+            "qfloor": 1973.0,
+            "qzone": 2003.0,
+            "tsim": 17520.0
+        },
+        "GC60b": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC65b": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        }
+    }
+}

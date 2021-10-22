@@ -1,0 +1,46 @@
+{
+    "identifying_information": {
+        "program_name_and_version": "EnergyPlus 2.0.0.025",
+        "program_name_short": "EnergyPlus",
+        "program_version_release_date": "2007-10-09 00:00:00",
+        "results_submittal_date": "2010-01-01 00:00:00"
+    },
+    "steady_state_cases": {
+        "GC10a": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC30a": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC30b": {
+            "Tzone": 30.0,
+            "qfloor": 2652.0,
+            "qzone": 2652.0,
+            "tsim": 61320.0
+        },
+        "GC30c": {
+            "Tzone": 30.0,
+            "qfloor": 2308.0,
+            "qzone": 2308.0,
+            "tsim": 52560.0
+        },
+        "GC60b": {
+            "Tzone": 30.0,
+            "qfloor": 2219.0,
+            "qzone": 2219.0,
+            "tsim": 61320.0
+        },
+        "GC65b": {
+            "Tzone": 30.0,
+            "qfloor": 1616.0,
+            "qzone": 1616.0,
+            "tsim": 70080.0
+        }
+    }
+}
