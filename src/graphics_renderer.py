@@ -130,7 +130,16 @@ class GraphicsRenderer(Logger):
                     'RESULTS5-2A-TRNSYS-18.00.0001.json']
             elif self.section_type == '5-2B':
                 self.baseline_model_list = [
-                    'RESULTS5-2B-EnergyPlus-9.0.1.json', ]
+                    'RESULTS5-2B-Basecalc-1.0e.json',
+                    'RESULTS5-2B-EnergyPlus-9.0.1.json',
+                    'RESULTS5-2B-ESP-r-0.json',
+                    'RESULTS5-2B-FLUENT-6.1.json',
+                    'RESULTS5-2B-GHT-2.02.json',
+                    'RESULTS5-2B-MATLAB-7.0.4.365-R14-SP2.json',
+                    'RESULTS5-2B-SUNREL-GC-1.14.02.json',
+                    'RESULTS5-2B-TRNSYS-16.1.json',
+                    'RESULTS5-2B-VA114-2.20.json'
+                ]
         else:
             self.baseline_model_list = base_model_list
         self.model_results_file = model_results_file
@@ -140,9 +149,14 @@ class GraphicsRenderer(Logger):
         # create an object that keeps the information needed to make the row index for each table object.
         # 0 - json key name
         # 1 - list to make row index
-        self.table_lookup = [
-            ('conditioned_zone_loads_non_free_float', ['program_name', ])
-        ]
+        if self.section_type == '5-2A':
+            self.table_lookup = [
+                ('conditioned_zone_loads_non_free_float', ['program_name', ])
+            ]
+        elif self.section_type == '5-2B':
+            self.table_lookup = [
+                ('steady_state_cases', ['program_name', ])
+            ]
         # dictionary to map file names to clean model names.  This dictionary is filled on data loading.
         self.cleansed_model_names = {}
         # instantiate objects to store data as a dictionary of json objects, and a dictionary of pandas dataframes
@@ -211,46 +225,38 @@ class GraphicsRenderer(Logger):
         """
         css_text = """
             <style>
-            
             .jp-RenderedImage {
                 display: table-cell;
                 text-align: center;
                 vertical-align: middle;
             }
-            
             .placeholder-span {
                 visibility: hidden;
             }
-            
             .pandas-tbl h2 {
                 height: 25px;
                 line-height: 18px;
                 font-size: 18px;
                 text-align: center;
             }
-            
             .pandas-tbl caption {
                 font-size: 20px;
                 font-weight: bold;
                 text-align: left;
             }
-            
             .dataframe.pandas-sub-tbl th, .dataframe.pandas-sub-tbl-with-cases th {
                 height: 50px;
                 line-height: 14px;
                 font-size: 14px;
                 text-align: center;
             }
-            
             .dataframe.pandas-sub-tbl td, .dataframe.pandas-sub-tbl-with-cases td {
                 font-size: 12px;
             }
-            
             .dataframe.pandas-sub-tbl-with-cases td:first-child {
                 min-width: 300px;
                 text-align: left;
             }
-            
             </style>
         """
         return css_text
@@ -651,3 +657,15 @@ class GraphicsRenderer(Logger):
         ax.set_ylim(0, 500)
         ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
         return fig, ax
+
+    def render_section_5_2b_table_b_8_2_1(
+            self,
+            output_value='annual_heating_MWh',
+            caption='Table B8.2-1 "a"-Series Case Summary, Numerical Model Verification'):
+        """
+        Create dataframe from class dataframe object for table 5-2B B8.2-1
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        df = self.df_data['steady_state_cases']
+        return df

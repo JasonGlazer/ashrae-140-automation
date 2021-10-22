@@ -266,7 +266,7 @@ class ExcelProcessor(Logger):
         :return: Class attributes identifying software program.
         """
         df = self._get_data('identifying_information')
-        self.software_name = df.iloc[2,4]
+        self.software_name = df.iloc[2, 4]
         self.software_version = str(df.iloc[0, 0]).replace(str(df.iloc[2, 4]), '').strip()
         self.software_release_date = str(df.iloc[1, 4])
         data_d = {

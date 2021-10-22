@@ -1,0 +1,46 @@
+{
+    "identifying_information": {
+        "program_name_and_version": "GHT 2.02",
+        "program_name_short": "GHT",
+        "program_version_release_date": "2007-10-09 00:00:00",
+        "results_submittal_date": "2010-01-01 00:00:00"
+    },
+    "steady_state_cases": {
+        "GC10a": {
+            "Tzone": NaN,
+            "qfloor": 2414.9,
+            "qzone": NaN,
+            "tsim": 52560.0
+        },
+        "GC30a": {
+            "Tzone": NaN,
+            "qfloor": 2456.7,
+            "qzone": NaN,
+            "tsim": 52560.0
+        },
+        "GC30b": {
+            "Tzone": NaN,
+            "qfloor": 2341.2,
+            "qzone": NaN,
+            "tsim": 43800.0
+        },
+        "GC30c": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC60b": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        },
+        "GC65b": {
+            "Tzone": NaN,
+            "qfloor": NaN,
+            "qzone": NaN,
+            "tsim": NaN
+        }
+    }
+}
