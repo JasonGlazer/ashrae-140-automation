@@ -284,7 +284,7 @@ class GraphicsRenderer(Logger):
                         ]),
                     'png'
                 ]))
-        plt.savefig(img_name, bbox_inches='tight')
+        plt.savefig(img_name, bbox_inches='tight', facecolor='white')
         return
 
     @staticmethod
@@ -311,6 +311,7 @@ class GraphicsRenderer(Logger):
     def render_section_5_2a_table_b_8_1(
             self,
             output_value='annual_heating_MWh',
+            figure_name='section_5_2_a_table_b_8_1',
             caption='Table B8-1. Annual Heating Loads (MWh)'):
         """
         Create dataframe from class dataframe object for table 5-2A B8-1
@@ -327,6 +328,8 @@ class GraphicsRenderer(Logger):
                     self.df_data['conditioned_zone_loads_non_free_float']
                         .columns.get_level_values(1) == output_value]
             df.columns = df.columns.droplevel(level=1)
+            # round values
+            df = df.round(3)
             df_formatted_table = df.unstack()\
                 .reset_index()\
                 .rename(columns={0: 'val'})\
@@ -337,26 +340,11 @@ class GraphicsRenderer(Logger):
             df_formatted_table_column_names[0] = 'cases'
             df_formatted_table.columns = df_formatted_table_column_names
             # Create calculated columns df and append them to the base table.
-            df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1)
-            df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1)
-            df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1)
+            df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1).round(3)
+            df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1).round(3)
+            df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1).round(3)
             df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
-                lambda x: np.nan if x.col_mean == 0 else abs((x.col_max - x.col_min) / x.col_mean), axis=1)
-            # separate dataframes for side by side visualization
-            program_df = df_formatted_table[[self.model_name, ]].copy()
-            # change program model column to cleansed name
-            program_df.columns = [
-                self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
-                else i
-                for i in program_df.columns]
-            # make statistics dataframe for side by side
-            statistics_df = df_formatted_table[['col_min', 'col_max', 'col_mean', '(max - min) / mean %']].rename(
-                columns={
-                    'col_min': 'min',
-                    'col_max': 'max',
-                    'col_mean': 'mean'})
-            # df_formatted_table = df_formatted_table.drop(
-            #     [self.model_name, 'col_min', 'col_max', 'col_mean', '(max - min) / mean %'], axis=1)
+                lambda x: np.nan if x.col_mean == 0 else abs((x.col_max - x.col_min) / x.col_mean), axis=1).round(3)
             # rename cases by joining the detailed description table and re-order them
             df_formatted_table = df_formatted_table\
                 .merge(
@@ -366,7 +354,11 @@ class GraphicsRenderer(Logger):
                     right_index=True)\
                 .sort_values(['case_order'])\
                 .drop(['cases', 'case_order'], axis=1)\
-                .rename(columns={'case_name': 'cases'})
+                .rename(columns={
+                    'case_name': 'cases',
+                    'col_min': 'min',
+                    'col_max': 'max',
+                    'col_mean': 'mean'})
             # reorder dataframe columns
             column_list = ['cases', ] + [i for i in df_formatted_table.columns if i != 'cases' and i != self.model_name] + \
                 [self.model_name, ]
@@ -376,51 +368,39 @@ class GraphicsRenderer(Logger):
                 self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
                 else i
                 for i in df_formatted_table.columns]
-            # Create side by side tables
-            # table_html = self.display_side_by_side(
-            #     df_formatted_table,
-            #     statistics_df,
-            #     program_df,
-            #     titles=['Simulation Model', 'Statistics for Example Results', ''],
-            #     caption=caption)
-            # from pandas.plotting import table
             # set fig size
             fig, ax = plt.subplots(
                 nrows=1,
                 ncols=1,
-                figsize=(14, 8))
-            tst = ax.axis([0, df_formatted_table.shape[0], 0, 1])
+                figsize=(22, 11))
+            df_formatted_table.columns = ['\n'.join(wrap(i, 8)) for i in df_formatted_table.columns]
             tab = ax.table(cellText=df_formatted_table.values, colLabels=df_formatted_table.columns, zorder=1,
-                           bbox=[0, 0, 1, 1])
-            print(tst)
-            ax.axvline(x=4, color='black', linewidth=14, zorder=3)
-            # for ax, df, loc in zip(axs, [df_formatted_table, statistics_df, program_df], ['right', 'center', 'left']):
-            #     ax.set_frame_on(False)
+                           bbox=[0, 0, 1, 1], edges='open')
             ax.axis('tight')
             ax.axis('off')
-            #     # wrap text
-            #     df.columns = ['\n'.join(wrap(i, 8)) for i in df.columns]
-            #     # plot table
-            #     tab = ax.table(cellText=df.values, colLabels=df.columns, loc=loc)
-            #     # set font manually
+            # make a rectangle with white color for the background color
+            # set font manually
             tab.auto_set_font_size(False)
             tab.set_fontsize(12)
             cell_dict = tab.get_celld()
             for i in range(len(df_formatted_table.columns)):
-                cell_dict[(0, i)].set_height(0.1)
-                cell_dict[(0, i)].set_fontsize(14)
-                cell_dict[(0, 0)].set_width(0.4)
-                cell_dict[(0, i)].set_width(0.2)
-                for j in range(1, df_formatted_table.shape[0]+1):
-                    cell_dict[(j, 0)].set_width(0.4)
-                    cell_dict[(j, i)].set_width(0.2)
-                    cell_dict[(j, i)].set_height(0.02)
+                cell_dict[(0, i)].set_height(0.8)
+                cell_dict[(0, i)].set_fontsize(16)
+                cell_dict[(0, 0)].set_width(2)
+                cell_dict[(0, i)].set_width(0.5)
+                cell_dict[(0, i)].visible_edges = 'closed'
+                for j in range(1, df_formatted_table.shape[0] + 1):
+                    cell_dict[(j, 0)].set_width(2)
+                    cell_dict[(j, 0)].set_text_props(ha="left")
+                    cell_dict[(j, 0)].PAD = 0.01
+                    cell_dict[(j, i)].set_width(0.5)
+                    cell_dict[(j, i)].set_height(0.1)
             # save the result
-            fig.tight_layout()
-            plt.savefig('table.png')
-        except KeyError as e:
-            import traceback
-            print(traceback.print_exc())
+            ax.axis([0, 1, 0, 1])
+            ax.axvline(x=5 / 7.5, color='black', linewidth=4, zorder=3)
+            ax.set_title(caption, fontsize=30)
+            self._make_image_from_plt(figure_name)
+        except KeyError:
             msg = 'Section 5-2A B8-1 Failed to be processed'
         return table_html, msg
 
@@ -432,6 +412,7 @@ class GraphicsRenderer(Logger):
         """
         table_html, msg = self.render_section_5_2a_table_b_8_1(
             output_value='annual_cooling_MWh',
+            figure_name='section_5_2_a_table_b_8_2',
             caption='Table B8.2 Annual Sensible Cooling Loads (MWh)'
         )
         return table_html, msg
@@ -508,6 +489,7 @@ class GraphicsRenderer(Logger):
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel('Peak Heating Load (kWh/h)', fontsize=14)
         ax.set_ylim(0, 5)
+        self._make_image_from_plt('section_5_2_a_figure_b_8_9')
         return fig, ax
 
     def render_section_5_2a_figure_b8_17(self):
@@ -663,6 +645,7 @@ class GraphicsRenderer(Logger):
         ax[0].set_ylim(-2.5, 2.5)
         ax[0].set_yticks(np.arange(-2.5, 2.5, 0.5))
         ax[0].set_ylabel('Load Difference (MWh)', fontsize=14)
+        self._make_image_from_plt('section_5_2_a_figure_b_8_17')
         return fig, ax
 
     def render_section_5_2a_figure_b8_h1(self):
@@ -722,6 +705,7 @@ class GraphicsRenderer(Logger):
         ax.set_xlim(-5, 55)
         ax.set_ylim(0, 500)
         ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
+        self._make_image_from_plt('section_5_2_a_figure_b_8_h1')
         return fig, ax
 
     def render_section_5_2b_table_b_8_2_1(
