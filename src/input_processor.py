@@ -79,8 +79,11 @@ class InputProcessor(Logger):
         except ASHRAE140TypeError:
             raise ASHRAE140ProcessingError('Input file processing failed: {}'.format(self.input_file_location))
         if getattr(data_object, 'test_data'):
+            program_name = self.input_file_location.parts[-3].lower()
+            version = self.input_file_location.parts[-2].lower()
+            section = self.input_file_location.stem.lower()
             with open(root_directory.joinpath(
                     'processed',
-                    '.'.join([self.input_file_location.stem, 'json'])), 'w') as f:
+                    '.'.join(['-'.join([program_name, version, section]), 'json'])), 'w') as f:
                 json.dump(data_object.test_data, f, indent=4, sort_keys=True)
         return

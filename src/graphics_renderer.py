@@ -1,5 +1,6 @@
 import pathlib
 import json
+import os
 import re
 import pandas as pd
 import numpy as np
@@ -23,9 +24,9 @@ class SectionType:
         return section_type
 
     def __set__(self, obj, value):
-        if re.match(r'^results5-2a.*', str(value), re.IGNORECASE):
+        if re.match(r'.*results5-2a\..*$', str(value), re.IGNORECASE):
             obj._section_type = '5-2A'
-        elif re.match(r'^results5-2b.*', str(value), re.IGNORECASE):
+        elif re.match(r'.*results5-2b\..*$', str(value), re.IGNORECASE):
             obj._section_type = '5-2B'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
@@ -122,23 +123,23 @@ class GraphicsRenderer(Logger):
         if not base_model_list:
             if self.section_type == '5-2A':
                 self.baseline_model_list = [
-                    'RESULTS5-2A-BSIMAC-9-9.0.74.json',
-                    'RESULTS5-2A-CSE-0.861.1.json',
-                    'RESULTS5-2A-DeST-2.0-20190401.json',
-                    'RESULTS5-2A-EnergyPlus-9.0.1.json',
-                    'RESULTS5-2A-ESP-r-13.3.json',
-                    'RESULTS5-2A-TRNSYS-18.00.0001.json']
+                    'bsimac-9.9.0.7.4-results5-2a.json',
+                    'cse-0.861.1-results5-2a.json',
+                    'dest-2.0.20190401-results5-2a.json',
+                    'energyplus-9.0.1-results5-2a.json',
+                    'esp-r-13.3-results5-2a.json',
+                    'trnsys-18.00.0001-results5-2a.json']
             elif self.section_type == '5-2B':
                 self.baseline_model_list = [
-                    'RESULTS5-2B-Basecalc-1.0e.json',
-                    'RESULTS5-2B-EnergyPlus-9.0.1.json',
-                    'RESULTS5-2B-ESP-r-0.json',
-                    'RESULTS5-2B-FLUENT-6.1.json',
-                    'RESULTS5-2B-GHT-2.02.json',
-                    'RESULTS5-2B-MATLAB-7.0.4.365-R14-SP2.json',
-                    'RESULTS5-2B-SUNREL-GC-1.14.02.json',
-                    'RESULTS5-2B-TRNSYS-16.1.json',
-                    'RESULTS5-2B-VA114-2.20.json'
+                    'basecalc-v1.0e-results5-2b.json',
+                    'energyplus-9.0.1-results5-2b.json',
+                    'esp-r-13.3-results5-2b.json',
+                    'fluent-6.1-results5-2b.json',
+                    'ght-2.02-results5-2b.json',
+                    'matlab-7.0.4.365-r14-sp2-results5-2b.json',
+                    'sunrel-gc-1.14.02-results5-2b.json',
+                    'trnsys-18.00.0001-results5-2b.json',
+                    'va114-2.20-results5-2b.json'
                 ]
         else:
             self.baseline_model_list = base_model_list
@@ -257,9 +258,34 @@ class GraphicsRenderer(Logger):
                 min-width: 300px;
                 text-align: left;
             }
+            body {
+                background: white;
+            }
             </style>
         """
         return css_text
+
+    def _make_image_from_plt(self, figure_name, destionation_directory=('rendered', 'images')):
+        """
+        make a png file from a matplotlib.pyplot object and save it to a directory
+
+        :param figure_name: name of figure to append to file name
+        :param destionation_directory: list of directories leading to the output directory
+        :return: saved image in referenced directory
+        """
+        img_name = root_directory.joinpath(
+            *destionation_directory,
+            '.'.join(
+                [
+                    '-'.join(
+                        [
+                            os.path.splitext(self.model_results_file)[0],
+                            figure_name,
+                        ]),
+                    'png'
+                ]))
+        plt.savefig(img_name, bbox_inches='tight')
+        return
 
     @staticmethod
     def display_side_by_side(*args, titles=(), caption=None):
@@ -329,8 +355,8 @@ class GraphicsRenderer(Logger):
                     'col_min': 'min',
                     'col_max': 'max',
                     'col_mean': 'mean'})
-            df_formatted_table = df_formatted_table.drop(
-                [self.model_name, 'col_min', 'col_max', 'col_mean', '(max - min) / mean %'], axis=1)
+            # df_formatted_table = df_formatted_table.drop(
+            #     [self.model_name, 'col_min', 'col_max', 'col_mean', '(max - min) / mean %'], axis=1)
             # rename cases by joining the detailed description table and re-order them
             df_formatted_table = df_formatted_table\
                 .merge(
@@ -342,7 +368,8 @@ class GraphicsRenderer(Logger):
                 .drop(['cases', 'case_order'], axis=1)\
                 .rename(columns={'case_name': 'cases'})
             # reorder dataframe columns
-            column_list = ['cases', ] + [i for i in df_formatted_table.columns if i != 'cases']
+            column_list = ['cases', ] + [i for i in df_formatted_table.columns if i != 'cases' and i != self.model_name] + \
+                [self.model_name, ]
             df_formatted_table = df_formatted_table[column_list]
             # Rename model columns to cleansed names
             df_formatted_table.columns = [
@@ -350,13 +377,50 @@ class GraphicsRenderer(Logger):
                 else i
                 for i in df_formatted_table.columns]
             # Create side by side tables
-            table_html = self.display_side_by_side(
-                df_formatted_table,
-                statistics_df,
-                program_df,
-                titles=['Simulation Model', 'Statistics for Example Results', ''],
-                caption=caption)
-        except KeyError:
+            # table_html = self.display_side_by_side(
+            #     df_formatted_table,
+            #     statistics_df,
+            #     program_df,
+            #     titles=['Simulation Model', 'Statistics for Example Results', ''],
+            #     caption=caption)
+            # from pandas.plotting import table
+            # set fig size
+            fig, ax = plt.subplots(
+                nrows=1,
+                ncols=1,
+                figsize=(14, 8))
+            tst = ax.axis([0, df_formatted_table.shape[0], 0, 1])
+            tab = ax.table(cellText=df_formatted_table.values, colLabels=df_formatted_table.columns, zorder=1,
+                           bbox=[0, 0, 1, 1])
+            print(tst)
+            ax.axvline(x=4, color='black', linewidth=14, zorder=3)
+            # for ax, df, loc in zip(axs, [df_formatted_table, statistics_df, program_df], ['right', 'center', 'left']):
+            #     ax.set_frame_on(False)
+            ax.axis('tight')
+            ax.axis('off')
+            #     # wrap text
+            #     df.columns = ['\n'.join(wrap(i, 8)) for i in df.columns]
+            #     # plot table
+            #     tab = ax.table(cellText=df.values, colLabels=df.columns, loc=loc)
+            #     # set font manually
+            tab.auto_set_font_size(False)
+            tab.set_fontsize(12)
+            cell_dict = tab.get_celld()
+            for i in range(len(df_formatted_table.columns)):
+                cell_dict[(0, i)].set_height(0.1)
+                cell_dict[(0, i)].set_fontsize(14)
+                cell_dict[(0, 0)].set_width(0.4)
+                cell_dict[(0, i)].set_width(0.2)
+                for j in range(1, df_formatted_table.shape[0]+1):
+                    cell_dict[(j, 0)].set_width(0.4)
+                    cell_dict[(j, i)].set_width(0.2)
+                    cell_dict[(j, i)].set_height(0.02)
+            # save the result
+            fig.tight_layout()
+            plt.savefig('table.png')
+        except KeyError as e:
+            import traceback
+            print(traceback.print_exc())
             msg = 'Section 5-2A B8-1 Failed to be processed'
         return table_html, msg
 
@@ -405,6 +469,8 @@ class GraphicsRenderer(Logger):
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
         ax.set_ylim(0, 2000)
+        fig.patch.set_facecolor('white')
+        self._make_image_from_plt('section_5_2_a_figure_b_8_1')
         return fig, ax
 
     def render_section_5_2a_figure_b_8_9(self):
