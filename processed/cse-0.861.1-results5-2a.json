@@ -1,25 +1,4 @@
 {
-    "annual_solar_radiation_direct_and_diffuse": {
-        "600": {
-            "Surface": {
-                "EAST": {
-                    "kWh/m2": 1026.98739169967
-                },
-                "HORZ.": {
-                    "kWh/m2": 1662.52776234358
-                },
-                "NORTH": {
-                    "kWh/m2": 399.047475991387
-                },
-                "SOUTH": {
-                    "kWh/m2": 1316.91617996189
-                },
-                "WEST": {
-                    "kWh/m2": 903.066498828377
-                }
-            }
-        }
-    },
     "conditioned_zone_loads_non_free_float": {
         "195": {
             "annual_cooling_MWh": 0.605524517724642,
@@ -1046,6 +1025,73 @@
                 "C": -46.22457,
                 "Hour": 24,
                 "Month": "Dec"
+            }
+        }
+    },
+    "solar_radiation_annual_incident": {
+        "600": {
+            "Surface": {
+                "EAST": {
+                    "kWh/m2": 1026.98739169967
+                },
+                "HORZ.": {
+                    "kWh/m2": 1662.52776234358
+                },
+                "NORTH": {
+                    "kWh/m2": 399.047475991387
+                },
+                "SOUTH": {
+                    "kWh/m2": 1316.91617996189
+                },
+                "WEST": {
+                    "kWh/m2": 903.066498828377
+                }
+            }
+        }
+    },
+    "solar_radiation_shaded_annual_transmitted": {
+        "610": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 665.260934557967
+                }
+            }
+        },
+        "630": {
+            "Surface": {
+                "West": {
+                    "kWh/m2": NaN
+                }
+            }
+        }
+    },
+    "solar_radiation_unshaded_annual_transmitted": {
+        "600": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 825.519365812517
+                }
+            }
+        },
+        "620": {
+            "Surface": {
+                "West": {
+                    "kWh/m2": NaN
+                }
+            }
+        },
+        "660": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 501.313583591347
+                }
+            }
+        },
+        "670": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 987.818245667505
+                }
             }
         }
     }

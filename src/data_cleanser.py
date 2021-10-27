@@ -135,9 +135,9 @@ class DataCleanser(Logger):
             column_list=numeric_columns)
         return self.df
 
-    def cleanse_annual_solar_radiation_direct_and_diffuse(
+    def cleanse_solar_radiation_annual(
             self,
-            case_column: str = 'case',
+            case_column: str = None,
             numeric_columns: list = (
                 ('kWh/m2', {'lower_limit': 0}), )):
         """
@@ -148,8 +148,9 @@ class DataCleanser(Logger):
             1 - kwargs for numeric check function
         :return: Cleansed pandas DataFrame
         """
-        self.logger.info('Cleansing Annual Solar Radiation (Direct + Diffuse) table')
-        # check case column
+        self.logger.info('Cleansing Solar Radiation Annual Incident table')
+        if case_column:
+            self._check_cases(case_column)
         self._check_columns(
             column_check_function=self._check_numeric_with_limits,
             column_list=numeric_columns)

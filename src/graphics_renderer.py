@@ -218,53 +218,6 @@ class GraphicsRenderer(Logger):
         fig.tight_layout()
         return fig, ax
 
-    @staticmethod
-    def _set_html_style():
-        """
-        Provide CSS styles for html output
-        :return: CSS style text
-        """
-        css_text = """
-            <style>
-            .jp-RenderedImage {
-                display: table-cell;
-                text-align: center;
-                vertical-align: middle;
-            }
-            .placeholder-span {
-                visibility: hidden;
-            }
-            .pandas-tbl h2 {
-                height: 25px;
-                line-height: 18px;
-                font-size: 18px;
-                text-align: center;
-            }
-            .pandas-tbl caption {
-                font-size: 20px;
-                font-weight: bold;
-                text-align: left;
-            }
-            .dataframe.pandas-sub-tbl th, .dataframe.pandas-sub-tbl-with-cases th {
-                height: 50px;
-                line-height: 14px;
-                font-size: 14px;
-                text-align: center;
-            }
-            .dataframe.pandas-sub-tbl td, .dataframe.pandas-sub-tbl-with-cases td {
-                font-size: 12px;
-            }
-            .dataframe.pandas-sub-tbl-with-cases td:first-child {
-                min-width: 300px;
-                text-align: left;
-            }
-            body {
-                background: white;
-            }
-            </style>
-        """
-        return css_text
-
     def _make_image_from_plt(self, figure_name, destionation_directory=('rendered', 'images')):
         """
         make a png file from a matplotlib.pyplot object and save it to a directory
@@ -286,27 +239,6 @@ class GraphicsRenderer(Logger):
                 ]))
         plt.savefig(img_name, bbox_inches='tight', facecolor='white')
         return
-
-    @staticmethod
-    def display_side_by_side(*args, titles=(), caption=None):
-        html_str = ''
-        html_str += '<table class="pandas-tbl"><tr>'
-        if caption:
-            html_str += f'<caption>{caption}</caption>'
-        for idx, (df, title) in enumerate(zip(args, chain(titles, cycle(['', ])))):
-            html_str += '<th style="text-align:center"><td style="vertical-align:top">'
-            if not title:
-                html_str += '<h2><span class="placeholder-span">ht</span></h2>'
-            else:
-                html_str += f'<h2>{title}</h2>'
-            if idx == 0:
-                class_val = 'pandas-sub-tbl-with-cases'
-            else:
-                class_val = 'pandas-sub-tbl'
-            html_str += df.to_html(index=False, classes=class_val).replace('table', 'table style="display:inline"')
-            html_str += '</td></th>'
-        html_str += '</tr></table>'
-        return display_html(html_str, raw=True)
 
     def render_section_5_2a_table_b_8_1(
             self,
@@ -454,11 +386,10 @@ class GraphicsRenderer(Logger):
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             tmp_data = []
             for surface in surfaces:
-                if json_obj.get('annual_solar_radiation_direct_and_diffuse') and json_obj[
-                        'annual_solar_radiation_direct_and_diffuse']['600']['Surface'].get(surface):
+                try:
                     tmp_data.append(
-                        json_obj['annual_solar_radiation_direct_and_diffuse']['600']['Surface'][surface].get('kWh/m2'))
-                else:
+                        json_obj['solar_radiation_annual_incident']['600']['Surface'][surface].get('kWh/m2'))
+                except (KeyError, ValueError):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
@@ -477,6 +408,84 @@ class GraphicsRenderer(Logger):
         self._make_image_from_plt('section_5_2_a_figure_b_8_1')
         return fig, ax
 
+    def render_section_5_2a_figure_b_8_2(self):
+        """
+        Render Section 5 2A Figure B8-2 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
+        width = 0.1
+        data = []
+        cases = ['600', '620', '660', '670']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    (_, tmp_d), = \
+                        json_obj['solar_radiation_unshaded_annual_transmitted'][case].get('Surface').items()
+                    tmp_data.append(tmp_d['kWh/m2'])
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        ax.set_xticks(np.arange(max([len(i) for i in data])))
+        ax.set_title('Figure B8-2.  Annual Transmitted Solar Radiation - Unshaded', fontsize=30)
+        ax.set_xticklabels([
+            '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'
+        ])
+        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
+            x = np.arange(len(d))
+            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
+            ax.bar_label(rects, padding=5, rotation="vertical")
+        ax.grid(which='major', axis='y')
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
+        ax.set_ylim(0, 1250)
+        fig.patch.set_facecolor('white')
+        self._make_image_from_plt('section_5_2_a_figure_b_8_2')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_3(self):
+        """
+        Render Section 5 2A Figure B8-3 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
+        width = 0.1
+        data = []
+        cases = ['610', '630']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    (_, tmp_d), = \
+                        json_obj['solar_radiation_shaded_annual_transmitted'][case].get('Surface').items()
+                    tmp_data.append(tmp_d['kWh/m2'])
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        ax.set_xticks(np.arange(max([len(i) for i in data])))
+        ax.set_title('Figure B8-3.  Annual Transmitted Solar Radiation - Shaded', fontsize=30)
+        ax.set_xticklabels([
+            '610 SOUTH', '630 WEST'
+        ])
+        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
+            x = np.arange(len(d))
+            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
+            ax.bar_label(rects, padding=5, rotation="vertical")
+        ax.grid(which='major', axis='y')
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
+        ax.set_ylim(0, 800)
+        fig.patch.set_facecolor('white')
+        self._make_image_from_plt('section_5_2_a_figure_b_8_3')
+        return fig, ax
+
     def render_section_5_2a_figure_b_8_9(self):
         """
         Render Section 5 2A Figure B8-9 by modifying fig an ax inputs from matplotlib
@@ -491,10 +500,9 @@ class GraphicsRenderer(Logger):
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             tmp_data = []
             for case in cases:
-                if json_obj.get('conditioned_zone_loads_non_free_float') and json_obj[
-                        'conditioned_zone_loads_non_free_float'].get(case):
+                try:
                     tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('peak_heating_kW'))
-                else:
+                except (KeyError, ValueError):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])

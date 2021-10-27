@@ -1,25 +1,4 @@
 {
-    "annual_solar_radiation_direct_and_diffuse": {
-        "600": {
-            "Surface": {
-                "EAST": {
-                    "kWh/m2": 1054.24
-                },
-                "HORZ.": {
-                    "kWh/m2": 1665.18
-                },
-                "NORTH": {
-                    "kWh/m2": 432.12
-                },
-                "SOUTH": {
-                    "kWh/m2": 1363.1
-                },
-                "WEST": {
-                    "kWh/m2": 961.18
-                }
-            }
-        }
-    },
     "conditioned_zone_loads_non_free_float": {
         "195": {
             "annual_cooling_MWh": 0.611,
@@ -1046,6 +1025,73 @@
                 "C": -46.9,
                 "Hour": 23,
                 "Month": "Dec"
+            }
+        }
+    },
+    "solar_radiation_annual_incident": {
+        "600": {
+            "Surface": {
+                "EAST": {
+                    "kWh/m2": 1054.24
+                },
+                "HORZ.": {
+                    "kWh/m2": 1665.18
+                },
+                "NORTH": {
+                    "kWh/m2": 432.12
+                },
+                "SOUTH": {
+                    "kWh/m2": 1363.1
+                },
+                "WEST": {
+                    "kWh/m2": 961.18
+                }
+            }
+        }
+    },
+    "solar_radiation_shaded_annual_transmitted": {
+        "610": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 631.33
+                }
+            }
+        },
+        "630": {
+            "Surface": {
+                "West": {
+                    "kWh/m2": 389.67
+                }
+            }
+        }
+    },
+    "solar_radiation_unshaded_annual_transmitted": {
+        "600": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 813.88
+                }
+            }
+        },
+        "620": {
+            "Surface": {
+                "West": {
+                    "kWh/m2": 591.88
+                }
+            }
+        },
+        "660": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 442.7
+                }
+            }
+        },
+        "670": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 1028.35
+                }
             }
         }
     }
