@@ -318,91 +318,114 @@ class GraphicsRenderer(Logger):
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        table_html = None
-        msg = None
-        try:
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float']\
-                .loc[
-                    :,
-                    self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1) == output_value]
-            df.columns = df.columns.droplevel(level=1)
-            # round values
-            df = df.round(3)
-            df_formatted_table = df.unstack()\
-                .reset_index()\
-                .rename(columns={0: 'val'})\
-                .pivot(index=['level_0'], columns=['program_name', ], values=['val', ])\
-                .reset_index()
-            df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
-            df_formatted_table_column_names = [i for i in df_formatted_table.columns]
-            df_formatted_table_column_names[0] = 'cases'
-            df_formatted_table.columns = df_formatted_table_column_names
-            # Create calculated columns df and append them to the base table.
-            df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1).round(3)
-            df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1).round(3)
-            df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1).round(3)
-            df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
-                lambda x: np.nan if x.col_mean == 0 else abs((x.col_max - x.col_min) / x.col_mean), axis=1).round(3)
-            # rename cases by joining the detailed description table and re-order them
-            df_formatted_table = df_formatted_table\
-                .merge(
-                    self.case_detailed_df,
-                    how='left',
-                    left_on=['cases', ],
-                    right_index=True)\
-                .sort_values(['case_order'])\
-                .drop(['cases', 'case_order'], axis=1)\
-                .rename(columns={
-                    'case_name': 'cases',
-                    'col_min': 'min',
-                    'col_max': 'max',
-                    'col_mean': 'mean'})
-            # reorder dataframe columns
-            column_list = ['cases', ] + [i for i in df_formatted_table.columns if i != 'cases' and i != self.model_name] + \
-                [self.model_name, ]
-            df_formatted_table = df_formatted_table[column_list]
-            # Rename model columns to cleansed names
-            df_formatted_table.columns = [
-                self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
-                else i
-                for i in df_formatted_table.columns]
-            # set fig size
-            fig, ax = plt.subplots(
-                nrows=1,
-                ncols=1,
-                figsize=(22, 11))
-            df_formatted_table.columns = ['\n'.join(wrap(i, 8)) for i in df_formatted_table.columns]
-            tab = ax.table(cellText=df_formatted_table.values, colLabels=df_formatted_table.columns, zorder=1,
-                           bbox=[0, 0, 1, 1], edges='open')
-            ax.axis('tight')
-            ax.axis('off')
-            # make a rectangle with white color for the background color
-            # set font manually
-            tab.auto_set_font_size(False)
-            tab.set_fontsize(12)
-            cell_dict = tab.get_celld()
-            for i in range(len(df_formatted_table.columns)):
-                cell_dict[(0, i)].set_height(0.8)
-                cell_dict[(0, i)].set_fontsize(16)
-                cell_dict[(0, 0)].set_width(2)
-                cell_dict[(0, i)].set_width(0.5)
-                cell_dict[(0, i)].visible_edges = 'closed'
-                for j in range(1, df_formatted_table.shape[0] + 1):
-                    cell_dict[(j, 0)].set_width(2)
-                    cell_dict[(j, 0)].set_text_props(ha="left")
-                    cell_dict[(j, 0)].PAD = 0.01
-                    cell_dict[(j, i)].set_width(0.5)
-                    cell_dict[(j, i)].set_height(0.1)
-            # save the result
-            ax.axis([0, 1, 0, 1])
-            ax.axvline(x=5 / 7.5, color='black', linewidth=4, zorder=3)
-            ax.set_title(caption, fontsize=30)
-            self._make_image_from_plt(figure_name)
-        except KeyError:
-            msg = 'Section 5-2A B8-1 Failed to be processed'
-        return table_html, msg
+        # get and format dataframe into required shape
+        df = self.df_data['conditioned_zone_loads_non_free_float']\
+            .loc[
+                :,
+                self.df_data['conditioned_zone_loads_non_free_float']
+                    .columns.get_level_values(1) == output_value]
+        df.columns = df.columns.droplevel(level=1)
+        # round values
+        df = df.round(3)
+        df_formatted_table = df.unstack()\
+            .reset_index()\
+            .rename(columns={0: 'val'})\
+            .pivot(index=['level_0'], columns=['program_name', ], values=['val', ])\
+            .reset_index()
+        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+        df_formatted_table_column_names = [i for i in df_formatted_table.columns]
+        df_formatted_table_column_names[0] = 'cases'
+        df_formatted_table.columns = df_formatted_table_column_names
+        # Create calculated columns df and append them to the base table.
+        df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1).round(3)
+        df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1).round(3)
+        df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1).round(3)
+        df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
+            lambda x: '' if x.col_mean == 0 else '{:.2%}'.format(abs((x.col_max - x.col_min) / x.col_mean)), axis=1)
+        # rename cases by joining the detailed description table and re-order them
+        df_formatted_table = df_formatted_table\
+            .merge(
+                self.case_detailed_df,
+                how='left',
+                left_on=['cases', ],
+                right_index=True)\
+            .sort_values(['case_order'])\
+            .drop(['cases', 'case_order'], axis=1)\
+            .rename(columns={
+                'case_name': 'Case',
+                'col_min': 'min',
+                'col_max': 'max',
+                'col_mean': 'mean'})
+        # reorder dataframe columns
+        column_list = ['Case', ] + \
+                      [i for i in df_formatted_table.columns if i != 'Case' and i != self.model_name] + \
+                      [self.model_name, ]
+        df_formatted_table = df_formatted_table[column_list]
+        # Rename model columns to cleansed names
+        df_formatted_table.columns = [
+            self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
+            else i
+            for i in df_formatted_table.columns]
+        df_formatted_table.columns = ['\n'.join(wrap(i, 8)) for i in df_formatted_table.columns]
+        # set fig size
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(22, 20))
+        tab = ax.table(
+            cellText=df_formatted_table.values,
+            colLabels=df_formatted_table.columns,
+            zorder=1,
+            bbox=[0, 0, 1, 1],
+            edges='LR')
+        ax.axis('tight')
+        ax.axis('off')
+        # set font
+        tab.auto_set_font_size(False)
+        tab.set_fontsize(12)
+        # set cell properties individually
+        cell_dict = tab.get_celld()
+        for i in range(len(df_formatted_table.columns)):
+            cell_dict[(0, i)].set_height(1)
+            cell_dict[(0, i)].set_fontsize(16)
+            cell_dict[(0, 0)].set_width(2)
+            cell_dict[(0, i)].set_width(0.5)
+            cell_dict[(0, i)].visible_edges = 'closed'
+            for j in range(1, df_formatted_table.shape[0] + 1):
+                cell_dict[(j, 0)].set_width(2)
+                cell_dict[(j, 0)].set_text_props(ha="left")
+                cell_dict[(j, 0)].PAD = 0.02
+                cell_dict[(j, i)].set_width(0.5)
+                cell_dict[(j, i)].set_height(0.25)
+        ax.axis([0, 1, 1, 0])
+        # set outer borders
+        ax.axhline(y=0, color='black', linewidth=4, zorder=3)
+        ax.axhline(y=1, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=0, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=1, color='black', linewidth=4, zorder=3)
+        # set inner borders
+        ax.axvline(x=5 / 7.5, color='black', linewidth=2, zorder=3)
+        ax.axvline(x=7 / 7.5, color='black', linewidth=3, zorder=3)
+        ax.axvline(x=5 / 7.5, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=15 / 50, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=25 / 50, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=39 / 50, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=48 / 50, color='black', linewidth=2, zorder=3)
+        # Set annotations
+        header = [tab.add_cell(-1, h, width=0.5, height=0.35) for h in range(7, 11)]
+        header[0].get_text().set_text('Statistics for Example Results')
+        header[0].PAD = 0.5
+        header[0].set_fontsize(16)
+        header[0].set_text_props(ha="left")
+        header[0].visible_edges = "open"
+        header[1].visible_edges = "open"
+        header[2].visible_edges = "open"
+        header[3].visible_edges = "open"
+        # save the result
+        plt.suptitle(caption, fontsize=30)
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
+        return fig, ax
 
     def render_section_5_2a_table_b_8_2(self):
         """
