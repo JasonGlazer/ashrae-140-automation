@@ -5,8 +5,6 @@ import re
 import pandas as pd
 import numpy as np
 import math
-from IPython.display import display_html
-from itertools import chain, cycle
 from textwrap import wrap
 import matplotlib.pyplot as plt
 
@@ -218,6 +216,74 @@ class GraphicsRenderer(Logger):
         fig.tight_layout()
         return fig, ax
 
+    def _create_bar_plot(self, data, programs, title, xticklabels, ylabel, width=0.1, y_plot_pad=0.1, image_name=None):
+        """
+        Create Bar plot from data input.
+
+        :param data: bar values in nested lists. The number of sublists is the number of programs evaluated.
+          The length of each sublist must be the same and is the number of cases evaluated.
+        :param programs: list of tested programs
+        :param title: plot title
+        :param xticklabels: labels to use for each case evaluated
+        :param ylabel: y axis plot label
+        :param width: width of bars
+        :param y_plot_pad: padding between the highest bar and the top of the plot
+        :param image_name: unique name to store the plot as a png
+        :return: matplotlib fig and ax objects.
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
+        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
+            x = np.arange(len(d))
+            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
+            ax.bar_label(rects, padding=5, rotation="vertical")
+        ax.set_xticks(np.arange(max([len(i) for i in data])))
+        ax.grid(which='major', axis='y')
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_title(title, fontsize=30)
+        ax.set_xticklabels(xticklabels)
+        ax.set_ylabel(ylabel, fontsize=14)
+        ax.set_ylim(0, max([max(d) for d in data]) * (1 + y_plot_pad))
+        fig.patch.set_facecolor('white')
+        if image_name:
+            self._make_image_from_plt(image_name)
+        return fig, ax
+
+    def _create_line_plot(self, data_x, data_y, programs, title, ylabel, image_name=None):
+        """
+        Create line plot from data input.
+
+        :param data_x: x values in nested lists. The number of sublists is the number of programs evaluated. The length
+            of each sublist is the number of x coordinate data points and must be the same length as the correspoding
+            sublist in data_y.
+        :param data_y: x values in nested lists.  The number of sublists is the number of programs evaluated. The length
+            of each sublist is the number of x coordinate data points and must be the same length as the correspoding
+            sublist in data_x.
+        :param programs: list of tested programs
+        :param title: plot title
+        :param ylabel: y axis plot label
+        :param image_name: unique name to store the plot as a png
+        :return: matplotlib fig and ax objects.
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
+        # Add line plots for each program
+        for dx, dy, p, c, m in zip(data_x, data_y, programs, self.colors, self.markers):
+            ax.plot(dx, dy, color=c, marker=m, label=p)
+        # Format plot area
+        ax.grid(which='major', axis='y')
+        # get minimum/maximum of all x rounded to nearest ten, then increment by 5
+        ax.set_xticks(np.arange(
+            math.floor(min([min(i) for i in data_x]) / 10) * 10,
+            math.ceil(max([max(i) for i in data_x]) / 10) * 10,
+            5))
+        ax.set_title(title, fontsize=30)
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_ylabel(ylabel, fontsize=14)
+        if image_name:
+            self._make_image_from_plt(image_name)
+        return fig, ax
+
     def _make_image_from_plt(self, figure_name, destionation_directory=('rendered', 'images')):
         """
         make a png file from a matplotlib.pyplot object and save it to a directory
@@ -377,9 +443,6 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
-        width = 0.1
         data = []
         surfaces = ['HORZ.', 'NORTH', 'EAST', 'SOUTH', 'WEST']
         programs = []
@@ -393,19 +456,13 @@ class GraphicsRenderer(Logger):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
-        ax.set_xticks(np.arange(max([len(i) for i in data])))
-        ax.set_title('Figure B8-1.  Annual Incident Solar Radiation', fontsize=30)
-        ax.set_xticklabels(['600 ' + i for i in surfaces])
-        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-            x = np.arange(len(d))
-            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
-            ax.bar_label(rects, padding=5, rotation="vertical")
-        ax.grid(which='major', axis='y')
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
-        ax.set_ylim(0, 2000)
-        fig.patch.set_facecolor('white')
-        self._make_image_from_plt('section_5_2_a_figure_b_8_1')
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-1.  Annual Incident Solar Radiation',
+            xticklabels=['600 ' + i for i in surfaces],
+            ylabel='Diffuse + Direct ($kWh/m^2$)',
+            image_name='section_5_2_a_figure_b_8_1')
         return fig, ax
 
     def render_section_5_2a_figure_b_8_2(self):
@@ -413,9 +470,6 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-2 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
-        width = 0.1
         data = []
         cases = ['600', '620', '660', '670']
         programs = []
@@ -430,21 +484,14 @@ class GraphicsRenderer(Logger):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
-        ax.set_xticks(np.arange(max([len(i) for i in data])))
-        ax.set_title('Figure B8-2.  Annual Transmitted Solar Radiation - Unshaded', fontsize=30)
-        ax.set_xticklabels([
-            '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'
-        ])
-        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-            x = np.arange(len(d))
-            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
-            ax.bar_label(rects, padding=5, rotation="vertical")
-        ax.grid(which='major', axis='y')
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
-        ax.set_ylim(0, 1250)
-        fig.patch.set_facecolor('white')
-        self._make_image_from_plt('section_5_2_a_figure_b_8_2')
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-2.  Annual Transmitted Solar Radiation - Unshaded',
+            xticklabels=[
+                '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'],
+            ylabel='Diffuse + Direct ($kWh/m^2$)',
+            image_name='section_5_2_a_figure_b_8_2')
         return fig, ax
 
     def render_section_5_2a_figure_b_8_3(self):
@@ -452,9 +499,6 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-3 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
-        width = 0.1
         data = []
         cases = ['610', '630']
         programs = []
@@ -469,21 +513,49 @@ class GraphicsRenderer(Logger):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
-        ax.set_xticks(np.arange(max([len(i) for i in data])))
-        ax.set_title('Figure B8-3.  Annual Transmitted Solar Radiation - Shaded', fontsize=30)
-        ax.set_xticklabels([
-            '610 SOUTH', '630 WEST'
-        ])
-        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-            x = np.arange(len(d))
-            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
-            ax.bar_label(rects, padding=5, rotation="vertical")
-        ax.grid(which='major', axis='y')
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
-        ax.set_ylim(0, 800)
-        fig.patch.set_facecolor('white')
-        self._make_image_from_plt('section_5_2_a_figure_b_8_3')
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-3.  Annual Transmitted Solar Radiation - Shaded',
+            xticklabels=[
+                '610 SOUTH', '630 WEST'],
+            ylabel='Diffuse + Direct ($kWh/m^2$)',
+            image_name='section_5_2_a_figure_b_8_3')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_4(self):
+        """
+        Render Section 5 2A Figure B8-4 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        cases = ['600', '620', '660', '670']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    (surface, unshaded_d), = \
+                        json_obj['solar_radiation_unshaded_annual_transmitted'][case].get('Surface').items()
+                    for sub_surfaces in json_obj['solar_radiation_annual_incident'].values():
+                        for sub_surface, vals in sub_surfaces['Surface'].items():
+                            if sub_surface.lower() == surface.lower():
+                                incident_surface_value = vals['kWh/m2']
+                                tmp_data.append(unshaded_d['kWh/m2'] / incident_surface_value)
+                                break
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-4.  Annual Transmissivity Coefficient of Windows \n'
+                  '(Unshaded Transmitted)/(Incident Solar Radiation)',
+            xticklabels=[
+                '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'],
+            ylabel='Transmissivity Coefficient',
+            image_name='section_5_2_a_figure_b_8_4')
         return fig, ax
 
     def render_section_5_2a_figure_b_8_9(self):
@@ -491,10 +563,7 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
         cases = ['395', '430', '600', '610', '620', '630', '640', '650']
-        width = 0.1
         data = []
         programs = []
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
@@ -506,21 +575,15 @@ class GraphicsRenderer(Logger):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
-        ax.set_xticks(np.arange(max([len(i) for i in data])))
-        ax.set_title('Figure B8-9.  Basic: Low Mass Peak Heating', fontsize=30)
-        ax.set_xticklabels(
-            [
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-9.  Basic: Low Mass Peak Heating',
+            xticklabels=[
                 '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
-                for i in cases])
-        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-            x = np.arange(len(d))
-            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
-            ax.bar_label(rects, padding=5, rotation="vertical")
-        ax.grid(which='major', axis='y')
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Peak Heating Load (kWh/h)', fontsize=14)
-        ax.set_ylim(0, 5)
-        self._make_image_from_plt('section_5_2_a_figure_b_8_9')
+                for i in cases],
+            ylabel='Peak Heating Load (kWh/h)',
+            image_name='section_5_2_a_figure_b_8_9')
         return fig, ax
 
     def render_section_5_2a_figure_b8_17(self):
@@ -684,8 +747,6 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
         data_x = []
         data_y = []
         programs = []
@@ -719,24 +780,17 @@ class GraphicsRenderer(Logger):
                 except (TypeError, KeyError):
                     data_x.append([])
                     data_y.append([])
-        # Add line plots for each program
-        for dx, dy, p, c, m in zip(data_x, data_y, programs, self.colors, self.markers):
-            ax.plot(dx, dy, color=c, marker=m, label=p)
-        # Format plot area
-        ax.grid(which='major', axis='y')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency',
+            ylabel='Number of Occurrences',
+            image_name='section_5_2_a_figure_b_8_h1')
         ax.set_yticks(np.arange(0, 500, 100))
-        # get minimum/maximum of all x rounded to nearest ten, then increment by 5
-        ax.set_xticks(np.arange(
-            math.floor(min([min(i) for i in data_x]) / 10) * 10,
-            math.ceil(max([max(i) for i in data_x]) / 10) * 10,
-            5))
-        ax.set_title('Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency', fontsize=30)
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Number of Occurrences', fontsize=14)
         ax.set_xlim(-5, 55)
         ax.set_ylim(0, 500)
         ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
-        self._make_image_from_plt('section_5_2_a_figure_b_8_h1')
         return fig, ax
 
     def render_section_5_2b_table_b_8_2_1(
