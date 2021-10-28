@@ -243,7 +243,11 @@ class GraphicsRenderer(Logger):
         ax.set_title(title, fontsize=30)
         ax.set_xticklabels(xticklabels)
         ax.set_ylabel(ylabel, fontsize=14)
-        ax.set_ylim(0, max([max(d) for d in data]) * (1 + y_plot_pad))
+        ymin = min([i for i in map(min, data) if not np.isnan(i)])
+        ymax = max([i for i in map(max, data) if not np.isnan(i)])
+        ax.set_ylim(
+            ymin - abs(ymin * y_plot_pad),
+            ymax + abs(ymax * y_plot_pad))
         fig.patch.set_facecolor('white')
         if image_name:
             self._make_image_from_plt(image_name)
@@ -558,6 +562,69 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b_8_4')
         return fig, ax
 
+    def render_section_5_2a_figure_b_8_5(self):
+        """
+        Render Section 5 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    1 - (
+                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2'] /
+                        json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']['kWh/m2']
+                    ))
+                tmp_data.append(
+                    1 - (
+                            json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2'] /
+                            json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West']['kWh/m2']
+                    ))
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-5. \nAnnual Overhang and Fin Shading Coefficients \n'
+                  '(1-(Shaded)/(Unshaded)) Transmitted Solar Radiation',
+            xticklabels=[
+                '(1 - Case610 / Case600) SOUTH', '(1 - Case630 / Case620) WEST'],
+            ylabel='Shading Coefficient',
+            image_name='section_5_2_a_figure_b_8_5')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_6(self):
+        """
+        Render Section 6 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(json_obj['sky_temperature_output']['600']['Average']['C'])
+                tmp_data.append(json_obj['sky_temperature_output']['600']['Minimum']['C'])
+                tmp_data.append(json_obj['sky_temperature_output']['600']['Maximum']['C'])
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-6. \nAverage, Minimum and Maximum Sky Temperature \nCase 600',
+            xticklabels=[
+                'Average', 'Minimum', 'Maximum'],
+            ylabel='Shading Coefficient',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b_8_6')
+        return fig, ax
+
     def render_section_5_2a_figure_b_8_9(self):
         """
         Render Section 5 2A Figure B8-9 by modifying fig an ax inputs from matplotlib
@@ -595,7 +662,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._set_theme(fig, ax)
         cases = ['600', '610', '620', '900', '920', '930']
         width = 0.1
-        data_lists = [[] for n in range(3)]
+        data_lists = [[] for _ in range(3)]
         programs = []
         xticklabels = [
             [
@@ -722,7 +789,13 @@ class GraphicsRenderer(Logger):
         for didx, data in enumerate(data_lists):
             for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
                 x = np.arange(len(d))
-                rects = ax[didx].bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
+                rects = ax[didx].bar(
+                    x + (width * idx) - (width / 2 * (len(data) - 1)),
+                    d,
+                    width,
+                    label=p,
+                    hatch=h,
+                    fill=None)
                 ax[didx].bar_label(rects, padding=5, rotation="vertical")
                 ax[didx].grid(which='major', axis='y')
                 ax[didx].set_xticks(np.arange(max([len(i) for i in data])))
