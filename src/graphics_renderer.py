@@ -574,13 +574,15 @@ class GraphicsRenderer(Logger):
             try:
                 tmp_data.append(
                     1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2'] /
-                        json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']['kWh/m2']
+                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']
+                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']
+                        ['kWh/m2']
                     ))
                 tmp_data.append(
                     1 - (
-                            json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2'] /
-                            json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West']['kWh/m2']
+                        json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']
+                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']
+                        ['West']['kWh/m2']
                     ))
             except (KeyError, ValueError):
                 tmp_data.append(None)
