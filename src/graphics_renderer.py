@@ -216,7 +216,9 @@ class GraphicsRenderer(Logger):
         fig.tight_layout()
         return fig, ax
 
-    def _create_bar_plot(self, data, programs, title, xticklabels, ylabel, width=0.1, y_plot_pad=0.1, image_name=None):
+    def _create_bar_plot(
+            self, data, programs, title, xticklabels, ylabel, width=0.1, y_plot_pad=0.1,
+            y_max=None, y_min=None, image_name=None):
         """
         Create Bar plot from data input.
 
@@ -228,6 +230,8 @@ class GraphicsRenderer(Logger):
         :param ylabel: y axis plot label
         :param width: width of bars
         :param y_plot_pad: padding between the highest bar and the top of the plot
+        :param y_max: maximum override for y axis
+        :param y_min: minimum override for y axis
         :param image_name: unique name to store the plot as a png
         :return: matplotlib fig and ax objects.
         """
@@ -257,9 +261,75 @@ class GraphicsRenderer(Logger):
         ax.set_title(title, fontsize=30)
         ax.set_xticklabels(xticklabels)
         ax.set_ylabel(ylabel, fontsize=14)
-        ymin = min([i for i in map(min, data) if not np.isnan(i)])
-        ymax = max([i for i in map(max, data) if not np.isnan(i)])
+        ymin = y_min or min([i for i in map(min, data) if not np.isnan(i)])
+        ymax = y_max or max([i for i in map(max, data) if not np.isnan(i)])
         ax.set_ylim(
+            ymin - abs(ymin * y_plot_pad),
+            ymax + abs(ymax * y_plot_pad))
+        fig.patch.set_facecolor('white')
+        if image_name:
+            self._make_image_from_plt(image_name)
+        return fig, ax
+
+    def _create_split_bar_plot(
+            self, data, programs, title, xticklabels, ylabel, width=0.1, y_plot_pad=0.1,
+            sub_titles=None, y_max=None, y_min=None, image_name=None):
+        """
+        Create split bar plot from data input.
+
+        :param data: bar values in nested lists.
+            sublist level 0 - number of split plots
+            sublist level 1 - number of programs evaluated
+            sublist level 2 - number of cases evaluated
+        :param programs: list of tested programs
+        :param title: plot title
+        :param sub_titles: subplot titles
+        :param xticklabels: labels to use for each case evaluated
+        :param ylabel: y axis plot label
+        :param width: width of bars
+        :param y_plot_pad: padding between the highest bar and the top of the plot
+        :param y_max: maximum override for y axis
+        :param y_min: minimum override for y axis
+        :param image_name: unique name to store the plot as a png
+        :return: matplotlib fig and ax objects.
+        """
+        fig, ax = plt.subplots(1, len(data), figsize=(18, 8), sharex='none', sharey='all')
+        fig, ax = self._set_theme(fig, ax)
+        for didx, sub_data in enumerate(data):
+            for idx, (p, d, h) in enumerate(zip(programs, sub_data, self.hatches)):
+                x = np.arange(len(d))
+                # Fill the tested software bar color.  In case there is some duplicate, only fill the last one.
+                if p.lower() == \
+                        self.json_data[self.model_name]['identifying_information']['software_name'].lower() and idx + 1 == \
+                        len(programs):
+                    bar_color = 'r'
+                else:
+                    bar_color = None
+                rects = ax[didx].bar(
+                    x + (width * idx) - (width / 2 * (len(sub_data) - 1)),
+                    d,
+                    width,
+                    label=p,
+                    hatch=h,
+                    fill=bar_color)
+                ax[didx].bar_label(rects, padding=5, rotation="vertical")
+                ax[didx].grid(which='major', axis='y')
+                ax[didx].set_xticks(np.arange(max([len(i) for i in sub_data])))
+                ax[didx].set_xticklabels(
+                    ['\n'.join(wrap(i, 15)) for i in xticklabels[didx]]
+                )
+                if sub_titles:
+                    ax[didx].set_title(sub_titles[didx], fontsize=18)
+        # set legend for all plots
+        ax.flatten()[-2].legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=len(programs), fontsize=16)
+        # Make title, adjust plots, and set y values
+        fig.suptitle(title, fontsize=30, y=0.9)
+        if sub_titles:
+            fig.subplots_adjust(top=0.8, wspace=0.001)
+        ax[0].set_ylabel(ylabel, fontsize=14)
+        ymin = y_min or min([j for i in data for j in map(min, i) if not np.isnan(j)])
+        ymax = y_max or max([j for i in data for j in map(max, i) if not np.isnan(j)])
+        ax[0].set_ylim(
             ymin - abs(ymin * y_plot_pad),
             ymax + abs(ymax * y_plot_pad))
         fig.patch.set_facecolor('white')
@@ -865,42 +935,111 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b_8_14')
         return fig, ax
 
+    def render_section_5_2a_figure_b_8_15(self):
+        """
+        Render Section 5 2A Figure B8-15 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('annual_heating_MWh')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('annual_cooling_MWh')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('annual_heating_MWh')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('annual_cooling_MWh')
+                )
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-15. Basic and In-Depth:\nSouth Window (Delta)\n'
+                  'Annual Heating and Sensible Cooling',
+            xticklabels=[
+                '600-430 Low Mass, Heating S. Window', '600-430 Low Mass, Cooling S. Window',
+                '900-800 High Mass, Heating S. Window', '900-800 High Mass, Cooling S. Window'
+            ],
+            ylabel='Load Difference (MWh)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b_8_15')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_16(self):
+        """
+        Render Section 5 2A Figure B8-16 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('peak_heating_kW') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('peak_heating_kW')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('peak_cooling_kW') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('peak_cooling_kW')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('peak_heating_kW') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('peak_heating_kW')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('peak_cooling_kW') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('peak_cooling_kW')
+                )
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-16. Basic and In-Depth:\nSouth Window (Delta)\n'
+                  'Peak Heating and Sensible Cooling',
+            xticklabels=[
+                '600-430 Low Mass, Heating S. Window', '600-430 Low Mass, Cooling S. Window',
+                '900-800 High Mass, Heating S. Window', '900-800 High Mass, Cooling S. Window'
+            ],
+            ylabel='Load Difference (kWh/h)',
+            y_plot_pad=0.3,
+            y_min=-1,
+            image_name='section_5_2_a_figure_b_8_16')
+        return fig, ax
+
     def render_section_5_2a_figure_b8_17(self):
         """
         Render Section 5 2A Figure B8-17 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 3, figsize=(18, 8), sharex='none', sharey='all')
-        fig, ax = self._set_theme(fig, ax)
         cases = ['600', '610', '620', '900', '920', '930']
-        width = 0.1
         data_lists = [[] for _ in range(3)]
         programs = []
-        xticklabels = [
-            [
-                '610-600 Low Mass, S. Shade Heating',
-                '610-600 Low Mass, S. Shade Cooling',
-                '910-900 High Mass, S. Shade Heating',
-                '910-900 High Mass, S. Shade Cooling'
-            ],
-            [
-                '620-600 Low Mass, E&W Or., Heating',
-                '620-600 Low Mass, E&W Or., Cooling',
-                '920-900 High Mass, E&W Or., Heating',
-                '920-900 High Mass, E&W Or., Cooling',
-            ],
-            [
-                '630-620 Low Mass. E&W Shd., Heating',
-                '630-620 Low Mass. E&W Shd., Cooling',
-                '930-920 Low Mass. E&W Shd., Heating',
-                '930-920 Low Mass. E&W Shd., Cooling',
-            ]
-        ]
-        sub_title = [
-            'South Shading',
-            'East/West',
-            'E/W Shading'
-        ]
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             if json_obj.get('conditioned_zone_loads_non_free_float') and all([
                     case in json_obj['conditioned_zone_loads_non_free_float'].keys() for case in cases]):
@@ -998,33 +1137,39 @@ class GraphicsRenderer(Logger):
                     tmp_data.append(None)
                 data_lists[2].insert(idx, tmp_data)
                 programs.insert(idx, json_obj['identifying_information']['software_name'])
-        for didx, data in enumerate(data_lists):
-            for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-                x = np.arange(len(d))
-                rects = ax[didx].bar(
-                    x + (width * idx) - (width / 2 * (len(data) - 1)),
-                    d,
-                    width,
-                    label=p,
-                    hatch=h,
-                    fill=None)
-                ax[didx].bar_label(rects, padding=5, rotation="vertical")
-                ax[didx].grid(which='major', axis='y')
-                ax[didx].set_xticks(np.arange(max([len(i) for i in data])))
-                ax[didx].set_xticklabels(
-                    ['\n'.join(wrap(i, 15)) for i in xticklabels[didx]]
-                )
-                ax[didx].set_title(sub_title[didx], fontsize=18)
-        # set legend for all plots
-        ax.flatten()[-2].legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=len(programs), fontsize=16)
-        # Make title, adjust plots, and set y values
-        fig.suptitle('Figure B8-17. Basic: Window Shading and Orientation (Delta) '
-                     'Annual Heating and Sensible Cooling', fontsize=30, y=0.9)
-        fig.subplots_adjust(top=0.8, wspace=0.001)
-        ax[0].set_ylim(-2.5, 2.5)
-        ax[0].set_yticks(np.arange(-2.5, 2.5, 0.5))
-        ax[0].set_ylabel('Load Difference (MWh)', fontsize=14)
-        self._make_image_from_plt('section_5_2_a_figure_b_8_17')
+        fig, ax = self._create_split_bar_plot(
+            data=data_lists,
+            programs=programs,
+            title='Figure B8-17. Basic: Window Shading and Orientation (Delta) '
+                  'Annual Heating and Sensible Cooling',
+            sub_titles=[
+                'South Shading',
+                'East/West',
+                'E/W Shading'
+            ],
+            xticklabels=[
+                [
+                    '610-600 Low Mass, S. Shade Heating',
+                    '610-600 Low Mass, S. Shade Cooling',
+                    '910-900 High Mass, S. Shade Heating',
+                    '910-900 High Mass, S. Shade Cooling'
+                ],
+                [
+                    '620-600 Low Mass, E&W Or., Heating',
+                    '620-600 Low Mass, E&W Or., Cooling',
+                    '920-900 High Mass, E&W Or., Heating',
+                    '920-900 High Mass, E&W Or., Cooling',
+                ],
+                [
+                    '630-620 Low Mass. E&W Shd., Heating',
+                    '630-620 Low Mass. E&W Shd., Cooling',
+                    '930-920 Low Mass. E&W Shd., Heating',
+                    '930-920 Low Mass. E&W Shd., Cooling',
+                ]
+            ],
+            ylabel='Load Difference (MWh)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b_8_17')
         return fig, ax
 
     def render_section_5_2a_figure_b8_h1(self):
