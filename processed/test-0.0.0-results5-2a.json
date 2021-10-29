@@ -1014,17 +1014,17 @@
     "sky_temperature_output": {
         "600": {
             "Average": {
-                "C": NaN
+                "C": -2.02
             },
             "Maximum": {
-                "C": NaN,
-                "Hour": NaN,
-                "Month": NaN
+                "C": 24.73,
+                "Hour": 16,
+                "Month": "Aug"
             },
             "Minimum": {
-                "C": NaN,
-                "Hour": NaN,
-                "Month": NaN
+                "C": -37.98,
+                "Hour": 24,
+                "Month": "Dec"
             }
         }
     },
