@@ -1,11 +1,10 @@
 import pathlib
 import json
+import os
 import re
 import pandas as pd
 import numpy as np
 import math
-from IPython.display import display_html
-from itertools import chain, cycle
 from textwrap import wrap
 import matplotlib.pyplot as plt
 
@@ -23,9 +22,9 @@ class SectionType:
         return section_type
 
     def __set__(self, obj, value):
-        if re.match(r'^results5-2a.*', str(value), re.IGNORECASE):
+        if re.match(r'.*results5-2a\..*$', str(value), re.IGNORECASE):
             obj._section_type = '5-2A'
-        elif re.match(r'^results5-2b.*', str(value), re.IGNORECASE):
+        elif re.match(r'.*results5-2b\..*$', str(value), re.IGNORECASE):
             obj._section_type = '5-2B'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
@@ -122,23 +121,23 @@ class GraphicsRenderer(Logger):
         if not base_model_list:
             if self.section_type == '5-2A':
                 self.baseline_model_list = [
-                    'RESULTS5-2A-BSIMAC-9-9.0.74.json',
-                    'RESULTS5-2A-CSE-0.861.1.json',
-                    'RESULTS5-2A-DeST-2.0-20190401.json',
-                    'RESULTS5-2A-EnergyPlus-9.0.1.json',
-                    'RESULTS5-2A-ESP-r-13.3.json',
-                    'RESULTS5-2A-TRNSYS-18.00.0001.json']
+                    'bsimac-9.9.0.7.4-results5-2a.json',
+                    'cse-0.861.1-results5-2a.json',
+                    'dest-2.0.20190401-results5-2a.json',
+                    'energyplus-9.0.1-results5-2a.json',
+                    'esp-r-13.3-results5-2a.json',
+                    'trnsys-18.00.0001-results5-2a.json']
             elif self.section_type == '5-2B':
                 self.baseline_model_list = [
-                    'RESULTS5-2B-Basecalc-1.0e.json',
-                    'RESULTS5-2B-EnergyPlus-9.0.1.json',
-                    'RESULTS5-2B-ESP-r-0.json',
-                    'RESULTS5-2B-FLUENT-6.1.json',
-                    'RESULTS5-2B-GHT-2.02.json',
-                    'RESULTS5-2B-MATLAB-7.0.4.365-R14-SP2.json',
-                    'RESULTS5-2B-SUNREL-GC-1.14.02.json',
-                    'RESULTS5-2B-TRNSYS-16.1.json',
-                    'RESULTS5-2B-VA114-2.20.json'
+                    'basecalc-v1.0e-results5-2b.json',
+                    'energyplus-9.0.1-results5-2b.json',
+                    'esp-r-13.3-results5-2b.json',
+                    'fluent-6.1-results5-2b.json',
+                    'ght-2.02-results5-2b.json',
+                    'matlab-7.0.4.365-r14-sp2-results5-2b.json',
+                    'sunrel-gc-1.14.02-results5-2b.json',
+                    'trnsys-18.00.0001-results5-2b.json',
+                    'va114-2.20-results5-2b.json'
                 ]
         else:
             self.baseline_model_list = base_model_list
@@ -217,148 +216,302 @@ class GraphicsRenderer(Logger):
         fig.tight_layout()
         return fig, ax
 
-    @staticmethod
-    def _set_html_style():
+    def _create_bar_plot(
+            self, data, programs, title, xticklabels, ylabel, width=0.1, y_plot_pad=0.1,
+            y_max=None, y_min=None, image_name=None):
         """
-        Provide CSS styles for html output
-        :return: CSS style text
-        """
-        css_text = """
-            <style>
-            .jp-RenderedImage {
-                display: table-cell;
-                text-align: center;
-                vertical-align: middle;
-            }
-            .placeholder-span {
-                visibility: hidden;
-            }
-            .pandas-tbl h2 {
-                height: 25px;
-                line-height: 18px;
-                font-size: 18px;
-                text-align: center;
-            }
-            .pandas-tbl caption {
-                font-size: 20px;
-                font-weight: bold;
-                text-align: left;
-            }
-            .dataframe.pandas-sub-tbl th, .dataframe.pandas-sub-tbl-with-cases th {
-                height: 50px;
-                line-height: 14px;
-                font-size: 14px;
-                text-align: center;
-            }
-            .dataframe.pandas-sub-tbl td, .dataframe.pandas-sub-tbl-with-cases td {
-                font-size: 12px;
-            }
-            .dataframe.pandas-sub-tbl-with-cases td:first-child {
-                min-width: 300px;
-                text-align: left;
-            }
-            </style>
-        """
-        return css_text
+        Create Bar plot from data input.
 
-    @staticmethod
-    def display_side_by_side(*args, titles=(), caption=None):
-        html_str = ''
-        html_str += '<table class="pandas-tbl"><tr>'
-        if caption:
-            html_str += f'<caption>{caption}</caption>'
-        for idx, (df, title) in enumerate(zip(args, chain(titles, cycle(['', ])))):
-            html_str += '<th style="text-align:center"><td style="vertical-align:top">'
-            if not title:
-                html_str += '<h2><span class="placeholder-span">ht</span></h2>'
+        :param data: bar values in nested lists. The number of sublists is the number of programs evaluated.
+          The length of each sublist must be the same and is the number of cases evaluated.
+        :param programs: list of tested programs
+        :param title: plot title
+        :param xticklabels: labels to use for each case evaluated
+        :param ylabel: y axis plot label
+        :param width: width of bars
+        :param y_plot_pad: padding between the highest bar and the top of the plot
+        :param y_max: maximum override for y axis
+        :param y_min: minimum override for y axis
+        :param image_name: unique name to store the plot as a png
+        :return: matplotlib fig and ax objects.
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
+        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
+            x = np.arange(len(d))
+            # Fill the tested software bar color.  In case there is some duplicate, only fill the last one.
+            if p.lower() == \
+                    self.json_data[self.model_name]['identifying_information']['software_name'].lower() and idx + 1 == \
+                    len(programs):
+                bar_color = 'r'
             else:
-                html_str += f'<h2>{title}</h2>'
-            if idx == 0:
-                class_val = 'pandas-sub-tbl-with-cases'
-            else:
-                class_val = 'pandas-sub-tbl'
-            html_str += df.to_html(index=False, classes=class_val).replace('table', 'table style="display:inline"')
-            html_str += '</td></th>'
-        html_str += '</tr></table>'
-        return display_html(html_str, raw=True)
+                bar_color = None
+            rects = ax.bar(
+                x + (width * idx) - (width / 2 * (len(data) - 1)),
+                d,
+                width,
+                label=p,
+                hatch=h,
+                fill=bar_color,
+                edgecolor='k')
+            ax.bar_label(rects, padding=5, rotation="vertical")
+        ax.set_xticks(np.arange(max([len(i) for i in data])))
+        ax.grid(which='major', axis='y')
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_title(title, fontsize=30)
+        ax.set_xticklabels(xticklabels)
+        ax.set_ylabel(ylabel, fontsize=14)
+        ymin = y_min or min([i for i in map(min, data) if not np.isnan(i)])
+        ymax = y_max or max([i for i in map(max, data) if not np.isnan(i)])
+        ax.set_ylim(
+            ymin - abs(ymin * y_plot_pad),
+            ymax + abs(ymax * y_plot_pad))
+        fig.patch.set_facecolor('white')
+        if image_name:
+            self._make_image_from_plt(image_name)
+        return fig, ax
+
+    def _create_split_bar_plot(
+            self, data, programs, title, xticklabels, ylabel, width=0.1, y_plot_pad=0.1,
+            sub_titles=None, y_max=None, y_min=None, image_name=None):
+        """
+        Create split bar plot from data input.
+
+        :param data: bar values in nested lists.
+            sublist level 0 - number of split plots
+            sublist level 1 - number of programs evaluated
+            sublist level 2 - number of cases evaluated
+        :param programs: list of tested programs
+        :param title: plot title
+        :param sub_titles: subplot titles
+        :param xticklabels: labels to use for each case evaluated
+        :param ylabel: y axis plot label
+        :param width: width of bars
+        :param y_plot_pad: padding between the highest bar and the top of the plot
+        :param y_max: maximum override for y axis
+        :param y_min: minimum override for y axis
+        :param image_name: unique name to store the plot as a png
+        :return: matplotlib fig and ax objects.
+        """
+        fig, ax = plt.subplots(1, len(data), figsize=(18, 8), sharex='none', sharey='all')
+        fig, ax = self._set_theme(fig, ax)
+        for didx, sub_data in enumerate(data):
+            for idx, (p, d, h) in enumerate(zip(programs, sub_data, self.hatches)):
+                x = np.arange(len(d))
+                # Fill the tested software bar color.  In case there is some duplicate, only fill the last one.
+                if p.lower() == \
+                        self.json_data[self.model_name]['identifying_information']['software_name'].lower() and idx + 1 == \
+                        len(programs):
+                    bar_color = 'r'
+                else:
+                    bar_color = None
+                rects = ax[didx].bar(
+                    x + (width * idx) - (width / 2 * (len(sub_data) - 1)),
+                    d,
+                    width,
+                    label=p,
+                    hatch=h,
+                    fill=bar_color)
+                ax[didx].bar_label(rects, padding=5, rotation="vertical")
+                ax[didx].grid(which='major', axis='y')
+                ax[didx].set_xticks(np.arange(max([len(i) for i in sub_data])))
+                ax[didx].set_xticklabels(
+                    ['\n'.join(wrap(i, 15)) for i in xticklabels[didx]]
+                )
+                if sub_titles:
+                    ax[didx].set_title(sub_titles[didx], fontsize=18)
+        # set legend for all plots
+        ax.flatten()[-2].legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=len(programs), fontsize=16)
+        # Make title, adjust plots, and set y values
+        fig.suptitle(title, fontsize=30, y=0.9)
+        if sub_titles:
+            fig.subplots_adjust(top=0.8, wspace=0.001)
+        ax[0].set_ylabel(ylabel, fontsize=14)
+        ymin = y_min or min([j for i in data for j in map(min, i) if not np.isnan(j)])
+        ymax = y_max or max([j for i in data for j in map(max, i) if not np.isnan(j)])
+        ax[0].set_ylim(
+            ymin - abs(ymin * y_plot_pad),
+            ymax + abs(ymax * y_plot_pad))
+        fig.patch.set_facecolor('white')
+        if image_name:
+            self._make_image_from_plt(image_name)
+        return fig, ax
+
+    def _create_line_plot(self, data_x, data_y, programs, title, ylabel, image_name=None):
+        """
+        Create line plot from data input.
+
+        :param data_x: x values in nested lists. The number of sublists is the number of programs evaluated. The length
+            of each sublist is the number of x coordinate data points and must be the same length as the correspoding
+            sublist in data_y.
+        :param data_y: x values in nested lists.  The number of sublists is the number of programs evaluated. The length
+            of each sublist is the number of x coordinate data points and must be the same length as the correspoding
+            sublist in data_x.
+        :param programs: list of tested programs
+        :param title: plot title
+        :param ylabel: y axis plot label
+        :param image_name: unique name to store the plot as a png
+        :return: matplotlib fig and ax objects.
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+        fig, ax = self._set_theme(fig, ax)
+        # Add line plots for each program
+        for dx, dy, p, c, m in zip(data_x, data_y, programs, self.colors, self.markers):
+            ax.plot(dx, dy, color=c, marker=m, label=p)
+        # Format plot area
+        ax.grid(which='major', axis='y')
+        # get minimum/maximum of all x rounded to nearest ten, then increment by 5
+        ax.set_xticks(np.arange(
+            math.floor(min([min(i) for i in data_x]) / 10) * 10,
+            math.ceil(max([max(i) for i in data_x]) / 10) * 10,
+            5))
+        ax.set_title(title, fontsize=30)
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
+        ax.set_ylabel(ylabel, fontsize=14)
+        if image_name:
+            self._make_image_from_plt(image_name)
+        return fig, ax
+
+    def _make_image_from_plt(self, figure_name, destionation_directory=('rendered', 'images')):
+        """
+        make a png file from a matplotlib.pyplot object and save it to a directory
+
+        :param figure_name: name of figure to append to file name
+        :param destionation_directory: list of directories leading to the output directory
+        :return: saved image in referenced directory
+        """
+        img_name = root_directory.joinpath(
+            *destionation_directory,
+            '.'.join(
+                [
+                    '-'.join(
+                        [
+                            os.path.splitext(self.model_results_file)[0],
+                            figure_name,
+                        ]),
+                    'png'
+                ]))
+        plt.savefig(img_name, bbox_inches='tight', facecolor='white')
+        return
 
     def render_section_5_2a_table_b_8_1(
             self,
             output_value='annual_heating_MWh',
+            figure_name='section_5_2_a_table_b_8_1',
             caption='Table B8-1. Annual Heating Loads (MWh)'):
         """
         Create dataframe from class dataframe object for table 5-2A B8-1
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        table_html = None
-        msg = None
-        try:
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float']\
-                .loc[
-                    :,
-                    self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1) == output_value]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted_table = df.unstack()\
-                .reset_index()\
-                .rename(columns={0: 'val'})\
-                .pivot(index=['level_0'], columns=['program_name', ], values=['val', ])\
-                .reset_index()
-            df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
-            df_formatted_table_column_names = [i for i in df_formatted_table.columns]
-            df_formatted_table_column_names[0] = 'cases'
-            df_formatted_table.columns = df_formatted_table_column_names
-            # Create calculated columns df and append them to the base table.
-            df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1)
-            df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1)
-            df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1)
-            df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
-                lambda x: np.nan if x.col_mean == 0 else abs((x.col_max - x.col_min) / x.col_mean), axis=1)
-            # separate dataframes for side by side visualization
-            program_df = df_formatted_table[[self.model_name, ]].copy()
-            # change program model column to cleansed name
-            program_df.columns = [
-                self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
-                else i
-                for i in program_df.columns]
-            # make statistics dataframe for side by side
-            statistics_df = df_formatted_table[['col_min', 'col_max', 'col_mean', '(max - min) / mean %']].rename(
-                columns={
-                    'col_min': 'min',
-                    'col_max': 'max',
-                    'col_mean': 'mean'})
-            df_formatted_table = df_formatted_table.drop(
-                [self.model_name, 'col_min', 'col_max', 'col_mean', '(max - min) / mean %'], axis=1)
-            # rename cases by joining the detailed description table and re-order them
-            df_formatted_table = df_formatted_table\
-                .merge(
-                    self.case_detailed_df,
-                    how='left',
-                    left_on=['cases', ],
-                    right_index=True)\
-                .sort_values(['case_order'])\
-                .drop(['cases', 'case_order'], axis=1)\
-                .rename(columns={'case_name': 'cases'})
-            # reorder dataframe columns
-            column_list = ['cases', ] + [i for i in df_formatted_table.columns if i != 'cases']
-            df_formatted_table = df_formatted_table[column_list]
-            # Rename model columns to cleansed names
-            df_formatted_table.columns = [
-                self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
-                else i
-                for i in df_formatted_table.columns]
-            # Create side by side tables
-            table_html = self.display_side_by_side(
-                df_formatted_table,
-                statistics_df,
-                program_df,
-                titles=['Simulation Model', 'Statistics for Example Results', ''],
-                caption=caption)
-        except KeyError:
-            msg = 'Section 5-2A B8-1 Failed to be processed'
-        return table_html, msg
+        # get and format dataframe into required shape
+        df = self.df_data['conditioned_zone_loads_non_free_float']\
+            .loc[
+                :,
+                self.df_data['conditioned_zone_loads_non_free_float']
+                    .columns.get_level_values(1) == output_value]
+        df.columns = df.columns.droplevel(level=1)
+        # round values
+        df = df.round(3)
+        df_formatted_table = df.unstack()\
+            .reset_index()\
+            .rename(columns={0: 'val'})\
+            .pivot(index=['level_0'], columns=['program_name', ], values=['val', ])\
+            .reset_index()
+        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+        df_formatted_table_column_names = [i for i in df_formatted_table.columns]
+        df_formatted_table_column_names[0] = 'cases'
+        df_formatted_table.columns = df_formatted_table_column_names
+        # Create calculated columns df and append them to the base table.
+        df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1).round(3)
+        df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1).round(3)
+        df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1).round(3)
+        df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
+            lambda x: '' if x.col_mean == 0 else '{:.2%}'.format(abs((x.col_max - x.col_min) / x.col_mean)), axis=1)
+        # rename cases by joining the detailed description table and re-order them
+        df_formatted_table = df_formatted_table\
+            .merge(
+                self.case_detailed_df,
+                how='left',
+                left_on=['cases', ],
+                right_index=True)\
+            .sort_values(['case_order'])\
+            .drop(['cases', 'case_order'], axis=1)\
+            .rename(columns={
+                'case_name': 'Case',
+                'col_min': 'min',
+                'col_max': 'max',
+                'col_mean': 'mean'})
+        # reorder dataframe columns
+        column_list = ['Case', ] + \
+                      [i for i in df_formatted_table.columns if i != 'Case' and i != self.model_name] + \
+                      [self.model_name, ]
+        df_formatted_table = df_formatted_table[column_list]
+        # Rename model columns to cleansed names
+        df_formatted_table.columns = [
+            self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
+            else i
+            for i in df_formatted_table.columns]
+        df_formatted_table.columns = ['\n'.join(wrap(i, 8)) for i in df_formatted_table.columns]
+        # set fig size
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(22, 20))
+        tab = ax.table(
+            cellText=df_formatted_table.values,
+            colLabels=df_formatted_table.columns,
+            zorder=1,
+            bbox=[0, 0, 1, 1],
+            edges='LR')
+        ax.axis('tight')
+        ax.axis('off')
+        # set font
+        tab.auto_set_font_size(False)
+        tab.set_fontsize(12)
+        # set cell properties individually
+        cell_dict = tab.get_celld()
+        for i in range(len(df_formatted_table.columns)):
+            cell_dict[(0, i)].set_height(1)
+            cell_dict[(0, i)].set_fontsize(16)
+            cell_dict[(0, 0)].set_width(2)
+            cell_dict[(0, i)].set_width(0.5)
+            cell_dict[(0, i)].visible_edges = 'closed'
+            for j in range(1, df_formatted_table.shape[0] + 1):
+                cell_dict[(j, 0)].set_width(2)
+                cell_dict[(j, 0)].set_text_props(ha="left")
+                cell_dict[(j, 0)].PAD = 0.02
+                cell_dict[(j, i)].set_width(0.5)
+                cell_dict[(j, i)].set_height(0.25)
+        ax.axis([0, 1, 1, 0])
+        # set outer borders
+        ax.axhline(y=0, color='black', linewidth=4, zorder=3)
+        ax.axhline(y=1, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=0, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=1, color='black', linewidth=4, zorder=3)
+        # set inner borders
+        ax.axvline(x=5 / 7.5, color='black', linewidth=2, zorder=3)
+        ax.axvline(x=7 / 7.5, color='black', linewidth=3, zorder=3)
+        ax.axvline(x=5 / 7.5, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=15 / 50, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=25 / 50, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=39 / 50, color='black', linewidth=2, zorder=3)
+        ax.axhline(y=48 / 50, color='black', linewidth=2, zorder=3)
+        # Set annotations
+        header = [tab.add_cell(-1, h, width=0.5, height=0.35) for h in range(7, 11)]
+        header[0].get_text().set_text('Statistics for Example Results')
+        header[0].PAD = 0.5
+        header[0].set_fontsize(16)
+        header[0].set_text_props(ha="left")
+        header[0].visible_edges = "open"
+        header[1].visible_edges = "open"
+        header[2].visible_edges = "open"
+        header[3].visible_edges = "open"
+        # save the result
+        plt.suptitle(caption, fontsize=30)
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
+        return fig, ax
 
     def render_section_5_2a_table_b_8_2(self):
         """
@@ -368,6 +521,7 @@ class GraphicsRenderer(Logger):
         """
         table_html, msg = self.render_section_5_2a_table_b_8_1(
             output_value='annual_cooling_MWh',
+            figure_name='section_5_2_a_table_b_8_2',
             caption='Table B8.2 Annual Sensible Cooling Loads (MWh)'
         )
         return table_html, msg
@@ -377,34 +531,240 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
-        width = 0.1
         data = []
         surfaces = ['HORZ.', 'NORTH', 'EAST', 'SOUTH', 'WEST']
         programs = []
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             tmp_data = []
             for surface in surfaces:
-                if json_obj.get('annual_solar_radiation_direct_and_diffuse') and json_obj[
-                        'annual_solar_radiation_direct_and_diffuse']['600']['Surface'].get(surface):
+                try:
                     tmp_data.append(
-                        json_obj['annual_solar_radiation_direct_and_diffuse']['600']['Surface'][surface].get('kWh/m2'))
-                else:
+                        json_obj['solar_radiation_annual_incident']['600']['Surface'][surface].get('kWh/m2'))
+                except (KeyError, ValueError):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
-        ax.set_xticks(np.arange(max([len(i) for i in data])))
-        ax.set_title('Figure B8-1.  Annual Incident Solar Radiation', fontsize=30)
-        ax.set_xticklabels(['600 ' + i for i in surfaces])
-        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-            x = np.arange(len(d))
-            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
-            ax.bar_label(rects, padding=5, rotation="vertical")
-        ax.grid(which='major', axis='y')
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Diffuse + Direct ($kWh/m^2$)', fontsize=14)
-        ax.set_ylim(0, 2000)
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-1.  Annual Incident Solar Radiation',
+            xticklabels=['600 ' + i for i in surfaces],
+            ylabel='Diffuse + Direct ($kWh/m^2$)',
+            image_name='section_5_2_a_figure_b_8_1')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_2(self):
+        """
+        Render Section 5 2A Figure B8-2 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        cases = ['600', '620', '660', '670']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    (_, tmp_d), = \
+                        json_obj['solar_radiation_unshaded_annual_transmitted'][case].get('Surface').items()
+                    tmp_data.append(tmp_d['kWh/m2'])
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-2.  Annual Transmitted Solar Radiation - Unshaded',
+            xticklabels=[
+                '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'],
+            ylabel='Diffuse + Direct ($kWh/m^2$)',
+            image_name='section_5_2_a_figure_b_8_2')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_3(self):
+        """
+        Render Section 5 2A Figure B8-3 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        cases = ['610', '630']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    (_, tmp_d), = \
+                        json_obj['solar_radiation_shaded_annual_transmitted'][case].get('Surface').items()
+                    tmp_data.append(tmp_d['kWh/m2'])
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-3.  Annual Transmitted Solar Radiation - Shaded',
+            xticklabels=[
+                '610 SOUTH', '630 WEST'],
+            ylabel='Diffuse + Direct ($kWh/m^2$)',
+            image_name='section_5_2_a_figure_b_8_3')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_4(self):
+        """
+        Render Section 5 2A Figure B8-4 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        cases = ['600', '620', '660', '670']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    (surface, unshaded_d), = \
+                        json_obj['solar_radiation_unshaded_annual_transmitted'][case].get('Surface').items()
+                    for sub_surfaces in json_obj['solar_radiation_annual_incident'].values():
+                        for sub_surface, vals in sub_surfaces['Surface'].items():
+                            if sub_surface.lower() == surface.lower():
+                                incident_surface_value = vals['kWh/m2']
+                                tmp_data.append(unshaded_d['kWh/m2'] / incident_surface_value)
+                                break
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-4.  Annual Transmissivity Coefficient of Windows \n'
+                  '(Unshaded Transmitted)/(Incident Solar Radiation)',
+            xticklabels=[
+                '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'],
+            ylabel='Transmissivity Coefficient',
+            image_name='section_5_2_a_figure_b_8_4')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_5(self):
+        """
+        Render Section 5 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    1 - (
+                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']
+                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']
+                        ['kWh/m2']
+                    ))
+                tmp_data.append(
+                    1 - (
+                        json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']
+                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']
+                        ['West']['kWh/m2']
+                    ))
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-5. \nAnnual Overhang and Fin Shading Coefficients \n'
+                  '(1-(Shaded)/(Unshaded)) Transmitted Solar Radiation',
+            xticklabels=[
+                '(1 - Case610 / Case600) SOUTH', '(1 - Case630 / Case620) WEST'],
+            ylabel='Shading Coefficient',
+            image_name='section_5_2_a_figure_b_8_5')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_6(self):
+        """
+        Render Section 6 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(json_obj['sky_temperature_output']['600']['Average']['C'])
+                tmp_data.append(json_obj['sky_temperature_output']['600']['Minimum']['C'])
+                tmp_data.append(json_obj['sky_temperature_output']['600']['Maximum']['C'])
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-6. \nAverage, Minimum and Maximum Sky Temperature \nCase 600',
+            xticklabels=[
+                'Average', 'Minimum', 'Maximum'],
+            ylabel='Shading Coefficient',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b_8_6')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_7(self):
+        """
+        Render Section 5 2A Figure B8-7 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['395', '430', '600', '610', '620', '630', '640', '650']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('annual_heating_MWh'))
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-7.  Basic: Low Mass Annual Heating',
+            xticklabels=[
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases],
+            ylabel='Annual Heating Load (MWh)',
+            image_name='section_5_2_a_figure_b_8_7')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_8(self):
+        """
+        Render Section 5 2A Figure B8-8 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['395', '430', '600', '610', '620', '630', '640', '650']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('annual_cooling_MWh'))
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-8.  Basic: Low Mass Annual Sensible Cooling',
+            xticklabels=[
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases],
+            ylabel='Annual Heating Load (MWh)',
+            image_name='section_5_2_a_figure_b_8_8')
         return fig, ax
 
     def render_section_5_2a_figure_b_8_9(self):
@@ -412,36 +772,264 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
         cases = ['395', '430', '600', '610', '620', '630', '640', '650']
-        width = 0.1
         data = []
         programs = []
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             tmp_data = []
             for case in cases:
-                if json_obj.get('conditioned_zone_loads_non_free_float') and json_obj[
-                        'conditioned_zone_loads_non_free_float'].get(case):
+                try:
                     tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('peak_heating_kW'))
-                else:
+                except (KeyError, ValueError):
                     tmp_data.append(None)
             data.insert(idx, tmp_data)
             programs.insert(idx, json_obj['identifying_information']['software_name'])
-        ax.set_xticks(np.arange(max([len(i) for i in data])))
-        ax.set_title('Figure B8-9.  Basic: Low Mass Peak Heating', fontsize=30)
-        ax.set_xticklabels(
-            [
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-9.  Basic: Low Mass Peak Heating',
+            xticklabels=[
                 '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
-                for i in cases])
-        for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-            x = np.arange(len(d))
-            rects = ax.bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
-            ax.bar_label(rects, padding=5, rotation="vertical")
-        ax.grid(which='major', axis='y')
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Peak Heating Load (kWh/h)', fontsize=14)
-        ax.set_ylim(0, 5)
+                for i in cases],
+            ylabel='Peak Heating Load (kWh/h)',
+            image_name='section_5_2_a_figure_b_8_9')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_10(self):
+        """
+        Render Section 5 2A Figure B8-10 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['395', '430', '600', '610', '620', '630', '640', '650']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('peak_cooling_kW'))
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-10.  Basic: Low Mass Peak Sensible Cooling',
+            xticklabels=[
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases],
+            ylabel='Peak Cooling Load (kWh/h)',
+            image_name='section_5_2_a_figure_b_8_10')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_11(self):
+        """
+        Render Section 5 2A Figure B8-11 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['800', '900', '910', '920', '930', '940', '950', '960']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('annual_heating_MWh'))
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-11.  Basic: High Mass Annual Heating',
+            xticklabels=[
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases],
+            ylabel='Annual Heating Load (MWh)',
+            image_name='section_5_2_a_figure_b_8_11')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_12(self):
+        """
+        Render Section 5 2A Figure B8-12 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['800', '900', '910', '920', '930', '940', '950', '960']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('annual_cooling_MWh'))
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-12.  Basic: High Mass Annual Sensible Cooling',
+            xticklabels=[
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases],
+            ylabel='Annual Cooling Load (MWh)',
+            image_name='section_5_2_a_figure_b_8_12')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_13(self):
+        """
+        Render Section 5 2A Figure B8-13 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['800', '900', '910', '920', '930', '940', '950', '960']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('peak_heating_kW'))
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-13.  Basic: High Mass Peak Heating',
+            xticklabels=[
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases],
+            ylabel='Peak Heating Load (kWh/h)',
+            image_name='section_5_2_a_figure_b_8_13')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_14(self):
+        """
+        Render Section 5 2A Figure B8-14 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['800', '900', '910', '920', '930', '940', '950', '960']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['conditioned_zone_loads_non_free_float'][case].get('peak_cooling_kW'))
+                except (KeyError, ValueError):
+                    tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-14.  Basic: High Mass Peak Sensible Cooling',
+            xticklabels=[
+                '\n'.join(wrap(self.case_detailed_df.loc[i, 'case_name'], 15))
+                for i in cases],
+            ylabel='Peak Cooling Load (kWh/h)',
+            image_name='section_5_2_a_figure_b_8_14')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_15(self):
+        """
+        Render Section 5 2A Figure B8-15 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('annual_heating_MWh')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('annual_cooling_MWh')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('annual_heating_MWh') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('annual_heating_MWh')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('annual_cooling_MWh') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('annual_cooling_MWh')
+                )
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-15. Basic and In-Depth:\nSouth Window (Delta)\n'
+                  'Annual Heating and Sensible Cooling',
+            xticklabels=[
+                '600-430 Low Mass, Heating S. Window', '600-430 Low Mass, Cooling S. Window',
+                '900-800 High Mass, Heating S. Window', '900-800 High Mass, Cooling S. Window'
+            ],
+            ylabel='Load Difference (MWh)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b_8_15')
+        return fig, ax
+
+    def render_section_5_2a_figure_b_8_16(self):
+        """
+        Render Section 5 2A Figure B8-16 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('peak_heating_kW') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('peak_heating_kW')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']
+                    .get('peak_cooling_kW') - json_obj['conditioned_zone_loads_non_free_float']['430']
+                    .get('peak_cooling_kW')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('peak_heating_kW') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('peak_heating_kW')
+                )
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']
+                    .get('peak_cooling_kW') - json_obj['conditioned_zone_loads_non_free_float']['800']
+                    .get('peak_cooling_kW')
+                )
+            except (KeyError, ValueError):
+                tmp_data.append(None)
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-16. Basic and In-Depth:\nSouth Window (Delta)\n'
+                  'Peak Heating and Sensible Cooling',
+            xticklabels=[
+                '600-430 Low Mass, Heating S. Window', '600-430 Low Mass, Cooling S. Window',
+                '900-800 High Mass, Heating S. Window', '900-800 High Mass, Cooling S. Window'
+            ],
+            ylabel='Load Difference (kWh/h)',
+            y_plot_pad=0.3,
+            y_min=-1,
+            image_name='section_5_2_a_figure_b_8_16')
         return fig, ax
 
     def render_section_5_2a_figure_b8_17(self):
@@ -449,37 +1037,9 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-17 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 3, figsize=(18, 8), sharex='none', sharey='all')
-        fig, ax = self._set_theme(fig, ax)
         cases = ['600', '610', '620', '900', '920', '930']
-        width = 0.1
-        data_lists = [[] for n in range(3)]
+        data_lists = [[] for _ in range(3)]
         programs = []
-        xticklabels = [
-            [
-                '610-600 Low Mass, S. Shade Heating',
-                '610-600 Low Mass, S. Shade Cooling',
-                '910-900 High Mass, S. Shade Heating',
-                '910-900 High Mass, S. Shade Cooling'
-            ],
-            [
-                '620-600 Low Mass, E&W Or., Heating',
-                '620-600 Low Mass, E&W Or., Cooling',
-                '920-900 High Mass, E&W Or., Heating',
-                '920-900 High Mass, E&W Or., Cooling',
-            ],
-            [
-                '630-620 Low Mass. E&W Shd., Heating',
-                '630-620 Low Mass. E&W Shd., Cooling',
-                '930-920 Low Mass. E&W Shd., Heating',
-                '930-920 Low Mass. E&W Shd., Cooling',
-            ]
-        ]
-        sub_title = [
-            'South Shading',
-            'East/West',
-            'E/W Shading'
-        ]
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             if json_obj.get('conditioned_zone_loads_non_free_float') and all([
                     case in json_obj['conditioned_zone_loads_non_free_float'].keys() for case in cases]):
@@ -577,26 +1137,39 @@ class GraphicsRenderer(Logger):
                     tmp_data.append(None)
                 data_lists[2].insert(idx, tmp_data)
                 programs.insert(idx, json_obj['identifying_information']['software_name'])
-        for didx, data in enumerate(data_lists):
-            for idx, (p, d, h) in enumerate(zip(programs, data, self.hatches)):
-                x = np.arange(len(d))
-                rects = ax[didx].bar(x + (width * idx) - (width / 2 * (len(data) - 1)), d, width, label=p, hatch=h, fill=None)
-                ax[didx].bar_label(rects, padding=5, rotation="vertical")
-                ax[didx].grid(which='major', axis='y')
-                ax[didx].set_xticks(np.arange(max([len(i) for i in data])))
-                ax[didx].set_xticklabels(
-                    ['\n'.join(wrap(i, 15)) for i in xticklabels[didx]]
-                )
-                ax[didx].set_title(sub_title[didx], fontsize=18)
-        # set legend for all plots
-        ax.flatten()[-2].legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=len(programs), fontsize=16)
-        # Make title, adjust plots, and set y values
-        fig.suptitle('Figure B8-17. Basic: Window Shading and Orientation (Delta) '
-                     'Annual Heating and Sensible Cooling', fontsize=30, y=0.9)
-        fig.subplots_adjust(top=0.8, wspace=0.001)
-        ax[0].set_ylim(-2.5, 2.5)
-        ax[0].set_yticks(np.arange(-2.5, 2.5, 0.5))
-        ax[0].set_ylabel('Load Difference (MWh)', fontsize=14)
+        fig, ax = self._create_split_bar_plot(
+            data=data_lists,
+            programs=programs,
+            title='Figure B8-17. Basic: Window Shading and Orientation (Delta) '
+                  'Annual Heating and Sensible Cooling',
+            sub_titles=[
+                'South Shading',
+                'East/West',
+                'E/W Shading'
+            ],
+            xticklabels=[
+                [
+                    '610-600 Low Mass, S. Shade Heating',
+                    '610-600 Low Mass, S. Shade Cooling',
+                    '910-900 High Mass, S. Shade Heating',
+                    '910-900 High Mass, S. Shade Cooling'
+                ],
+                [
+                    '620-600 Low Mass, E&W Or., Heating',
+                    '620-600 Low Mass, E&W Or., Cooling',
+                    '920-900 High Mass, E&W Or., Heating',
+                    '920-900 High Mass, E&W Or., Cooling',
+                ],
+                [
+                    '630-620 Low Mass. E&W Shd., Heating',
+                    '630-620 Low Mass. E&W Shd., Cooling',
+                    '930-920 Low Mass. E&W Shd., Heating',
+                    '930-920 Low Mass. E&W Shd., Cooling',
+                ]
+            ],
+            ylabel='Load Difference (MWh)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b_8_17')
         return fig, ax
 
     def render_section_5_2a_figure_b8_h1(self):
@@ -604,8 +1177,6 @@ class GraphicsRenderer(Logger):
         Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
-        fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-        fig, ax = self._set_theme(fig, ax)
         data_x = []
         data_y = []
         programs = []
@@ -639,20 +1210,14 @@ class GraphicsRenderer(Logger):
                 except (TypeError, KeyError):
                     data_x.append([])
                     data_y.append([])
-        # Add line plots for each program
-        for dx, dy, p, c, m in zip(data_x, data_y, programs, self.colors, self.markers):
-            ax.plot(dx, dy, color=c, marker=m, label=p)
-        # Format plot area
-        ax.grid(which='major', axis='y')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency',
+            ylabel='Number of Occurrences',
+            image_name='section_5_2_a_figure_b_8_h1')
         ax.set_yticks(np.arange(0, 500, 100))
-        # get minimum/maximum of all x rounded to nearest ten, then increment by 5
-        ax.set_xticks(np.arange(
-            math.floor(min([min(i) for i in data_x]) / 10) * 10,
-            math.ceil(max([max(i) for i in data_x]) / 10) * 10,
-            5))
-        ax.set_title('Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency', fontsize=30)
-        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
-        ax.set_ylabel('Number of Occurrences', fontsize=14)
         ax.set_xlim(-5, 55)
         ax.set_ylim(0, 500)
         ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)

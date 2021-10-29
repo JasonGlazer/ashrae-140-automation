@@ -15,9 +15,9 @@ class SectionType:
         return section_type
 
     def __set__(self, obj, value):
-        if re.match(r'^results5-2a.*', str(value.name), re.IGNORECASE):
+        if re.match(r'.*results5-2a.*', str(value.name), re.IGNORECASE):
             obj._section_type = '5-2A'
-        elif re.match(r'^results5-2b.*', str(value.name), re.IGNORECASE):
+        elif re.match(r'.*results5-2b.*', str(value.name), re.IGNORECASE):
             obj._section_type = '5-2B'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
@@ -50,7 +50,9 @@ class SetDataSources:
                 obj._data_sources = {
                     'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
                     'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46),
-                    'annual_solar_radiation_direct_and_diffuse': ('YourData', 153, 'B:C', 5),
+                    'solar_radiation_annual_incident': ('YourData', 153, 'B:C', 5),
+                    'solar_radiation_unshaded_annual_transmitted': ('YourData', 161, 'B:C', 4),
+                    'solar_radiation_shaded_annual_transmitted': ('YourData', 168, 'B:C', 2),
                     'sky_temperature_output': ('YourData', 176, 'B:K', 1),
                     'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149)
                 }
@@ -77,7 +79,9 @@ class SetProcessingFunctions:
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_2a(),
                 'conditioned_zone_loads_non_free_float': obj._extract_conditioned_zone_loads_non_free_float(),
-                'annual_solar_radiation_direct_and_diffuse': obj._extract_annual_solar_radiation_direct_and_diffuse(),
+                'solar_radiation_annual_incident': obj._extract_solar_radiation_annual_incident(),
+                'solar_radiation_unshaded_annual_transmitted': obj._extract_solar_radiation_unshaded_annual_transmitted(),
+                'solar_radiation_shaded_annual_transmitted': obj._extract_solar_radiation_shaded_annual_transmitted(),
                 'sky_temperature_output': obj._extract_sky_temperature_output(),
                 'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data()}
         elif value == '5-2B':
@@ -203,20 +207,66 @@ class ExcelProcessor(Logger):
                 str(case_number): row_obj})
         return data_d
 
-    def _extract_annual_solar_radiation_direct_and_diffuse(self) -> dict:
+    def _extract_solar_radiation_annual_incident(self) -> dict:
         """
-        Retrieve and format data from the Annual Solar Radiation Section (Direct + Diffuse)
+        Retrieve and format data from the Solar Radiation ANNUAL INCIDENT (Total Direct-Beam and Diffuse) section
 
         :return: dictionary to be merged into main testing output dictionary
         """
-        df = self._get_data('annual_solar_radiation_direct_and_diffuse')
+        df = self._get_data('solar_radiation_annual_incident')
         df.columns = ['Surface', 'kWh/m2']
         dc = DataCleanser(df)
-        df = dc.cleanse_annual_solar_radiation_direct_and_diffuse()
+        df = dc.cleanse_solar_radiation_annual()
         data_d = {'600': {'Surface': {}}}
         for idx, row in df.iterrows():
             data_d['600']['Surface'].update({
                 str(row['Surface']): {'kWh/m2': row['kWh/m2']}})
+        return data_d
+
+    def _extract_solar_radiation_unshaded_annual_transmitted(self) -> dict:
+        """
+        Retrieve and format data from the Solar Radiation UNSHADED ANNUAL TRANSMITTED
+        (Total Direct-Beam and Diffuse) section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('solar_radiation_unshaded_annual_transmitted')
+        df.columns = ['Case/Surface', 'kWh/m2']
+        df[['Case', 'Surface']] = df['Case/Surface'].str.split(pat='/', expand=True)
+        df = df.drop(columns=['Case/Surface', ])
+        dc = DataCleanser(df)
+        df = dc.cleanse_solar_radiation_annual(case_column='Case')
+        data_d = {}
+        for idx, row in df.iterrows():
+            data_d.update(
+                {
+                    row['Case']: {
+                        'Surface': {
+                            row['Surface']: {
+                                'kWh/m2': row['kWh/m2']}}}})
+        return data_d
+
+    def _extract_solar_radiation_shaded_annual_transmitted(self):
+        """
+        Retrieve and format data from the Solar Radiation SHADED ANNUAL TRANSMITTED
+        (Total Direct-Beam and Diffuse) section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('solar_radiation_shaded_annual_transmitted')
+        df.columns = ['Case/Surface', 'kWh/m2']
+        df[['Case', 'Surface']] = df['Case/Surface'].str.split(pat='/', expand=True)
+        df = df.drop(columns=['Case/Surface', ])
+        dc = DataCleanser(df)
+        df = dc.cleanse_solar_radiation_annual(case_column='Case')
+        data_d = {}
+        for idx, row in df.iterrows():
+            data_d.update(
+                {
+                    row['Case']: {
+                        'Surface': {
+                            row['Surface']: {
+                                'kWh/m2': row['kWh/m2']}}}})
         return data_d
 
     def _extract_sky_temperature_output(self) -> dict:

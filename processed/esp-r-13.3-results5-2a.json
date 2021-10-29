@@ -1,368 +1,347 @@
 {
-    "annual_solar_radiation_direct_and_diffuse": {
-        "600": {
-            "Surface": {
-                "EAST": {
-                    "kWh/m2": 1062.16
-                },
-                "HORZ.": {
-                    "kWh/m2": 1664.34
-                },
-                "NORTH": {
-                    "kWh/m2": 438.24
-                },
-                "SOUTH": {
-                    "kWh/m2": 1370.48
-                },
-                "WEST": {
-                    "kWh/m2": 967.28
-                }
-            }
-        }
-    },
     "conditioned_zone_loads_non_free_float": {
         "195": {
-            "annual_cooling_MWh": 0.612,
-            "annual_heating_MWh": 4.07,
+            "annual_cooling_MWh": 0.611,
+            "annual_heating_MWh": 3.9509,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.041,
+            "peak_cooling_kW": 0.944,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 1.794,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 1.802,
+            "peak_heating_month": "Jan"
         },
         "200": {
-            "annual_cooling_MWh": 0.814,
-            "annual_heating_MWh": 5.105,
+            "annual_cooling_MWh": 0.8004,
+            "annual_heating_MWh": 4.9204,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.307,
-            "peak_cooling_month": "Jun",
-            "peak_heating_day": 26,
-            "peak_heating_hour": 8,
-            "peak_heating_kW": 2.341,
-            "peak_heating_month": "Nov"
-        },
-        "210": {
-            "annual_cooling_MWh": 0.56,
-            "annual_heating_MWh": 6.047,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.084,
+            "peak_cooling_kW": 1.198,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.565,
+            "peak_heating_kW": 2.275,
             "peak_heating_month": "Dec"
         },
+        "210": {
+            "annual_cooling_MWh": 0.5185,
+            "annual_heating_MWh": 6.3171,
+            "peak_cooling_day": 14,
+            "peak_cooling_hour": 14,
+            "peak_cooling_kW": 0.877,
+            "peak_cooling_month": "Jun",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.671,
+            "peak_heating_month": "Jan"
+        },
         "215": {
-            "annual_cooling_MWh": 0.877,
-            "annual_heating_MWh": 5.405,
+            "annual_cooling_MWh": 0.8948,
+            "annual_heating_MWh": 5.1811,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.4,
+            "peak_cooling_kW": 1.366,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 26,
             "peak_heating_hour": 8,
-            "peak_heating_kW": 2.478,
+            "peak_heating_kW": 2.39,
             "peak_heating_month": "Nov"
         },
         "220": {
-            "annual_cooling_MWh": 0.61,
-            "annual_heating_MWh": 6.455,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 18,
-            "peak_cooling_kW": 1.184,
+            "annual_cooling_MWh": 0.5762,
+            "annual_heating_MWh": 6.7257,
+            "peak_cooling_day": 14,
+            "peak_cooling_hour": 15,
+            "peak_cooling_kW": 1.012,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.692,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.788,
+            "peak_heating_month": "Jan"
         },
         "230": {
-            "annual_cooling_MWh": 0.991,
-            "annual_heating_MWh": 9.93,
+            "annual_cooling_MWh": 0.955,
+            "annual_heating_MWh": 9.9385,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.841,
+            "peak_cooling_kW": 1.701,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 4.316,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 4.16,
+            "peak_heating_month": "Jan"
         },
         "240": {
-            "annual_cooling_MWh": 0.979,
-            "annual_heating_MWh": 5.279,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 18,
-            "peak_cooling_kW": 1.366,
+            "annual_cooling_MWh": 0.9218,
+            "annual_heating_MWh": 5.5393,
+            "peak_cooling_day": 14,
+            "peak_cooling_hour": 15,
+            "peak_cooling_kW": 1.192,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.507,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.605,
+            "peak_heating_month": "Jan"
         },
         "250": {
-            "annual_cooling_MWh": 3.182,
-            "annual_heating_MWh": 4.899,
+            "annual_cooling_MWh": 3.4668,
+            "annual_heating_MWh": 4.935,
             "peak_cooling_day": 12,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 2.867,
-            "peak_cooling_month": "Sep",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.687,
-            "peak_heating_month": "Dec"
+            "peak_cooling_kW": 3.034,
+            "peak_cooling_month": "Sept",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.78,
+            "peak_heating_month": "Jan"
         },
         "270": {
-            "annual_cooling_MWh": 7.522,
-            "annual_heating_MWh": 4.385,
+            "annual_cooling_MWh": 7.3086,
+            "annual_heating_MWh": 4.5764,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.839,
+            "peak_cooling_kW": 6.613,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.597,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.748,
+            "peak_heating_month": "Jan"
         },
         "280": {
-            "annual_cooling_MWh": 5.183,
-            "annual_heating_MWh": 4.57,
+            "annual_cooling_MWh": 5.2058,
+            "annual_heating_MWh": 4.7381,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 4.727,
+            "peak_cooling_kW": 4.676,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.602,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.752,
+            "peak_heating_month": "Jan"
         },
         "290": {
-            "annual_cooling_MWh": 5.743,
-            "annual_heating_MWh": 4.424,
+            "annual_cooling_MWh": 5.3206,
+            "annual_heating_MWh": 4.7447,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.595,
+            "peak_cooling_kW": 6.411,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.583,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.75,
+            "peak_heating_month": "Jan"
         },
         "300": {
-            "annual_cooling_MWh": 5.152,
-            "annual_heating_MWh": 4.425,
+            "annual_cooling_MWh": 5.0381,
+            "annual_heating_MWh": 4.6679,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 4.475,
+            "peak_cooling_kW": 4.221,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.603,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.766,
+            "peak_heating_month": "Jan"
         },
         "310": {
-            "annual_cooling_MWh": 3.669,
-            "annual_heating_MWh": 4.691,
+            "annual_cooling_MWh": 3.1279,
+            "annual_heating_MWh": 5.2396,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 3.97,
+            "peak_cooling_kW": 3.618,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.58,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.771,
+            "peak_heating_month": "Jan"
         },
         "320": {
-            "annual_cooling_MWh": 4.986,
-            "annual_heating_MWh": 3.771,
+            "annual_cooling_MWh": 4.9131,
+            "annual_heating_MWh": 3.9699,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.209,
+            "peak_cooling_kW": 5.993,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.573,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 2,
+            "peak_heating_kW": 2.733,
+            "peak_heating_month": "Jan"
         },
         "395": {
-            "annual_cooling_MWh": 0.01,
-            "annual_heating_MWh": 4.641,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 19,
-            "peak_cooling_kW": 0.377,
-            "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 1.952,
-            "peak_heating_month": "Dec"
+            "annual_cooling_MWh": 0.0055,
+            "annual_heating_MWh": 4.8657,
+            "peak_cooling_day": 5,
+            "peak_cooling_hour": 18,
+            "peak_cooling_kW": 0.294,
+            "peak_cooling_month": "Aug",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 2,
+            "peak_heating_kW": 2.09,
+            "peak_heating_month": "Jan"
         },
         "400": {
-            "annual_cooling_MWh": 0.031,
-            "annual_heating_MWh": 6.348,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 18,
-            "peak_cooling_kW": 0.607,
-            "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.692,
-            "peak_heating_month": "Dec"
+            "annual_cooling_MWh": 0.0244,
+            "annual_heating_MWh": 6.61,
+            "peak_cooling_day": 5,
+            "peak_cooling_hour": 17,
+            "peak_cooling_kW": 0.456,
+            "peak_cooling_month": "Aug",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.788,
+            "peak_heating_month": "Jan"
         },
         "410": {
-            "annual_cooling_MWh": 0.057,
-            "annual_heating_MWh": 8.08,
+            "annual_cooling_MWh": 0.0523,
+            "annual_heating_MWh": 8.2122,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 0.828,
+            "peak_cooling_kW": 0.624,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.504,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.473,
+            "peak_heating_month": "Jan"
         },
         "420": {
-            "annual_cooling_MWh": 0.153,
-            "annual_heating_MWh": 6.906,
+            "annual_cooling_MWh": 0.1419,
+            "annual_heating_MWh": 7.027,
             "peak_cooling_day": 26,
-            "peak_cooling_hour": 18,
-            "peak_cooling_kW": 1.033,
+            "peak_cooling_hour": 17,
+            "peak_cooling_kW": 0.836,
             "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.319,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.29,
+            "peak_heating_month": "Jan"
         },
         "430": {
-            "annual_cooling_MWh": 0.856,
-            "annual_heating_MWh": 5.62,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 16,
-            "peak_cooling_kW": 1.929,
-            "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.316,
-            "peak_heating_month": "Dec"
+            "annual_cooling_MWh": 0.9527,
+            "annual_heating_MWh": 5.5449,
+            "peak_cooling_day": 17,
+            "peak_cooling_hour": 14,
+            "peak_cooling_kW": 1.874,
+            "peak_cooling_month": "Jul",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.285,
+            "peak_heating_month": "Jan"
         },
         "440": {
-            "annual_cooling_MWh": 4.085,
-            "annual_heating_MWh": 4.5,
+            "annual_cooling_MWh": 4.4141,
+            "annual_heating_MWh": 4.5039,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 4.686,
+            "peak_cooling_kW": 4.679,
             "peak_cooling_month": "Oct",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.219,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.237,
+            "peak_heating_month": "Jan"
         },
         "450": {
-            "annual_cooling_MWh": 6.507,
-            "annual_heating_MWh": 3.962,
+            "annual_cooling_MWh": 6.6132,
+            "annual_heating_MWh": 3.8503,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.466,
+            "peak_cooling_kW": 6.501,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.1,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.042,
+            "peak_heating_month": "Jan"
         },
         "460": {
-            "annual_cooling_MWh": 6.475,
-            "annual_heating_MWh": 4.194,
+            "annual_cooling_MWh": 6.7291,
+            "annual_heating_MWh": 4.2625,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.374,
+            "peak_cooling_kW": 6.304,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.091,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.101,
+            "peak_heating_month": "Jan"
         },
         "470": {
-            "annual_cooling_MWh": 6.029,
-            "annual_heating_MWh": 4.094,
+            "annual_cooling_MWh": 6.0054,
+            "annual_heating_MWh": 3.9597,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.444,
+            "peak_cooling_kW": 6.407,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.207,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.169,
+            "peak_heating_month": "Jan"
         },
         "600": {
-            "annual_cooling_MWh": 6.027,
-            "annual_heating_MWh": 4.324,
+            "annual_cooling_MWh": 6.1618,
+            "annual_heating_MWh": 4.362,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.352,
+            "peak_cooling_kW": 6.193,
             "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.204,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.228,
+            "peak_heating_month": "Jan"
         },
         "610": {
-            "annual_cooling_MWh": 4.333,
-            "annual_heating_MWh": 4.375,
-            "peak_cooling_day": 1,
-            "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.135,
-            "peak_cooling_month": "Dec",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.192,
-            "peak_heating_month": "Dec"
-        },
-        "620": {
-            "annual_cooling_MWh": 4.06,
-            "annual_heating_MWh": 4.485,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 17,
-            "peak_cooling_kW": 4.797,
-            "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.229,
-            "peak_heating_month": "Dec"
-        },
-        "630": {
-            "annual_cooling_MWh": 2.836,
-            "annual_heating_MWh": 4.784,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 17,
-            "peak_cooling_kW": 4.212,
-            "peak_cooling_month": "Jun",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.207,
-            "peak_heating_month": "Dec"
-        },
-        "640": {
-            "annual_cooling_MWh": 5.763,
-            "annual_heating_MWh": 2.662,
+            "annual_cooling_MWh": 4.2325,
+            "annual_heating_MWh": 4.527,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.297,
+            "peak_cooling_kW": 5.934,
+            "peak_cooling_month": "Jan",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.233,
+            "peak_heating_month": "Jan"
+        },
+        "620": {
+            "annual_cooling_MWh": 4.2457,
+            "annual_heating_MWh": 4.5143,
+            "peak_cooling_day": 26,
+            "peak_cooling_hour": 17,
+            "peak_cooling_kW": 4.622,
+            "peak_cooling_month": "Jun",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.253,
+            "peak_heating_month": "Jan"
+        },
+        "630": {
+            "annual_cooling_MWh": 2.5953,
+            "annual_heating_MWh": 5.0506,
+            "peak_cooling_day": 26,
+            "peak_cooling_hour": 17,
+            "peak_cooling_kW": 3.971,
+            "peak_cooling_month": "Jun",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.259,
+            "peak_heating_month": "Jan"
+        },
+        "640": {
+            "annual_cooling_MWh": 5.8926,
+            "annual_heating_MWh": 2.6544,
+            "peak_cooling_day": 22,
+            "peak_cooling_hour": 14,
+            "peak_cooling_kW": 6.127,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 26,
             "peak_heating_hour": 8,
-            "peak_heating_kW": 4.559,
+            "peak_heating_kW": 4.101,
             "peak_heating_month": "Nov"
         },
         "650": {
-            "annual_cooling_MWh": 4.817,
+            "annual_cooling_MWh": 4.9451,
             "annual_heating_MWh": 0.0,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.138,
+            "peak_cooling_kW": 5.961,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 1,
             "peak_heating_hour": 1,
@@ -370,155 +349,155 @@
             "peak_heating_month": "Jan"
         },
         "660": {
-            "annual_cooling_MWh": 3.232,
-            "annual_heating_MWh": 3.707,
-            "peak_cooling_day": 18,
+            "annual_cooling_MWh": 3.2186,
+            "annual_heating_MWh": 3.787,
+            "peak_cooling_day": 1,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 3.77,
+            "peak_cooling_kW": 3.53,
             "peak_cooling_month": "Oct",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.831,
-            "peak_heating_month": "Dec"
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 2.846,
+            "peak_heating_month": "Jan"
         },
         "670": {
-            "annual_cooling_MWh": 6.623,
-            "annual_heating_MWh": 5.616,
-            "peak_cooling_day": 22,
+            "annual_cooling_MWh": 6.5203,
+            "annual_heating_MWh": 5.975,
+            "peak_cooling_day": 18,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.806,
-            "peak_cooling_month": "Jan",
+            "peak_cooling_kW": 6.482,
+            "peak_cooling_month": "Oct",
             "peak_heating_day": 26,
             "peak_heating_hour": 7,
-            "peak_heating_kW": 3.854,
+            "peak_heating_kW": 3.992,
             "peak_heating_month": "Nov"
         },
         "680": {
-            "annual_cooling_MWh": 6.444,
-            "annual_heating_MWh": 2.18,
+            "annual_cooling_MWh": 6.5294,
+            "annual_heating_MWh": 2.1321,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.77,
+            "peak_cooling_kW": 6.676,
+            "peak_cooling_month": "Jan",
+            "peak_heating_day": 9,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 2.022,
+            "peak_heating_month": "Feb"
+        },
+        "685": {
+            "annual_cooling_MWh": 9.1214,
+            "annual_heating_MWh": 4.9035,
+            "peak_cooling_day": 22,
+            "peak_cooling_hour": 14,
+            "peak_cooling_kW": 6.934,
+            "peak_cooling_month": "Jan",
+            "peak_heating_day": 1,
+            "peak_heating_hour": 1,
+            "peak_heating_kW": 3.247,
+            "peak_heating_month": "Jan"
+        },
+        "695": {
+            "annual_cooling_MWh": 9.149,
+            "annual_heating_MWh": 2.7321,
+            "peak_cooling_day": 22,
+            "peak_cooling_hour": 14,
+            "peak_cooling_kW": 7.239,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 26,
             "peak_heating_hour": 7,
-            "peak_heating_kW": 2.052,
+            "peak_heating_kW": 2.025,
             "peak_heating_month": "Nov"
         },
-        "685": {
-            "annual_cooling_MWh": 9.119,
-            "annual_heating_MWh": 4.877,
-            "peak_cooling_day": 22,
-            "peak_cooling_hour": 14,
-            "peak_cooling_kW": 7.107,
-            "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 3.223,
-            "peak_heating_month": "Dec"
-        },
-        "695": {
-            "annual_cooling_MWh": 9.172,
-            "annual_heating_MWh": 2.802,
-            "peak_cooling_day": 22,
-            "peak_cooling_hour": 14,
-            "peak_cooling_kW": 7.334,
-            "peak_cooling_month": "Jan",
-            "peak_heating_day": 31,
-            "peak_heating_hour": 24,
-            "peak_heating_kW": 2.072,
-            "peak_heating_month": "Dec"
-        },
         "800": {
-            "annual_cooling_MWh": 0.374,
-            "annual_heating_MWh": 5.116,
-            "peak_cooling_day": 26,
-            "peak_cooling_hour": 16,
-            "peak_cooling_kW": 1.046,
-            "peak_cooling_month": "Jun",
+            "annual_cooling_MWh": 0.3914,
+            "annual_heating_MWh": 4.9798,
+            "peak_cooling_day": 5,
+            "peak_cooling_hour": 15,
+            "peak_cooling_kW": 1.052,
+            "peak_cooling_month": "Aug",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 2.924,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 2.84,
             "peak_heating_month": "Feb"
         },
         "810": {
-            "annual_cooling_MWh": 1.508,
-            "annual_heating_MWh": 2.342,
-            "peak_cooling_day": 11,
+            "annual_cooling_MWh": 1.6056,
+            "annual_heating_MWh": 2.185,
+            "peak_cooling_day": 4,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 2.27,
+            "peak_cooling_kW": 2.179,
             "peak_cooling_month": "Sep",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 2.749,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 2.695,
             "peak_heating_month": "Feb"
         },
         "900": {
-            "annual_cooling_MWh": 2.489,
-            "annual_heating_MWh": 1.664,
-            "peak_cooling_day": 1,
-            "peak_cooling_hour": 14,
-            "peak_cooling_kW": 3.04,
+            "annual_cooling_MWh": 2.4877,
+            "annual_heating_MWh": 1.5847,
+            "peak_cooling_day": 12,
+            "peak_cooling_hour": 15,
+            "peak_cooling_kW": 2.896,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 2.687,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 2.633,
             "peak_heating_month": "Feb"
         },
         "910": {
-            "annual_cooling_MWh": 1.383,
-            "annual_heating_MWh": 1.956,
-            "peak_cooling_day": 18,
+            "annual_cooling_MWh": 1.2829,
+            "annual_heating_MWh": 2.0672,
+            "peak_cooling_day": 2,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 2.222,
+            "peak_cooling_kW": 2.212,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 2.699,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 2.684,
             "peak_heating_month": "Feb"
         },
         "920": {
-            "annual_cooling_MWh": 2.731,
-            "annual_heating_MWh": 3.337,
+            "annual_cooling_MWh": 2.8144,
+            "annual_heating_MWh": 3.2997,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 3.26,
+            "peak_cooling_kW": 3.099,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 2.77,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 2.706,
             "peak_heating_month": "Feb"
         },
         "930": {
-            "annual_cooling_MWh": 1.919,
-            "annual_heating_MWh": 3.994,
+            "annual_cooling_MWh": 1.6538,
+            "annual_heating_MWh": 4.2776,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 2.782,
+            "peak_cooling_kW": 2.494,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.785,
+            "peak_heating_kW": 2.765,
             "peak_heating_month": "Feb"
         },
         "940": {
-            "annual_cooling_MWh": 2.424,
-            "annual_heating_MWh": 1.067,
-            "peak_cooling_day": 1,
-            "peak_cooling_hour": 14,
-            "peak_cooling_kW": 3.04,
+            "annual_cooling_MWh": 2.4276,
+            "annual_heating_MWh": 1.0147,
+            "peak_cooling_day": 12,
+            "peak_cooling_hour": 15,
+            "peak_cooling_kW": 2.891,
             "peak_cooling_month": "Oct",
-            "peak_heating_day": 31,
+            "peak_heating_day": 9,
             "peak_heating_hour": 9,
-            "peak_heating_kW": 3.143,
-            "peak_heating_month": "Dec"
+            "peak_heating_kW": 3.122,
+            "peak_heating_month": "Feb"
         },
         "950": {
-            "annual_cooling_MWh": 0.707,
+            "annual_cooling_MWh": 0.656,
             "annual_heating_MWh": 0.0,
-            "peak_cooling_day": 11,
+            "peak_cooling_day": 10,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 2.388,
+            "peak_cooling_kW": 2.202,
             "peak_cooling_month": "Sep",
             "peak_heating_day": 1,
             "peak_heating_hour": 1,
@@ -526,51 +505,51 @@
             "peak_heating_month": "Jan"
         },
         "960": {
-            "annual_cooling_MWh": 0.907,
-            "annual_heating_MWh": 2.689,
+            "annual_cooling_MWh": 0.9496,
+            "annual_heating_MWh": 2.6239,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.48,
+            "peak_cooling_kW": 1.403,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.259,
+            "peak_heating_kW": 2.201,
             "peak_heating_month": "Feb"
         },
         "980": {
-            "annual_cooling_MWh": 3.712,
-            "annual_heating_MWh": 0.411,
-            "peak_cooling_day": 18,
+            "annual_cooling_MWh": 3.7745,
+            "annual_heating_MWh": 0.3511,
+            "peak_cooling_day": 12,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 3.45,
+            "peak_cooling_kW": 3.341,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 1.538,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 1.473,
             "peak_heating_month": "Feb"
         },
         "985": {
-            "annual_cooling_MWh": 6.359,
-            "annual_heating_MWh": 2.369,
-            "peak_cooling_day": 18,
+            "annual_cooling_MWh": 6.2493,
+            "annual_heating_MWh": 2.2833,
+            "peak_cooling_day": 12,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 3.915,
+            "peak_cooling_kW": 3.736,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 2.695,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 2.642,
             "peak_heating_month": "Feb"
         },
         "995": {
-            "annual_cooling_MWh": 7.203,
-            "annual_heating_MWh": 1.006,
+            "annual_cooling_MWh": 7.1488,
+            "annual_heating_MWh": 0.9048,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 4.177,
+            "peak_cooling_kW": 3.954,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 9,
-            "peak_heating_hour": 6,
-            "peak_heating_kW": 1.622,
+            "peak_heating_hour": 7,
+            "peak_heating_kW": 1.56,
             "peak_heating_month": "Feb"
         }
     },
@@ -731,136 +710,136 @@
                     "number_of_hours": 0
                 },
                 "1": {
-                    "number_of_hours": 4
+                    "number_of_hours": 3
                 },
                 "2": {
-                    "number_of_hours": 4
+                    "number_of_hours": 6
                 },
                 "3": {
-                    "number_of_hours": 20
+                    "number_of_hours": 19
                 },
                 "4": {
-                    "number_of_hours": 21
+                    "number_of_hours": 29
                 },
                 "5": {
-                    "number_of_hours": 39
+                    "number_of_hours": 29
                 },
                 "6": {
-                    "number_of_hours": 51
+                    "number_of_hours": 43
                 },
                 "7": {
-                    "number_of_hours": 63
+                    "number_of_hours": 66
                 },
                 "8": {
-                    "number_of_hours": 71
+                    "number_of_hours": 74
                 },
                 "9": {
-                    "number_of_hours": 83
+                    "number_of_hours": 96
                 },
                 "10": {
-                    "number_of_hours": 128
+                    "number_of_hours": 110
                 },
                 "11": {
-                    "number_of_hours": 164
+                    "number_of_hours": 141
                 },
                 "12": {
-                    "number_of_hours": 218
+                    "number_of_hours": 200
                 },
                 "13": {
-                    "number_of_hours": 185
+                    "number_of_hours": 203
                 },
                 "14": {
-                    "number_of_hours": 197
+                    "number_of_hours": 196
                 },
                 "15": {
-                    "number_of_hours": 253
+                    "number_of_hours": 238
                 },
                 "16": {
-                    "number_of_hours": 269
+                    "number_of_hours": 271
                 },
                 "17": {
-                    "number_of_hours": 241
+                    "number_of_hours": 271
                 },
                 "18": {
-                    "number_of_hours": 312
+                    "number_of_hours": 310
                 },
                 "19": {
-                    "number_of_hours": 321
+                    "number_of_hours": 340
                 },
                 "20": {
-                    "number_of_hours": 337
+                    "number_of_hours": 323
                 },
                 "21": {
-                    "number_of_hours": 305
+                    "number_of_hours": 319
                 },
                 "22": {
-                    "number_of_hours": 324
+                    "number_of_hours": 319
                 },
                 "23": {
-                    "number_of_hours": 302
+                    "number_of_hours": 285
                 },
                 "24": {
-                    "number_of_hours": 276
+                    "number_of_hours": 272
                 },
                 "25": {
-                    "number_of_hours": 296
+                    "number_of_hours": 270
                 },
                 "26": {
-                    "number_of_hours": 283
+                    "number_of_hours": 270
                 },
                 "27": {
-                    "number_of_hours": 313
+                    "number_of_hours": 272
                 },
                 "28": {
-                    "number_of_hours": 302
+                    "number_of_hours": 318
                 },
                 "29": {
-                    "number_of_hours": 326
+                    "number_of_hours": 296
                 },
                 "30": {
-                    "number_of_hours": 356
+                    "number_of_hours": 327
                 },
                 "31": {
-                    "number_of_hours": 386
+                    "number_of_hours": 363
                 },
                 "32": {
-                    "number_of_hours": 366
-                },
-                "33": {
-                    "number_of_hours": 399
-                },
-                "34": {
                     "number_of_hours": 374
                 },
+                "33": {
+                    "number_of_hours": 403
+                },
+                "34": {
+                    "number_of_hours": 390
+                },
                 "35": {
-                    "number_of_hours": 315
+                    "number_of_hours": 336
                 },
                 "36": {
-                    "number_of_hours": 253
+                    "number_of_hours": 292
                 },
                 "37": {
-                    "number_of_hours": 209
+                    "number_of_hours": 237
                 },
                 "38": {
-                    "number_of_hours": 152
+                    "number_of_hours": 178
                 },
                 "39": {
-                    "number_of_hours": 118
+                    "number_of_hours": 117
                 },
                 "40": {
-                    "number_of_hours": 64
+                    "number_of_hours": 71
                 },
                 "41": {
-                    "number_of_hours": 34
+                    "number_of_hours": 45
                 },
                 "42": {
-                    "number_of_hours": 17
+                    "number_of_hours": 21
                 },
                 "43": {
-                    "number_of_hours": 7
+                    "number_of_hours": 14
                 },
                 "44": {
-                    "number_of_hours": 2
+                    "number_of_hours": 3
                 },
                 "45": {
                     "number_of_hours": 0
@@ -1028,24 +1007,91 @@
         }
     },
     "identifying_information": {
-        "software_name": "TestSoftware",
-        "software_release_date": "2000-01-01 00:00:00",
-        "software_version": "0.0.0"
+        "software_name": "ESP-r",
+        "software_release_date": "26th April 2019",
+        "software_version": 13.3
     },
     "sky_temperature_output": {
         "600": {
             "Average": {
-                "C": NaN
+                "C": -5.17
             },
             "Maximum": {
-                "C": NaN,
-                "Hour": NaN,
-                "Month": NaN
+                "C": 26.7,
+                "Hour": 15,
+                "Month": "Aug"
             },
             "Minimum": {
-                "C": NaN,
-                "Hour": NaN,
-                "Month": NaN
+                "C": -46.9,
+                "Hour": 23,
+                "Month": "Dec"
+            }
+        }
+    },
+    "solar_radiation_annual_incident": {
+        "600": {
+            "Surface": {
+                "EAST": {
+                    "kWh/m2": 1054.24
+                },
+                "HORZ.": {
+                    "kWh/m2": 1665.18
+                },
+                "NORTH": {
+                    "kWh/m2": 432.12
+                },
+                "SOUTH": {
+                    "kWh/m2": 1363.1
+                },
+                "WEST": {
+                    "kWh/m2": 961.18
+                }
+            }
+        }
+    },
+    "solar_radiation_shaded_annual_transmitted": {
+        "610": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 631.33
+                }
+            }
+        },
+        "630": {
+            "Surface": {
+                "West": {
+                    "kWh/m2": 389.67
+                }
+            }
+        }
+    },
+    "solar_radiation_unshaded_annual_transmitted": {
+        "600": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 813.88
+                }
+            }
+        },
+        "620": {
+            "Surface": {
+                "West": {
+                    "kWh/m2": 591.88
+                }
+            }
+        },
+        "660": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 442.7
+                }
+            }
+        },
+        "670": {
+            "Surface": {
+                "South": {
+                    "kWh/m2": 1028.35
+                }
             }
         }
     }
