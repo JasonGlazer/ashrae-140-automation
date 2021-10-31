@@ -243,16 +243,16 @@ class GraphicsRenderer(Logger):
             if p.lower() == \
                     self.json_data[self.model_name]['identifying_information']['software_name'].lower() and idx + 1 == \
                     len(programs):
-                bar_color = 'r'
+                bar_color = '#FE7A7C'
             else:
-                bar_color = None
+                bar_color = 'w'
             rects = ax.bar(
                 x + (width * idx) - (width / 2 * (len(data) - 1)),
                 d,
                 width,
                 label=p,
                 hatch=h,
-                fill=bar_color,
+                color=bar_color,
                 edgecolor='k')
             ax.bar_label(rects, padding=5, rotation="vertical")
         ax.set_xticks(np.arange(max([len(i) for i in data])))
@@ -302,16 +302,17 @@ class GraphicsRenderer(Logger):
                 if p.lower() == \
                         self.json_data[self.model_name]['identifying_information']['software_name'].lower() and idx + 1 == \
                         len(programs):
-                    bar_color = 'r'
+                    bar_color = '#FE7A7C'
                 else:
-                    bar_color = None
+                    bar_color = 'w'
                 rects = ax[didx].bar(
                     x + (width * idx) - (width / 2 * (len(sub_data) - 1)),
                     d,
                     width,
                     label=p,
                     hatch=h,
-                    fill=bar_color)
+                    color=bar_color,
+                    edgecolor='k')
                 ax[didx].bar_label(rects, padding=5, rotation="vertical")
                 ax[didx].grid(which='major', axis='y')
                 ax[didx].set_xticks(np.arange(max([len(i) for i in sub_data])))
@@ -337,7 +338,9 @@ class GraphicsRenderer(Logger):
             self._make_image_from_plt(image_name)
         return fig, ax
 
-    def _create_line_plot(self, data_x, data_y, programs, title, ylabel, image_name=None):
+    def _create_line_plot(
+            self, data_x, data_y, programs, title, ylabel,
+            y_plot_pad=0.1, y_max=None, y_min=None, image_name=None):
         """
         Create line plot from data input.
 
@@ -350,6 +353,9 @@ class GraphicsRenderer(Logger):
         :param programs: list of tested programs
         :param title: plot title
         :param ylabel: y axis plot label
+        :param y_plot_pad: padding between the highest bar and the top of the plot
+        :param y_max: maximum override for y axis
+        :param y_min: minimum override for y axis
         :param image_name: unique name to store the plot as a png
         :return: matplotlib fig and ax objects.
         """
@@ -368,6 +374,14 @@ class GraphicsRenderer(Logger):
         ax.set_title(title, fontsize=30)
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel(ylabel, fontsize=14)
+        ymin = y_min or min([i for i in map(min, data_y) if not np.isnan(i)])
+        ymax = y_max or max([i for i in map(max, data_y) if not np.isnan(i)])
+        ax.set_ylim(
+            ymin - abs(ymin * y_plot_pad),
+            ymax + abs(ymax * y_plot_pad))
+        fig.patch.set_facecolor('white')
+        if image_name:
+            self._make_image_from_plt(image_name)
         if image_name:
             self._make_image_from_plt(image_name)
         return fig, ax
@@ -393,6 +407,52 @@ class GraphicsRenderer(Logger):
                 ]))
         plt.savefig(img_name, bbox_inches='tight', facecolor='white')
         return
+
+    @staticmethod
+    def _make_table_from_df(df, ax):
+        """
+        Create a matplotlib table from dataframe
+
+        :param df: Pandas DataFrame object
+        :param ax: matplotlib axis to insert table
+        :return: matplotlib table object
+        """
+        tab = ax.table(
+            cellText=df.values,
+            colLabels=df.columns,
+            zorder=1,
+            bbox=[0, 0, 1, 1],
+            edges='LR')
+        ax.axis('tight')
+        ax.axis('off')
+        # set font
+        tab.auto_set_font_size(False)
+        tab.set_fontsize(12)
+        # set cell properties individually
+        cell_dict = tab.get_celld()
+        for i in range(len(df.columns)):
+            cell_dict[(0, i)].set_height(1)
+            cell_dict[(0, i)].set_fontsize(16)
+            cell_dict[(0, 0)].set_width(2)
+            cell_dict[(0, i)].set_width(0.5)
+            cell_dict[(0, i)].visible_edges = 'closed'
+            cell_dict[(0, i)].set_facecolor('#EAEEED')
+            for j in range(1, df.shape[0] + 1):
+                cell_dict[(j, 0)].set_width(2)
+                cell_dict[(j, 0)].set_text_props(ha="left")
+                cell_dict[(j, 0)].PAD = 0.02
+                cell_dict[(j, i)].set_width(0.5)
+                cell_dict[(j, i)].set_height(0.25)
+                if j % 2 == 0:
+                    cell_dict[(j, i)].visible_edges = 'closed'
+                    cell_dict[(j, i)].set_facecolor('#D2F6ED')
+        ax.axis([0, 1, 1, 0])
+        # set outer borders
+        ax.axhline(y=0, color='black', linewidth=4, zorder=3)
+        ax.axhline(y=1, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=0, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=1, color='black', linewidth=4, zorder=3)
+        return tab
 
     def render_section_5_2a_table_b_8_1(
             self,
@@ -458,37 +518,7 @@ class GraphicsRenderer(Logger):
             nrows=1,
             ncols=1,
             figsize=(22, 20))
-        tab = ax.table(
-            cellText=df_formatted_table.values,
-            colLabels=df_formatted_table.columns,
-            zorder=1,
-            bbox=[0, 0, 1, 1],
-            edges='LR')
-        ax.axis('tight')
-        ax.axis('off')
-        # set font
-        tab.auto_set_font_size(False)
-        tab.set_fontsize(12)
-        # set cell properties individually
-        cell_dict = tab.get_celld()
-        for i in range(len(df_formatted_table.columns)):
-            cell_dict[(0, i)].set_height(1)
-            cell_dict[(0, i)].set_fontsize(16)
-            cell_dict[(0, 0)].set_width(2)
-            cell_dict[(0, i)].set_width(0.5)
-            cell_dict[(0, i)].visible_edges = 'closed'
-            for j in range(1, df_formatted_table.shape[0] + 1):
-                cell_dict[(j, 0)].set_width(2)
-                cell_dict[(j, 0)].set_text_props(ha="left")
-                cell_dict[(j, 0)].PAD = 0.02
-                cell_dict[(j, i)].set_width(0.5)
-                cell_dict[(j, i)].set_height(0.25)
-        ax.axis([0, 1, 1, 0])
-        # set outer borders
-        ax.axhline(y=0, color='black', linewidth=4, zorder=3)
-        ax.axhline(y=1, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=0, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=1, color='black', linewidth=4, zorder=3)
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax)
         # set inner borders
         ax.axvline(x=5 / 7.5, color='black', linewidth=2, zorder=3)
         ax.axvline(x=7 / 7.5, color='black', linewidth=3, zorder=3)
@@ -1217,9 +1247,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency',
             ylabel='Number of Occurrences',
             image_name='section_5_2_a_figure_b_8_h1')
-        ax.set_yticks(np.arange(0, 500, 100))
         ax.set_xlim(-5, 55)
-        ax.set_ylim(0, 500)
         ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
         return fig, ax
 
