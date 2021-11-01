@@ -4,6 +4,7 @@ import re
 import os
 import pathlib
 from src.input_processor import InputProcessor
+from src.file_renderer import FileRenderer
 from custom_exceptions import ASHRAE140TypeError
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
@@ -81,21 +82,38 @@ def main(args=None):
         else:
             input_files = []
         for input_file in input_files:
-            try:
-                ip = InputProcessor(
-                    logger_level=args.logger_level,
-                    logger_name=logger_name,
-                    input_file_location=input_file)
+            if 'input' in str(input_file):
                 try:
-                    if ip.input_file_location:
-                        ip.logger.info('Processing file: {}'.format(ip.input_file_location))
-                        ip.run()
+                    ip = InputProcessor(
+                        logger_level=args.logger_level,
+                        logger_name=logger_name,
+                        input_file_location=input_file)
+                    try:
+                        if ip.input_file_location:
+                            ip.logger.info('Processing file: {}'.format(ip.input_file_location))
+                            ip.run()
+                    except ASHRAE140TypeError:
+                        ip.logger.error('Failed to process file: {}'.format(str(input_file)))
+                        continue
                 except ASHRAE140TypeError:
-                    ip.logger.error('Failed to process file: {}'.format(str(input_file)))
+                    print('failed to process file: {}'.format(str(input_file)))
                     continue
-            except ASHRAE140TypeError:
-                print('failed to process file: {}'.format(str(input_file)))
-                continue
+            elif 'processed' in str(input_file):
+                try:
+                    fr = FileRenderer(
+                        logger_level=args.logger_level,
+                        logger_name=logger_name,
+                        file_name=input_file)
+                    try:
+                        if fr.file_name:
+                            fr.logger.info('Rendering file: {}'.format(fr.file_name))
+                            fr.run()
+                    except ASHRAE140TypeError:
+                        print('failed to render file: {}'.format(str(input_file)))
+                        continue
+                except ASHRAE140TypeError:
+                    print('failed to process file: {}'.format(str(input_file)))
+                    continue
     return
 
 

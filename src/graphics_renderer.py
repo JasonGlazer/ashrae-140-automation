@@ -386,21 +386,22 @@ class GraphicsRenderer(Logger):
             self._make_image_from_plt(image_name)
         return fig, ax
 
-    def _make_image_from_plt(self, figure_name, destionation_directory=('rendered', 'images')):
+    def _make_image_from_plt(self, figure_name, destination_directory=('rendered', 'images')):
         """
         make a png file from a matplotlib.pyplot object and save it to a directory
 
         :param figure_name: name of figure to append to file name
-        :param destionation_directory: list of directories leading to the output directory
+        :param destination_directory: list of directories leading to the output directory
         :return: saved image in referenced directory
         """
+        f = pathlib.Path(self.model_results_file)
         img_name = root_directory.joinpath(
-            *destionation_directory,
+            *destination_directory,
             '.'.join(
                 [
                     '-'.join(
                         [
-                            os.path.splitext(self.model_results_file)[0],
+                            f.stem,
                             figure_name,
                         ]),
                     'png'
