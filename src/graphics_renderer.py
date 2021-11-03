@@ -1,6 +1,5 @@
 import pathlib
 import json
-import os
 import re
 import pandas as pd
 import numpy as np
@@ -315,8 +314,8 @@ class GraphicsRenderer(Logger):
                 x = np.arange(len(d))
                 # Fill the tested software bar color.  In case there is some duplicate, only fill the last one.
                 if p.lower() == \
-                        self.json_data[self.model_name]['identifying_information']['software_name'].lower() and idx + 1 == \
-                        len(programs):
+                        self.json_data[self.model_name]['identifying_information'][
+                            'software_name'].lower() and idx + 1 == len(programs):
                     bar_color = '#FE7A7C'
                 else:
                     bar_color = 'w'
