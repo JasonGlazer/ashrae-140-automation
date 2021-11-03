@@ -1876,32 +1876,32 @@ class GraphicsRenderer(Logger):
             tmp_data = []
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['600']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['600']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['660']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['660']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['670']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['670']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['680']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['680']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['685']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['685']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['695']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['695']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             data_lists[0].insert(idx, tmp_data)
@@ -1909,22 +1909,22 @@ class GraphicsRenderer(Logger):
             tmp_data = []
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['900']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['900']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['980']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['980']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['985']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['985']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
-                    json_obj['conditioned_zone_loads_non_free_float']['995']['annual_cooling_MWh'])
+                    json_obj['conditioned_zone_loads_non_free_float']['995']['peak_heating_kW'])
             except (KeyError, TypeError):
                 tmp_data.append(float('NaN'))
             data_lists[1].insert(idx, tmp_data)
@@ -1932,7 +1932,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_split_bar_plot(
             data=data_lists,
             programs=programs,
-            title='Figure B8-24. Basic: Cases 660 to 695 and 980 to 995 Annual Cooling',
+            title='Figure B8-25. Basic: Cases 660 to 695 and 980 to 995 Peak Heating',
             sub_titles=[
                 'Low Mass',
                 'High Mass'
@@ -1941,9 +1941,92 @@ class GraphicsRenderer(Logger):
                 [self.case_detailed_df.loc[i, 'case_name'] for i in cases][:6],
                 [self.case_detailed_df.loc[i, 'case_name'] for i in cases][6:]
             ],
-            ylabel='Annual Heating Load (MWh)',
+            ylabel='Peak Heating Load (kWh/h)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_24')
+            image_name='section_5_2_a_figure_b8_25')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_26(self):
+        """
+        Render Section 5 2A Figure B8-26 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['600', '660', '670', '680', '685', '695', '900', '980', '985', '995']
+        data_lists = [[] for _ in range(2)]
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            # Left chart data
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['600']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['660']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['670']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['680']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['685']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['695']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            data_lists[0].insert(idx, tmp_data)
+            # mid chart data
+            tmp_data = []
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['900']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['980']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['985']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            try:
+                tmp_data.append(
+                    json_obj['conditioned_zone_loads_non_free_float']['995']['peak_cooling_kW'])
+            except (KeyError, TypeError):
+                tmp_data.append(float('NaN'))
+            data_lists[1].insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_split_bar_plot(
+            data=data_lists,
+            programs=programs,
+            title='Figure B8-26. Basic: Cases 660 to 695 and 980 to 995 Peak Cooling',
+            sub_titles=[
+                'Low Mass',
+                'High Mass'
+            ],
+            xticklabels=[
+                [self.case_detailed_df.loc[i, 'case_name'] for i in cases][:6],
+                [self.case_detailed_df.loc[i, 'case_name'] for i in cases][6:]
+            ],
+            ylabel='Peak Heating Load (kWh/h)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b8_26')
         return fig, ax
 
     def render_section_5_2a_figure_b8_h1(self):
