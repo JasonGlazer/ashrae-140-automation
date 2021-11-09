@@ -21,7 +21,7 @@ class DataCleanser(Logger):
             '600', '610', '620', '630', '640', '650', '660', '670', '680', '685', '695', '900', '910', '920',
             '930', '940', '950', '960', '980', '985', '995', '195', '200', '210', '215', '220', '230', '240',
             '250', '270', '280', '290', '300', '310', '320', '395', '400', '410', '420', '430', '440', '450',
-            '460', '470', '800', '810'}
+            '460', '470', '800', '810', '600FF', '650FF', '680FF', '900FF', '950FF', '980FF'}
         return
 
     def __repr__(self):
@@ -176,6 +176,34 @@ class DataCleanser(Logger):
         :return: Cleansed pandas DataFrame
         """
         self.logger.info('Cleansing sky temperature output')
+        # check case column
+        self._check_cases(case_column)
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_free_float_case_zone_temperatures(
+            self,
+            case_column: str = 'case',
+            numeric_columns: list = (
+                ('average_temperature', {'lower_limit': 0, 'upper_limit': 50}),
+                ('minimum_temperature', {'lower_limit': -50, 'upper_limit': 50}),
+                ('minimum_day', {'lower_limit': 1, 'upper_limit': 31}),
+                ('minimum_hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('maximum_temperature', {'lower_limit': 0, 'upper_limit': 100}),
+                ('maximum_day', {'lower_limit': 1, 'upper_limit': 31}),
+                ('maximum_hour', {'lower_limit': 0, 'upper_limit': 24}))
+            ):
+        """
+        Perform operations to cleanse and verify data for the free float case zone temperatures table
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing free float case zone temperature output')
         # check case column
         self._check_cases(case_column)
         self._check_columns(

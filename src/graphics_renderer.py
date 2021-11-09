@@ -109,7 +109,14 @@ class GraphicsRenderer(Logger):
                     '460': ['460 Constant Interior Surface Coefficients', 43],
                     '470': ['470 Constant Exterior Surface Coefficients', 44],
                     '800': ['800 High Mass Hig Cond. Wall Elements', 45],
-                    '810': ['810 HIgh Mass Cavity Albedo', 46]
+                    '810': ['810 HIgh Mass Cavity Albedo', 46],
+                    '600FF': ['600FF - Low Mass Building with South Windows', 47],
+                    '650FF': ['650FF - Case 600FF with Night Ventilation', 48],
+                    '680FF': ['680FF - Case 600FF with More Insulation', 49],
+                    '900FF': ['900FF - High Mass Building with South Windows', 50],
+                    '950FF': ['950FF - Case 900FF with Night Ventilation', 51],
+                    '980FF': ['980FF - Case 900FF with More Insulation', 52],
+                    '960': ['960 - Sunspace', 53]
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
@@ -2560,7 +2567,320 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.1,
-            image_name='section_5_2_a_figure_b8_31')
+            image_name='section_5_2_a_figure_b8_32')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_33(self):
+        """
+        Render Section 5 2A Figure B8-33 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        cases = ['600FF', '900FF', '650FF', '950FF', '680FF', '980FF', '960']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['free_float_case_zone_temperatures']['600FF']['average_temperature'])
+                except (KeyError, TypeError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-33. Basic: Average Hourly Annual Temperature Free-Float Cases',
+            xticklabels=[self.case_detailed_df.loc[i, 'case_name'] for i in cases],
+            ylabel=r'Average Temperature ($^\circ$C)',
+            y_plot_pad=0.1,
+            image_name='section_5_2_a_figure_b8_33')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_34(self):
+        """
+        Render Section 5 2A Figure B8-34 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        cases = ['600FF', '900FF', '650FF', '950FF', '680FF', '980FF', '960']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['free_float_case_zone_temperatures'][case]['maximum_temperature'])
+                except (KeyError, TypeError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-34. Basic: Maximum Hourly Annual Temperature Free-Float Cases',
+            xticklabels=[self.case_detailed_df.loc[i, 'case_name'] for i in cases],
+            ylabel=r'Maximum Temperature ($^\circ$C)',
+            y_plot_pad=0.1,
+            image_name='section_5_2_a_figure_b8_34')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_35(self):
+        """
+        Render Section 5 2A Figure B8-35 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        cases = ['600FF', '900FF', '650FF', '950FF', '680FF', '980FF', '960']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(json_obj['free_float_case_zone_temperatures'][case]['minimum_temperature'])
+                except (KeyError, TypeError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-35. Basic: Minimum Hourly Annual Temperature Free-Float Cases',
+            xticklabels=[self.case_detailed_df.loc[i, 'case_name'] for i in cases],
+            ylabel=r'Minimum Temperature ($^\circ$C)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b8_35')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_36(self):
+        """
+        Render Section 5 2A Figure B8-36 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['195', '200', '210', '215', '220', '230', '240', '250']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['annual_heating_MWh'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-36. In-Depth: Low Mass Cases 195 to 250 Annual Heating',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Annual Heating Load (MWh)',
+            image_name='section_5_2_a_figure_b8_36')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_37(self):
+        """
+        Render Section 5 2A Figure B8-37 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['195', '200', '210', '215', '220', '230', '240', '250']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['annual_cooling_MWh'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-37. In-Depth: Low Mass Cases 195 to 250 Annual Sensible Cooling',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Annual Cooling Load (MWh)',
+            image_name='section_5_2_a_figure_b8_37')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_38(self):
+        """
+        Render Section 5 2A Figure B8-38 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['195', '200', '210', '215', '220', '230', '240', '250']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['peak_heating_kW'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-38. In-Depth: Low Mass Cases 195 to 250 Peak Heating',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Peak Heating Load (kWh/h)',
+            image_name='section_5_2_a_figure_b8_38')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_39(self):
+        """
+        Render Section 5 2A Figure B8-39 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['195', '200', '210', '215', '220', '230', '240', '250']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['peak_cooling_kW'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-39. In-Depth: Low Mass Cases 195 to 250 Peak Sensible Cooling',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Peak Cooling Load (kWh/h)',
+            image_name='section_5_2_a_figure_b8_39')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_40(self):
+        """
+        Render Section 5 2A Figure B8-40 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['270', '280', '290', '300', '310', '320']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['annual_heating_MWh'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-40. In-Depth: Low Mass Cases 270 to 320 Annual Heating',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Annual Heating Load (MWh)',
+            image_name='section_5_2_a_figure_b8_40')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_41(self):
+        """
+        Render Section 5 2A Figure B8-41 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['270', '280', '290', '300', '310', '320']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['annual_cooling_MWh'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-41. In-Depth: Low Mass Cases 270 to 320 Annual Sensible Cooling',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Annual Cooling Load (MWh)',
+            image_name='section_5_2_a_figure_b8_41')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_42(self):
+        """
+        Render Section 5 2A Figure B8-42 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['270', '280', '290', '300', '310', '320']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['peak_heating_kW'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-42. In-Depth: Low Mass Cases 270 to 320 Peak Heating',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Peak Heating Load (kWh/h)',
+            image_name='section_5_2_a_figure_b8_42')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_43(self):
+        """
+        Render Section 5 2A Figure B8-43 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        cases = ['270', '280', '290', '300', '310', '320']
+        data = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for case in cases:
+                try:
+                    tmp_data.append(
+                        json_obj['conditioned_zone_loads_non_free_float'][case]['peak_cooling_kW'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-43. In-Depth: Low Mass Cases 270 to 320 Peak Sensible Cooling',
+            xticklabels=[
+                self.case_detailed_df.loc[i, 'case_name']
+                for i in cases],
+            ylabel='Peak Cooling Load (kWh/h)',
+            image_name='section_5_2_a_figure_b8_43')
         return fig, ax
 
     def render_section_5_2a_figure_b8_h1(self):
