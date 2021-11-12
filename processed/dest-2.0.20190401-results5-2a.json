@@ -553,6 +553,85 @@
             "peak_heating_month": "Feb"
         }
     },
+    "free_float_case_zone_temperatures": {
+        "600FF": {
+            "average_temperature": 25.26,
+            "maximum_day": 11,
+            "maximum_hour": 15,
+            "maximum_month": "Oct",
+            "maximum_temperature": 65.0,
+            "minimum_day": 9,
+            "minimum_hour": 6,
+            "minimum_month": "Feb",
+            "minimum_temperature": -13.52
+        },
+        "650FF": {
+            "average_temperature": 18.04,
+            "maximum_day": 11,
+            "maximum_hour": 15,
+            "maximum_month": "Oct",
+            "maximum_temperature": 62.59,
+            "minimum_day": 30,
+            "minimum_hour": 23,
+            "minimum_month": "Dec",
+            "minimum_temperature": -17.37
+        },
+        "680FF": {
+            "average_temperature": 33.3,
+            "maximum_day": 12,
+            "maximum_hour": 15,
+            "maximum_month": "Oct",
+            "maximum_temperature": 74.97,
+            "minimum_day": 9,
+            "minimum_hour": 7,
+            "minimum_month": "Feb",
+            "minimum_temperature": -6.89
+        },
+        "900FF": {
+            "average_temperature": 25.25,
+            "maximum_day": 11,
+            "maximum_hour": 15,
+            "maximum_month": "Sep",
+            "maximum_temperature": 44.46,
+            "minimum_day": 9,
+            "minimum_hour": 7,
+            "minimum_month": "Feb",
+            "minimum_temperature": 1.31
+        },
+        "950FF": {
+            "average_temperature": 14.35,
+            "maximum_day": 11,
+            "maximum_hour": 15,
+            "maximum_month": "Sep",
+            "maximum_temperature": 36.37,
+            "minimum_day": 30,
+            "minimum_hour": 23,
+            "minimum_month": "Dec",
+            "minimum_temperature": -13.36
+        },
+        "960": {
+            "average_temperature": 29.45,
+            "maximum_day": 20,
+            "maximum_hour": 14,
+            "maximum_month": "Oct",
+            "maximum_temperature": 53.18,
+            "minimum_day": 9,
+            "minimum_hour": 6,
+            "minimum_month": "Feb",
+            "minimum_temperature": 6.74
+        },
+        "980FF": {
+            "average_temperature": 33.3,
+            "maximum_day": 21,
+            "maximum_hour": 14,
+            "maximum_month": "Oct",
+            "maximum_temperature": 52.81,
+            "minimum_day": 5,
+            "minimum_hour": 6,
+            "minimum_month": "Nov",
+            "minimum_temperature": 12.4
+        }
+    },
     "hourly_annual_zone_temperature_bin_data": {
         "900FF": {
             "temperature_bin_c": {

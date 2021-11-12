@@ -54,7 +54,8 @@ class SetDataSources:
                     'solar_radiation_unshaded_annual_transmitted': ('YourData', 161, 'B:C', 4),
                     'solar_radiation_shaded_annual_transmitted': ('YourData', 168, 'B:C', 2),
                     'sky_temperature_output': ('YourData', 176, 'B:K', 1),
-                    'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149)
+                    'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149),
+                    'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7)
                 }
             elif obj.section_type == '5-2B':
                 obj._data_sources = {
@@ -83,12 +84,12 @@ class SetProcessingFunctions:
                 'solar_radiation_unshaded_annual_transmitted': obj._extract_solar_radiation_unshaded_annual_transmitted(),
                 'solar_radiation_shaded_annual_transmitted': obj._extract_solar_radiation_shaded_annual_transmitted(),
                 'sky_temperature_output': obj._extract_sky_temperature_output(),
-                'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data()}
+                'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data(),
+                'free_float_case_zone_temperatures': obj._extract_free_float_case_zone_temperatures()}
         elif value == '5-2B':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_2b(),
-                'steady_state_cases': obj._extract_steady_state_cases()
-            }
+                'steady_state_cases': obj._extract_steady_state_cases()}
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -306,6 +307,24 @@ class ExcelProcessor(Logger):
         for idx, row in df.iterrows():
             data_d['900FF']['temperature_bin_c'].update(
                 {int(row['temperature_bin_c']): {'number_of_hours': int(row['number_of_hours'])}})
+        return data_d
+
+    def _extract_free_float_case_zone_temperatures(self):
+        """
+        Retrieve and format data from the Free Float Case Zone Temperature Table (5-2A)
+        :return:  dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('free_float_case_zone_temperatures')
+        df.columns = ['case', 'average_temperature', 'minimum_temperature', 'minimum_month', 'minimum_day', 'minimum_hour',
+                      'maximum_temperature', 'maximum_month', 'maximum_day', 'maximum_hour']
+        dc = DataCleanser(df)
+        df = dc.cleanse_free_float_case_zone_temperatures()
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
         return data_d
 
     # Section 5-2B data
