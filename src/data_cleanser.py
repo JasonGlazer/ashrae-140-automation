@@ -193,8 +193,7 @@ class DataCleanser(Logger):
                 ('minimum_hour', {'lower_limit': 0, 'upper_limit': 24}),
                 ('maximum_temperature', {'lower_limit': 0, 'upper_limit': 100}),
                 ('maximum_day', {'lower_limit': 1, 'upper_limit': 31}),
-                ('maximum_hour', {'lower_limit': 0, 'upper_limit': 24}))
-            ):
+                ('maximum_hour', {'lower_limit': 0, 'upper_limit': 24}))):
         """
         Perform operations to cleanse and verify data for the free float case zone temperatures table
         :param case_column: column containing test case identifiers

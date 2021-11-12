@@ -115,8 +115,7 @@ class GraphicsRenderer(Logger):
                     '680FF': ['680FF - Case 600FF with More Insulation', 49],
                     '900FF': ['900FF - High Mass Building with South Windows', 50],
                     '950FF': ['950FF - Case 900FF with Night Ventilation', 51],
-                    '980FF': ['980FF - Case 900FF with More Insulation', 52],
-                    '960': ['960 - Sunspace', 53]
+                    '980FF': ['980FF - Case 900FF with More Insulation', 52]
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
