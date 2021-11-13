@@ -55,7 +55,8 @@ class SetDataSources:
                     'solar_radiation_shaded_annual_transmitted': ('YourData', 168, 'B:C', 2),
                     'sky_temperature_output': ('YourData', 176, 'B:K', 1),
                     'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149),
-                    'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7)
+                    'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7),
+                    'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 13)
                 }
             elif obj.section_type == '5-2B':
                 obj._data_sources = {
@@ -85,7 +86,8 @@ class SetProcessingFunctions:
                 'solar_radiation_shaded_annual_transmitted': obj._extract_solar_radiation_shaded_annual_transmitted(),
                 'sky_temperature_output': obj._extract_sky_temperature_output(),
                 'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data(),
-                'free_float_case_zone_temperatures': obj._extract_free_float_case_zone_temperatures()}
+                'free_float_case_zone_temperatures': obj._extract_free_float_case_zone_temperatures(),
+                'monthly_conditioned_zone_loads': obj._extract_monthly_conditioned_zone_loads()}
         elif value == '5-2B':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_2b(),
@@ -325,6 +327,36 @@ class ExcelProcessor(Logger):
             row_obj = df.iloc[idx, 1:].to_dict()
             data_d.update({
                 str(case_number): row_obj})
+        return data_d
+
+    def _extract_monthly_conditioned_zone_loads(self):
+        """
+        Retrieve and format data from the Monthly Conditioned Zone Loads Table
+        :return:  dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('monthly_conditioned_zone_loads')
+        df_columns = ['month', 'total_heating_kwh', 'total_cooling_kwh', 'peak_heating_kw', 'peak_heating_day',
+                      'peak_heating_hour', 'peak_cooling_kw', 'peak_cooling_day', 'peak_cooling_hour']
+        df_600 = df.iloc[:, range(9)]
+        df_600.columns = df_columns
+        df_600['case'] = '600'
+        df_900 = df.iloc[:, [0, ] + list(range(9, 17))]
+        df_900.columns = df_columns
+        df_900['case'] = '900'
+        dc_600 = DataCleanser(df_600)
+        dc_900 = DataCleanser(df_900)
+        df_600 = dc_600.cleanse_monthly_conditioned_loads()
+        df_900 = dc_900.cleanse_monthly_conditioned_loads()
+        df = pd.concat([df_600, df_900])
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = str(row['case'])
+            col_idx = [i for i, j in enumerate(df.columns) if j not in ['case', 'index', 'month']]
+            row_obj = df.iloc[idx, col_idx].to_dict()
+            if not data_d.get(case_number):
+                data_d[case_number] = {}
+            data_d[case_number].update({
+                row['month']: row_obj})
         return data_d
 
     # Section 5-2B data

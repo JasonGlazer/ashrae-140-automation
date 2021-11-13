@@ -22,6 +22,9 @@ class DataCleanser(Logger):
             '930', '940', '950', '960', '980', '985', '995', '195', '200', '210', '215', '220', '230', '240',
             '250', '270', '280', '290', '300', '310', '320', '395', '400', '410', '420', '430', '440', '450',
             '460', '470', '800', '810', '600FF', '650FF', '680FF', '900FF', '950FF', '980FF'}
+        self.valid_months = {
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        }
         return
 
     def __repr__(self):
@@ -50,6 +53,27 @@ class DataCleanser(Logger):
             self.logger.error('Error: Case column was improperly referenced ({}).  No validation was performed on this '
                               'column'.format(check_column))
         return failed_cases
+
+    def _check_months(self, check_column):
+        """
+        Verify a column is using valid monthly values.  Drop rows that do not meet the criteria
+
+        :param check_column: Column containing the month values.
+        :return: boolean series to filter input dataframe.  The internal cleansed dataframe is also updated with
+            erroneous entries removed.
+        """
+        self.logger.info('Cleansing column {}'.format(check_column))
+        try:
+            failed_cols = ~self.df[check_column].astype(str).isin(self.valid_months)
+            if failed_cols.any():
+                self.logger.error('Error: Invalid month referenced.  These cases will be removed: {}'
+                                  .format(self.df[failed_cols]))
+                self.df = self.df[~failed_cols].reset_index()
+        except (KeyError, ValueError):
+            failed_cols = None
+            self.logger.error('Error: Month column was improperly referenced ({}).  No validation was performed on this'
+                              ' column'.format(check_column))
+        return failed_cols
 
     def _check_numeric_with_limits(self, check_column, lower_limit=-float("inf"), upper_limit=float("inf")):
         """
@@ -178,6 +202,37 @@ class DataCleanser(Logger):
         self.logger.info('Cleansing sky temperature output')
         # check case column
         self._check_cases(case_column)
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_monthly_conditioned_loads(
+            self,
+            case_column: str = 'case',
+            month_column: str = 'month',
+            numeric_columns: list = (
+                    ('total_heating_kwh', {'lower_limit': 0, 'upper_limit': 1000}),
+                    ('total_cooling_kwh', {'lower_limit': 0, 'upper_limit': 1000}),
+                    ('peak_heating_kw', {'lower_limit': 0, 'upper_limit': 10}),
+                    ('peak_heating_day', {'lower_limit': 1, 'upper_limit': 31}),
+                    ('peak_heating_hour', {'lower_limit': 0, 'upper_limit': 24}),
+                    ('peak_cooling_kw', {'lower_limit': 0, 'upper_limit': 10}),
+                    ('peak_cooling_day', {'lower_limit': 1, 'upper_limit': 31}),
+                    ('peak_cooling_hour', {'lower_limit': 0, 'upper_limit': 24}))):
+        """
+        Perform operations to cleanse and verify data for the Sky Temperature Output table
+        :param case_column: column containing test case identifiers
+        :param month_column: column containing month values
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing Monthly Conditioned Loads')
+        # check case column
+        self._check_cases(case_column)
+        self._check_months(month_column)
         self._check_columns(
             column_check_function=self._check_numeric_with_limits,
             column_list=numeric_columns)
