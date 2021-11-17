@@ -12,9 +12,10 @@ root_directory = pathlib.Path(__file__).parent.parent.resolve()
 if str(root_directory) not in sys.path:
     sys.path.append(str(root_directory))
 
-from src.input_processor import InputProcessor
-from src.graphics_renderer import GraphicsRenderer
-from src.custom_exceptions import ASHRAE140TypeError
+# imports below the system path append operation above are necessary for github workflow
+from src.input_processor import InputProcessor  # noqa: E402
+from src.graphics_renderer import GraphicsRenderer  # noqa: E402
+from src.custom_exceptions import ASHRAE140TypeError  # noqa: E402
 
 
 def get_property(prop):

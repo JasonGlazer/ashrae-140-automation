@@ -212,14 +212,14 @@ class DataCleanser(Logger):
             case_column: str = 'case',
             month_column: str = 'month',
             numeric_columns: list = (
-                    ('total_heating_kwh', {'lower_limit': 0, 'upper_limit': 1000}),
-                    ('total_cooling_kwh', {'lower_limit': 0, 'upper_limit': 1000}),
-                    ('peak_heating_kw', {'lower_limit': 0, 'upper_limit': 10}),
-                    ('peak_heating_day', {'lower_limit': 1, 'upper_limit': 31}),
-                    ('peak_heating_hour', {'lower_limit': 0, 'upper_limit': 24}),
-                    ('peak_cooling_kw', {'lower_limit': 0, 'upper_limit': 10}),
-                    ('peak_cooling_day', {'lower_limit': 1, 'upper_limit': 31}),
-                    ('peak_cooling_hour', {'lower_limit': 0, 'upper_limit': 24}))):
+                ('total_heating_kwh', {'lower_limit': 0, 'upper_limit': 1000}),
+                ('total_cooling_kwh', {'lower_limit': 0, 'upper_limit': 1000}),
+                ('peak_heating_kw', {'lower_limit': 0, 'upper_limit': 10}),
+                ('peak_heating_day', {'lower_limit': 1, 'upper_limit': 31}),
+                ('peak_heating_hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('peak_cooling_kw', {'lower_limit': 0, 'upper_limit': 10}),
+                ('peak_cooling_day', {'lower_limit': 1, 'upper_limit': 31}),
+                ('peak_cooling_hour', {'lower_limit': 0, 'upper_limit': 24}))):
         """
         Perform operations to cleanse and verify data for the Sky Temperature Output table
         :param case_column: column containing test case identifiers
