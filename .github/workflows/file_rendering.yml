@@ -28,14 +28,14 @@ jobs:
 
       - name: Install Pip Dependencies
         shell: bash
-        run: pip install ${{ matrix.pip_arg }} -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: process input files
-        id: process-files
+      - name: render processed files
+        id: render-files
         shell: bash
         run: |
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
-            if [[  ${file} =~ ^input/ ]]; then
+            if [[  ${file} =~ ^processed/ ]]; then
                 python3 src/main.py ${file}
             fi
           done
@@ -43,7 +43,7 @@ jobs:
       - name: commit results
         id: commit-results
         run: |
-          git config --global user.name 'Processing-Bot'
-          git config --global user.email 'processing-bot@users.noreply.github.com'
-          git commit -am "Automated report"
+          git config --global user.name 'Rendering-Bot'
+          git config --global user.email 'rendering-bot@users.noreply.github.com'
+          git commit -am "Automated rendering"
           git push

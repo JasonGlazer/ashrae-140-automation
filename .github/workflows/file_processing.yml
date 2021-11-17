@@ -1,0 +1,49 @@
+name: file_processing
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    name: Test changed-files
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v11.5
+
+      - name: List all modified files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
+            echo "$file was modified"
+          done
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install Pip Dependencies
+        shell: bash
+        run: pip install -r requirements.txt
+
+      - name: process input files
+        id: process-files
+        shell: bash
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
+            if [[  ${file} =~ ^input/ ]]; then
+                python3 src/main.py ${file}
+            fi
+          done
+
+      - name: commit results
+        id: commit-results
+        run: |
+          git config --global user.name 'Processing-Bot'
+          git config --global user.email 'processing-bot@users.noreply.github.com'
+          git commit -am "Automated processing"
+          git push
