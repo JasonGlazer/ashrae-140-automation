@@ -43,7 +43,7 @@ jobs:
         shell: bash
         run: |
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
-            if [[ $file ~= '^input/.*xlsx$' ]]
-              python3 src/main.py $file
+            if [[ file ~= '^input/.*xlsx$' ]]
+              python3 src/main.py file
             fi
           done
