@@ -3978,14 +3978,14 @@ class GraphicsRenderer(Logger):
         ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
         return fig, ax
 
-    def render_section_5_2b_table_b8_2_1(
-            self,
-            output_value='annual_heating_MWh',
-            caption='Table B8.2-1 "a"-Series Case Summary, Numerical Model Verification'):
-        """
-        Create dataframe from class dataframe object for table 5-2B B8.2-1
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        df = self.df_data['steady_state_cases']
-        return df
+    # def render_section_5_2b_table_b8_2_1(
+    #         self,
+    #         output_value='annual_heating_MWh',
+    #         caption='Table B8.2-1 "a"-Series Case Summary, Numerical Model Verification'):
+    #     """
+    #     Create dataframe from class dataframe object for table 5-2B B8.2-1
+    #
+    #     :return: pandas dataframe and output msg for general navigation.
+    #     """
+    #     df = self.df_data['steady_state_cases']
+    #     return df
