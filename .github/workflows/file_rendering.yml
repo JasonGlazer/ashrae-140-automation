@@ -1,4 +1,4 @@
-name: input_file_processing
+name: file_rendering
 
 on: [push]
 
