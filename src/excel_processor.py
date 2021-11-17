@@ -337,10 +337,10 @@ class ExcelProcessor(Logger):
         df = self._get_data('monthly_conditioned_zone_loads')
         df_columns = ['month', 'total_heating_kwh', 'total_cooling_kwh', 'peak_heating_kw', 'peak_heating_day',
                       'peak_heating_hour', 'peak_cooling_kw', 'peak_cooling_day', 'peak_cooling_hour']
-        df_600 = df.iloc[:, range(9)]
+        df_600 = df.iloc[:, range(9)].copy()
         df_600.columns = df_columns
         df_600['case'] = '600'
-        df_900 = df.iloc[:, [0, ] + list(range(9, 17))]
+        df_900 = df.iloc[:, [0, ] + list(range(9, 17))].copy()
         df_900.columns = df_columns
         df_900['case'] = '900'
         dc_600 = DataCleanser(df_600)

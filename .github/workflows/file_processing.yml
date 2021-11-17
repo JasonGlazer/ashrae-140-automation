@@ -1,14 +1,6 @@
-name: input_file_processing
+name: file_processing
 
-on:
-  push:
-    branches:
-      - main
-      - initial_buildout
-  pull_request:
-    branches:
-      - main
-      - initial_buildout
+on: [push]
 
 jobs:
   build:
@@ -36,14 +28,25 @@ jobs:
 
       - name: Install Pip Dependencies
         shell: bash
-        run: pip install ${{ matrix.pip_arg }} -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: process input files
         id: process-files
         shell: bash
         run: |
+          echo "DOCOMMIT=false" >> $GITHUB_ENV
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
-            if [[ file ~= '^input/.*xlsx$' ]]
-              python3 src/main.py file
+            if [[  ${file} =~ ^input/ ]]; then
+              python3 src/main.py -l INFO ${file}
+              echo "DOCOMMIT=true" >> $GITHUB_ENV
             fi
           done
+
+      - name: commit results
+        id: commit-results
+        if: env.DOCOMMIT == 'true'
+        run: |
+          git config --global user.name 'Processing-Bot'
+          git config --global user.email 'processing-bot@users.noreply.github.com'
+          git commit -am "Automated processing"
+          git push
