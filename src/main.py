@@ -88,6 +88,7 @@ def main(args=None):
                 input_files = [str(f), ]
         else:
             input_files = []
+        processed_files = []
         for input_file in input_files:
             if 'input' in str(input_file):
                 try:
@@ -98,14 +99,16 @@ def main(args=None):
                     try:
                         if ip.input_file_location:
                             ip.logger.info('Processing file: {}'.format(ip.input_file_location))
-                            ip.run()
+                            output_file = ip.run()
+                            processed_files.append(output_file)
                     except ASHRAE140TypeError:
                         ip.logger.error('Failed to process file: {}'.format(str(input_file)))
                         continue
                 except ASHRAE140TypeError:
                     print('failed to process file: {}'.format(str(input_file)))
                     continue
-            elif 'processed' in str(input_file) and os.path.basename(input_file) not in [
+        for input_file in input_files + processed_files:
+            if 'processed' in str(input_file) and os.path.basename(input_file) not in [
                 'basecalc-v1.0e-results5-2b.json',
                 'bsimac-9.9.0.7.4-results5-2a.json',
                 'cse-0.861.1-results5-2a.json',

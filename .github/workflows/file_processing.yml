@@ -37,7 +37,7 @@ jobs:
           echo "DOCOMMIT=false" >> $GITHUB_ENV
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
             if [[  ${file} =~ ^input/ ]]; then
-              python3 src/main.py ${file}
+              python3 src/main.py -l INFO ${file}
               echo "DOCOMMIT=true" >> $GITHUB_ENV
             fi
           done
@@ -49,39 +49,4 @@ jobs:
           git config --global user.name 'Processing-Bot'
           git config --global user.email 'processing-bot@users.noreply.github.com'
           git commit -am "Automated processing"
-          git push
-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
-
-      - name: Get changed files
-        id: changed-processed-files
-        uses: tj-actions/changed-files@v11.5
-
-      - name: List all modified files
-        run: |
-          for file in ${{ steps.changed-processed-files.outputs.all_modified_files }}; do
-            echo "$file was modified"
-          done
-
-      - name: render processed files
-        id: render-files
-        shell: bash
-        run: |
-          echo "DOCOMMIT=false" >> $GITHUB_ENV
-          for file in ${{ steps.changed-processed-files.outputs.all_modified_files }}; do
-          if [[  ${file} =~ ^processed/ ]]; then
-           python3 src/main.py ${file}
-           echo "DOCOMMIT=true" >> $GITHUB_ENV
-          fi
-          done
-
-      - name: commit results
-        id: commit-rendered-results
-        if: env.DOCOMMIT == 'true'
-        run: |
-          git config --global user.name 'Rendering-Bot'
-          git config --global user.email 'rendering-bot@users.noreply.github.com'
-          git commit -am "Automated rendering"
           git push
