@@ -2,12 +2,19 @@ import argparse
 import logging
 import re
 import os
+import sys
 import pathlib
-from src.input_processor import InputProcessor
-from src.file_renderer import FileRenderer
-from custom_exceptions import ASHRAE140TypeError
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
+
+if str(root_directory) not in sys.path:
+    sys.path.append(str(root_directory))
+
+print(sys.path)
+
+from src.input_processor import InputProcessor
+from src.file_renderer import FileRenderer
+from src.custom_exceptions import ASHRAE140TypeError
 
 
 def get_property(prop):
