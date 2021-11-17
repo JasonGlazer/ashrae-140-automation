@@ -46,8 +46,7 @@ jobs:
         id: commit-results
         if: env.DOCOMMIT == 'true'
         run: |
-            git config --global user.name 'Rendering-Bot'
-            git config --global user.email 'rendering-bot@users.noreply.github.com'
-            git commit -am "Automated rendering"
-            git push
-          fi
+          git config --global user.name 'Rendering-Bot'
+          git config --global user.email 'rendering-bot@users.noreply.github.com'
+          git commit -am "Automated rendering"
+          git push
