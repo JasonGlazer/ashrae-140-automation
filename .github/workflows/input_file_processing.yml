@@ -1,4 +1,4 @@
-name: CI
+name: input_file_processing
 
 on:
   push:
@@ -27,4 +27,23 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
             echo "$file was modified"
+          done
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install Pip Dependencies
+        shell: bash
+        run: pip install ${{ matrix.pip_arg }} -r requirements.txt
+
+      - name: process input files
+        id: process-files
+        shell: bash
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
+            if [[ $file ~= '^input/.*xlsx$' ]]
+              python3 src/main.py $file
+            fi
           done
