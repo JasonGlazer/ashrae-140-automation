@@ -14,6 +14,9 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v11.5
+        with:
+          persist-credentials: false
+          token: ${{ secrets.PAT }}
 
       - name: List all modified files
         run: |
