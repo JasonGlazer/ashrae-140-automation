@@ -60,6 +60,11 @@ def build_parser():  # pragma: no cover
         action='store_true',
         help='Write logs to file')
     parser.add_argument(
+        '--render_graphics',
+        '-rg',
+        nargs='+',
+        help='Graphic name to render.')
+    parser.add_argument(
         "--files",
         '-f',
         nargs='+',
@@ -79,6 +84,10 @@ def main(args=None):
         logger_name = 'file_logger'
     else:
         logger_name = 'console_only_logger'
+    if getattr(args, 'render_graphics'):
+        render_from_input = True
+    else:
+        render_from_input = False
     for f in args.files:
         # Check files argument input.  If it's a directory then make a list of all files contained within.
         f = pathlib.Path(f).joinpath(root_directory, f)
@@ -91,7 +100,7 @@ def main(args=None):
             input_files = []
         processed_files = []
         for input_file in input_files:
-            if 'input' in str(input_file):
+            if '/input/' in str(input_file):
                 try:
                     ip = InputProcessor(
                         logger_level=args.logger_level,
@@ -101,14 +110,16 @@ def main(args=None):
                         if ip.input_file_location:
                             ip.logger.info('Processing file: {}'.format(ip.input_file_location))
                             output_file = ip.run()
-                            processed_files.append(output_file)
+                            if render_from_input:
+                                processed_files.append(output_file)
                     except ASHRAE140TypeError:
                         ip.logger.error('Failed to process file: {}'.format(str(input_file)))
                         continue
                 except ASHRAE140TypeError:
                     print('failed to process file: {}'.format(str(input_file)))
                     continue
-            elif 'processed' in str(input_file) and os.path.basename(input_file) not in [
+        for input_file in input_files + processed_files:
+            if '/processed/' in str(input_file) and os.path.basename(input_file) not in [
                 'basecalc-v1.0e-results5-2b.json',
                 'bsimac-9.9.0.7.4-results5-2a.json',
                 'cse-0.861.1-results5-2a.json',
@@ -130,12 +141,17 @@ def main(args=None):
                         os.path.basename(input_file),
                         logger_level=args.logger_level,
                         logger_name=logger_name)
-                    # get rendering functions from class
-                    render_functions = [
-                        (i, j) for i, j in
-                        inspect.getmembers(gr, predicate=inspect.ismethod) if i.startswith('render')]
+                    # get rendering functions from class.  If the 'render graphics' option was provided then only
+                    # render the referenced graphic.  Otherwise, render all graphics
+                    if getattr(args, 'render_graphics'):
+                        render_function_names = ['_'.join(['render', i]) for i in getattr(args, 'render_graphics')]
+                        render_functions = [(i, getattr(gr, i)) for i in render_function_names if hasattr(gr, i)]
+                    else:
+                        render_functions = [
+                            (i, j) for i, j in
+                            inspect.getmembers(gr, predicate=inspect.ismethod) if i.startswith('render')]
                     try:
-                        for render_function_name, render_function in render_functions[:2]:
+                        for render_function_name, render_function in render_functions:
                             render_function()
                             plt.close('all')
                             gr.logger.info('%s rendered for %s', render_function_name, str(input_file))
