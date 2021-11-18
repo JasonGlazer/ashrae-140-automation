@@ -9,7 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          persist-credentials: false
           token: ${{ secrets.PAT }}
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
@@ -47,10 +46,6 @@ jobs:
       - name: commit results
         id: commit-results
         if: env.DOCOMMIT == 'true'
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-          token: ${{ secrets.PAT }}
         run: |
           git config --global user.name 'Processing-Bot'
           git config --global user.email 'processing-bot@users.noreply.github.com'
