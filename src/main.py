@@ -119,6 +119,7 @@ def main(args=None):
                     print('failed to process file: {}'.format(str(input_file)))
                     continue
         for input_file in input_files + processed_files:
+            # Ignore base files used as comparisons for renderings
             if '/processed/' in str(input_file) and os.path.basename(input_file) not in [
                 'basecalc-v1.0e-results5-2b.json',
                 'bsimac-9.9.0.7.4-results5-2a.json',
@@ -141,7 +142,7 @@ def main(args=None):
                         os.path.basename(input_file),
                         logger_level=args.logger_level,
                         logger_name=logger_name)
-                    # get rendering functions from class.  If the 'render graphics' option was provided then only
+                    # get rendering functions from class.  If the 'render_graphics' option was provided then only
                     # render the referenced graphic.  Otherwise, render all graphics
                     if getattr(args, 'render_graphics'):
                         render_function_names = ['_'.join(['render', i]) for i in getattr(args, 'render_graphics')]
