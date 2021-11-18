@@ -108,8 +108,7 @@ def main(args=None):
                 except ASHRAE140TypeError:
                     print('failed to process file: {}'.format(str(input_file)))
                     continue
-        for input_file in input_files + processed_files:
-            if 'processed' in str(input_file) and os.path.basename(input_file) not in [
+            elif 'processed' in str(input_file) and os.path.basename(input_file) not in [
                 'basecalc-v1.0e-results5-2b.json',
                 'bsimac-9.9.0.7.4-results5-2a.json',
                 'cse-0.861.1-results5-2a.json',
@@ -136,7 +135,7 @@ def main(args=None):
                         (i, j) for i, j in
                         inspect.getmembers(gr, predicate=inspect.ismethod) if i.startswith('render')]
                     try:
-                        for render_function_name, render_function in render_functions:
+                        for render_function_name, render_function in render_functions[:2]:
                             render_function()
                             plt.close('all')
                             gr.logger.info('%s rendered for %s', render_function_name, str(input_file))
