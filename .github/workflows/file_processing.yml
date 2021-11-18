@@ -100,4 +100,3 @@ jobs:
           git config --global user.email 'rendering-bot@users.noreply.github.com'
           git commit -am "Automated rendering"
           git push
-  
