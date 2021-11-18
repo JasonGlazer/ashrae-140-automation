@@ -5,7 +5,7 @@ on: [push]
 jobs:
   process:
     runs-on: ubuntu-latest  # windows-latest | macos-latest
-    name: Test changed-files
+    name: Process input files
     steps:
       - uses: actions/checkout@v2
         with:
@@ -54,7 +54,7 @@ jobs:
   render:
     needs: process
     runs-on: ubuntu-latest  # windows-latest | macos-latest
-    name: Test changed-files
+    name: Render formatted JSON files
     steps:
       - uses: actions/checkout@v2
         with:
