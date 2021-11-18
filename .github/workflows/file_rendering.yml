@@ -1,9 +1,9 @@
-name: file_processing
+name: file_rendering
 
 on: [push]
 
 jobs:
-  build:
+  process:
     runs-on: ubuntu-latest  # windows-latest | macos-latest
     name: Test changed-files
     steps:
@@ -51,3 +51,5 @@ jobs:
           git config --global user.email 'rendering-bot@users.noreply.github.com'
           git commit -am "Automated rendering"
           git push
+  render:
+    needs: process
