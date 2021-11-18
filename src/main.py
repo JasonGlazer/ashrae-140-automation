@@ -136,7 +136,7 @@ def main(args=None):
                         (i, j) for i, j in
                         inspect.getmembers(gr, predicate=inspect.ismethod) if i.startswith('render')]
                     try:
-                        for render_function_name, render_function in render_functions:
+                        for render_function_name, render_function in render_functions[:2]:
                             render_function()
                             plt.close('all')
                             gr.logger.info('%s rendered for %s', render_function_name, str(input_file))
