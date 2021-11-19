@@ -1086,7 +1086,7 @@
         }
     },
     "identifying_information": {
-        "software_name": "TestSoftwareProgram",
+        "software_name": "TestSoftware",
         "software_release_date": "2000-01-01 00:00:00",
         "software_version": "0.0.0"
     },
