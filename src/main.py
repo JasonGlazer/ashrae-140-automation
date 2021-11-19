@@ -13,9 +13,9 @@ if str(root_directory) not in sys.path:
     sys.path.append(str(root_directory))
 
 # imports below the system path append operation above are necessary for github workflow
-from src.input_processor import InputProcessor  # noqa: E402
-from src.graphics_renderer import GraphicsRenderer  # noqa: E402
-from src.custom_exceptions import ASHRAE140TypeError  # noqa: E402
+from input_processor import InputProcessor  # noqa: E402
+from graphics_renderer import GraphicsRenderer  # noqa: E402
+from custom_exceptions import ASHRAE140TypeError  # noqa: E402
 
 
 def get_property(prop):
@@ -146,6 +146,11 @@ def main(args=None):
                     # render the referenced graphic.  Otherwise, render all graphics
                     if getattr(args, 'render_graphics'):
                         render_function_names = ['_'.join(['render', i]) for i in getattr(args, 'render_graphics')]
+                        bad_function_names = [i for i in render_function_names if not hasattr(gr, i)]
+                        # print bad function references
+                        for bad_function_name in bad_function_names:
+                            gr.logger.warning('WARNING: Rendering function (%s) does not exist in GraphicsRenderer',
+                                              bad_function_name)
                         render_functions = [(i, getattr(gr, i)) for i in render_function_names if hasattr(gr, i)]
                     else:
                         render_functions = [

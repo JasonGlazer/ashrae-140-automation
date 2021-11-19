@@ -56,7 +56,7 @@ class SetDataSources:
                     'sky_temperature_output': ('YourData', 176, 'B:K', 1),
                     'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149),
                     'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7),
-                    'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 13)
+                    'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 12)
                 }
             elif obj.section_type == '5-2B':
                 obj._data_sources = {
@@ -347,7 +347,7 @@ class ExcelProcessor(Logger):
         dc_900 = DataCleanser(df_900)
         df_600 = dc_600.cleanse_monthly_conditioned_loads()
         df_900 = dc_900.cleanse_monthly_conditioned_loads()
-        df = pd.concat([df_600, df_900])
+        df = pd.concat([df_600, df_900], ignore_index=True)
         data_d = {}
         for idx, row in df.iterrows():
             case_number = str(row['case'])

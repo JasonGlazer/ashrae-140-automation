@@ -3931,6 +3931,156 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m1')
         return fig, ax
 
+    def render_section_5_2a_figure_b8_m2(self):
+        """
+        Render Section 5 2A Figure B8-M2 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for month in months:
+                try:
+                    tmp_data.append(
+                        json_obj['monthly_conditioned_zone_loads']['600'][month]['total_cooling_kwh'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-M2.\n'
+                  'Monthly Sensible Cooling\n'
+                  'Case 600',
+            xticklabels=months,
+            ylabel='Monthly Cooling Load (kWh)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b8_m2')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_m3(self):
+        """
+        Render Section 5 2A Figure B8-M3 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for month in months:
+                try:
+                    tmp_data.append(
+                        json_obj['monthly_conditioned_zone_loads']['600'][month]['peak_heating_kw'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-M3.\n'
+                  'Monthly Peak Heating\n'
+                  'Case 600',
+            xticklabels=months,
+            ylabel='Monthly Peak Heating Load (kW)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b8_m3')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_m4(self):
+        """
+        Render Section 5 2A Figure B8-M4 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for month in months:
+                try:
+                    tmp_data.append(
+                        json_obj['monthly_conditioned_zone_loads']['600'][month]['peak_cooling_kw'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-M4.\n'
+                  'Monthly Peak Cooling\n'
+                  'Case 600',
+            xticklabels=months,
+            ylabel='Monthly Peak Cooling Load (kW)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b8_m4')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_m5(self):
+        """
+        Render Section 5 2A Figure B8-M5 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for month in months:
+                try:
+                    tmp_data.append(
+                        json_obj['monthly_conditioned_zone_loads']['900'][month]['total_heating_kwh'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-M5.\n'
+                  'Monthly Heating\n'
+                  'Case 900',
+            xticklabels=months,
+            ylabel='Monthly Heating Load (kWh)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b8_m5')
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_m6(self):
+        """
+        Render Section 5 2A Figure B8-M6 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        programs = []
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for month in months:
+                try:
+                    tmp_data.append(
+                        json_obj['monthly_conditioned_zone_loads']['900'][month]['total_cooling_kwh'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['software_name'])
+        fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title='Figure B8-M6.\n'
+                  'Monthly Heating\n'
+                  'Case 900',
+            xticklabels=months,
+            ylabel='Monthly Cooling Load (kWh)',
+            y_plot_pad=0.3,
+            image_name='section_5_2_a_figure_b8_m6')
+        return fig, ax
+
     def render_section_5_2a_figure_b8_h1(self):
         """
         Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
