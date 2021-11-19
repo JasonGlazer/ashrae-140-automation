@@ -1,6 +1,10 @@
 name: file_processing
 
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
 
 jobs:
   process:
