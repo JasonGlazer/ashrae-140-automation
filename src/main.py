@@ -2,12 +2,20 @@ import argparse
 import logging
 import re
 import os
+import sys
 import pathlib
-from src.input_processor import InputProcessor
-from src.file_renderer import FileRenderer
-from custom_exceptions import ASHRAE140TypeError
+import inspect
+import matplotlib.pyplot as plt
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
+
+if str(root_directory) not in sys.path:
+    sys.path.append(str(root_directory))
+
+# imports below the system path append operation above are necessary for github workflow
+from input_processor import InputProcessor  # noqa: E402
+from graphics_renderer import GraphicsRenderer  # noqa: E402
+from custom_exceptions import ASHRAE140TypeError  # noqa: E402
 
 
 def get_property(prop):
@@ -52,6 +60,11 @@ def build_parser():  # pragma: no cover
         action='store_true',
         help='Write logs to file')
     parser.add_argument(
+        '--render_graphics',
+        '-rg',
+        nargs='+',
+        help='Graphic name to render.')
+    parser.add_argument(
         "--files",
         '-f',
         nargs='+',
@@ -71,6 +84,10 @@ def main(args=None):
         logger_name = 'file_logger'
     else:
         logger_name = 'console_only_logger'
+    if getattr(args, 'render_graphics'):
+        render_from_input = True
+    else:
+        render_from_input = False
     for f in args.files:
         # Check files argument input.  If it's a directory then make a list of all files contained within.
         f = pathlib.Path(f).joinpath(root_directory, f)
@@ -81,8 +98,9 @@ def main(args=None):
                 input_files = [str(f), ]
         else:
             input_files = []
+        processed_files = []
         for input_file in input_files:
-            if 'input' in str(input_file):
+            if '/input/' in str(input_file):
                 try:
                     ip = InputProcessor(
                         logger_level=args.logger_level,
@@ -91,28 +109,63 @@ def main(args=None):
                     try:
                         if ip.input_file_location:
                             ip.logger.info('Processing file: {}'.format(ip.input_file_location))
-                            ip.run()
+                            output_file = ip.run()
+                            if render_from_input:
+                                processed_files.append(output_file)
                     except ASHRAE140TypeError:
                         ip.logger.error('Failed to process file: {}'.format(str(input_file)))
                         continue
                 except ASHRAE140TypeError:
                     print('failed to process file: {}'.format(str(input_file)))
                     continue
-            elif 'processed' in str(input_file):
+        for input_file in input_files + processed_files:
+            # Ignore base files used as comparisons for renderings
+            if '/processed/' in str(input_file) and os.path.basename(input_file) not in [
+                'basecalc-v1.0e-results5-2b.json',
+                'bsimac-9.9.0.7.4-results5-2a.json',
+                'cse-0.861.1-results5-2a.json',
+                'dest-2.0.20190401-results5-2a.json',
+                'energyplus-9.0.1-results5-2a.json',
+                'energyplus-9.0.1-results5-2b.json',
+                'esp-r-13.3-results5-2a.json',
+                'esp-r-13.3-results5-2b.json',
+                'fluent-6.1-results5-2b.json',
+                'ght-2.02-results5-2b.json',
+                'matlab-7.0.4.365-r14-sp2-results5-2b.json',
+                'sunrel-gc-1.14.02-results5-2b.json',
+                'trnsys-18.00.0001-results5-2a.json',
+                'trnsys-18.00.0001-results5-2b.json',
+                'va114-2.20-results5-2b.json'
+            ]:
                 try:
-                    fr = FileRenderer(
+                    gr = GraphicsRenderer(
+                        os.path.basename(input_file),
                         logger_level=args.logger_level,
-                        logger_name=logger_name,
-                        file_name=input_file)
+                        logger_name=logger_name)
+                    # get rendering functions from class.  If the 'render_graphics' option was provided then only
+                    # render the referenced graphic.  Otherwise, render all graphics
+                    if getattr(args, 'render_graphics'):
+                        render_function_names = ['_'.join(['render', i]) for i in getattr(args, 'render_graphics')]
+                        bad_function_names = [i for i in render_function_names if not hasattr(gr, i)]
+                        # print bad function references
+                        for bad_function_name in bad_function_names:
+                            gr.logger.warning('WARNING: Rendering function (%s) does not exist in GraphicsRenderer',
+                                              bad_function_name)
+                        render_functions = [(i, getattr(gr, i)) for i in render_function_names if hasattr(gr, i)]
+                    else:
+                        render_functions = [
+                            (i, j) for i, j in
+                            inspect.getmembers(gr, predicate=inspect.ismethod) if i.startswith('render')]
                     try:
-                        if fr.file_name:
-                            fr.logger.info('Rendering file: {}'.format(fr.file_name))
-                            fr.run()
-                    except ASHRAE140TypeError:
-                        print('failed to render file: {}'.format(str(input_file)))
+                        for render_function_name, render_function in render_functions:
+                            render_function()
+                            plt.close('all')
+                            gr.logger.info('%s rendered for %s', render_function_name, str(input_file))
+                    except (ValueError, ASHRAE140TypeError):
+                        gr.logger.error('Error: failed to render images: {}', str(input_file))
                         continue
                 except ASHRAE140TypeError:
-                    print('failed to process file: {}'.format(str(input_file)))
+                    print('failed to render images: {}'.format(str(input_file)))
                     continue
     return
 
