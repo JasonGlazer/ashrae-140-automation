@@ -93,7 +93,7 @@ def main(args=None):
         f = pathlib.Path(f).joinpath(root_directory, f)
         if pathlib.Path(f).exists():
             if pathlib.Path(f).is_dir():
-                input_files = [i for i in f.rglob('*') if i.is_file() and i.suffix not in  ['.py', '.pyc']]
+                input_files = [i for i in f.rglob('*') if i.is_file() and i.suffix not in ['.py', '.pyc']]
             else:
                 input_files = [f, ]
         else:
