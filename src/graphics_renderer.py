@@ -1,5 +1,6 @@
 import pathlib
 import json
+import os
 import re
 import pandas as pd
 import numpy as np
@@ -126,30 +127,30 @@ class GraphicsRenderer(Logger):
         if not base_model_list:
             if self.section_type == '5-2A':
                 self.baseline_model_list = [
-                    'bsimac-9.9.0.7.4-results5-2a.json',
-                    'cse-0.861.1-results5-2a.json',
-                    'dest-2.0.20190401-results5-2a.json',
-                    'energyplus-9.0.1-results5-2a.json',
-                    'esp-r-13.3-results5-2a.json',
-                    'trnsys-18.00.0001-results5-2a.json']
+                    root_directory.joinpath('processed', 'bsimac', '9.9.0.7.4', 'results5-2a.json'),
+                    root_directory.joinpath('processed', 'cse', '0.861.1', 'results5-2a.json'),
+                    root_directory.joinpath('processed', 'dest', '2.0.20190401', 'results5-2a.json'),
+                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'results5-2a.json'),
+                    root_directory.joinpath('processed', 'esp-r', '13.3', 'results5-2a.json'),
+                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'results5-2a.json')]
             elif self.section_type == '5-2B':
                 self.baseline_model_list = [
-                    'basecalc-v1.0e-results5-2b.json',
-                    'energyplus-9.0.1-results5-2b.json',
-                    'esp-r-13.3-results5-2b.json',
-                    'fluent-6.1-results5-2b.json',
-                    'ght-2.02-results5-2b.json',
-                    'matlab-7.0.4.365-r14-sp2-results5-2b.json',
-                    'sunrel-gc-1.14.02-results5-2b.json',
-                    'trnsys-18.00.0001-results5-2b.json',
-                    'va114-2.20-results5-2b.json'
+                    root_directory.joinpath('processed', 'basecalc', 'v1.0e', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'esp-r', '13.3', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'fluent', '6.1', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'ght', '2.02', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'matlab', '7.0.4.365-r14-sp2', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'sunrel-gc', '1.14.02', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'results5-2b.json'),
+                    root_directory.joinpath('processed', 'va114', '2.20', 'results5-2b.json')
                 ]
         else:
             self.baseline_model_list = base_model_list
         self.model_results_file = model_results_file
         # try to extract the model name from the file name for the tested model and base models
-        self.baseline_model_names = [i.replace('.json', '') for i in self.baseline_model_list]
-        self.model_name = self.model_results_file.replace('.json', '')
+        self.baseline_model_names = ['-'.join([i.parts[-3], i.parts[-2]]) for i in self.baseline_model_list]
+        self.model_name = '-'.join([self.model_results_file.parts[-3], self.model_results_file.parts[-2]])
         # create an object that keeps the information needed to make the row index for each table object.
         # 0 - json key name
         # 1 - list to make row index
@@ -417,7 +418,7 @@ class GraphicsRenderer(Logger):
             self._make_image_from_plt(image_name)
         return fig, ax
 
-    def _make_image_from_plt(self, figure_name, destination_directory=('rendered', 'images')):
+    def _make_image_from_plt(self, figure_name, destination_directory=root_directory.joinpath('rendered', 'images')):
         """
         make a png file from a matplotlib.pyplot object and save it to a directory
 
@@ -425,14 +426,18 @@ class GraphicsRenderer(Logger):
         :param destination_directory: list of directories leading to the output directory
         :return: saved image in referenced directory
         """
-        f = pathlib.Path(self.model_results_file)
-        img_name = root_directory.joinpath(
-            *destination_directory,
+        program_name = self.model_results_file.parts[-3].lower()
+        version = self.model_results_file.parts[-2].lower()
+        img_directory = destination_directory.joinpath(
+            program_name,
+            version)
+        pathlib.Path(img_directory).mkdir(parents=True, exist_ok=True)
+        img_name = img_directory.joinpath(
             '.'.join(
                 [
                     '-'.join(
                         [
-                            f.stem,
+                            self.model_results_file.stem,
                             figure_name,
                         ]),
                     'png'

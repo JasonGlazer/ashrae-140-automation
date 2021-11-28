@@ -1,3 +1,4 @@
+import os
 import re
 import pathlib
 import json
@@ -82,9 +83,15 @@ class InputProcessor(Logger):
             program_name = self.input_file_location.parts[-3].lower()
             version = self.input_file_location.parts[-2].lower()
             section = self.input_file_location.stem.lower()
-            output_file_location = root_directory.joinpath(
+            program_directory = root_directory.joinpath(
                 'processed',
-                '.'.join(['-'.join([program_name, version, section]), 'json']))
+                program_name,
+                version
+            )
+            pathlib.Path(program_directory).mkdir(parents=True, exist_ok=True)
+            output_file_location = root_directory.joinpath(
+                program_directory,
+                '.'.join(['-'.join([section, ]), 'json']))
             with open(output_file_location, 'w') as f:
                 json.dump(data_object.test_data, f, indent=4, sort_keys=True)
         return output_file_location
