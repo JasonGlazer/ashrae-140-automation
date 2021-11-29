@@ -56,7 +56,8 @@ class SetDataSources:
                     'sky_temperature_output': ('YourData', 176, 'B:K', 1),
                     'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149),
                     'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7),
-                    'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 12)
+                    'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 12),
+                    'specific_day_hourly_output': ('YourData', 228, 'B:T', 24)
                 }
             elif obj.section_type == '5-2B':
                 obj._data_sources = {
@@ -87,7 +88,8 @@ class SetProcessingFunctions:
                 'sky_temperature_output': obj._extract_sky_temperature_output(),
                 'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data(),
                 'free_float_case_zone_temperatures': obj._extract_free_float_case_zone_temperatures(),
-                'monthly_conditioned_zone_loads': obj._extract_monthly_conditioned_zone_loads()}
+                'monthly_conditioned_zone_loads': obj._extract_monthly_conditioned_zone_loads(),
+                'specific_day_hourly_output': obj._extract_specific_day_hourly_output()}
         elif value == '5-2B':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_2b(),
@@ -358,6 +360,20 @@ class ExcelProcessor(Logger):
             data_d[case_number].update({
                 row['month']: row_obj})
         return data_d
+
+    def _extract_specific_day_hourly_output(self):
+        """
+        Retrieve and format data from the Specific Day Hourly Output Table
+        :return:  dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('specific_day_hourly_output')
+        df_incident_solar_radiation_may_4 = df.iloc[:, range(4)].copy()
+        df_incident_solar_radiation_may_4.columns = ['hour', 'horizontal', 'south', 'west']
+        df_incident_solar_radiation_july_14 = df.iloc[:, [0, ] + list(range(4, 7))].copy()
+        df_incident_solar_radiation_july_14.columns = ['hour', 'horizontal', 'south', 'west']
+        print(df_incident_solar_radiation_may_4)
+        print(df_incident_solar_radiation_july_14)
+        return
 
     # Section 5-2B data
     def _extract_identifying_information_2b(self):
