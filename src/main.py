@@ -72,6 +72,43 @@ def build_parser():  # pragma: no cover
     return parser
 
 
+def create_images(input_file, args, logger_name):
+    try:
+        gr = GraphicsRenderer(
+            input_file,
+            logger_level=args.logger_level,
+            logger_name=logger_name)
+        # get rendering functions from class.  If the 'render_graphics' option was provided then only
+        # render the referenced graphic.  Otherwise, render all graphics
+        if getattr(args, 'render_graphics'):
+            render_function_names = ['_'.join(['render', i]) for i in getattr(args, 'render_graphics')]
+            bad_function_names = [i for i in render_function_names if not hasattr(gr, i)]
+            # print bad function references
+            for bad_function_name in bad_function_names:
+                gr.logger.warning('WARNING: Rendering function (%s) does not exist in GraphicsRenderer',
+                                  bad_function_name)
+            render_functions = [(i, getattr(gr, i)) for i in render_function_names if hasattr(gr, i)]
+        else:
+            render_functions = [
+                (i, j) for i, j in
+                inspect.getmembers(gr, predicate=inspect.ismethod)
+                if i.startswith('render') and gr.section_type.lower().replace('-', '_') in i]
+        try:
+            for render_function_name, render_function in render_functions:
+                render_function()
+                plt.close('all')
+                gr.logger.info('%s rendered for %s', render_function_name, str(input_file))
+        except (ValueError, ASHRAE140TypeError):
+            import traceback
+            print(traceback.print_exc())
+            gr.logger.error('Error: failed to render images: %s', str(input_file))
+            return
+    except ASHRAE140TypeError:
+        print('failed to render images: {}'.format(str(input_file)))
+        return
+    return
+
+
 def main(args=None):
     if hasattr(args, 'version') and args.version:
         version = get_property('__version__')
@@ -88,6 +125,7 @@ def main(args=None):
         render_from_input = True
     else:
         render_from_input = False
+    processed_files = []
     for f in args.files:
         # Check files argument input.  If it's a directory then make a list of all files contained within.
         f = pathlib.Path(f).joinpath(root_directory, f)
@@ -98,7 +136,6 @@ def main(args=None):
                 input_files = [f, ]
         else:
             input_files = []
-        processed_files = []
         for input_file in input_files:
             if 'input' in input_file.parts:
                 try:
@@ -137,37 +174,7 @@ def main(args=None):
                 'trnsys-18.00.0001',
                 'va114-2.20'
             ]:
-                try:
-                    gr = GraphicsRenderer(
-                        input_file,
-                        logger_level=args.logger_level,
-                        logger_name=logger_name)
-                    # get rendering functions from class.  If the 'render_graphics' option was provided then only
-                    # render the referenced graphic.  Otherwise, render all graphics
-                    if getattr(args, 'render_graphics'):
-                        render_function_names = ['_'.join(['render', i]) for i in getattr(args, 'render_graphics')]
-                        bad_function_names = [i for i in render_function_names if not hasattr(gr, i)]
-                        # print bad function references
-                        for bad_function_name in bad_function_names:
-                            gr.logger.warning('WARNING: Rendering function (%s) does not exist in GraphicsRenderer',
-                                              bad_function_name)
-                        render_functions = [(i, getattr(gr, i)) for i in render_function_names if hasattr(gr, i)]
-                    else:
-                        render_functions = [
-                            (i, j) for i, j in
-                            inspect.getmembers(gr, predicate=inspect.ismethod)
-                            if i.startswith('render') and gr.section_type.lower().replace('-', '_') in i]
-                    try:
-                        for render_function_name, render_function in render_functions:
-                            render_function()
-                            plt.close('all')
-                            gr.logger.info('%s rendered for %s', render_function_name, str(input_file))
-                    except (ValueError, ASHRAE140TypeError):
-                        gr.logger.error('Error: failed to render images: {}', str(input_file))
-                        continue
-                except ASHRAE140TypeError:
-                    print('failed to render images: {}'.format(str(input_file)))
-                    continue
+                create_images(input_file=input_file, args=args, logger_name=logger_name)
     return
 
 

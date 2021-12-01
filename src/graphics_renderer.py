@@ -371,7 +371,8 @@ class GraphicsRenderer(Logger):
 
     def _create_line_plot(
             self, data_x, data_y, programs, title, ylabel,
-            y_plot_pad=0.1, y_max=None, y_min=None, image_name=None):
+            y_plot_pad=0.1, x_min=None, y_min=None, x_max=None, y_max=None, image_name=None, annotations=None,
+            x_tick_spacing=1):
         """
         Create line plot from data input.
 
@@ -385,34 +386,60 @@ class GraphicsRenderer(Logger):
         :param title: plot title
         :param ylabel: y axis plot label
         :param y_plot_pad: padding between the highest bar and the top of the plot
-        :param y_max: maximum override for y axis
+        :param x_min: minimum override for x axis
+        :param x_max: maximum override for x axis
         :param y_min: minimum override for y axis
+        :param y_max: maximum override for y axis
         :param image_name: unique name to store the plot as a png
         :return: matplotlib fig and ax objects.
         """
         fig, ax = plt.subplots(1, 1, figsize=(14, 8))
         fig, ax = self._set_theme(fig, ax)
+        # Format labels for plotting such that programs with the same name receive the same colors and markers
+        tmp_programs = []
+        tmp_colors = []
+        tmp_markers = []
+        is_unique = []
+        line_counter = 0
+        for i in range(len(data_x)):
+            if programs[i] not in tmp_programs:
+                tmp_programs.append(programs[i])
+                tmp_markers.append(self.markers[line_counter])
+                tmp_colors.append(self.colors[line_counter])
+                line_counter += 1
+                is_unique.append(True)
+            else:
+                tmp_programs.append(tmp_programs[tmp_programs.index(programs[i])])
+                tmp_markers.append(tmp_markers[tmp_programs.index(programs[i])])
+                tmp_colors.append(tmp_colors[tmp_programs.index(programs[i])])
+                is_unique.append(False)
         # Add line plots for each program
-        for dx, dy, p, c, m in zip(data_x, data_y, programs, self.colors, self.markers):
-            ax.plot(dx, dy, color=c, marker=m, label=p)
+        for dx, dy, p, c, m, u in zip(data_x, data_y, tmp_programs, tmp_colors, tmp_markers, is_unique):
+            ax.plot(dx, dy, color=c, marker=m, label=p if u else '')
         # Format plot area
         ax.grid(which='major', axis='y')
         # get minimum/maximum of all x rounded to nearest ten, then increment by 5
         ax.set_xticks(np.arange(
-            math.floor(min([min(i) for i in data_x]) / 10) * 10,
-            math.ceil(max([max(i) for i in data_x]) / 10) * 10,
-            5))
+            math.floor(min([min(i) for i in data_x if i]) / 10) * 10,
+            math.ceil(max([max(i) for i in data_x if i]) / 10) * 10,
+            x_tick_spacing))
         ax.set_title(title, fontsize=30)
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel(ylabel, fontsize=14)
-        ymin = y_min or min([i for i in map(min, data_y) if not np.isnan(i)])
-        ymax = y_max or max([i for i in map(max, data_y) if not np.isnan(i)])
+        ymin = y_min or min([j for i in data_y for j in i if i])
+        ymax = y_max or max([j for i in data_y for j in i if i])
+        xmin = x_min or min([j for i in data_x for j in i if i])
+        xmax = x_max or max([j for i in data_x for j in i if i])
+        ax.set_xlim(
+            xmin,
+            xmax)
         ax.set_ylim(
             ymin - abs(ymin * y_plot_pad),
             ymax + abs(ymax * y_plot_pad))
+        if annotations:
+            for annotation in annotations:
+                ax.annotate(**annotation)
         fig.patch.set_facecolor('white')
-        if image_name:
-            self._make_image_from_plt(image_name)
         if image_name:
             self._make_image_from_plt(image_name)
         return fig, ax
@@ -4273,6 +4300,29 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m12')
         return fig, ax
 
+    @staticmethod
+    def _order_dictionary_with_numeric_keys(input_d, val_key, numeric_type=int):
+        key_list = []
+        val_list = []
+        # Make ordered lists based on the integer value of the key
+        for k, v in input_d.items():
+            if not key_list:
+                key_list.append(numeric_type(k))
+                val_list.append(numeric_type(v[val_key]))
+                continue
+            last_item = -float('inf')
+            for kidx, bin_item in enumerate(key_list):
+                if last_item < numeric_type(k) <= bin_item:
+                    key_list.insert(kidx, numeric_type(k))
+                    val_list.insert(kidx, numeric_type(v[val_key]))
+                    break
+                if kidx == len(key_list) - 1:
+                    key_list.append(numeric_type(k))
+                    val_list.append(numeric_type(v[val_key]))
+                    break
+                last_item = bin_item
+        return key_list, val_list
+
     def render_section_5_2a_figure_b8_h1(self):
         """
         Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
@@ -4284,27 +4334,11 @@ class GraphicsRenderer(Logger):
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             try:
                 data_obj = json_obj['hourly_annual_zone_temperature_bin_data']['900FF']['temperature_bin_c']
-                bin_list = []
-                count_list = []
-                # Make ordered lists based on the integer value of the key
-                for k, v in data_obj.items():
-                    if not bin_list:
-                        bin_list.append(int(k))
-                        count_list.append(int(v['number_of_hours']))
-                        continue
-                    last_item = -float('inf')
-                    for bidx, bin_item in enumerate(bin_list):
-                        if last_item < int(k) <= bin_item:
-                            bin_list.insert(bidx, int(k))
-                            count_list.insert(bidx, int(v['number_of_hours']))
-                            break
-                        if bidx == len(bin_list) - 1:
-                            bin_list.append(int(k))
-                            count_list.append(int(v['number_of_hours']))
-                            break
-                        last_item = bin_item
-                data_x.append(bin_list)
-                data_y.append(count_list)
+                key_list, val_list = self._order_dictionary_with_numeric_keys(
+                    input_d=data_obj,
+                    val_key='number_of_hours')
+                data_x.append(key_list)
+                data_y.append(val_list)
                 programs.append(json_obj['identifying_information']['software_name'])
             except (TypeError, KeyError):
                 data_x.append([])
@@ -4315,10 +4349,54 @@ class GraphicsRenderer(Logger):
             programs=programs,
             title='Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency',
             ylabel='Number of Occurrences',
-            image_name='section_5_2_a_figure_b8_h1')
-        ax.set_xlim(-5, 55)
-        ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
+            image_name='section_5_2_a_figure_b8_h1',
+            x_min=-5,
+            x_max=55,
+            x_tick_spacing=5,
+            annotations=[
+                {
+                    'text': r'Hourly Occurrences for Each 1 $^\circ$C Bin',
+                    'xy': (-4, 410),
+                    'fontsize': 12}
+            ])
         return fig, ax
+
+    def render_section_5_2a_figure_b8_h2(self):
+        """
+        Render Section 5 2A Figure B8-H2 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        specific_days = ['may_4', 'july_14']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for specific_day in specific_days:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output']['600']['incident_solar_radiation'][specific_day][
+                        'horizontal']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='Whm/m2')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H2. Case 600\n'
+                  'Cloudy & Clear Day Hourly Incident Solar\n'
+                  'Horizontal (Upward) Facing Surface',
+            ylabel='Incident Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h2',
+        )
+        ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
+        return
 
     # def render_section_5_2b_table_b8_2_1(
     #         self,
