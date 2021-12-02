@@ -221,6 +221,29 @@ class GraphicsRenderer(Logger):
         fig.tight_layout()
         return fig, ax
 
+    @staticmethod
+    def _order_dictionary_with_numeric_keys(input_d, val_key, numeric_type=int):
+        key_list = []
+        val_list = []
+        # Make ordered lists based on the integer value of the key
+        for k, v in input_d.items():
+            if not key_list:
+                key_list.append(numeric_type(k))
+                val_list.append(numeric_type(v[val_key]))
+                continue
+            last_item = -float('inf')
+            for kidx, bin_item in enumerate(key_list):
+                if last_item < numeric_type(k) <= bin_item:
+                    key_list.insert(kidx, numeric_type(k))
+                    val_list.insert(kidx, numeric_type(v[val_key]))
+                    break
+                if kidx == len(key_list) - 1:
+                    key_list.append(numeric_type(k))
+                    val_list.append(numeric_type(v[val_key]))
+                    break
+                last_item = bin_item
+        return key_list, val_list
+
     def _create_bar_plot(
             self, data, programs, title, xticklabels, ylabel, width=0.1, y_plot_pad=0.1,
             y_max=None, y_min=None, image_name=None):
@@ -4300,29 +4323,6 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m12')
         return fig, ax
 
-    @staticmethod
-    def _order_dictionary_with_numeric_keys(input_d, val_key, numeric_type=int):
-        key_list = []
-        val_list = []
-        # Make ordered lists based on the integer value of the key
-        for k, v in input_d.items():
-            if not key_list:
-                key_list.append(numeric_type(k))
-                val_list.append(numeric_type(v[val_key]))
-                continue
-            last_item = -float('inf')
-            for kidx, bin_item in enumerate(key_list):
-                if last_item < numeric_type(k) <= bin_item:
-                    key_list.insert(kidx, numeric_type(k))
-                    val_list.insert(kidx, numeric_type(v[val_key]))
-                    break
-                if kidx == len(key_list) - 1:
-                    key_list.append(numeric_type(k))
-                    val_list.append(numeric_type(v[val_key]))
-                    break
-                last_item = bin_item
-        return key_list, val_list
-
     def render_section_5_2a_figure_b8_h1(self):
         """
         Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
@@ -4359,6 +4359,7 @@ class GraphicsRenderer(Logger):
                     'xy': (-4, 410),
                     'fontsize': 12}
             ])
+        ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
         return fig, ax
 
     def render_section_5_2a_figure_b8_h2(self):
@@ -4394,9 +4395,414 @@ class GraphicsRenderer(Logger):
                   'Horizontal (Upward) Facing Surface',
             ylabel='Incident Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h2',
-        )
-        ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
-        return
+            annotations=[
+                {
+                    'text': r'Clear Day (July 14)',
+                    'xy': (17, 900),
+                    'fontsize': 18},
+                {
+                    'text': r'Cloudy Day (May 4)',
+                    'xy': (10, 100),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h3(self):
+        """
+        Render Section 5 2A Figure B8-H3 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        specific_days = ['may_4', 'july_14']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for specific_day in specific_days:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output']['600']['incident_solar_radiation'][specific_day][
+                        'south']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='Whm/m2')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H3. Case 600\n'
+                  'Cloudy & Clear Day Hourly Incident Solar\n'
+                  'South Facing Surface',
+            ylabel='Incident Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h3',
+            annotations=[
+                {
+                    'text': r'Clear Day (July 14)',
+                    'xy': (17, 360),
+                    'fontsize': 18},
+                {
+                    'text': r'Cloudy Day (May 4)',
+                    'xy': (10, 60),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h4(self):
+        """
+        Render Section 5 2A Figure B8-H4 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        specific_days = ['may_4', 'july_14']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for specific_day in specific_days:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output']['600']['incident_solar_radiation'][specific_day][
+                        'west']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='Whm/m2')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H4. Case 600\n'
+                  'Cloudy & Clear Day Hourly Incident Solar\n'
+                  'West Facing Surface',
+            ylabel='Incident Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h4',
+            annotations=[
+                {
+                    'text': r'Clear Day (July 14)',
+                    'xy': (19.5, 750),
+                    'fontsize': 18},
+                {
+                    'text': r'Cloudy Day (May 4)',
+                    'xy': (11, 50),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h5(self):
+        """
+        Render Section 5 2A Figure B8-H5 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        cases = ['600', '660', '670']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for case in cases:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output'][case]['transmitted_total_solar_radiation'][
+                        'feb_1']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='Whm/m2')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            x_min=5,
+            x_max=20,
+            title='Figure B8-H5. Case 600, 660, 670\n'
+                  'Hourly Transmitted Solar, Clear/Cold Day (Feb 1)\n'
+                  'Double-Pane, Low-E, Single-Pane Windows',
+            ylabel='Transmitted Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h5',
+            annotations=[
+                {
+                    'text': r'Low-E (Case 600)',
+                    'xy': (11, 210),
+                    'fontsize': 18},
+                {
+                    'text': r'Double-Pane (Case 660)',
+                    'xy': (11, 510),
+                    'fontsize': 18},
+                {
+                    'text': r'Single-Pane (Case 670)',
+                    'xy': (11, 820),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h6(self):
+        """
+        Render Section 5 2A Figure B8-H6 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            try:
+                data_obj = json_obj['specific_day_hourly_output']['600']['transmitted_total_solar_radiation'][
+                    'may_4']['hour']
+                key_list, val_list = self._order_dictionary_with_numeric_keys(
+                    input_d=data_obj,
+                    val_key='Whm/m2')
+                data_x.append(key_list)
+                data_y.append(val_list)
+                programs.append(json_obj['identifying_information']['software_name'])
+            except (TypeError, KeyError):
+                data_x.append([])
+                data_y.append([])
+                programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            x_min=4,
+            x_max=21,
+            title='Figure B8-H6. Case 600\n'
+                  'Hourly Transmitted Solar, Cloudy Day (May 4)\n'
+                  'Double-Pane Windows',
+            ylabel='Transmitted Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h6',
+            annotations=[
+                {
+                    'text': 'Double-Pane\n(Case 600)',
+                    'xy': (11.5, 70),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h7(self):
+        """
+        Render Section 5 2A Figure B8-H7 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        cases = ['660', '670']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for case in cases:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output'][case]['transmitted_total_solar_radiation'][
+                        'may_4']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='Whm/m2')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            x_min=4,
+            x_max=21,
+            title='Figure B8-H7. Case 660, 670\n'
+                  'Hourly Transmitted Solar, Cloudy Day (May 4)\n'
+                  'Low-E and Single-Pane Windows',
+            ylabel='Transmitted Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h7',
+            annotations=[
+                {
+                    'text': 'Low-E (Case 660)',
+                    'xy': (11.5, 30),
+                    'fontsize': 18},
+                {
+                    'text': 'Single-Pane (Case 670)',
+                    'xy': (8, 130),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h8(self):
+        """
+        Render Section 5 2A Figure B8-H8 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            try:
+                data_obj = json_obj['specific_day_hourly_output']['600']['transmitted_total_solar_radiation'][
+                    'july_14']['hour']
+                key_list, val_list = self._order_dictionary_with_numeric_keys(
+                    input_d=data_obj,
+                    val_key='Whm/m2')
+                data_x.append(key_list)
+                data_y.append(val_list)
+                programs.append(json_obj['identifying_information']['software_name'])
+            except (TypeError, KeyError):
+                data_x.append([])
+                data_y.append([])
+                programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            x_min=2,
+            x_max=22,
+            title='Figure B8-H8. Case 600\n'
+                  'Hourly Transmitted Solar, Clear/Hot Day (July 14)\n'
+                  'Double-Pane Windows',
+            ylabel='Transmitted Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h8',
+            annotations=[
+                {
+                    'text': 'Double-Pane\n(Case 600)',
+                    'xy': (11.5, 140),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h9(self):
+        """
+        Render Section 5 2A Figure B8-H9 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        cases = ['660', '670']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for case in cases:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output'][case]['transmitted_total_solar_radiation'][
+                        'july_14']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='Whm/m2')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            x_min=2,
+            x_max=22,
+            title='Figure B8-H9. Case 660, 670\n'
+                  'Hourly Transmitted Solar, Clear/Hot Day (July 14)\n'
+                  'Double-Pane Windows',
+            ylabel='Transmitted Solar Radiation (Wh/m2)',
+            image_name='section_5_2_a_figure_b8_h9',
+            annotations=[
+                {
+                    'text': 'Single-Pane (Case 670)',
+                    'xy': (7, 310),
+                    'fontsize': 18},
+                {
+                    'text': 'Low-E (Case 660)',
+                    'xy': (11, 60),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h10(self):
+        """
+        Render Section 5 2A Figure B8-H10 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        specific_days = ['feb_1', 'may_4']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for specific_day in specific_days:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output']['600'][
+                        'sky_temperature'][specific_day]['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='C')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H10.\n'
+                  'Hourly Sky Temperatures\n'
+                  'Case 600: Clear/Cold, Cloudy Days',
+            ylabel=r'Temperature ($^\circ$C)',
+            image_name='section_5_2_a_figure_b8_h10',
+            annotations=[
+                {
+                    'text': 'Cloudy (May 4)',
+                    'xy': (2, -5),
+                    'fontsize': 18},
+                {
+                    'text': 'Clear/Cold (Feb 1)',
+                    'xy': (13, -28),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h11(self):
+        """
+        Render Section 5 2A Figure B8-H11 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        specific_days = ['feb_1', 'july_14']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for specific_day in specific_days:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output']['600'][
+                        'sky_temperature'][specific_day]['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='C')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H11.\n'
+                  'Hourly Sky Temperatures\n'
+                  'Case 600: Clear/Cold, Clear/Hot Days',
+            ylabel=r'Temperature ($^\circ$C)',
+            image_name='section_5_2_a_figure_b8_h11',
+            annotations=[
+                {
+                    'text': 'Clear/Hot (July 14)',
+                    'xy': (2, -8),
+                    'fontsize': 18},
+                {
+                    'text': 'Clear/Cold (Feb 1)',
+                    'xy': (13, -28),
+                    'fontsize': 18}])
+        return fig, ax
 
     # def render_section_5_2b_table_b8_2_1(
     #         self,
