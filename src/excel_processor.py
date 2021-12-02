@@ -57,7 +57,8 @@ class SetDataSources:
                     'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149),
                     'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7),
                     'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 12),
-                    'specific_day_hourly_output': ('YourData', 228, 'B:T', 24)
+                    'specific_day_hourly_output': ('YourData', 228, 'B:T', 24),
+                    'specific_day_hourly_output_free_float_zone_temperatures': ('YourData', 292, 'B:H', 24)
                 }
             elif obj.section_type == '5-2B':
                 obj._data_sources = {
@@ -89,7 +90,9 @@ class SetProcessingFunctions:
                 'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data(),
                 'free_float_case_zone_temperatures': obj._extract_free_float_case_zone_temperatures(),
                 'monthly_conditioned_zone_loads': obj._extract_monthly_conditioned_zone_loads(),
-                'specific_day_hourly_output': obj._extract_specific_day_hourly_output()}
+                'specific_day_hourly_output': obj._extract_specific_day_hourly_output(),
+                'specific_day_hourly_output_free_float_zone_temperatures':
+                    obj._extract_specific_day_hourly_output_free_float_zone_temperatures()}
         elif value == '5-2B':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_2b(),
@@ -458,6 +461,33 @@ class ExcelProcessor(Logger):
                 for col_name in ['feb_1', 'may_4', 'july_14']:
                     data_d['670']['transmitted_total_solar_radiation'][col_name]['hour'].update(
                         {int(row['hour']): {'Whm/m2': row[col_name]}})
+        return data_d
+
+    def _extract_specific_day_hourly_output_free_float_zone_temperatures(self):
+        """
+        Retrieve and format data from the Specific Day Hourly Output Table
+        :return:  dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('specific_day_hourly_output_free_float_zone_temperatures')
+        df.columns = ['hour', '600FF', '900FF', '650FF', '950FF', '680FF', '980FF']
+        dc = DataCleanser(df)
+        df = dc.cleanse_specific_day_hourly_output_free_float_zone_temperatures()
+        data_d = {
+            '600FF': {'feb_1': {'hour': {}}},
+            '900FF': {'feb_1': {'hour': {}}},
+            '650FF': {'july_14': {'hour': {}}},
+            '950FF': {'july_14': {'hour': {}}},
+            '680FF': {'feb_1': {'hour': {}}},
+            '980FF': {'feb_1': {'hour': {}}}
+        }
+        if df.shape[0] > 0:
+            for idx, row in df.iterrows():
+                data_d['600FF']['feb_1']['hour'].update({int(row['hour']): row['600FF']})
+                data_d['900FF']['feb_1']['hour'].update({int(row['hour']): row['900FF']})
+                data_d['650FF']['july_14']['hour'].update({int(row['hour']): row['650FF']})
+                data_d['950FF']['july_14']['hour'].update({int(row['hour']): row['950FF']})
+                data_d['680FF']['feb_1']['hour'].update({int(row['hour']): row['680FF']})
+                data_d['980FF']['feb_1']['hour'].update({int(row['hour']): row['980FF']})
         return data_d
 
     # Section 5-2B data
