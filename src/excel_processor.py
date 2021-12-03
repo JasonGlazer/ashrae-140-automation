@@ -56,7 +56,9 @@ class SetDataSources:
                     'sky_temperature_output': ('YourData', 176, 'B:K', 1),
                     'annual_hourly_zone_temperature_bin_data': ('YourData', 328, 'B:C', 149),
                     'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7),
-                    'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 12)
+                    'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 12),
+                    'specific_day_hourly_output': ('YourData', 228, 'B:T', 24),
+                    'specific_day_hourly_output_free_float_zone_temperatures': ('YourData', 292, 'B:H', 24)
                 }
             elif obj.section_type == '5-2B':
                 obj._data_sources = {
@@ -87,7 +89,10 @@ class SetProcessingFunctions:
                 'sky_temperature_output': obj._extract_sky_temperature_output(),
                 'hourly_annual_zone_temperature_bin_data': obj._extract_hourly_annual_zone_temperature_bin_data(),
                 'free_float_case_zone_temperatures': obj._extract_free_float_case_zone_temperatures(),
-                'monthly_conditioned_zone_loads': obj._extract_monthly_conditioned_zone_loads()}
+                'monthly_conditioned_zone_loads': obj._extract_monthly_conditioned_zone_loads(),
+                'specific_day_hourly_output': obj._extract_specific_day_hourly_output(),
+                'specific_day_hourly_output_free_float_zone_temperatures':
+                    obj._extract_specific_day_hourly_output_free_float_zone_temperatures()}
         elif value == '5-2B':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_2b(),
@@ -357,6 +362,132 @@ class ExcelProcessor(Logger):
                 data_d[case_number] = {}
             data_d[case_number].update({
                 row['month']: row_obj})
+        return data_d
+
+    def _extract_specific_day_hourly_output(self):
+        """
+        Retrieve and format data from the Specific Day Hourly Output Table
+        :return:  dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('specific_day_hourly_output')
+        df_incident_solar_radiation_may_4 = df.iloc[:, range(4)].copy()
+        df_incident_solar_radiation_may_4.columns = ['hour', 'horizontal', 'south', 'west']
+        dc = DataCleanser(df_incident_solar_radiation_may_4)
+        df_incident_solar_radiation_may_4 = dc.cleanse_specific_day_hourly_output_incident_solar_radiation()
+        df_incident_solar_radiation_july_14 = df.iloc[:, [0, ] + list(range(4, 7))].copy()
+        df_incident_solar_radiation_july_14.columns = ['hour', 'horizontal', 'south', 'west']
+        dc = DataCleanser(df_incident_solar_radiation_july_14)
+        df_incident_solar_radiation_july_14 = dc.cleanse_specific_day_hourly_output_incident_solar_radiation()
+        df_sky_temperature = df.iloc[:, [0, ] + list(range(7, 10))].copy()
+        df_sky_temperature.columns = ['hour', 'feb_1', 'may_4', 'july_14']
+        df_transmitted_total_solar_radiation_600 = df.iloc[:, [0, 10, 13, 16]].copy()
+        df_transmitted_total_solar_radiation_600.columns = ['hour', 'feb_1', 'may_4', 'july_14']
+        dc = DataCleanser(df_transmitted_total_solar_radiation_600)
+        df_transmitted_total_solar_radiation_600 = \
+            dc.cleanse_specific_day_hourly_output_transmitted_total_solar_radiation()
+        df_transmitted_total_solar_radiation_660 = df.iloc[:, [0, 11, 14, 17]].copy()
+        df_transmitted_total_solar_radiation_660.columns = ['hour', 'feb_1', 'may_4', 'july_14']
+        dc = DataCleanser(df_transmitted_total_solar_radiation_660)
+        df_transmitted_total_solar_radiation_660 = \
+            dc.cleanse_specific_day_hourly_output_transmitted_total_solar_radiation()
+        df_transmitted_total_solar_radiation_670 = df.iloc[:, [0, 12, 15, 18]].copy()
+        df_transmitted_total_solar_radiation_670.columns = ['hour', 'feb_1', 'may_4', 'july_14']
+        dc = DataCleanser(df_transmitted_total_solar_radiation_670)
+        df_transmitted_total_solar_radiation_670 = \
+            dc.cleanse_specific_day_hourly_output_transmitted_total_solar_radiation()
+        data_d = {}
+        if df_incident_solar_radiation_may_4.shape[0] > 0:
+            if not data_d.get('600'):
+                data_d.update({'600': {}})
+            if not data_d['600'].get('incident_solar_radiation'):
+                data_d['600'].update({'incident_solar_radiation': {}})
+            data_d['600']['incident_solar_radiation'].update({
+                'may_4': {'horizontal': {'hour': {}}, 'south': {'hour': {}}, 'west': {'hour': {}}}})
+            for idx, row in df_incident_solar_radiation_may_4.iterrows():
+                for col_name in ['horizontal', 'south', 'west']:
+                    data_d['600']['incident_solar_radiation']['may_4'][col_name]['hour'].update(
+                        {int(row['hour']): {'Whm/m2': row[col_name]}})
+        if df_incident_solar_radiation_july_14.shape[0] > 0:
+            if not data_d.get('600'):
+                data_d.update({'600': {}})
+            if not data_d['600'].get('incident_solar_radiation'):
+                data_d['600'].update({'incident_solar_radiation': {}})
+            data_d['600']['incident_solar_radiation'].update({
+                'july_14': {'horizontal': {'hour': {}}, 'south': {'hour': {}}, 'west': {'hour': {}}}})
+            for idx, row in df_incident_solar_radiation_july_14.iterrows():
+                for col_name in ['horizontal', 'south', 'west']:
+                    data_d['600']['incident_solar_radiation']['july_14'][col_name]['hour'].update(
+                        {int(row['hour']): {'Whm/m2': row[col_name]}})
+        if df_sky_temperature.shape[0] > 0:
+            if not data_d.get('600'):
+                data_d.update({'600': {}})
+            if not data_d['600'].get('sky_temperature'):
+                data_d['600'].update({'sky_temperature': {}})
+            data_d['600']['sky_temperature'].update(
+                {'feb_1': {'hour': {}}, 'may_4': {'hour': {}}, 'july_14': {'hour': {}}})
+            for idx, row in df_sky_temperature.iterrows():
+                for col_name in ['feb_1', 'may_4', 'july_14']:
+                    data_d['600']['sky_temperature'][col_name]['hour'].update({int(row['hour']): {'C': row[col_name]}})
+        if df_transmitted_total_solar_radiation_600.shape[0] > 0:
+            if not data_d.get('600'):
+                data_d.update({'600': {}})
+            if not data_d['600'].get('transmitted_total_solar_radiation'):
+                data_d['600'].update({'transmitted_total_solar_radiation': {}})
+            data_d['600']['transmitted_total_solar_radiation'].update(
+                {'feb_1': {'hour': {}}, 'may_4': {'hour': {}}, 'july_14': {'hour': {}}})
+            for idx, row in df_transmitted_total_solar_radiation_600.iterrows():
+                for col_name in ['feb_1', 'may_4', 'july_14']:
+                    data_d['600']['transmitted_total_solar_radiation'][col_name]['hour'].update(
+                        {int(row['hour']): {'Whm/m2': row[col_name]}})
+        if df_transmitted_total_solar_radiation_600.shape[0] > 0:
+            if not data_d.get('660'):
+                data_d.update({'660': {}})
+            if not data_d['660'].get('transmitted_total_solar_radiation'):
+                data_d['660'].update({'transmitted_total_solar_radiation': {}})
+            data_d['660']['transmitted_total_solar_radiation'].update(
+                {'feb_1': {'hour': {}}, 'may_4': {'hour': {}}, 'july_14': {'hour': {}}})
+            for idx, row in df_transmitted_total_solar_radiation_660.iterrows():
+                for col_name in ['feb_1', 'may_4', 'july_14']:
+                    data_d['660']['transmitted_total_solar_radiation'][col_name]['hour'].update(
+                        {int(row['hour']): {'Whm/m2': row[col_name]}})
+        if df_transmitted_total_solar_radiation_600.shape[0] > 0:
+            if not data_d.get('670'):
+                data_d.update({'670': {}})
+            if not data_d['670'].get('transmitted_total_solar_radiation'):
+                data_d['670'].update({'transmitted_total_solar_radiation': {}})
+            data_d['670']['transmitted_total_solar_radiation'].update(
+                {'feb_1': {'hour': {}}, 'may_4': {'hour': {}}, 'july_14': {'hour': {}}})
+            for idx, row in df_transmitted_total_solar_radiation_670.iterrows():
+                for col_name in ['feb_1', 'may_4', 'july_14']:
+                    data_d['670']['transmitted_total_solar_radiation'][col_name]['hour'].update(
+                        {int(row['hour']): {'Whm/m2': row[col_name]}})
+        return data_d
+
+    def _extract_specific_day_hourly_output_free_float_zone_temperatures(self):
+        """
+        Retrieve and format data from the Specific Day Hourly Output Table
+        :return:  dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('specific_day_hourly_output_free_float_zone_temperatures')
+        df.columns = ['hour', '600FF', '900FF', '650FF', '950FF', '680FF', '980FF']
+        dc = DataCleanser(df)
+        df = dc.cleanse_specific_day_hourly_output_free_float_zone_temperatures()
+        data_d = {
+            '600FF': {'feb_1': {'hour': {}}},
+            '900FF': {'feb_1': {'hour': {}}},
+            '650FF': {'july_14': {'hour': {}}},
+            '950FF': {'july_14': {'hour': {}}},
+            '680FF': {'feb_1': {'hour': {}}},
+            '980FF': {'feb_1': {'hour': {}}}
+        }
+        if df.shape[0] > 0:
+            for idx, row in df.iterrows():
+                data_d['600FF']['feb_1']['hour'].update({int(row['hour']): row['600FF']})
+                data_d['900FF']['feb_1']['hour'].update({int(row['hour']): row['900FF']})
+                data_d['650FF']['july_14']['hour'].update({int(row['hour']): row['650FF']})
+                data_d['950FF']['july_14']['hour'].update({int(row['hour']): row['950FF']})
+                data_d['680FF']['feb_1']['hour'].update({int(row['hour']): row['680FF']})
+                data_d['980FF']['feb_1']['hour'].update({int(row['hour']): row['980FF']})
         return data_d
 
     # Section 5-2B data

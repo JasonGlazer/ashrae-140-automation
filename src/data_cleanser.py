@@ -238,6 +238,72 @@ class DataCleanser(Logger):
             column_list=numeric_columns)
         return self.df
 
+    def cleanse_specific_day_hourly_output_incident_solar_radiation(
+        self,
+        numeric_columns: list = (
+            ('hour', {'lower_limit': 0, 'upper_limit': 24}),
+            ('horizontal', {'lower_limit': 0, 'upper_limit': 10000}),
+            ('south', {'lower_limit': 0, 'upper_limit': 10000}),
+            ('west', {'lower_limit': 0, 'upper_limit': 10000}))):
+        """
+        Perform operations to cleanse and verify data for the Sky Temperature Output table
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing Specific Day Hourly Output Table')
+        # check case column
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_specific_day_hourly_output_free_float_zone_temperatures(
+            self,
+            numeric_columns: list = (
+                ('hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('600FF', {'lower_limit': -100, 'upper_limit': 100}),
+                ('900FF', {'lower_limit': -100, 'upper_limit': 100}),
+                ('650FF', {'lower_limit': -100, 'upper_limit': 100}),
+                ('950FF', {'lower_limit': -100, 'upper_limit': 100}),
+                ('680FF', {'lower_limit': -100, 'upper_limit': 100}),
+                ('980FF', {'lower_limit': -100, 'upper_limit': 100}))):
+        """
+        Perform operations to cleanse and verify data for the Sky Temperature Output table
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing Specific Day Hourly Output Free Float Temperatures Table')
+        # check case column
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_specific_day_hourly_output_transmitted_total_solar_radiation(
+            self,
+            numeric_columns: list = (
+                ('hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('feb_1', {'lower_limit': -100, 'upper_limit': 1000}),
+                ('may_4', {'lower_limit': -100, 'upper_limit': 1000}),
+                ('july_14', {'lower_limit': -100, 'upper_limit': 1000}))):
+        """
+        Perform operations to cleanse and verify data for the Sky Temperature Output table
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing Monthly Conditioned Loads')
+        # check case column
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
     def cleanse_free_float_case_zone_temperatures(
             self,
             case_column: str = 'case',
