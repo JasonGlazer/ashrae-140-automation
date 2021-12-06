@@ -393,7 +393,7 @@ class GraphicsRenderer(Logger):
         return fig, ax
 
     def _create_line_plot(
-            self, data_x, data_y, programs, title, ylabel,
+            self, data_x, data_y, programs, title, ylabel, xlabel=None,
             y_plot_pad=0.1, x_min=None, y_min=None, x_max=None, y_max=None, image_name=None, annotations=None,
             x_tick_spacing=1):
         """
@@ -408,6 +408,7 @@ class GraphicsRenderer(Logger):
         :param programs: list of tested programs
         :param title: plot title
         :param ylabel: y axis plot label
+        :param xlabel: x axis plot label
         :param y_plot_pad: padding between the highest bar and the top of the plot
         :param x_min: minimum override for x axis
         :param x_max: maximum override for x axis
@@ -449,6 +450,8 @@ class GraphicsRenderer(Logger):
         ax.set_title(title, fontsize=30)
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), ncol=len(programs), fontsize=14)
         ax.set_ylabel(ylabel, fontsize=14)
+        if xlabel:
+            ax.set_xlabel(xlabel, fontsize=14)
         ymin = y_min or min([j for i in data_y for j in i if i])
         ymax = y_max or max([j for i in data_y for j in i if i])
         xmin = x_min or min([j for i in data_x for j in i if i])
@@ -4348,6 +4351,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency',
+            xlabel=r'Hour of Day',
             ylabel='Number of Occurrences',
             image_name='section_5_2_a_figure_b8_h1',
             x_min=-5,
@@ -4393,6 +4397,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H2. Case 600\n'
                   'Cloudy & Clear Day Hourly Incident Solar\n'
                   'Horizontal (Upward) Facing Surface',
+            xlabel=r'Hour of Day',
             ylabel='Incident Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h2',
             annotations=[
@@ -4437,6 +4442,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H3. Case 600\n'
                   'Cloudy & Clear Day Hourly Incident Solar\n'
                   'South Facing Surface',
+            xlabel=r'Hour of Day',
             ylabel='Incident Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h3',
             annotations=[
@@ -4481,6 +4487,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H4. Case 600\n'
                   'Cloudy & Clear Day Hourly Incident Solar\n'
                   'West Facing Surface',
+            xlabel=r'Hour of Day',
             ylabel='Incident Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h4',
             annotations=[
@@ -4527,6 +4534,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H5. Case 600, 660, 670\n'
                   'Hourly Transmitted Solar, Clear/Cold Day (Feb 1)\n'
                   'Double-Pane, Low-E, Single-Pane Windows',
+            xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h5',
             annotations=[
@@ -4575,6 +4583,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H6. Case 600\n'
                   'Hourly Transmitted Solar, Cloudy Day (May 4)\n'
                   'Double-Pane Windows',
+            xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h6',
             annotations=[
@@ -4617,6 +4626,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H7. Case 660, 670\n'
                   'Hourly Transmitted Solar, Cloudy Day (May 4)\n'
                   'Low-E and Single-Pane Windows',
+            xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h7',
             annotations=[
@@ -4661,6 +4671,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H8. Case 600\n'
                   'Hourly Transmitted Solar, Clear/Hot Day (July 14)\n'
                   'Double-Pane Windows',
+            xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h8',
             annotations=[
@@ -4703,6 +4714,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H9. Case 660, 670\n'
                   'Hourly Transmitted Solar, Clear/Hot Day (July 14)\n'
                   'Double-Pane Windows',
+            xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
             image_name='section_5_2_a_figure_b8_h9',
             annotations=[
@@ -4747,6 +4759,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H10.\n'
                   'Hourly Sky Temperatures\n'
                   'Case 600: Clear/Cold, Cloudy Days',
+            xlabel=r'Hour of Day',
             ylabel=r'Temperature ($^\circ$C)',
             image_name='section_5_2_a_figure_b8_h10',
             annotations=[
@@ -4792,6 +4805,7 @@ class GraphicsRenderer(Logger):
                   'Hourly Sky Temperatures\n'
                   'Case 600: Clear/Cold, Clear/Hot Days',
             ylabel=r'Temperature ($^\circ$C)',
+            xlabel=r'Hour of Day',
             image_name='section_5_2_a_figure_b8_h11',
             annotations=[
                 {
@@ -4801,6 +4815,141 @@ class GraphicsRenderer(Logger):
                 {
                     'text': 'Clear/Cold (Feb 1)',
                     'xy': (13, -28),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h12(self):
+        """
+        Render Section 5 2A Figure B8-H12 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        cases = ['600FF', '900FF']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for case in cases:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output_free_float_zone_temperatures'][case][
+                        'feb_1']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='C')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H12.\n'
+                  'Hourly Free-Float Temperatures\n'
+                  'Clear Cold Day (Feb 1), Cases 600FF and 900FF',
+            ylabel=r'Temperature ($^\circ$C)',
+            xlabel=r'Hour of Day',
+            image_name='section_5_2_a_figure_b8_h12',
+            annotations=[
+                {
+                    'text': 'Case 600FF',
+                    'xy': (10, 0),
+                    'fontsize': 18},
+                {
+                    'text': 'Case 900FF',
+                    'xy': (4, 18),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h13(self):
+        """
+        Render Section 5 2A Figure B8-H13 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        cases = ['650FF', '950FF']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for case in cases:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output_free_float_zone_temperatures'][case][
+                        'july_14']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='C')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H13.\n'
+                  'Hourly Free-Float Temperatures\n'
+                  'Clear Hot Day (Jul 14), Cases 650FF and 950FF',
+            ylabel=r'Temperature ($^\circ$C)',
+            xlabel=r'Hour of Day',
+            image_name='section_5_2_a_figure_b8_h13',
+            annotations=[
+                {
+                    'text': 'Case 650FF',
+                    'xy': (19.5, 43),
+                    'fontsize': 18},
+                {
+                    'text': 'Case 950FF',
+                    'xy': (15, 26),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h14(self):
+        """
+        Render Section 5 2A Figure B8-H14 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        cases = ['680FF', '980FF']
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for case in cases:
+                try:
+                    data_obj = json_obj['specific_day_hourly_output_free_float_zone_temperatures'][case][
+                        'feb_1']['hour']
+                    key_list, val_list = self._order_dictionary_with_numeric_keys(
+                        input_d=data_obj,
+                        val_key='C')
+                    data_x.append(key_list)
+                    data_y.append(val_list)
+                    programs.append(json_obj['identifying_information']['software_name'])
+                except (TypeError, KeyError):
+                    data_x.append([])
+                    data_y.append([])
+                    programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H14.\n'
+                  'Hourly Free-Float Temperatures\n'
+                  'Clear Cold Day (Feb 1), Cases 680FF and 980FF',
+            ylabel=r'Temperature ($^\circ$C)',
+            xlabel=r'Hour of Day',
+            image_name='section_5_2_a_figure_b8_h14',
+            annotations=[
+                {
+                    'text': 'Case 680FF',
+                    'xy': (11, 55),
+                    'fontsize': 18},
+                {
+                    'text': 'Case 980FF',
+                    'xy': (15, 25),
                     'fontsize': 18}])
         return fig, ax
 
