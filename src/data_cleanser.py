@@ -315,18 +315,18 @@ class DataCleanser(Logger):
     def cleanse_specific_day_hourly_output_free_float_zone_loads_july_14(
             self,
             numeric_columns: list = (
-                    ('hour', {'lower_limit': 0, 'upper_limit': 24}),
-                    ('600', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('660', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('670', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('670', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('680', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('685', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('695', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('900', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('980', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('985', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('995', {'lower_limit': -100, 'upper_limit': 100}))):
+                ('hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('600', {'lower_limit': -100, 'upper_limit': 100}),
+                ('660', {'lower_limit': -100, 'upper_limit': 100}),
+                ('670', {'lower_limit': -100, 'upper_limit': 100}),
+                ('670', {'lower_limit': -100, 'upper_limit': 100}),
+                ('680', {'lower_limit': -100, 'upper_limit': 100}),
+                ('685', {'lower_limit': -100, 'upper_limit': 100}),
+                ('695', {'lower_limit': -100, 'upper_limit': 100}),
+                ('900', {'lower_limit': -100, 'upper_limit': 100}),
+                ('980', {'lower_limit': -100, 'upper_limit': 100}),
+                ('985', {'lower_limit': -100, 'upper_limit': 100}),
+                ('995', {'lower_limit': -100, 'upper_limit': 100}))):
         """
         Perform operations to cleanse and verify data for the Sky Temperature Output table
         :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
@@ -344,9 +344,9 @@ class DataCleanser(Logger):
     def cleanse_specific_day_hourly_output_free_float_zone_loads_zone_temps(
             self,
             numeric_columns: list = (
-                    ('hour', {'lower_limit': 0, 'upper_limit': 24}),
-                    ('640', {'lower_limit': -100, 'upper_limit': 100}),
-                    ('940', {'lower_limit': -100, 'upper_limit': 100}))):
+                ('hour', {'lower_limit': 0, 'upper_limit': 24}),
+                ('640', {'lower_limit': -100, 'upper_limit': 100}),
+                ('940', {'lower_limit': -100, 'upper_limit': 100}))):
         """
         Perform operations to cleanse and verify data for the Sky Temperature Output table
         :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:

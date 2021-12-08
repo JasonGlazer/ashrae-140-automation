@@ -511,7 +511,7 @@ class GraphicsRenderer(Logger):
         return
 
     @staticmethod
-    def _make_table_from_df(df, ax):
+    def _make_table_from_df(df, ax, case_col_width=2):
         """
         Create a matplotlib table from dataframe
 
@@ -535,12 +535,12 @@ class GraphicsRenderer(Logger):
         for i in range(len(df.columns)):
             cell_dict[(0, i)].set_height(1)
             cell_dict[(0, i)].set_fontsize(16)
-            cell_dict[(0, 0)].set_width(2)
+            cell_dict[(0, 0)].set_width(case_col_width)
             cell_dict[(0, i)].set_width(0.5)
             cell_dict[(0, i)].visible_edges = 'closed'
             cell_dict[(0, i)].set_facecolor('#EAEEED')
             for j in range(1, df.shape[0] + 1):
-                cell_dict[(j, 0)].set_width(2)
+                cell_dict[(j, 0)].set_width(case_col_width)
                 cell_dict[(j, 0)].set_text_props(ha="left")
                 cell_dict[(j, 0)].PAD = 0.02
                 cell_dict[(j, i)].set_width(0.5)
@@ -657,6 +657,74 @@ class GraphicsRenderer(Logger):
             caption='Table B8.2 Annual Sensible Cooling Loads (MWh)'
         )
         return table_html, msg
+
+    def render_section_5_2a_table_b8_3(
+            self,
+            output_values=('peak_heating_kW', 'peak_heating_month', 'peak_heating_day', 'peak_heating_hour'),
+            figure_name='section_5_2_a_table_b8_3',
+            caption='Table B8-1. Annual Hourly Integrated Peak Heating Loads'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-3
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        # get and format dataframe into required shape
+        df = self.df_data['conditioned_zone_loads_non_free_float'] \
+            .loc[
+                :,
+                [
+                    i in output_values for i in self.df_data['conditioned_zone_loads_non_free_float']
+                    .columns.get_level_values(1)]]
+        # df.columns = df.columns.droplevel(level=1)
+        df_formatted_table = df.unstack() \
+            .reset_index() \
+            .rename(columns={0: 'val', 'level_0': 'case'}) \
+            .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
+            .unstack() \
+            .reset_index()
+        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+        df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
+        df_formatted_table = df_formatted_table.fillna('')
+        column_formatting_names = {
+            'peak_heating_kW': 'kW',
+            'peak_heating_month': 'Mo',
+            'peak_heating_day': 'Day',
+            'peak_heating_hour': 'Hr'
+        }
+        column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
+                        for i in list(df_formatted_table.columns)]
+        column_names[0] = 'cases'
+        df_formatted_table.columns = column_names
+        df_formatted_name_table = df_formatted_table[['cases']] \
+            .merge(
+                self.case_detailed_df,
+                how='left',
+                left_on=['cases', ],
+                right_index=True) \
+            .sort_values(['case_order']) \
+            .drop(['cases', 'case_order'], axis=1) \
+            .rename(columns={
+                'case_name': 'Case'})
+        # set fig size
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(22, 20))
+        df_formatted_table = pd.concat([df_formatted_name_table, df_formatted_table.drop(columns=['cases', ])], axis=1)
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
+        # Set annotations
+        header = [tab.add_cell(-1, h, width=0.5, height=0.35) for h in range(1, 2)]
+        header[0].get_text().set_text('BSIMAC')
+        header[0].PAD = 0.5
+        header[0].set_fontsize(16)
+        header[0].set_text_props(ha="left")
+        header[0].visible_edges = "open"
+        # header[1].visible_edges = "open"
+        # header[2].visible_edges = "open"
+        # header[3].visible_edges = "open"
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
+        return fig, ax
 
     def render_section_5_2a_figure_b8_1(self):
         """
@@ -2652,7 +2720,7 @@ class GraphicsRenderer(Logger):
             tmp_data = []
             for case in cases:
                 try:
-                    tmp_data.append(json_obj['free_float_case_zone_temperatures']['600FF']['average_temperature'])
+                    tmp_data.append(json_obj['free_float_case_zone_temperatures'][case]['average_temperature'])
                 except (KeyError, TypeError):
                     tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
@@ -5742,7 +5810,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H34. Hourly Loads\n'
-                  'Clear Hor Day, Cases 980 (High Mass, Insulation)\n'
+                  'Clear Hour Day, Cases 980 (High Mass, Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5751,6 +5819,162 @@ class GraphicsRenderer(Logger):
                 {
                     'text': 'Hot Day (July 14)',
                     'xy': (4, -0.7),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h35(self):
+        """
+        Render Section 5 2A Figure B8-H35 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            try:
+                data_obj = json_obj['specific_day_hourly_output_free_float_zone_loads']['985'][
+                    'feb_1']['hour']
+                key_list, val_list = self._order_dictionary_with_numeric_keys(
+                    input_d=data_obj,
+                    val_key='kWh')
+                data_x.append(key_list)
+                data_y.append(val_list)
+                programs.append(json_obj['identifying_information']['software_name'])
+            except (TypeError, KeyError):
+                data_x.append([])
+                data_y.append([])
+                programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H35. Hourly Loads\n'
+                  'Clear Cold Day, Cases 985 (High Mass, 20/20 Tstat)\n'
+                  'Heating (+), Sensible Cooling (-)',
+            ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
+            xlabel=r'Hour of Day',
+            image_name='section_5_2_a_figure_b8_h35',
+            annotations=[
+                {
+                    'text': 'Cold Day (Feb 1)',
+                    'xy': (12, 0.7),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h36(self):
+        """
+        Render Section 5 2A Figure B8-H36 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            try:
+                data_obj = json_obj['specific_day_hourly_output_free_float_zone_loads']['985'][
+                    'july_14']['hour']
+                key_list, val_list = self._order_dictionary_with_numeric_keys(
+                    input_d=data_obj,
+                    val_key='kWh')
+                data_x.append(key_list)
+                data_y.append(val_list)
+                programs.append(json_obj['identifying_information']['software_name'])
+            except (TypeError, KeyError):
+                data_x.append([])
+                data_y.append([])
+                programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H36. Hourly Loads\n'
+                  'Clear Hot Day, Cases 985 (High Mass, 20/20 Tstat)\n'
+                  'Heating (+), Sensible Cooling (-)',
+            ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
+            xlabel=r'Hour of Day',
+            image_name='section_5_2_a_figure_b8_h36',
+            annotations=[
+                {
+                    'text': 'Hot Day (July 14)',
+                    'xy': (4, -1.3),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h37(self):
+        """
+        Render Section 5 2A Figure B8-H37 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            try:
+                data_obj = json_obj['specific_day_hourly_output_free_float_zone_loads']['995'][
+                    'feb_1']['hour']
+                key_list, val_list = self._order_dictionary_with_numeric_keys(
+                    input_d=data_obj,
+                    val_key='kWh')
+                data_x.append(key_list)
+                data_y.append(val_list)
+                programs.append(json_obj['identifying_information']['software_name'])
+            except (TypeError, KeyError):
+                data_x.append([])
+                data_y.append([])
+                programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H37. Hourly Loads\n'
+                  'Clear Cold Day, Cases 995 (High Mass, 20/20, Insulation)\n'
+                  'Heating (+), Sensible Cooling (-)',
+            ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
+            xlabel=r'Hour of Day',
+            image_name='section_5_2_a_figure_b8_h37',
+            annotations=[
+                {
+                    'text': 'Cold Day (Feb 1)',
+                    'xy': (12, 0.7),
+                    'fontsize': 18}])
+        return fig, ax
+
+    def render_section_5_2a_figure_b8_h38(self):
+        """
+        Render Section 5 2A Figure B8-H38 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data_x = []
+        data_y = []
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            try:
+                data_obj = json_obj['specific_day_hourly_output_free_float_zone_loads']['995'][
+                    'july_14']['hour']
+                key_list, val_list = self._order_dictionary_with_numeric_keys(
+                    input_d=data_obj,
+                    val_key='kWh')
+                data_x.append(key_list)
+                data_y.append(val_list)
+                programs.append(json_obj['identifying_information']['software_name'])
+            except (TypeError, KeyError):
+                data_x.append([])
+                data_y.append([])
+                programs.append('NA')
+        fig, ax = self._create_line_plot(
+            data_x=data_x,
+            data_y=data_y,
+            programs=programs,
+            title='Figure B8-H38. Hourly Loads\n'
+                  'Clear Hot Day, Cases 995 (High Mass, 20/20, Insulation)\n'
+                  'Heating (+), Sensible Cooling (-)',
+            ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
+            xlabel=r'Hour of Day',
+            image_name='section_5_2_a_figure_b8_h38',
+            annotations=[
+                {
+                    'text': 'Hot Day (July 14)',
+                    'xy': (3, -1.3),
                     'fontsize': 18}])
         return fig, ax
 

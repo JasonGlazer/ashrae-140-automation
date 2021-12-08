@@ -517,13 +517,13 @@ class ExcelProcessor(Logger):
                 data_d[col_name] = {}
             data_d[col_name]['feb_1'] = {'hour': {}}
             for idx, row in df_feb_1.iterrows():
-                data_d[col_name]['feb_1']['hour'].update({int(row['hour']):  {'kWh': row[col_name]}})
+                data_d[col_name]['feb_1']['hour'].update({int(row['hour']): {'kWh': row[col_name]}})
         for col_name in df_july_14.columns[1:]:
             if not data_d.get(col_name):
                 data_d[col_name] = {}
             data_d[col_name]['july_14'] = {'hour': {}}
             for idx, row in df_july_14.iterrows():
-                data_d[col_name]['july_14']['hour'].update({int(row['hour']):  {'kWh': row[col_name]}})
+                data_d[col_name]['july_14']['hour'].update({int(row['hour']): {'kWh': row[col_name]}})
         for col_name in df_zone_temps.columns[1:]:
             if not data_d.get(col_name):
                 data_d[col_name] = {}
