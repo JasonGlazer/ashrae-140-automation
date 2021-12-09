@@ -675,7 +675,6 @@ class GraphicsRenderer(Logger):
                 [
                     i in output_values for i in self.df_data['conditioned_zone_loads_non_free_float']
                     .columns.get_level_values(1)]]
-        # df.columns = df.columns.droplevel(level=1)
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -683,6 +682,16 @@ class GraphicsRenderer(Logger):
             .unstack() \
             .reset_index()
         df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+        kw_cols = [i for i in df_formatted_table.columns if 'kw' in i[1].lower()]
+        df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
+            lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
+        df_stats = pd.DataFrame()
+        df_stats['min'] = df_formatted_table[kw_cols].min(axis=1).round(2)
+        df_stats['max'] = df_formatted_table[kw_cols].max(axis=1).round(2)
+        df_stats['mean'] = df_formatted_table[kw_cols].mean(axis=1).round(2)
+        df_stats['(max - min)\n/ mean %'] = df_formatted_table[kw_cols].min(axis=1).round(2)
+        int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
+        df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
         df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
         df_formatted_table = df_formatted_table.fillna('')
         column_formatting_names = {
@@ -691,9 +700,24 @@ class GraphicsRenderer(Logger):
             'peak_heating_day': 'Day',
             'peak_heating_hour': 'Hr'
         }
+        # reorder columns so test program is last
+        column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
+            i for i in df_formatted_table.columns if i[0] == self.model_name]
+        df_formatted_table = df_formatted_table[column_names]
         column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
                         for i in list(df_formatted_table.columns)]
         column_names[0] = 'cases'
+        # make list of program names
+        program_list = sorted(
+            set(
+                [i[0] for i in df_formatted_table.columns if i[0]]),
+            key=[i[0] for i in df_formatted_table.columns].index)
+        program_rgx = re.compile(r'(^[a-zA-Z]+)')
+        program_list_short = []
+        for p in program_list:
+            result = program_rgx.search(p)
+            if result:
+                program_list_short.append(result.group(1))
         df_formatted_table.columns = column_names
         df_formatted_name_table = df_formatted_table[['cases']] \
             .merge(
@@ -709,19 +733,34 @@ class GraphicsRenderer(Logger):
         fig, ax = plt.subplots(
             nrows=1,
             ncols=1,
-            figsize=(22, 20))
-        df_formatted_table = pd.concat([df_formatted_name_table, df_formatted_table.drop(columns=['cases', ])], axis=1)
+            figsize=(30, 20))
+        df_formatted_table = pd.concat(
+            [
+                df_formatted_name_table,
+                df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
+                df_stats,
+                df_formatted_table.drop(columns=['cases', ])\
+                    .iloc[:, range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns)-1)]],
+            axis=1)
         tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
+        cell_dict = tab.get_celld()
+        for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
+            for j in range(df_formatted_table.shape[0] + 1):
+                cell_dict[(j, i)].set_width(w)
+                cell_dict[(j, i)].set_text_props(ha="center")
         # Set annotations
-        header = [tab.add_cell(-1, h, width=0.5, height=0.35) for h in range(1, 2)]
-        header[0].get_text().set_text('BSIMAC')
-        header[0].PAD = 0.5
-        header[0].set_fontsize(16)
-        header[0].set_text_props(ha="left")
-        header[0].visible_edges = "open"
-        # header[1].visible_edges = "open"
-        # header[2].visible_edges = "open"
-        # header[3].visible_edges = "open"
+        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
+            header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
+            header[0].get_text().set_text(hdr.upper())
+            header[0].PAD = 0.1
+            header[0].set_fontsize(16)
+            header[0].set_text_props(ha="left")
+            header[0].visible_edges = "open"
+            if idx != 29:
+                ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+            else:
+                ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
         self._make_image_from_plt(figure_name)
         plt.subplots_adjust(top=0.92)
         return fig, ax
