@@ -146,7 +146,10 @@ class GraphicsRenderer(Logger):
                 ]
         else:
             self.baseline_model_list = base_model_list
-        self.model_results_file = model_results_file
+        if isinstance(model_results_file, str):
+            self.model_results_file = root_directory / 'processed' / model_results_file
+        else:
+            self.model_results_file = model_results_file
         # try to extract the model name from the file name for the tested model and base models
         self.baseline_model_names = ['-'.join([i.parts[-3], i.parts[-2]]) for i in self.baseline_model_list]
         self.model_name = '-'.join([self.model_results_file.parts[-3], self.model_results_file.parts[-2]])
@@ -651,18 +654,18 @@ class GraphicsRenderer(Logger):
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        table_html, msg = self.render_section_5_2a_table_b8_1(
+        fig, ax = self.render_section_5_2a_table_b8_1(
             output_value='annual_cooling_MWh',
             figure_name='section_5_2_a_table_b8_2',
             caption='Table B8.2 Annual Sensible Cooling Loads (MWh)'
         )
-        return table_html, msg
+        return fig, ax
 
     def render_section_5_2a_table_b8_3(
             self,
             output_values=('peak_heating_kW', 'peak_heating_month', 'peak_heating_day', 'peak_heating_hour'),
             figure_name='section_5_2_a_table_b8_3',
-            caption='Table B8-1. Annual Hourly Integrated Peak Heating Loads'):
+            caption='Table B8-3. Annual Hourly Integrated Peak Heating Loads'):
         """
         Create dataframe from class dataframe object for table 5-2A B8-3
 
@@ -698,7 +701,11 @@ class GraphicsRenderer(Logger):
             'peak_heating_kW': 'kW',
             'peak_heating_month': 'Mo',
             'peak_heating_day': 'Day',
-            'peak_heating_hour': 'Hr'
+            'peak_heating_hour': 'Hr',
+            'peak_cooling_kW': 'kW',
+            'peak_cooling_month': 'Mo',
+            'peak_cooling_day': 'Day',
+            'peak_cooling_hour': 'Hr'
         }
         # reorder columns so test program is last
         column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
@@ -739,8 +746,9 @@ class GraphicsRenderer(Logger):
                 df_formatted_name_table,
                 df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
                 df_stats,
-                df_formatted_table.drop(columns=['cases', ])\
-                    .iloc[:, range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns)-1)]],
+                df_formatted_table.drop(columns=['cases', ]).iloc[
+                    :,
+                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
             axis=1)
         tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
         cell_dict = tab.get_celld()
@@ -761,8 +769,23 @@ class GraphicsRenderer(Logger):
             else:
                 ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
         ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+        # save the result
+        plt.suptitle(caption, fontsize=30)
         self._make_image_from_plt(figure_name)
         plt.subplots_adjust(top=0.92)
+        return fig, ax
+
+    def render_section_5_2a_table_b8_4(self):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-4
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        fig, ax = self.render_section_5_2a_table_b8_3(
+            output_values=('peak_cooling_kW', 'peak_cooling_month', 'peak_cooling_day', 'peak_cooling_hour'),
+            figure_name='section_5_2_a_table_b8_4',
+            caption='Table B8-4. Annual Hourly Integrated Peak Cooling Loads'
+        )
         return fig, ax
 
     def render_section_5_2a_figure_b8_1(self):
