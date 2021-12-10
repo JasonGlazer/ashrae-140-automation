@@ -58,7 +58,8 @@ class SetDataSources:
                     'free_float_case_zone_temperatures': ('YourData', 128, 'B:K', 7),
                     'monthly_conditioned_zone_loads': ('YourData', 188, 'B:R', 12),
                     'specific_day_hourly_output': ('YourData', 228, 'B:T', 24),
-                    'specific_day_hourly_output_free_float_zone_temperatures': ('YourData', 292, 'B:H', 24)
+                    'specific_day_hourly_output_free_float_zone_temperatures': ('YourData', 292, 'B:H', 24),
+                    'specific_day_hourly_output_free_float_zone_loads': ('YourData', 260, 'B:Z', 24)
                 }
             elif obj.section_type == '5-2B':
                 obj._data_sources = {
@@ -92,7 +93,9 @@ class SetProcessingFunctions:
                 'monthly_conditioned_zone_loads': obj._extract_monthly_conditioned_zone_loads(),
                 'specific_day_hourly_output': obj._extract_specific_day_hourly_output(),
                 'specific_day_hourly_output_free_float_zone_temperatures':
-                    obj._extract_specific_day_hourly_output_free_float_zone_temperatures()}
+                    obj._extract_specific_day_hourly_output_free_float_zone_temperatures(),
+                'specific_day_hourly_output_free_float_zone_loads':
+                    obj._extract_specific_day_hourly_output_free_float_zone_loads()}
         elif value == '5-2B':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_2b(),
@@ -482,12 +485,54 @@ class ExcelProcessor(Logger):
         }
         if df.shape[0] > 0:
             for idx, row in df.iterrows():
-                data_d['600FF']['feb_1']['hour'].update({int(row['hour']): row['600FF']})
-                data_d['900FF']['feb_1']['hour'].update({int(row['hour']): row['900FF']})
-                data_d['650FF']['july_14']['hour'].update({int(row['hour']): row['650FF']})
-                data_d['950FF']['july_14']['hour'].update({int(row['hour']): row['950FF']})
-                data_d['680FF']['feb_1']['hour'].update({int(row['hour']): row['680FF']})
-                data_d['980FF']['feb_1']['hour'].update({int(row['hour']): row['980FF']})
+                data_d['600FF']['feb_1']['hour'].update({int(row['hour']): {'C': row['600FF']}})
+                data_d['900FF']['feb_1']['hour'].update({int(row['hour']): {'C': row['900FF']}})
+                data_d['650FF']['july_14']['hour'].update({int(row['hour']): {'C': row['650FF']}})
+                data_d['950FF']['july_14']['hour'].update({int(row['hour']): {'C': row['950FF']}})
+                data_d['680FF']['feb_1']['hour'].update({int(row['hour']): {'C': row['680FF']}})
+                data_d['980FF']['feb_1']['hour'].update({int(row['hour']): {'C': row['980FF']}})
+        return data_d
+
+    def _extract_specific_day_hourly_output_free_float_zone_loads(self):
+        """
+        Retrieve and format data from the Specific Day Hourly Output Zone Loads Table
+        :return:  dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('specific_day_hourly_output_free_float_zone_loads')
+        df_feb_1 = df.iloc[:, range(13)].copy()
+        df_feb_1.columns = ['hour', '600', '640', '660', '670', '680', '685', '695', '900', '940', '980', '985', '995']
+        dc = DataCleanser(df_feb_1)
+        df_feb_1 = dc.cleanse_specific_day_hourly_output_free_float_zone_loads_feb_1()
+        df_july_14 = df.iloc[:, [0, ] + list(range(13, 23))].copy()
+        df_july_14.columns = ['hour', '600', '660', '670', '680', '685', '695', '900', '980', '985', '995']
+        dc = DataCleanser(df_july_14)
+        df_july_14 = dc.cleanse_specific_day_hourly_output_free_float_zone_loads_july_14()
+        df_zone_temps = df.iloc[:, [0, ] + [23, 24]].copy()
+        df_zone_temps.columns = ['hour', '640', '940']
+        dc = DataCleanser(df_zone_temps)
+        df_zone_temps = dc.cleanse_specific_day_hourly_output_free_float_zone_loads_zone_temps()
+        data_d = {}
+        for col_name in df_feb_1.columns[1:]:
+            if not data_d.get(col_name):
+                data_d[col_name] = {}
+            data_d[col_name]['feb_1'] = {'hour': {}}
+            for idx, row in df_feb_1.iterrows():
+                data_d[col_name]['feb_1']['hour'].update({int(row['hour']): {'kWh': row[col_name]}})
+        for col_name in df_july_14.columns[1:]:
+            if not data_d.get(col_name):
+                data_d[col_name] = {}
+            data_d[col_name]['july_14'] = {'hour': {}}
+            for idx, row in df_july_14.iterrows():
+                data_d[col_name]['july_14']['hour'].update({int(row['hour']): {'kWh': row[col_name]}})
+        for col_name in df_zone_temps.columns[1:]:
+            if not data_d.get(col_name):
+                data_d[col_name] = {}
+            if not data_d[col_name].get('feb_1'):
+                data_d[col_name]['feb_1'] = {'hour': {}}
+            for idx, row in df_zone_temps.iterrows():
+                if not data_d[col_name]['feb_1']['hour'].get(int(row['hour'])):
+                    data_d[col_name]['feb_1']['hour'] = {int(row['hour']): {}}
+                data_d[col_name]['feb_1']['hour'][row['hour']]['C'] = row[col_name]
         return data_d
 
     # Section 5-2B data
