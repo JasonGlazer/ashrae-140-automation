@@ -158,7 +158,8 @@ class GraphicsRenderer(Logger):
         # 1 - list to make row index
         if self.section_type == '5-2A':
             self.table_lookup = [
-                ('conditioned_zone_loads_non_free_float', ['program_name', ])
+                ('conditioned_zone_loads_non_free_float', ['program_name', ]),
+                ('free_float_case_zone_temperatures', ['program_name', ])
             ]
         elif self.section_type == '5-2B':
             self.table_lookup = [
@@ -689,10 +690,11 @@ class GraphicsRenderer(Logger):
         df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
             lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
         df_stats = pd.DataFrame()
-        df_stats['min'] = df_formatted_table[kw_cols].min(axis=1).round(2)
-        df_stats['max'] = df_formatted_table[kw_cols].max(axis=1).round(2)
-        df_stats['mean'] = df_formatted_table[kw_cols].mean(axis=1).round(2)
-        df_stats['(max - min)\n/ mean %'] = df_formatted_table[kw_cols].min(axis=1).round(2)
+        base_kw_cols = [i for i in kw_cols if i[0] in self.baseline_model_names]
+        df_stats['min'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
+        df_stats['max'] = df_formatted_table[base_kw_cols].max(axis=1).round(2)
+        df_stats['mean'] = df_formatted_table[base_kw_cols].mean(axis=1).round(2)
+        df_stats['(max - min)\n/ mean %'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
         int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
         df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
         df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
@@ -787,6 +789,82 @@ class GraphicsRenderer(Logger):
             caption='Table B8-4. Annual Hourly Integrated Peak Cooling Loads'
         )
         return fig, ax
+
+    def render_section_5_2a_table_b8_5(
+            self,
+            output_values=('maximum_temperature', 'maximum_month', 'maximum_day', 'maximum_hour'),
+            figure_name='section_5_2_a_table_b8_5',
+            caption='Table B8-4. Annual Hourly Integrated Peak Heating Loads'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-4
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        # get and format dataframe into required shape
+        df = self.df_data['free_float_case_zone_temperatures'] \
+            .loc[
+                :,
+                [
+                    i in output_values for i in self.df_data['free_float_case_zone_temperatures']
+                    .columns.get_level_values(1)]]
+        df_formatted_table = df.unstack() \
+            .reset_index() \
+            .rename(columns={0: 'val', 'level_0': 'case'}) \
+            .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
+            .unstack() \
+            .reset_index()
+        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+        temperature_cols = [i for i in df_formatted_table.columns if 'temperature' in i[1].lower()]
+        df_formatted_table[temperature_cols] = df_formatted_table[temperature_cols].apply(
+            lambda x: pd.to_numeric(x, errors='ignore').round(1), axis=0)
+        df_stats = pd.DataFrame()
+        base_temperature_cols = [i for i in temperature_cols if i[0] in self.baseline_model_names]
+        df_stats['min'] = df_formatted_table[base_temperature_cols].min(axis=1).round(2)
+        df_stats['max'] = df_formatted_table[base_temperature_cols].max(axis=1).round(2)
+        df_stats['mean'] = df_formatted_table[base_temperature_cols].mean(axis=1).round(2)
+        df_stats['(max - min)\n/ mean %'] = df_formatted_table[base_temperature_cols].min(axis=1).round(2)
+        int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
+        df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
+        df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
+        df_formatted_table = df_formatted_table.fillna('')
+        column_formatting_names = {
+            'maximum_temperature': 'C',
+            'maximum_month': 'Mo',
+            'maximum_day': 'Day',
+            'maximum_hour': 'Hr'
+        }
+        # reorder columns so test program is last
+        column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
+            i for i in df_formatted_table.columns if i[0] == self.model_name]
+        df_formatted_table = df_formatted_table[column_names]
+        column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
+                        for i in list(df_formatted_table.columns)]
+        column_names[0] = 'cases'
+        # make list of program names
+        program_list = sorted(
+            set(
+                [i[0] for i in df_formatted_table.columns if i[0]]),
+            key=[i[0] for i in df_formatted_table.columns].index)
+        program_rgx = re.compile(r'(^[a-zA-Z]+)')
+        program_list_short = []
+        for p in program_list:
+            result = program_rgx.search(p)
+            if result:
+                program_list_short.append(result.group(1))
+        df_formatted_table.columns = column_names
+        df_formatted_name_table = df_formatted_table[['cases']] \
+            .merge(
+            self.case_detailed_df,
+            how='left',
+            left_on=['cases', ],
+            right_index=True) \
+            .sort_values(['case_order']) \
+            .drop(['cases', 'case_order'], axis=1) \
+            .rename(columns={
+                'case_name': 'Case'})
+        print(df_formatted_table)
+        print(df_formatted_name_table)
+        return
 
     def render_section_5_2a_figure_b8_1(self):
         """
