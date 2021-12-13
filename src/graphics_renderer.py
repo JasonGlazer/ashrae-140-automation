@@ -802,11 +802,11 @@ class GraphicsRenderer(Logger):
         """
         # get and format dataframe into required shape
         df = self.df_data['free_float_case_zone_temperatures'] \
-                 .loc[
-             :,
-             [
-                 i in output_values for i in self.df_data['free_float_case_zone_temperatures']
-                 .columns.get_level_values(1)]]
+            .loc[
+                :,
+                [
+                    i in output_values for i in self.df_data['free_float_case_zone_temperatures']
+                    .columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -861,8 +861,9 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case'})
+                'case_name': 'Case'})
         print(df_formatted_table)
+        print(df_formatted_name_table)
         return
 
     def render_section_5_2a_figure_b8_1(self):
