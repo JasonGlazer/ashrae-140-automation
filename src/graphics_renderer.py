@@ -499,7 +499,8 @@ class GraphicsRenderer(Logger):
         version = self.model_results_file.parts[-2].lower()
         img_directory = destination_directory.joinpath(
             program_name,
-            version)
+            version,
+            'images')
         pathlib.Path(img_directory).mkdir(parents=True, exist_ok=True)
         img_name = img_directory.joinpath(
             '.'.join(
@@ -790,23 +791,21 @@ class GraphicsRenderer(Logger):
         )
         return fig, ax
 
-    def render_section_5_2a_table_b8_5(
+    def _make_table_b8_5_df(
             self,
-            output_values=('maximum_temperature', 'maximum_month', 'maximum_day', 'maximum_hour'),
-            figure_name='section_5_2_a_table_b8_5',
-            caption='Table B8-4. Annual Hourly Integrated Peak Heating Loads'):
+            output_values):
         """
-        Create dataframe from class dataframe object for table 5-2A B8-4
 
-        :return: pandas dataframe and output msg for general navigation.
+        :param output_values:
+        :return:
         """
         # get and format dataframe into required shape
         df = self.df_data['free_float_case_zone_temperatures'] \
-            .loc[
-                :,
-                [
-                    i in output_values for i in self.df_data['free_float_case_zone_temperatures']
-                    .columns.get_level_values(1)]]
+                 .loc[
+             :,
+             [
+                 i in output_values for i in self.df_data['free_float_case_zone_temperatures']
+                 .columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -831,7 +830,12 @@ class GraphicsRenderer(Logger):
             'maximum_temperature': 'C',
             'maximum_month': 'Mo',
             'maximum_day': 'Day',
-            'maximum_hour': 'Hr'
+            'maximum_hour': 'Hr',
+            'minimum_temperature': 'C',
+            'minimum_month': 'Mo',
+            'minimum_day': 'Day',
+            'minimum_hour': 'Hr',
+            'average_temperature': 'C'
         }
         # reorder columns so test program is last
         column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
@@ -862,9 +866,92 @@ class GraphicsRenderer(Logger):
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
                 'case_name': 'Case'})
-        print(df_formatted_table)
-        print(df_formatted_name_table)
-        return
+        df_formatted_table = pd.concat(
+            [
+                df_formatted_name_table,
+                df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
+                df_stats,
+                df_formatted_table.drop(columns=['cases', ]).iloc[
+                    :,
+                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+            axis=1)
+        return df_formatted_table, program_list_short
+
+    def render_section_5_2a_table_b8_5(
+            self,
+            figure_name='section_5_2_a_table_b8_5',
+            caption='Table B8-5. Free Float Temperature Output'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-4
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        df_list = []
+        program_list = []
+        df, programs = self._make_table_b8_5_df(
+            output_values=('maximum_temperature', 'maximum_month', 'maximum_day', 'maximum_hour')
+        )
+        df_list.append(df)
+        program_list.append(programs)
+        df, programs = self._make_table_b8_5_df(
+            output_values=('minimum_temperature', 'minimum_month', 'minimum_day', 'maximum_hour')
+        )
+        df_list.append(df)
+        program_list.append(programs)
+        df, programs = self._make_table_b8_5_df(
+            output_values=('average_temperature', )
+        )
+        df_list.append(df)
+        program_list.append(programs)
+        # set fig size
+        fig, axs = plt.subplots(
+            nrows=3,
+            ncols=1,
+            figsize=(30, 12))
+        for tidx, (
+                ax,
+                df_formatted_table,
+                program_list_short,
+                title) in \
+                enumerate(zip(
+                    axs,
+                    df_list,
+                    program_list,
+                    ['MAXIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE',
+                     'MINIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE',
+                     'AVERAGE ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE'])):
+            tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
+            cell_dict = tab.get_celld()
+            # Set title
+            header_title = tab.add_cell(-2, 0, width=5, height=0.2)
+            header_title.get_text().set_text(title)
+            header_title.PAD = 0.0
+            header_title.set_fontsize(16)
+            header_title.set_text_props(ha="left")
+            header_title.visible_edges = "open"
+            if tidx != 2:
+                for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
+                    for j in range(df_formatted_table.shape[0] + 1):
+                        cell_dict[(j, i)].set_width(w)
+                        cell_dict[(j, i)].set_text_props(ha="center")
+                # Set annotations
+                for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
+                    header = [tab.add_cell(-1, idx, width=0.5, height=0.2), ]
+                    header[0].get_text().set_text(hdr.upper())
+                    header[0].PAD = 0.1
+                    header[0].set_fontsize(16)
+                    header[0].set_text_props(ha="left")
+                    header[0].visible_edges = "open"
+                    if idx != 29:
+                        ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+                    else:
+                        ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
+                    ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+        # save the result
+        plt.suptitle(caption, fontsize=30)
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
+        return fig, ax
 
     def render_section_5_2a_figure_b8_1(self):
         """
