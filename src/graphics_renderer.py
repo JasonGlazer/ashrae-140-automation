@@ -793,7 +793,8 @@ class GraphicsRenderer(Logger):
 
     def _make_table_b8_5_df(
             self,
-            output_values):
+            output_values,
+            split_column=5):
         """
 
         :param output_values:
@@ -869,11 +870,12 @@ class GraphicsRenderer(Logger):
         df_formatted_table = pd.concat(
             [
                 df_formatted_name_table,
-                df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
+                df_formatted_table.drop(
+                    columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - split_column)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
                     :,
-                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+                    range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
             axis=1)
         return df_formatted_table, program_list_short
 
@@ -899,7 +901,8 @@ class GraphicsRenderer(Logger):
         df_list.append(df)
         program_list.append(programs)
         df, programs = self._make_table_b8_5_df(
-            output_values=('average_temperature', )
+            output_values=('average_temperature', ),
+            split_column=2,
         )
         df_list.append(df)
         program_list.append(programs)
@@ -912,18 +915,20 @@ class GraphicsRenderer(Logger):
                 ax,
                 df_formatted_table,
                 program_list_short,
-                title) in \
+                title,
+                case_col_width) in \
                 enumerate(zip(
                     axs,
                     df_list,
                     program_list,
                     ['MAXIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE',
                      'MINIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE',
-                     'AVERAGE ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE'])):
-            tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
+                     'AVERAGE ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE'],
+                    [5, 5, 2])):
+            tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=case_col_width)
             cell_dict = tab.get_celld()
             # Set title
-            header_title = tab.add_cell(-2, 0, width=5, height=0.2)
+            header_title = tab.add_cell(-2, 0, width=1, height=0.2)
             header_title.get_text().set_text(title)
             header_title.PAD = 0.0
             header_title.set_fontsize(16)
@@ -947,11 +952,38 @@ class GraphicsRenderer(Logger):
                     else:
                         ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
                     ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+            else:
+                for w, i, hdr in zip([0.95, ] * 7, [1, 2, 3, 4, 5, 6, 11], program_list_short):
+                    for j in range(df_formatted_table.shape[0] + 1):
+                        cell_dict[(j, i)].set_width(w)
+                        cell_dict[(j, i)].set_text_props(ha="left")
+                        cell_dict[(j, 0)].set_width(2.35)
+                        header = [tab.add_cell(-1, i, width=0.5, height=0.2), ]
+                        header[0].get_text().set_text(hdr.upper())
+                        header[0].PAD = 0.1
+                        header[0].set_fontsize(16)
+                        header[0].set_text_props(ha="left")
+                        header[0].visible_edges = "open"
+                for w, i in zip([0.27, 0.27, 0.27, 0.72], [7, 8, 9, 10]):
+                    for j in range(df_formatted_table.shape[0] + 1):
+                        cell_dict[(j, i)].set_width(w)
+                        cell_dict[(j, i)].set_text_props(ha="center")
+                for idx in range(7):
+                    ax.axvline(
+                        x=(2.35 + 0.95 * idx) / (2.35 + 0.95 * 7 + 0.27 * 3 + 0.72),
+                        color='black',
+                        linewidth=4,
+                        zorder=3)
+                ax.axvline(
+                    x=(2.35 + 0.95 * 7 + 0.27 * 3 + 0.65) / (2.35 + 0.95 * 7 + 0.27 * 3 + 0.72 + 0.95),
+                    color='black',
+                    linewidth=4,
+                    zorder=3)
         # save the result
         plt.suptitle(caption, fontsize=30)
         self._make_image_from_plt(figure_name)
         plt.subplots_adjust(top=0.92)
-        return fig, ax
+        return fig, axs
 
     def render_section_5_2a_figure_b8_1(self):
         """
