@@ -802,11 +802,11 @@ class GraphicsRenderer(Logger):
         """
         # get and format dataframe into required shape
         df = self.df_data['free_float_case_zone_temperatures'] \
-                 .loc[
-             :,
-             [
-                 i in output_values for i in self.df_data['free_float_case_zone_temperatures']
-                 .columns.get_level_values(1)]]
+            .loc[
+                :,
+                [
+                    i in output_values for i in self.df_data['free_float_case_zone_temperatures']
+                    .columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -984,6 +984,99 @@ class GraphicsRenderer(Logger):
         self._make_image_from_plt(figure_name)
         plt.subplots_adjust(top=0.92)
         return fig, axs
+
+    def render_section_5_2a_table_b8_6(
+            self,
+            figure_name='section_5_2_a_table_b8_6',
+            caption='Table B8-6. Low Mass Basic Sensitivity Tests'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-6
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        table_dfs = [None, ] * 4
+        for measurement_type, table_idx in zip(
+                ['annual_heating_MWh', 'peak_heating_kW'],
+                [0, 2]):
+            # get and format dataframe into required shape
+            df = self.df_data['conditioned_zone_loads_non_free_float'] \
+                .loc[
+                    :,
+                    [
+                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                        .columns.get_level_values(1)]]
+            df.columns = df.columns.droplevel(level=1)
+            df_formatted = pd.DataFrame()
+            df_formatted['610 - 600 Heat, S. Shade'] = (df['610'] - df['600']).round(3)
+            df_formatted['620 - 600 Heat, E&W Orient'] = (df['620'] - df['600']).round(3)
+            df_formatted['630 - 620 Heat, E&W Shade'] = (df['630'] - df['620']).round(3)
+            df_formatted['640 - 600 Heat, Htg. Setback'] = (df['640'] - df['600']).round(3)
+            df_formatted['660 - 600 Heat, Low-E Win.'] = (df['660'] - df['600']).round(3)
+            df_formatted['670 - 600 Heat, 1-Pane Win.'] = (df['670'] - df['600']).round(3)
+            df_formatted['680 - 600 Heat, > Ins. 20/27'] = (df['680'] - df['600']).round(3)
+            df_formatted['685 - 600 Heat, 20/20 tstat'] = (df['685'] - df['600']).round(3)
+            df_formatted['695 - 685 Heat, > Ins. 20/20'] = (df['640'] - df['600']).round(3)
+            df_formatted = df_formatted.transpose()
+            df_stats = pd.DataFrame()
+            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
+            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
+            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
+            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
+            df_stats['(max - min)\n/ mean %'] = df_formatted[stat_cols].min(axis=1).round(2)
+            df_formatted = pd.concat(
+                [
+                    df_formatted.iloc[:, range(len(df_formatted.columns))],
+                    df_stats,
+                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
+                ],
+                axis=1)
+            program_rgx = re.compile(r'(^[a-zA-Z]+)')
+            df_formatted.columns = [
+                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
+            table_dfs[table_idx] = df_formatted
+        for measurement_type, table_idx in zip(
+                ['annual_cooling_MWh', 'peak_cooling_kW'],
+                [1, 3]):
+            # get and format dataframe into required shape
+            df = self.df_data['conditioned_zone_loads_non_free_float'] \
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                     .columns.get_level_values(1)]]
+            df.columns = df.columns.droplevel(level=1)
+            df_formatted = pd.DataFrame()
+            df_formatted['610 - 600 Cool, S. Shade'] = (df['610'] - df['600']).round(3)
+            df_formatted['620 - 600 Cool, E&W Orient'] = (df['620'] - df['600']).round(3)
+            df_formatted['630 - 620 Cool, E&W Shade'] = (df['630'] - df['620']).round(3)
+            df_formatted['640 - 600 Cool, Htg. Setback'] = (df['640'] - df['600']).round(3)
+            df_formatted['650 - 600 Cool, Night Vent'] = (df['650'] - df['600']).round(3)
+            df_formatted['660 - 600 Heat, Low-E Win.'] = (df['660'] - df['600']).round(3)
+            df_formatted['670 - 600 Heat, 1-Pane Win.'] = (df['670'] - df['600']).round(3)
+            df_formatted['680 - 600 Heat, > Ins. 20/27'] = (df['680'] - df['600']).round(3)
+            df_formatted['685 - 600 Heat, 20/20 tstat'] = (df['685'] - df['600']).round(3)
+            df_formatted['695 - 685 Heat, > Ins. 20/20'] = (df['640'] - df['600']).round(3)
+            df_formatted = df_formatted.transpose()
+            df_stats = pd.DataFrame()
+            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
+            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
+            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
+            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
+            df_stats['(max - min)\n/ mean %'] = df_formatted[stat_cols].min(axis=1).round(2)
+            df_formatted = pd.concat(
+                [
+                    df_formatted.iloc[:, range(len(df_formatted.columns))],
+                    df_stats,
+                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
+                ],
+                axis=1)
+            program_rgx = re.compile(r'(^[a-zA-Z]+)')
+            df_formatted.columns = [
+                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
+            table_dfs[table_idx] = df_formatted
+        from pprint import pprint
+        pprint(table_dfs)
+        return
 
     def render_section_5_2a_figure_b8_1(self):
         """
