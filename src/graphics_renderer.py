@@ -1022,7 +1022,10 @@ class GraphicsRenderer(Logger):
             df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
             df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
             df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = df_formatted[stat_cols].min(axis=1).round(2)
+            df_stats['(max - min)\n/ mean %'] = \
+                (
+                    (df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
                     df_formatted.iloc[:, range(len(df_formatted.columns))],
@@ -1033,6 +1036,9 @@ class GraphicsRenderer(Logger):
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
+            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
+                lambda x: '{0:.1f}%'.format(x))
+            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
             table_dfs[table_idx] = df_formatted
         for measurement_type, table_idx in zip(
                 ['annual_cooling_MWh', 'peak_cooling_kW'],
@@ -1072,9 +1078,36 @@ class GraphicsRenderer(Logger):
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
+            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
+                lambda x: '{0:.1f}%'.format(x))
+            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
             table_dfs[table_idx] = df_formatted
-        from pprint import pprint
-        pprint(table_dfs)
+        fig, axs = plt.subplots(
+            nrows=4,
+            ncols=1,
+            figsize=(24, 16))
+        for ax, df_t, title in zip(
+                axs,
+                table_dfs,
+                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
+                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
+            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
+            # Set title
+            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
+            header_title.get_text().set_text(title)
+            header_title.PAD = 0.0
+            header_title.set_fontsize(16)
+            header_title.set_text_props(ha="left")
+            header_title.visible_edges = "open"
+            cell_dict = tab.get_celld()
+            for w, i in zip([0.75, 0.75], [4, 11]):
+                for j in range(df_t.shape[0] + 1):
+                    cell_dict[(j, i)].set_width(w)
+                    cell_dict[(j, i)].set_text_props(ha="center")
+        # save the result
+        plt.suptitle(caption, fontsize=30)
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
         return
 
     def render_section_5_2a_figure_b8_1(self):
