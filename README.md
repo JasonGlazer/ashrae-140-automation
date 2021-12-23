@@ -24,7 +24,10 @@ Automation of ASHRAE 140 Testing Verification
 1. A file path is created within the `input/` directory that has the following format: `/<software-name>/<version>/RESULTS-XX.xlsx`.  
     - This file contains at least the 'YourData' tab of the stock `RESULTS-XX.xlsx` file with the pertinent tables filled out.  
 2. Github Actions makes a list of files to process by checking the created/modified files in the `input/` directory.
+    - The command line call performed is `python src/main input/<software-name>/<version>/results-XX.xlsx`
 3. For each created or modified file, the InputProcessor class picks up the file, performs some data validation via the DataCleanser class, and then creates a JSON file that is written to the `processed/` directory using the same file path as specified above.  This JSON file contains a structured object that should be consistent across all processed files.  
     - Future iterations of this program should include a schema validation step to ensure the data integrity.  
 4. Github Actions makes a list of files to render by checking the created/modified files in the `processed/` directory.  
+    - The command line call performed is `python src/main processed/<software-name>/<version>/results-XX.json`
+    - Individual graphics may be produced using the `rg` flag.  Example: `python src/main processed/<software-name>/<version>/results-XX.json -rg section_5_2a_table_b8_1`.  Multiple section* arguments will render multiple tables.
 5. For each crated or modified file, the GraphicsRenderer class walks attempst to generate all graphics for that section.  These graphs are stored as PNG files in the `rendered/images/<software-name>/<version>/images` directory using the same file path as specified above.  A static markdown file can be copied from the `rendered/images/test/0.0.0/section_5_2a.md` into the `rendered/images/<software-name>/<version>/` directory for a full rendering of the generated images.  
