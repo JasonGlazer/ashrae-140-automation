@@ -1261,11 +1261,11 @@ class GraphicsRenderer(Logger):
                 [0, 2]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                     .columns.get_level_values(1)]]
+                .loc[
+                    :,
+                    [
+                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                        .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['200-195 Surface Convection'] = (df['200'] - df['195']).round(3)
@@ -1283,7 +1283,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1304,11 +1304,11 @@ class GraphicsRenderer(Logger):
                 [1, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                     .columns.get_level_values(1)]]
+                .loc[
+                    :,
+                    [
+                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                        .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['200-195 Surface Convection'] = (df['200'] - df['195']).round(3)
@@ -1321,7 +1321,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
