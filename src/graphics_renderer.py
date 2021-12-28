@@ -1350,11 +1350,11 @@ class GraphicsRenderer(Logger):
                 [0, 1, 2, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                     .columns.get_level_values(1)]]
+                .loc[
+                    :,
+                    [
+                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                        .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['400-395 Surf. Conv. & IR'] = (df['400'] - df['395']).round(3)
