@@ -1257,8 +1257,8 @@ class GraphicsRenderer(Logger):
         """
         table_dfs = [None, ] * 4
         for measurement_type, table_idx in zip(
-                ['annual_heating_MWh', 'peak_heating_kW'],
-                [0, 2]):
+                ['annual_heating_MWh', 'peak_heating_kW', 'annual_cooling_MWh', 'peak_cooling_kW'],
+                [0, 1, 2, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
                 .loc[
@@ -1274,6 +1274,14 @@ class GraphicsRenderer(Logger):
             df_formatted['215-200 Int IR (Ext IR "off")'] = (df['215'] - df['200']).round(3)
             df_formatted['220-210 Int IR (Ext IR "on")'] = (df['220'] - df['210']).round(3)
             df_formatted['230-220 Infiltration'] = (df['230'] - df['220']).round(3)
+            df_formatted['240-220 Internal Gains'] = (df['240'] - df['220']).round(3)
+            df_formatted['250-220 Ext Solar Abs.'] = (df['250'] - df['220']).round(3)
+            df_formatted['270-220 South Windows'] = (df['270'] - df['220']).round(3)
+            df_formatted['280-270 Cavity Albedo'] = (df['280'] - df['270']).round(3)
+            df_formatted['320-270 Thermostat'] = (df['320'] - df['270']).round(3)
+            df_formatted['290-270 South Shading'] = (df['290'] - df['270']).round(3)
+            df_formatted['300-270 E&W Windows'] = (df['300'] - df['270']).round(3)
+            df_formatted['310-300 E&W Shading'] = (df['310'] - df['300']).round(3)
             df_formatted = df_formatted.transpose()
             df_stats = pd.DataFrame()
             stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
@@ -1299,19 +1307,67 @@ class GraphicsRenderer(Logger):
                 lambda x: '{0:.1f}%'.format(x))
             df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
             table_dfs[table_idx] = df_formatted
+        fig, axs = plt.subplots(
+            nrows=4,
+            ncols=1,
+            figsize=(24, 16))
+        for ax, df_t, title in zip(
+                axs,
+                table_dfs,
+                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
+                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
+            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
+            # Set title
+            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
+            header_title.get_text().set_text(title)
+            header_title.PAD = 0.0
+            header_title.set_fontsize(16)
+            header_title.set_text_props(ha="left")
+            header_title.visible_edges = "open"
+            cell_dict = tab.get_celld()
+            for w, i in zip([0.75, 0.75], [4, 11]):
+                for j in range(df_t.shape[0] + 1):
+                    cell_dict[(j, i)].set_width(w)
+                    cell_dict[(j, i)].set_text_props(ha="center")
+        # save the result
+        plt.suptitle(caption, fontsize=30)
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
+        return
+
+    def render_section_5_2a_table_b8_9(
+            self,
+            figure_name='section_5_2_a_table_b8_9',
+            caption='Table B8-9. Low Mass In-Depth (Cases 395 Thru 440) Sensitivity Tests'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-9
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        table_dfs = [None, ] * 4
         for measurement_type, table_idx in zip(
-                ['annual_cooling_MWh', 'peak_cooling_kW'],
-                [1, 3]):
+                ['annual_heating_MWh', 'peak_heating_kW', 'annual_cooling_MWh', 'peak_cooling_kW'],
+                [0, 1, 2, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                     .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
-            df_formatted['200-195 Surface Convection'] = (df['200'] - df['195']).round(3)
+            df_formatted['400-395 Surf. Conv. & IR'] = (df['400'] - df['395']).round(3)
+            df_formatted['410-400 Infiltration'] = (df['410'] - df['400']).round(3)
+            df_formatted['420-410 Internal Gains'] = (df['420'] - df['410']).round(3)
+            df_formatted['430-420 Ext Solar Abs.'] = (df['430'] - df['420']).round(3)
+            df_formatted['600-430 South Windows'] = (df['600'] - df['430']).round(3)
+            df_formatted['440-600 Cavity Albedo'] = (df['440'] - df['600']).round(3)
+            df_formatted['450-600 Const Int&Ext Surf Coefs'] = (df['450'] - df['600']).round(3)
+            df_formatted['460-600 Const Int Surf Coefs'] = (df['460'] - df['600']).round(3)
+            df_formatted['460-450 Auto Ext Surf Heat Transf'] = (df['460'] - df['450']).round(3)
+            df_formatted['470-600 Const Ext Surf Coefs'] = (df['470'] - df['600']).round(3)
+            df_formatted['470-450 Auto Int Surf Heat Transf'] = (df['470'] - df['450']).round(3)
             df_formatted = df_formatted.transpose()
             df_stats = pd.DataFrame()
             stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
