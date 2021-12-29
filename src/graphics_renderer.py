@@ -1421,6 +1421,184 @@ class GraphicsRenderer(Logger):
         plt.subplots_adjust(top=0.92)
         return
 
+    def render_section_5_2a_table_b8_10(
+            self,
+            figure_name='section_5_2_a_table_b8_10',
+            caption='Table B8-10. High Mass Basic In-Depth Sensitivity Tests'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-10
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        table_dfs = [None, ] * 4
+        for measurement_type, table_idx in zip(
+                ['annual_heating_MWh', 'peak_heating_kW'],
+                [0, 2]):
+            # get and format dataframe into required shape
+            df = self.df_data['conditioned_zone_loads_non_free_float'] \
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                     .columns.get_level_values(1)]]
+            df.columns = df.columns.droplevel(level=1)
+            df_formatted = pd.DataFrame()
+            df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
+            df_formatted['900-800 Himass, S. Win.'] = (df['900'] - df['800']).round(3)
+            df_formatted['900-810 Himass, Int. Solar Abs.'] = (df['900'] - df['810']).round(3)
+            df_formatted['910-610 Mass, w/ S. Shade'] = (df['910'] - df['610']).round(3)
+            df_formatted['920-620 Mass, w/ E&W Win.'] = (df['920'] - df['620']).round(3)
+            df_formatted['930-630 Mass, w/ E&W Shade'] = (df['930'] - df['630']).round(3)
+            df_formatted['940-640 Mass, w/ Htg. Setback'] = (df['940'] - df['640']).round(3)
+            df_formatted['980-680 Mass, w/ Insulation 20/27'] = (df['980'] - df['680']).round(3)
+            df_formatted['985-685 Mass, w/ 20/20 Tstat'] = (df['985'] - df['685']).round(3)
+            df_formatted['995-695 Mass, w/ Insulation 20/20'] = (df['995'] - df['695']).round(3)
+            df_formatted = df_formatted.transpose()
+            df_stats = pd.DataFrame()
+            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
+            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
+            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
+            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
+            df_stats['(max - min)\n/ mean %'] = \
+                abs(
+                    (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
+            df_formatted = pd.concat(
+                [
+                    df_formatted.iloc[:, range(len(df_formatted.columns))],
+                    df_stats,
+                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
+                ],
+                axis=1)
+            program_rgx = re.compile(r'(^[a-zA-Z]+)')
+            df_formatted.columns = [
+                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
+            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
+                lambda x: '{0:.1f}%'.format(x))
+            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
+            table_dfs[table_idx] = df_formatted
+        for measurement_type, table_idx in zip(
+                ['annual_cooling_MWh', 'peak_cooling_kW'],
+                [1, 3]):
+            # get and format dataframe into required shape
+            df = self.df_data['conditioned_zone_loads_non_free_float'] \
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                     .columns.get_level_values(1)]]
+            df.columns = df.columns.droplevel(level=1)
+            df_formatted = pd.DataFrame()
+            df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
+            df_formatted['900-800 Himass, S. Win.'] = (df['900'] - df['800']).round(3)
+            df_formatted['900-810 Himass, Int. Solar Abs.'] = (df['900'] - df['810']).round(3)
+            df_formatted['910-610 Mass, w/ S. Shade'] = (df['910'] - df['610']).round(3)
+            df_formatted['920-620 Mass, w/ E&W Win.'] = (df['920'] - df['620']).round(3)
+            df_formatted['930-630 Mass, w/ E&W Shade'] = (df['930'] - df['630']).round(3)
+            df_formatted['940-640 Mass, w/ Htg. Setback'] = (df['940'] - df['640']).round(3)
+            df_formatted['950-650 Mass, w/ Night Vent'] = (df['950'] - df['650']).round(3)
+            df_formatted['980-680 Mass, w/ Insulation 20/27'] = (df['980'] - df['680']).round(3)
+            df_formatted['985-685 Mass, w/ 20/20 Tstat'] = (df['985'] - df['685']).round(3)
+            df_formatted['995-695 Mass, w/ Insulation 20/20'] = (df['995'] - df['695']).round(3)
+            df_formatted = df_formatted.transpose()
+            df_stats = pd.DataFrame()
+            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
+            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
+            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
+            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
+            df_stats['(max - min)\n/ mean %'] = \
+                abs(
+                    (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
+            df_formatted = pd.concat(
+                [
+                    df_formatted.iloc[:, range(len(df_formatted.columns))],
+                    df_stats,
+                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
+                ],
+                axis=1)
+            program_rgx = re.compile(r'(^[a-zA-Z]+)')
+            df_formatted.columns = [
+                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
+            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
+                lambda x: '{0:.1f}%'.format(x))
+            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
+            table_dfs[table_idx] = df_formatted
+        fig, axs = plt.subplots(
+            nrows=4,
+            ncols=1,
+            figsize=(24, 16))
+        for ax, df_t, title in zip(
+                axs,
+                table_dfs,
+                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
+                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
+            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
+            # Set title
+            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
+            header_title.get_text().set_text(title)
+            header_title.PAD = 0.0
+            header_title.set_fontsize(16)
+            header_title.set_text_props(ha="left")
+            header_title.visible_edges = "open"
+            cell_dict = tab.get_celld()
+            for w, i in zip([0.75, 0.75], [4, 11]):
+                for j in range(df_t.shape[0] + 1):
+                    cell_dict[(j, i)].set_width(w)
+                    cell_dict[(j, i)].set_text_props(ha="center")
+        # save the result
+        plt.suptitle(caption, fontsize=30)
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
+        return
+
+    def render_section_5_2a_table_b8_11(
+            self,
+            figure_name='section_5_2_a_table_b8_11',
+            caption='Table B8-11. Annual Transmissivity Coefficient of Windows'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-11
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        df = pd.DataFrame()
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            for case in ['600', '620', '660', '670']:
+                tmp_df = pd.DataFrame()
+                try:
+                    unshaded_df = pd.DataFrame.from_dict(json_obj['solar_radiation_unshaded_annual_transmitted'][case])
+                    unshaded_df = unshaded_df['Surface'].apply(pd.Series).reset_index().rename(columns={'index': 'surface'})
+                    incident_df = pd.DataFrame.from_dict(json_obj['solar_radiation_annual_incident']['600'])
+                    incident_df = incident_df['Surface'].apply(pd.Series).reset_index().rename(
+                        columns={
+                            'index': 'surface',
+                            'kWh/m2': 'kWh/m2_incident'})
+                    unshaded_df['surface'] = unshaded_df['surface'].str.replace(r'[^a-zA-Z]', r'', regex='True').str.lower()
+                    incident_df['surface'] = incident_df['surface'].str.replace(r'[^a-zA-Z]', r'', regex='True').str.lower()
+                    tmp_df = pd.concat([
+                        tmp_df,
+                        unshaded_df.merge(
+                            incident_df,
+                            how='left',
+                            on='surface')],
+                        axis=1)
+                    tmp_df['case'] = case
+                    tmp_df['software'] = json_obj['identifying_information']['software_name']
+                    tmp_df['version'] = json_obj['identifying_information']['software_version']
+                    tmp_df['value'] = (tmp_df['kWh/m2'] / tmp_df['kWh/m2_incident']).round(3)
+                except (KeyError, ValueError):
+                    import traceback
+                    print(traceback.print_exc())
+                    tmp_df['value'] = float('NaN')
+                    tmp_df['case'] = case
+                    tmp_df['software'] = json_obj['identifying_information']['software_name']
+                    tmp_df['version'] = json_obj['identifying_information']['software_version']
+                df = pd.concat([df, tmp_df], axis=0)
+        print(df)
+        return
+
     def render_section_5_2a_figure_b8_1(self):
         """
         Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
