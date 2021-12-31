@@ -1,6 +1,10 @@
 # ashrae-140-automation
 Automation of ASHRAE 140 Testing Verification
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Unit%20Tests)](https://github.com/john-grando/ashrae-140-automation/actions)
+[![Coverage Status](https://coveralls.io/repos/github/john-grando/ashrae-140-automation/badge.svg?t=nDflSw)](https://coveralls.io/github/john-grando/ashrae-140-automation)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Flake8?label=pep8)](https://github.com/john-grando/ashrae-140-automation/actions)
+
 ### Processing Steps  
 1. Read in tables from RESULTS-2A.xlsx
 2. Format as JSON objects into a 'processed' JSON file
@@ -30,4 +34,4 @@ Automation of ASHRAE 140 Testing Verification
 4. Github Actions makes a list of files to render by checking the created/modified files in the `processed/` directory.  
     - The command line call performed is `python src/main processed/<software-name>/<version>/results-XX.json`
     - Individual graphics may be produced using the `rg` flag.  Example: `python src/main processed/<software-name>/<version>/results-XX.json -rg section_5_2a_table_b8_1`.  Multiple section* arguments will render multiple tables.
-5. For each crated or modified file, the GraphicsRenderer class walks attempst to generate all graphics for that section.  These graphs are stored as PNG files in the `rendered/images/<software-name>/<version>/images` directory using the same file path as specified above.  A static markdown file can be copied from the `rendered/images/test/0.0.0/section_5_2a.md` into the `rendered/images/<software-name>/<version>/` directory for a full rendering of the generated images.  
+5. For each created or modified file, the GraphicsRenderer class walks attempts to generate all graphics for that section.  These graphs are stored as PNG files in the `rendered/images/<software-name>/<version>/images` directory using the same file path as specified above.  A static markdown file can be copied from the `rendered/images/test/0.0.0/section_5_2a.md` into the `rendered/images/<software-name>/<version>/` directory for a full rendering of the generated images.  
