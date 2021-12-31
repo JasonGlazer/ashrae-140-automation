@@ -1,6 +1,10 @@
 # ashrae-140-automation
 Automation of ASHRAE 140 Testing Verification
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Unit%20Tests)](https://github.com/john-grando/ashrae-140-automation/actions)
+[![Coverage Status](https://coveralls.io/repos/github/john-grando/ashrae-140-automation/badge.svg?t=nDflSw)](https://coveralls.io/github/john-grando/ashrae-140-automation)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Flake8?label=pep8)](https://github.com/john-grando/ashrae-140-automation/actions)
+
 ### Processing Steps  
 1. Read in tables from RESULTS-2A.xlsx
 2. Format as JSON objects into a 'processed' JSON file

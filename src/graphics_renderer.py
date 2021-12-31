@@ -1596,6 +1596,8 @@ class GraphicsRenderer(Logger):
                     tmp_df['software'] = json_obj['identifying_information']['software_name']
                     tmp_df['version'] = json_obj['identifying_information']['software_version']
                 df = pd.concat([df, tmp_df], axis=0)
+        df.drop(columns=['surface', 'kWh/m2', 'kWh/m2_incident'], inplace=True)
+
         print(df)
         return
 
