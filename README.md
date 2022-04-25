@@ -2,7 +2,7 @@
 Automation of ASHRAE 140 Testing Verification
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Unit%20Tests)](https://github.com/john-grando/ashrae-140-automation/actions)
-[![Coverage Status](https://coveralls.io/repos/github/john-grando/ashrae-140-automation/badge.svg?t=nDflSw)](https://coveralls.io/github/john-grando/ashrae-140-automation)
+[![Coverage Status](https://coveralls.io/repos/github/JasonGlazer/ashrae-140-automation/badge.svg?branch=main)](https://coveralls.io/github/JasonGlazer/ashrae-140-automation?branch=main)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Flake8?label=pep8)](https://github.com/john-grando/ashrae-140-automation/actions)
 
 ### Processing Steps  
