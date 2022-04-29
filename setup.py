@@ -4,7 +4,7 @@ setup(
     name='ASHRAE140Automation',
     version='0.0.0',
     packages=['src'],
-    url='https://github.com/john-grando/ashrae-140-automation',
+    url='https://github.com/JasonGlazer/ashrae-140-automation',
     license='',
     author='GARD Analytics and NREL for US DOE',
     author_email='',
