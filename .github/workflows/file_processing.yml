@@ -53,8 +53,8 @@ jobs:
         run: |
           git config --global user.name 'Processing-Bot'
           git config --global user.email 'processing-bot@users.noreply.github.com'
-          git commit --allow-empty -am "Automated processing"
           git add .
+          git commit --allow-empty -am "Automated processing"
           git push
   render:
     needs: process
