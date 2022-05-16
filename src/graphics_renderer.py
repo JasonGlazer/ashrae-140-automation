@@ -6,6 +6,7 @@ import numpy as np
 import math
 from textwrap import wrap
 import matplotlib.pyplot as plt
+import textwrap as twp
 
 from logger import Logger
 
@@ -1563,42 +1564,438 @@ class GraphicsRenderer(Logger):
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        df = pd.DataFrame()
+
+        df_table_b8_13 = pd.DataFrame()
+        df_table_b8_14 = pd.DataFrame()
+        software_array = []
+        # get data
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            for case in ['600', '620', '660', '670']:
-                tmp_df = pd.DataFrame()
+            df_obj_table_b8_13 = pd.DataFrame.from_dict(json_obj['solar_radiation_annual_incident']['600']['Surface'])
+            df_obj_table_b8_13['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df_table_b8_13 = pd.concat([df_table_b8_13, df_obj_table_b8_13], axis=0)
+
+            df_obj_table_b8_14 = pd.DataFrame.from_dict(json_obj['solar_radiation_unshaded_annual_transmitted'])
+            df_obj_table_b8_14['software'] = json_obj['identifying_information']['software_name']
+            df_table_b8_14 = pd.concat([df_table_b8_14, df_obj_table_b8_14], axis=0)
+
+        df_table_b8_13 = df_table_b8_13.set_index('software')
+        df_table_b8_13 = df_table_b8_13.transpose()
+        df_table_b8_14 = df_table_b8_14.set_index('software')
+        df_table_b8_14 = df_table_b8_14.transpose()
+
+        for row in range(len(df_table_b8_14)):
+            for col in range(len(df_table_b8_14.columns)):
+                temp_dict = df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]]
+                for k, v in temp_dict.items():
+                    new_val = v['kWh/m2']
                 try:
-                    unshaded_df = pd.DataFrame.from_dict(json_obj['solar_radiation_unshaded_annual_transmitted'][case])
-                    unshaded_df = unshaded_df['Surface'].apply(pd.Series).reset_index().rename(columns={'index': 'surface'})
-                    incident_df = pd.DataFrame.from_dict(json_obj['solar_radiation_annual_incident']['600'])
-                    incident_df = incident_df['Surface'].apply(pd.Series).reset_index().rename(
-                        columns={
-                            'index': 'surface',
-                            'kWh/m2': 'kWh/m2_incident'})
-                    unshaded_df['surface'] = unshaded_df['surface'].str.replace(r'[^a-zA-Z]', r'', regex='True').str.lower()
-                    incident_df['surface'] = incident_df['surface'].str.replace(r'[^a-zA-Z]', r'', regex='True').str.lower()
-                    tmp_df = pd.concat([
-                        tmp_df,
-                        unshaded_df.merge(
-                            incident_df,
-                            how='left',
-                            on='surface')],
-                        axis=1)
-                    tmp_df['case'] = case
-                    tmp_df['software'] = json_obj['identifying_information']['software_name']
-                    tmp_df['version'] = json_obj['identifying_information']['software_version']
-                    tmp_df['value'] = (tmp_df['kWh/m2'] / tmp_df['kWh/m2_incident']).round(3)
+                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = new_val
                 except (KeyError, ValueError):
-                    import traceback
-                    print(traceback.print_exc())
-                    tmp_df['value'] = float('NaN')
-                    tmp_df['case'] = case
-                    tmp_df['software'] = json_obj['identifying_information']['software_name']
-                    tmp_df['version'] = json_obj['identifying_information']['software_version']
-                df = pd.concat([df, tmp_df], axis=0)
-        df.drop(columns=['surface', 'kWh/m2', 'kWh/m2_incident'], inplace=True)
-        print(df)
-        return
+                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = float('NaN')
+
+        index_dict = {
+            '600 South': ['600', 'SOUTH'],
+            '620 West': ['620', 'WEST'],
+            '660 South, Low-E': ['660', 'SOUTH'],
+            '670 South, Single Pane': ['670', 'SOUTH']
+        }
+        df_table_b8_11 = pd.DataFrame()
+        df_table_b8_11 = pd.DataFrame(columns=df_table_b8_14.columns)
+        for key in index_dict:
+            df_table_b8_11.loc[key] = df_table_b8_14.loc[index_dict[key][0]].div(df_table_b8_13.loc[index_dict[key][1]])\
+                .where(df_table_b8_13.loc[index_dict[key][1]] != 0, np.nan)
+
+        # calculate stats
+        df_stats = pd.DataFrame()
+        df_stats['min'] = df_table_b8_11.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df_table_b8_11.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df_table_b8_11.iloc[:, 0:-1].mean(axis=1)
+        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
+            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
+
+        # merge dataframes
+        df_merged = pd.concat(
+            [
+                df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1)],
+                df_stats,
+                df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1, len(df_table_b8_11.columns))]
+            ],
+            axis=1)
+
+        # format dataframe
+        df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
+        df_formatted_table.fillna('', inplace=True)
+        for col in df_formatted_table:
+            if col in software_array:
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 3) if x != '' else x)
+
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
+
+        # wrap text in table
+        wrapped_col = {}
+        for col in df_formatted_table:
+            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
+        df_formatted_table.rename(columns=wrapped_col, inplace=True)
+
+        # save results
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(24, 6))
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
+
+        # Set annotations
+        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
+        header_stats[0].get_text().set_text('Statistics for Example Results')
+        header_stats[0].PAD = 0.5
+        header_stats[0].set_fontsize(16)
+        header_stats[0].set_text_props(ha="left")
+        header_stats[0].visible_edges = "open"
+        header_stats[1].visible_edges = "open"
+        header_stats[2].visible_edges = "open"
+        header_stats[3].visible_edges = "open"
+        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
+
+        plt.suptitle(caption, fontsize=30, y=1.05)
+        self._make_image_from_plt(figure_name)
+
+        return fig, ax
+
+    def render_section_5_2a_table_b8_12(
+            self,
+            figure_name='section_5_2_a_table_b8_12',
+            caption='Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-12
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+
+        df_table_b8_14 = pd.DataFrame()
+        df_table_b8_15 = pd.DataFrame()
+        software_array = []
+
+        # get data
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            df_obj_table_b8_14 = pd.DataFrame.from_dict(json_obj['solar_radiation_unshaded_annual_transmitted'])
+            df_obj_table_b8_14['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df_table_b8_14 = pd.concat([df_table_b8_14, df_obj_table_b8_14], axis=0)
+
+            df_obj_table_b8_15 = pd.DataFrame.from_dict(json_obj['solar_radiation_shaded_annual_transmitted'])
+            df_obj_table_b8_15['software'] = json_obj['identifying_information']['software_name']
+            df_table_b8_15 = pd.concat([df_table_b8_15, df_obj_table_b8_15], axis=0)
+
+        df_table_b8_14 = df_table_b8_14.set_index('software')
+        df_table_b8_14 = df_table_b8_14.transpose()
+        df_table_b8_15 = df_table_b8_15.set_index('software')
+        df_table_b8_15 = df_table_b8_15.transpose()
+
+        for row in range(len(df_table_b8_14)):
+            for col in range(len(df_table_b8_14.columns)):
+                temp_dict = df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]]
+                for k, v in temp_dict.items():
+                    new_val = v['kWh/m2']
+                try:
+                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = new_val
+                except (KeyError, ValueError):
+                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = float('NaN')
+
+        for row in range(len(df_table_b8_15)):
+            for col in range(len(df_table_b8_15.columns)):
+                temp_dict = df_table_b8_15.at[df_table_b8_15.index[row], df_table_b8_15.columns[col]]
+                for k, v in temp_dict.items():
+                    new_val = v['kWh/m2']
+                try:
+                    df_table_b8_15.at[df_table_b8_15.index[row], df_table_b8_15.columns[col]] = new_val
+                except (KeyError, ValueError):
+                    df_table_b8_15.at[df_table_b8_15.index[row], df_table_b8_15.columns[col]] = float('NaN')
+
+        index_dict = {
+            '610/600 South': ['610', '600'],
+            '630/620 West': ['630', '620']
+        }
+        df_table_b8_12 = pd.DataFrame()
+        df_table_b8_12 = pd.DataFrame(columns=df_table_b8_14.columns)
+
+        for key in index_dict:
+            df_table_b8_12.loc[key] = 1 - df_table_b8_15.loc[index_dict[key][0]].div(df_table_b8_14.loc[index_dict[key][1]])\
+                .where(df_table_b8_14.loc[index_dict[key][1]] != 0, np.nan)
+
+        # calculate stats
+        df_stats = pd.DataFrame()
+        df_stats['min'] = df_table_b8_12.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df_table_b8_12.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df_table_b8_12.iloc[:, 0:-1].mean(axis=1)
+        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
+            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
+
+        # merge dataframes
+        df_merged = pd.concat(
+            [
+                df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1)],
+                df_stats,
+                df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1, len(df_table_b8_12.columns))]
+            ],
+            axis=1)
+
+        # format dataframe
+        df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
+        df_formatted_table.fillna('', inplace=True)
+        for col in df_formatted_table:
+            if col in software_array:
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
+
+        # wrap text in table
+        wrapped_col = {}
+        for col in df_formatted_table:
+            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
+        df_formatted_table.rename(columns=wrapped_col, inplace=True)
+
+        # save results
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(24, 6))
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
+
+        # Set annotations
+        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
+        header_stats[0].get_text().set_text('Statistics for Example Results')
+        header_stats[0].PAD = 0.5
+        header_stats[0].set_fontsize(16)
+        header_stats[0].set_text_props(ha="left")
+        header_stats[0].visible_edges = "open"
+        header_stats[1].visible_edges = "open"
+        header_stats[2].visible_edges = "open"
+        header_stats[3].visible_edges = "open"
+        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
+
+        plt.suptitle(caption, fontsize=30, y=1.05)
+        self._make_image_from_plt(figure_name)
+
+        return fig, ax
+
+    def render_section_5_2a_table_b8_13(
+            self,
+            figure_name='section_5_2_a_table_b8_13',
+            caption='Table B8-13. Case 600 Annual Incident Solar Radiation ($kWh/m^{2}$)'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-13
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+
+        df = pd.DataFrame()
+        software_array = []
+        # get data
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            df_obj = pd.DataFrame.from_dict(json_obj['solar_radiation_annual_incident']['600']['Surface'])
+            df_obj['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df = pd.concat([df, df_obj], axis=0)
+        df = df.set_index('software')
+        df = df.transpose()
+
+        for row in range(len(df)):
+            for col in range(len(df.columns)):
+                try:
+                    df.at[df.index[row], df.columns[col]]
+                except (KeyError, ValueError):
+                    df.at[df.index[row], df.columns[col]] = float('NaN')
+
+        # calculate stats
+        df_stats = pd.DataFrame()
+        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
+        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
+            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
+
+        # merge dataframes
+        df_merged = pd.concat(
+            [
+                df.iloc[:, range(len(df.columns) - 1)],
+                df_stats,
+                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+            ],
+            axis=1)
+
+        index_dict = {
+            'HORZ.': 'Horizontal',
+            'NORTH': 'North',
+            'EAST': 'East',
+            'SOUTH': 'South',
+            'WEST': 'West',
+        }
+        df_formatted_table = df_merged.rename(index=index_dict)
+        df_formatted_table = df_formatted_table.reindex(['Horizontal', 'North', 'East', 'South', 'West'])
+        df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
+        df_formatted_table.fillna('', inplace=True)
+
+        for col in df_formatted_table:
+            if col in software_array:
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
+
+        # wrap text in table
+        wrapped_col = {}
+        for col in df_formatted_table:
+            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
+        df_formatted_table.rename(columns=wrapped_col, inplace=True)
+
+        # save results
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(24, 6))
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
+
+        # Set annotations
+        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
+        header_stats[0].get_text().set_text('Statistics for Example Results')
+        header_stats[0].PAD = 0.5
+        header_stats[0].set_fontsize(16)
+        header_stats[0].set_text_props(ha="left")
+        header_stats[0].visible_edges = "open"
+        header_stats[1].visible_edges = "open"
+        header_stats[2].visible_edges = "open"
+        header_stats[3].visible_edges = "open"
+        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
+
+        plt.suptitle(caption, fontsize=30, y=1.05)
+        self._make_image_from_plt(figure_name)
+
+        return fig, ax
+
+    def render_section_5_2a_table_b8_14(
+            self,
+            output_value='solar_radiation_unshaded_annual_transmitted',
+            figure_name='section_5_2_a_table_b8_14',
+            caption='Table B8-14. Annual Transmitted Solar Radiation - Unshaded ($kWh/m^{2}$)'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-14
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+
+        df = pd.DataFrame()
+        software_array = []
+        # get data
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            df_obj = pd.DataFrame.from_dict(json_obj[output_value])
+            df_obj['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df = pd.concat([df, df_obj], axis=0)
+        df = df.set_index('software')
+        df = df.transpose()
+
+        for row in range(len(df)):
+            for col in range(len(df.columns)):
+                temp_dict = df.at[df.index[row], df.columns[col]]
+                for k, v in temp_dict.items():
+                    new_val = v['kWh/m2']
+                try:
+                    df.at[df.index[row], df.columns[col]] = new_val
+                except (KeyError, ValueError):
+                    df.at[df.index[row], df.columns[col]] = float('NaN')
+
+        # calculate stats
+        df_stats = pd.DataFrame()
+        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
+        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
+            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
+
+        # merge dataframes
+        df_merged = pd.concat(
+            [
+                df.iloc[:, range(len(df.columns) - 1)],
+                df_stats,
+                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+            ],
+            axis=1)
+
+        index_dict = {
+            '600': '600 South',
+            '610': '610 South',
+            '620': '620 West',
+            '630': '630 West',
+            '660': '660 South',
+            '670': '670 South',
+        }
+        df_formatted_table = df_merged.rename(index=index_dict)
+        df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
+
+        df_formatted_table.fillna('', inplace=True)
+
+        for col in df_formatted_table:
+            if col in software_array:
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: int(round(x)) if x != '' else x)
+        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
+
+        # wrap text in table
+        wrapped_col = {}
+        for col in df_formatted_table:
+            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
+        df_formatted_table.rename(columns=wrapped_col, inplace=True)
+
+        # save results
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(24, 6))
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
+
+        # Set annotations
+        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
+        header_stats[0].get_text().set_text('Statistics for Example Results')
+        header_stats[0].PAD = 0.5
+        header_stats[0].set_fontsize(16)
+        header_stats[0].set_text_props(ha="left")
+        header_stats[0].visible_edges = "open"
+        header_stats[1].visible_edges = "open"
+        header_stats[2].visible_edges = "open"
+        header_stats[3].visible_edges = "open"
+        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
+
+        plt.suptitle(caption, fontsize=30, y=1.05)
+        self._make_image_from_plt(figure_name)
+
+        return fig, ax
+
+    def render_section_5_2a_table_b8_15(self):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-15
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        fig, ax = self.render_section_5_2a_table_b8_14(
+            output_value='solar_radiation_shaded_annual_transmitted',
+            figure_name='section_5_2_a_table_b8_15',
+            caption='Table B8.15 Annual Transmitted Solar Radiation - Shaded ($kWh/m^{2}$)'
+        )
+
+        return fig, ax
 
     def render_section_5_2a_figure_b8_1(self):
         """
