@@ -1670,11 +1670,11 @@ class GraphicsRenderer(Logger):
             self,
             figure_name='section_5_2_a_table_b8_12',
             caption='Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'):
-            """
-            Create dataframe from class dataframe object for table 5-2A B8-12
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-12
 
-            :return: pandas dataframe and output msg for general navigation.
-            """
+        :return: pandas dataframe and output msg for general navigation.
+        """
 
         df_table_b8_14 = pd.DataFrame()
         df_table_b8_15 = pd.DataFrame()
