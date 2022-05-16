@@ -1916,9 +1916,9 @@ class GraphicsRenderer(Logger):
 
         # calculate stats
         df_stats = pd.DataFrame()
-        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)#.round(0).astype(int)
-        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)#.round(0).astype(int)
-        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)#.round(0).astype(int)
+        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
         df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
             df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
 
