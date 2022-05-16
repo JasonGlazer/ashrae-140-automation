@@ -1634,7 +1634,7 @@ class GraphicsRenderer(Logger):
         df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x,3) if x != '' else x)
         df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x,3) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x*100, 3)))
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
 
         # wrap text in table
         wrapped_col = {}
@@ -1754,7 +1754,7 @@ class GraphicsRenderer(Logger):
         df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x,3) if x != '' else x)
         df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x,3) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x*100, 3)))
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
 
         # wrap text in table
         wrapped_col = {}
@@ -1851,7 +1851,7 @@ class GraphicsRenderer(Logger):
         df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: int(round(x)) if x != '' else x)
         df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: int(round(x)) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x*100, 3)))
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
 
         # wrap text in table
         wrapped_col = {}
@@ -1953,7 +1953,7 @@ class GraphicsRenderer(Logger):
         df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: int(round(x)) if x != '' else x)
         df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: int(round(x)) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x*100, 3)))
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
 
         # wrap text in table
         wrapped_col = {}
