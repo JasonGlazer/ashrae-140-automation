@@ -1613,7 +1613,7 @@ class GraphicsRenderer(Logger):
         df_stats['mean'] = df_table_b8_11.iloc[:, 0:-1].mean(axis=1)
         df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
             df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-        
+
         # merge dataframes
         df_merged = pd.concat(
                 [
@@ -1641,7 +1641,7 @@ class GraphicsRenderer(Logger):
         for col in df_formatted_table:
             wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
         df_formatted_table.rename(columns=wrapped_col, inplace=True)
-        
+
         # save results
         fig, ax = plt.subplots(
             nrows=1,
@@ -1660,21 +1660,21 @@ class GraphicsRenderer(Logger):
         header_stats[2].visible_edges = "open"
         header_stats[3].visible_edges = "open"
         plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-        
+
         plt.suptitle(caption, fontsize=30, y=1.05)
         self._make_image_from_plt(figure_name)
 
         return fig, ax
 
-        def render_section_5_2a_table_b8_12(
+    def render_section_5_2a_table_b8_12(
             self,
             figure_name='section_5_2_a_table_b8_12',
             caption='Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-12
+            """
+            Create dataframe from class dataframe object for table 5-2A B8-12
 
-        :return: pandas dataframe and output msg for general navigation.
-        """
+            :return: pandas dataframe and output msg for general navigation.
+            """
 
         df_table_b8_14 = pd.DataFrame()
         df_table_b8_15 = pd.DataFrame()
@@ -1686,7 +1686,7 @@ class GraphicsRenderer(Logger):
             df_obj_table_b8_14['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
             df_table_b8_14 = pd.concat([df_table_b8_14, df_obj_table_b8_14], axis=0)
-            
+
             df_obj_table_b8_15 = pd.DataFrame.from_dict(json_obj['solar_radiation_shaded_annual_transmitted'])
             df_obj_table_b8_15['software'] = json_obj['identifying_information']['software_name']
             df_table_b8_15 = pd.concat([df_table_b8_15, df_obj_table_b8_15], axis=0)
@@ -1705,7 +1705,7 @@ class GraphicsRenderer(Logger):
                     df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = new_val
                 except (KeyError, ValueError):
                     df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = float('NaN')
-                
+
         for row in range(len(df_table_b8_15)):
             for col in range(len(df_table_b8_15.columns)):
                 temp_dict = df_table_b8_15.at[df_table_b8_15.index[row], df_table_b8_15.columns[col]]
@@ -1734,8 +1734,7 @@ class GraphicsRenderer(Logger):
         df_stats['mean'] = df_table_b8_12.iloc[:, 0:-1].mean(axis=1)
         df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
             df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-        print('df stats: ', df_stats)
-        
+
         # merge dataframes
         df_merged = pd.concat(
                 [
@@ -1749,7 +1748,6 @@ class GraphicsRenderer(Logger):
         df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
         df_formatted_table.fillna('', inplace=True)
         for col in df_formatted_table:
-            print('print col: ', col)
             if col in software_array:
                 df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x,3) if x != '' else x)
         df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x,3) if x != '' else x)
@@ -1763,7 +1761,7 @@ class GraphicsRenderer(Logger):
         for col in df_formatted_table:
             wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
         df_formatted_table.rename(columns=wrapped_col, inplace=True)
-        
+
         # save results
         fig, ax = plt.subplots(
             nrows=1,
@@ -1782,7 +1780,7 @@ class GraphicsRenderer(Logger):
         header_stats[2].visible_edges = "open"
         header_stats[3].visible_edges = "open"
         plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-        
+
         plt.suptitle(caption, fontsize=30, y=1.05)
         self._make_image_from_plt(figure_name)
 
@@ -1797,7 +1795,7 @@ class GraphicsRenderer(Logger):
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        
+
         df = pd.DataFrame()
         software_array = []
         # get data
@@ -1816,7 +1814,7 @@ class GraphicsRenderer(Logger):
                     df.at[df.index[row], df.columns[col]]
                 except (KeyError, ValueError):
                     df.at[df.index[row], df.columns[col]] = float('NaN')
-                
+
         # calculate stats
         df_stats = pd.DataFrame()
         df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
@@ -1824,7 +1822,7 @@ class GraphicsRenderer(Logger):
         df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
         df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
             df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-        
+
         # merge dataframes
         df_merged = pd.concat(
                 [
@@ -1833,7 +1831,7 @@ class GraphicsRenderer(Logger):
                     df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
                 ],
                 axis=1)
-        
+
         index_dict = {
             'HORZ.': 'Horizontal',
             'NORTH': 'North',
@@ -1860,7 +1858,7 @@ class GraphicsRenderer(Logger):
         for col in df_formatted_table:
             wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
         df_formatted_table.rename(columns=wrapped_col, inplace=True)
-        
+
         # save results
         fig, ax = plt.subplots(
             nrows=1,
@@ -1879,7 +1877,7 @@ class GraphicsRenderer(Logger):
         header_stats[2].visible_edges = "open"
         header_stats[3].visible_edges = "open"
         plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-        
+
         plt.suptitle(caption, fontsize=30, y=1.05)
         self._make_image_from_plt(figure_name)
 
@@ -1917,7 +1915,7 @@ class GraphicsRenderer(Logger):
                     df.at[df.index[row], df.columns[col]] = new_val
                 except (KeyError, ValueError):
                     df.at[df.index[row], df.columns[col]] = float('NaN')
-                
+  
         # calculate stats
         df_stats = pd.DataFrame()
         df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)#.round(0).astype(int)
@@ -1925,7 +1923,7 @@ class GraphicsRenderer(Logger):
         df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)#.round(0).astype(int)
         df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
             df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-        
+
         # merge dataframes
         df_merged = pd.concat(
                 [
@@ -1981,7 +1979,7 @@ class GraphicsRenderer(Logger):
         header_stats[2].visible_edges = "open"
         header_stats[3].visible_edges = "open"
         plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-        
+
         plt.suptitle(caption, fontsize=30, y=1.05)
         self._make_image_from_plt(figure_name)
 
