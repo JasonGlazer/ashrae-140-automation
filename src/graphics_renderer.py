@@ -1616,23 +1616,23 @@ class GraphicsRenderer(Logger):
 
         # merge dataframes
         df_merged = pd.concat(
-                [
-                    df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1)],
-                    df_stats,
-                    df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1, len(df_table_b8_11.columns))]
-                ],
-                axis=1)
+            [
+                df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1)],
+                df_stats,
+                df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1, len(df_table_b8_11.columns))]
+            ],
+            axis=1)
 
         # format dataframe
         df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
         df_formatted_table.fillna('', inplace=True)
         for col in df_formatted_table:
             if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x,3) if x != '' else x)
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 3) if x != '' else x)
 
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x,3) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x,3) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x,3) if x != '' else x)
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 3) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
             lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
 
@@ -1737,22 +1737,22 @@ class GraphicsRenderer(Logger):
 
         # merge dataframes
         df_merged = pd.concat(
-                [
-                    df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1)],
-                    df_stats,
-                    df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1, len(df_table_b8_12.columns))]
-                ],
-                axis=1)
+            [
+                df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1)],
+                df_stats,
+                df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1, len(df_table_b8_12.columns))]
+            ],
+            axis=1)
 
         # format dataframe
         df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
         df_formatted_table.fillna('', inplace=True)
         for col in df_formatted_table:
             if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x,3) if x != '' else x)
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x,3) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x,3) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x,3) if x != '' else x)
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 3) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 3) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
             lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
 
@@ -1806,7 +1806,6 @@ class GraphicsRenderer(Logger):
             df = pd.concat([df, df_obj], axis=0)
         df = df.set_index('software')
         df = df.transpose()
-        df_index = df.index.values
 
         for row in range(len(df)):
             for col in range(len(df.columns)):
@@ -1825,12 +1824,12 @@ class GraphicsRenderer(Logger):
 
         # merge dataframes
         df_merged = pd.concat(
-                [
-                    df.iloc[:, range(len(df.columns) - 1)],
-                    df_stats,
-                    df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
-                ],
-                axis=1)
+            [
+                df.iloc[:, range(len(df.columns) - 1)],
+                df_stats,
+                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+            ],
+            axis=1)
 
         index_dict = {
             'HORZ.': 'Horizontal',
@@ -1839,8 +1838,8 @@ class GraphicsRenderer(Logger):
             'SOUTH': 'South',
             'WEST': 'West',
         }
-        df_formatted_table = df_merged.rename(index = index_dict)
-        df_formatted_table = df_formatted_table.reindex(['Horizontal','North','East','South','West'])
+        df_formatted_table = df_merged.rename(index=index_dict)
+        df_formatted_table = df_formatted_table.reindex(['Horizontal', 'North', 'East', 'South', 'West'])
         df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
         df_formatted_table.fillna('', inplace=True)
 
@@ -1904,7 +1903,6 @@ class GraphicsRenderer(Logger):
             df = pd.concat([df, df_obj], axis=0)
         df = df.set_index('software')
         df = df.transpose()
-        df_index = df.index.values
 
         for row in range(len(df)):
             for col in range(len(df.columns)):
@@ -1915,7 +1913,7 @@ class GraphicsRenderer(Logger):
                     df.at[df.index[row], df.columns[col]] = new_val
                 except (KeyError, ValueError):
                     df.at[df.index[row], df.columns[col]] = float('NaN')
-  
+
         # calculate stats
         df_stats = pd.DataFrame()
         df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)#.round(0).astype(int)
@@ -1926,12 +1924,12 @@ class GraphicsRenderer(Logger):
 
         # merge dataframes
         df_merged = pd.concat(
-                [
-                    df.iloc[:, range(len(df.columns) - 1)],
-                    df_stats,
-                    df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
-                ],
-                axis=1)
+            [
+                df.iloc[:, range(len(df.columns) - 1)],
+                df_stats,
+                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+            ],
+            axis=1)
 
         index_dict = {
             '600': '600 South',
@@ -1941,7 +1939,7 @@ class GraphicsRenderer(Logger):
             '660': '660 South',
             '670': '670 South',
         }
-        df_formatted_table = df_merged.rename(index = index_dict)
+        df_formatted_table = df_merged.rename(index=index_dict)
         df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
 
         df_formatted_table.fillna('', inplace=True)
