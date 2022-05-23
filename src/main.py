@@ -109,6 +109,53 @@ def create_images(input_file, args, logger_name):
     return
 
 
+def create_markdown(input_file):
+    # get markdown file directory
+    folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])
+    destination_directory = root_directory.joinpath('rendered', 'images', folder_name)
+    img_file_directory = destination_directory.joinpath('images')
+
+    if img_file_directory.exists():
+        if img_file_directory.is_dir():
+            img_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.png']
+        else:
+            img_files = []
+    else:
+        img_files = []
+
+    img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
+
+    sorted_files = []
+    # get all tables and figures in folder
+    for img in img_files:
+        if 'table' in img:
+            sorted_files.append(img)
+    for img in img_files:
+        if 'figure' in img and re.split(r'(\d.*)', img.split('_')[-1].split('.png')[0])[0] == '':
+            sorted_files.append(img)
+    for img in img_files:
+        if 'figure' in img and re.split(r'(\d.*)', img.split('_')[-1].split('.png')[0])[0] == 'h':
+            sorted_files.append(img)
+    for img in img_files:
+        if 'figure' in img and re.split(r'(\d.*)', img.split('_')[-1].split('.png')[0])[0] == 'm':
+            sorted_files.append(img)
+
+    # write to markdown files
+    md_file = open(pathlib.Path.joinpath(destination_directory, 'section_5_2a.md'), 'w')
+    md_file.write('# Section 5-2A  \n')
+
+    for png in sorted_files:
+        idx = png.split('_')[-1].split('.png')[0]
+        if 'table' in png:
+            line = '![table ' + str(idx) + '](images/' + png + ')'
+            md_file.write(line + '\n')
+        if 'figure' in png:
+            line = '![figure ' + str(idx) + '](images/' + png + ')'
+            md_file.write(line + '\n')
+
+    md_file.close()
+
+
 def main(args=None):
     if hasattr(args, 'version') and args.version:
         version = get_property('__version__')
@@ -175,6 +222,10 @@ def main(args=None):
                 'va114-2.20'
             ]:
                 create_images(input_file=input_file, args=args, logger_name=logger_name)
+
+        # create a markdown file to list all figures and tables in the rendered folder
+        if 'processed' in f.parts:
+            create_markdown(input_file=f)
     return
 
 
