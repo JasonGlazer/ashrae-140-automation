@@ -123,8 +123,8 @@ def create_markdown(input_file):
     else:
         img_files = []
 
-    img_files.sort(key = lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
-    
+    img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
+
     sorted_files = []
     # get all tables and figures in folder
     for img in img_files:
@@ -141,7 +141,7 @@ def create_markdown(input_file):
             sorted_files.append(img)
 
     # write to markdown files
-    md_file = open(pathlib.Path.joinpath(destination_directory,'section_5_2a.md'), 'w')
+    md_file = open(pathlib.Path.joinpath(destination_directory, 'section_5_2a.md'), 'w')
     md_file.write('# Section 5-2A  \n')
 
     for png in sorted_files:
@@ -149,7 +149,7 @@ def create_markdown(input_file):
         if 'table' in png:
             line = '![table ' + str(idx) + '](images/' + png + ')'
             md_file.write(line + '\n')
-        if 'figure' in png: 
+        if 'figure' in png:
             line = '![figure ' + str(idx) + '](images/' + png + ')'
             md_file.write(line + '\n')
 
