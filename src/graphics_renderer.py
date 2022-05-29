@@ -7280,7 +7280,7 @@ class GraphicsRenderer(Logger):
             'CASE HE230': 'HE230: Undersized Furnace'}
         # get data
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            df_obj = pd.DataFrame.from_dict(json_obj[output_value]) # can i change this to a variable, and have a table with all functions
+            df_obj = pd.DataFrame.from_dict(json_obj[output_value])
             df_obj['software'] = json_obj['identifying_information']['program_name_and_version'] + '\n' + json_obj['identifying_information']['program_organization']
             software_array.append(json_obj['identifying_information']['program_name_and_version'])
             df = pd.concat([df, df_obj], axis=0)
@@ -7303,15 +7303,15 @@ class GraphicsRenderer(Logger):
         df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
         df_stats['(max-min)\n/mean*'] = abs(df_stats['max'] - df_stats['min']).div(
             df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-        
+
         # merge dataframes
         df_merged = pd.concat(
-                [
-                    df.iloc[:, range(len(df.columns) - 1)],
-                    df_stats,
-                    df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
-                ],
-                axis=1)
+            [
+                df.iloc[:, range(len(df.columns) - 1)],
+                df_stats,
+                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+            ],
+            axis=1)
 
         df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
         df_formatted_table.fillna('', inplace=True)
@@ -7324,7 +7324,7 @@ class GraphicsRenderer(Logger):
         df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 2) if x != '' else x)
         df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 2) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*'] = df_formatted_table['(max-min)\n/mean*'].apply(
-            lambda x: '{0:.1f}%'.format(math.floor(x * 1000) / 10) if x * 1000 - math.floor(x * 1000) < 0.5 else '{0:.1f}%'.format(math.ceil(x * 1000) / 10)) # check all rounds, 1.5 is round to 1 currently
+            lambda x: '{0:.1f}%'.format(math.floor(x * 1000) / 10) if x * 1000 - math.floor(x * 1000) < 0.5 else '{0:.1f}%'.format(math.ceil(x * 1000) / 10))  # check all rounds, 1.5 is round to 1 currently
 
         wrapped_col = {}
         for col in df_formatted_table:
@@ -7355,8 +7355,7 @@ class GraphicsRenderer(Logger):
         plt.suptitle(caption, fontsize=30, y=1.05)
         self._make_image_from_plt(figure_name)
 
-        return fig, ax # added by Xing
-
+        return fig, ax
 
     def render_section_5_4_table_b16_6_6(self):
         """
@@ -7371,7 +7370,6 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-
     def render_section_5_4_table_b16_6_7(self):
         """
         Create dataframe from class dataframe object for table 5-4 B16.6-7
@@ -7384,7 +7382,6 @@ class GraphicsRenderer(Logger):
             caption='Table B16.6-7. Minimum Zone Temperature ($^\circ$C)')
 
         return fig, ax
-
 
     def render_section_5_4_figure_b16_6_5(
             self,
@@ -7416,7 +7413,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[i for i in cases],
             ylabel=output_value.replace('_', ' ').title() + ' ($^\circ$C)',
             y_min=0,
-            y_max=23, # y max needs to be the same across 3 charts?
+            y_max=23,  # y max needs to be the same across 3 charts?
             image_name=figure_name)
         return fig, ax
 
