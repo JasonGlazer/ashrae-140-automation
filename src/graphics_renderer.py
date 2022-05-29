@@ -7265,7 +7265,7 @@ class GraphicsRenderer(Logger):
             self,
             output_value='mean_zone_temperature',
             figure_name='section_5_4_table_b16_6_5',
-            caption='Table B16.6-5. Mean Zone Temperature ($^\circ$C)'):
+            caption=r'Table B16.6-5. Mean Zone Temperature ($^\circ$C)'):
         """
         Create dataframe from class dataframe object for table 5-4 B16.6-5
 
@@ -7366,7 +7366,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self.render_section_5_4_table_b16_6_5(
             output_value='maximum_zone_temperature',
             figure_name='section_5_4_table_b16_6_6',
-            caption='Table B16.6-6. Maximum Zone Temperature ($^\circ$C)')
+            caption=r'Table B16.6-6. Maximum Zone Temperature ($^\circ$C)')
 
         return fig, ax
 
@@ -7379,7 +7379,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self.render_section_5_4_table_b16_6_5(
             output_value='minimum_zone_temperature',
             figure_name='section_5_4_table_b16_6_7',
-            caption='Table B16.6-7. Minimum Zone Temperature ($^\circ$C)')
+            caption=r'Table B16.6-7. Minimum Zone Temperature ($^\circ$C)')
 
         return fig, ax
 
@@ -7407,14 +7407,14 @@ class GraphicsRenderer(Logger):
             programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' + json_obj['identifying_information']['program_organization'])
 
             fig, ax = self._create_bar_plot(
-            data=data,
-            programs=programs,
-            title=caption,
-            xticklabels=[i for i in cases],
-            ylabel=output_value.replace('_', ' ').title() + ' ($^\circ$C)',
-            y_min=0,
-            y_max=23,  # y max needs to be the same across 3 charts?
-            image_name=figure_name)
+                data=data,
+                programs=programs,
+                title=caption,
+                xticklabels=[i for i in cases],
+                ylabel=output_value.replace('_', ' ').title() + r' ($^\circ$C)',
+                y_min=0,
+                y_max=23,  # y max needs to be the same across 3 charts?
+                image_name=figure_name)
         return fig, ax
 
     def render_section_5_4_figure_b16_6_6(self):
