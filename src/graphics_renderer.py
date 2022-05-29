@@ -7260,3 +7260,186 @@ class GraphicsRenderer(Logger):
     #     """
     #     df = self.df_data['steady_state_cases']
     #     return df
+
+    def render_section_5_4_table_b16_6_5(
+            self,
+            output_value='mean_zone_temperature',
+            figure_name='section_5_4_table_b16_6_5',
+            caption='Table B16.6-5. Mean Zone Temperature ($^\circ$C)'):
+        """
+        Create dataframe from class dataframe object for table 5-4 B16.6-5
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+
+        df = pd.DataFrame()
+        software_array = []
+        index_dict = {
+            'CASE HE210': 'HE210: Realistic Weather',
+            'CASE HE220': 'HE220: Setback Thermostat',
+            'CASE HE230': 'HE230: Undersized Furnace'}
+        # get data
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            df_obj = pd.DataFrame.from_dict(json_obj[output_value]) # can i change this to a variable, and have a table with all functions
+            df_obj['software'] = json_obj['identifying_information']['program_name_and_version'] + '\n' + json_obj['identifying_information']['program_organization']
+            software_array.append(json_obj['identifying_information']['program_name_and_version'])
+            df = pd.concat([df, df_obj], axis=0)
+        df = df.set_index('software')
+        df = df.rename(index_dict, axis=1)
+        df = df.groupby(level=0, axis=1).sum()
+        df = df.transpose()
+
+        for row in range(len(df)):
+            for col in range(len(df.columns)):
+                try:
+                    df.at[df.index[row], df.columns[col]]
+                except (KeyError, ValueError):
+                    df.at[df.index[row], df.columns[col]] = float('NaN')
+
+        # calculate stats
+        df_stats = pd.DataFrame()
+        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
+        df_stats['(max-min)\n/mean*'] = abs(df_stats['max'] - df_stats['min']).div(
+            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
+        
+        # merge dataframes
+        df_merged = pd.concat(
+                [
+                    df.iloc[:, range(len(df.columns) - 1)],
+                    df_stats,
+                    df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+                ],
+                axis=1)
+
+        df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
+        df_formatted_table.fillna('', inplace=True)
+
+        for col in df_formatted_table:
+            if col in software_array:
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 2) if x != '' else x)
+
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 2) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 2) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 2) if x != '' else x)
+        df_formatted_table['(max-min)\n/mean*'] = df_formatted_table['(max-min)\n/mean*'].apply(
+            lambda x: '{0:.1f}%'.format(math.floor(x * 1000) / 10) if x * 1000 - math.floor(x * 1000) < 0.5 else '{0:.1f}%'.format(math.ceil(x * 1000) / 10)) # check all rounds, 1.5 is round to 1 currently
+
+        wrapped_col = {}
+        for col in df_formatted_table:
+            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
+        df_formatted_table.rename(columns=wrapped_col, inplace=True)
+
+        # save results
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(24, 6))
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
+
+        # Set annotations
+        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(4, 9)]
+        header_stats[0].get_text().set_text('Statistics, All Results')
+        header_stats[0].PAD = 0.5
+        header_stats[0].set_fontsize(16)
+        header_stats[0].set_text_props(ha="left")
+        header_stats[0].visible_edges = "open"
+        header_stats[1].visible_edges = "open"
+        header_stats[2].visible_edges = "open"
+        header_stats[3].visible_edges = "open"
+        header_stats[4].visible_edges = "open"
+
+        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Results)", ha="left", fontsize=12)
+
+        plt.suptitle(caption, fontsize=30, y=1.05)
+        self._make_image_from_plt(figure_name)
+
+        return fig, ax # added by Xing
+
+
+    def render_section_5_4_table_b16_6_6(self):
+        """
+        Create dataframe from class dataframe object for table 5-4 B16.6-6
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        fig, ax = self.render_section_5_4_table_b16_6_5(
+            output_value='maximum_zone_temperature',
+            figure_name='section_5_4_table_b16_6_6',
+            caption='Table B16.6-6. Maximum Zone Temperature ($^\circ$C)')
+
+        return fig, ax
+
+
+    def render_section_5_4_table_b16_6_7(self):
+        """
+        Create dataframe from class dataframe object for table 5-4 B16.6-7
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        fig, ax = self.render_section_5_4_table_b16_6_5(
+            output_value='minimum_zone_temperature',
+            figure_name='section_5_4_table_b16_6_7',
+            caption='Table B16.6-7. Minimum Zone Temperature ($^\circ$C)')
+
+        return fig, ax
+
+
+    def render_section_5_4_figure_b16_6_5(
+            self,
+            output_value='mean_zone_temperature',
+            figure_name='section_5_4_figure_b16_6_5',
+            caption='Figure B16.6-5. Comparison of the Mean Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases'):
+        """
+        Render Section 5-4 Figure B16.6-5 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        data = []
+        cases = ['HE210\nRealistic Weather', 'HE220\nSetback Thermostat', 'HE230\nUndersize Furnace']
+        programs = []
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            tmp_data = []
+            for key in json_obj[output_value]:
+                try:
+                    tmp_data.append(
+                        json_obj[output_value][key]['degC'])
+                except (KeyError, ValueError):
+                    tmp_data.append(float('NaN'))
+            data.insert(idx, tmp_data)
+            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' + json_obj['identifying_information']['program_organization'])
+
+            fig, ax = self._create_bar_plot(
+            data=data,
+            programs=programs,
+            title=caption,
+            xticklabels=[i for i in cases],
+            ylabel=output_value.replace('_', ' ').title() + ' ($^\circ$C)',
+            y_min=0,
+            y_max=23, # y max needs to be the same across 3 charts?
+            image_name=figure_name)
+        return fig, ax
+
+    def render_section_5_4_figure_b16_6_6(self):
+        """
+        Render Section 5-4 Figure B16.6-6 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        fig, ax = self.render_section_5_4_figure_b16_6_5(
+            output_value='maximum_zone_temperature',
+            figure_name='section_5_4_figure_b16_6_6',
+            caption='Figure B16.6-6.  Comparison of the Max Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases')
+
+        return fig, ax
+
+    def render_section_5_4_figure_b16_6_7(self):
+        """
+        Render Section 5-4 Figure B16.6-7 by modifying fig an ax inputs from matplotlib
+        :return: modified fig and ax objects from matplotlib.subplots()
+        """
+        fig, ax = self.render_section_5_4_figure_b16_6_5(
+            output_value='minimum_zone_temperature',
+            figure_name='section_5_4_figure_b16_6_7',
+            caption='Figure B16.6-7.  Comparison of the Min Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases')
+
+        return fig, ax
