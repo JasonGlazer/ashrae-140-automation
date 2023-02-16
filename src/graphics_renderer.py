@@ -1997,6 +1997,117 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
+    def render_section_5_2a_table_b8_16(
+            self,
+            figure_name='section_5_2_a_table_b8_16',
+            caption='Table B8-16. Sky Temperature Output, Case 600'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-16
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        dfo = pd.DataFrame()
+        software_arrayo = []
+        # get data
+        data = {}
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            data = json_obj['solar_radiation_annual_incident']['600']['Surface']
+            df_obj = pd.DataFrame.from_dict(data)
+            df_obj['software'] = json_obj['identifying_information']['software_name']
+            software_arrayo.append(json_obj['identifying_information']['software_name'])
+            dfo = pd.concat([dfo, df_obj], axis=0)
+        dfo = dfo.set_index('software')
+        dfo = dfo.transpose()
+
+        df = pd.DataFrame()
+        software_array = []
+        # get data
+        temperatures = {}
+        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+            temperatures['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+            temperatures['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
+            temperatures['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
+            df_obj = pd.DataFrame.from_dict(temperatures)
+            df_obj['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df = pd.concat([df, df_obj], axis=0)
+        df = df.set_index('software')
+        df = df.transpose()
+
+        for row in range(len(df)):
+            for col in range(len(df.columns)):
+                try:
+                    df.at[df.index[row], df.columns[col]]
+                except (KeyError, ValueError):
+                    df.at[df.index[row], df.columns[col]] = float('NaN')
+
+        # calculate stats
+        df_stats = pd.DataFrame()
+        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
+        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
+            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
+
+        # merge dataframes
+        df_merged = pd.concat(
+            [
+                df.iloc[:, range(len(df.columns) - 1)],
+                df_stats,
+                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+            ],
+            axis=1)
+
+        index_dict = {
+            'Average': 'Average Annual Hourly Integrated',
+            'Minimum': 'Minimum Annual Hourly Integrated',
+            'Maximum': 'Maximum Annual Hourly Integrated'
+        }
+        df_formatted_table = df_merged.rename(index=index_dict)
+        df_formatted_table = df_formatted_table.reindex(['Average Annual Hourly Integrated', 'Minimum Annual Hourly Integrated', 'Maximum Annual Hourly Integrated'])
+        df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
+        df_formatted_table.fillna('', inplace=True)
+
+        for col in df_formatted_table:
+            if col in software_array:
+                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 1) if x != '' else x)
+        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 1) if x != '' else x)
+        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 1) if x != '' else x)
+        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 1) if x != '' else x)
+        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
+            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
+
+        # wrap text in table
+        wrapped_col = {}
+        for col in df_formatted_table:
+            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
+        df_formatted_table.rename(columns=wrapped_col, inplace=True)
+
+        # save results
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(24, 6))
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
+
+        # Set annotations
+        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
+        header_stats[0].get_text().set_text('Statistics for Example Results')
+        header_stats[0].PAD = 0.5
+        header_stats[0].set_fontsize(16)
+        header_stats[0].set_text_props(ha="left")
+        header_stats[0].visible_edges = "open"
+        header_stats[1].visible_edges = "open"
+        header_stats[2].visible_edges = "open"
+        header_stats[3].visible_edges = "open"
+        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
+
+        plt.suptitle(caption, fontsize=30, y=1.05)
+        self._make_image_from_plt(figure_name)
+
+        return fig, ax
+
+
     def render_section_5_2a_figure_b8_1(self):
         """
         Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
