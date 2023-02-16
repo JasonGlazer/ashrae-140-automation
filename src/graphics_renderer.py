@@ -2022,12 +2022,12 @@ class GraphicsRenderer(Logger):
         df = pd.DataFrame()
         software_array = []
         # get data
-        temperatures = {}
+        data = {}
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            temperatures['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
-            temperatures['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
-            temperatures['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
-            df_obj = pd.DataFrame.from_dict(temperatures)
+            data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+            data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
+            data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
+            df_obj = pd.DataFrame.from_dict(data)
             df_obj['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
             df = pd.concat([df, df_obj], axis=0)
