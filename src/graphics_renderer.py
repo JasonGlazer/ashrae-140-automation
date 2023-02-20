@@ -2107,7 +2107,6 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-
     def render_section_5_2a_figure_b8_1(self):
         """
         Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
