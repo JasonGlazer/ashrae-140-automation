@@ -2052,7 +2052,7 @@ class GraphicsRenderer(Logger):
         # merge dataframes
         df_merged = pd.concat(
             [
-                df.iloc[:, range(len(df.columns) - 1)],
+                df.iloc[:, range(len(df.columns))],
                 df_stats,
                 df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
             ],
