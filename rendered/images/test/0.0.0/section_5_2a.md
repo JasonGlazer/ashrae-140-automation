@@ -1,10 +1,14 @@
-# Section 5 2A  
+# Section 5-2A  
 ![table 1](images/results5-2a-section_5_2_a_table_b8_1.png)
 ![table 2](images/results5-2a-section_5_2_a_table_b8_2.png)
 ![table 3](images/results5-2a-section_5_2_a_table_b8_3.png)
 ![table 4](images/results5-2a-section_5_2_a_table_b8_4.png)
 ![table 5](images/results5-2a-section_5_2_a_table_b8_5.png)
 ![table 6](images/results5-2a-section_5_2_a_table_b8_6.png)
+![table 7](images/results5-2a-section_5_2_a_table_b8_7.png)
+![table 8](images/results5-2a-section_5_2_a_table_b8_8.png)
+![table 9](images/results5-2a-section_5_2_a_table_b8_9.png)
+![table 10](images/results5-2a-section_5_2_a_table_b8_10.png)
 ![figure 1](images/results5-2a-section_5_2_a_figure_b8_1.png)
 ![figure 2](images/results5-2a-section_5_2_a_figure_b8_2.png)
 ![figure 3](images/results5-2a-section_5_2_a_figure_b8_3.png)
@@ -114,4 +118,3 @@
 ![figure m10](images/results5-2a-section_5_2_a_figure_b8_m10.png)
 ![figure m11](images/results5-2a-section_5_2_a_figure_b8_m11.png)
 ![figure m12](images/results5-2a-section_5_2_a_figure_b8_m12.png)
-
