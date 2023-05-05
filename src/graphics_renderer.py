@@ -2024,9 +2024,9 @@ class GraphicsRenderer(Logger):
         # get data
         data = {}
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            data['Average'] = {'C': [json_obj['sky_temperature_output']['600']['Average']['C'], '', '']}
-            data['Minimum'] = {'C': [json_obj['sky_temperature_output']['600']['Minimum']['C'], json_obj['sky_temperature_output']['600']['Minimum']['Hour'], json_obj['sky_temperature_output']['600']['Minimum']['Month']]}
-            data['Maximum'] = {'C': [json_obj['sky_temperature_output']['600']['Maximum']['C'], json_obj['sky_temperature_output']['600']['Maximum']['Hour'], json_obj['sky_temperature_output']['600']['Maximum']['Month']]}
+            data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C'], 'Hour': '', 'Month': ''}
+            data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
+            data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
             df_obj = pd.DataFrame.from_dict(data)
             df_obj['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
