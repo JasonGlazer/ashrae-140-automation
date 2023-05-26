@@ -2010,6 +2010,8 @@ class GraphicsRenderer(Logger):
         software_arrayo = []
         # get data
         data = {}
+        data1 = {}
+        data2 = {}
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             data = json_obj['solar_radiation_annual_incident']['600']['Surface']
             df_obj = pd.DataFrame.from_dict(data)
@@ -2020,39 +2022,82 @@ class GraphicsRenderer(Logger):
         dfo = dfo.transpose()
 
         df = pd.DataFrame()
+        df_float = pd.DataFrame()
         software_array = []
         # get data
         data = {}
+        data_float = {}
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C'], 'Hour': '', 'Month': ''}
-            data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
-            data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
+            # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+            # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
+            # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
+            # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C'], 'Hour': '', 'Month': ''}
+            # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
+            # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
+            # data['Average'] = [{'C': json_obj['sky_temperature_output']['600']['Average']['C']}, {'Hour': ''}, {'Month': ''}]
+            # data['Minimum'] = [{'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}, {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}, {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}]            
+            # data['Maximum'] = [{'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}, {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}, {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}]
+            data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+            data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}            
+            data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
+            data_float['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+            data_float['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
+            data_float['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
             df_obj = pd.DataFrame.from_dict(data)
+            df_float_obj = pd.DataFrame.from_dict(data_float)
+            df_obj['software'] = json_obj['identifying_information']['software_name']
+            df_float_obj['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df = pd.concat([df, df_obj], axis=0)
+            df_float = pd.concat([df_float, df_float_obj], axis = 0)
+
+            data1['Average'] = {'Hour': ''}
+            data1['Minimum'] = {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}
+            data1['Maximum'] = {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}
+            df_obj = pd.DataFrame.from_dict(data1)
             df_obj['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
             df = pd.concat([df, df_obj], axis=0)
-        df = df.set_index('software')
-        df = df.transpose()
 
-        for row in range(len(df)):
-            for col in range(len(df.columns)):
+            data2['Average'] = {'Hour': ''}
+            data2['Minimum'] = {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}
+            data2['Maximum'] = {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}
+            df_obj = pd.DataFrame.from_dict(data2)
+            df_obj['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df = pd.concat([df, df_obj], axis=0)
+
+        df = df.set_index('software')
+        df_float = df_float.set_index('software')
+        df = df.transpose()
+        df_float = df_float.transpose()
+
+        # for row in range(len(df)):
+        #    for col in range(len(df.columns)):
+        #        try:
+        #            df.at[df.index[row], df.columns[col]]
+        #        except (KeyError, ValueError):
+        #            df.at[df.index[row], df.columns[col]] = float('NaN')
+
+        for row in range(len(df_float)):
+            for col in range(len(df_float.columns)):
                 try:
-                    df.at[df.index[row], df.columns[col]]
+                    df_float.at[df_float.index[row], df_float.columns[col]]
                 except (KeyError, ValueError):
-                    df.at[df.index[row], df.columns[col]] = float('NaN')
+                    df_float.at[df_float.index[row], df_float.columns[col]] = float('NaN')
 
         # calculate stats
         df_stats = pd.DataFrame()
-        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
-        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
-        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
+        df_stats['min'] = df_float.iloc[:, 0:-1].min(axis=1)
+        df_stats['max'] = df_float.iloc[:, 0:-1].max(axis=1)
+        df_stats['mean'] = df_float.iloc[:, 0:-1].mean(axis=1)
         df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
             df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
 
         # merge dataframes
         df_merged = pd.concat(
             [
-                df.iloc[:, range(len(df.columns))],
+                df.iloc[:, range(len(df.columns) - 1)],
                 df_stats,
                 df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
             ],
@@ -2068,9 +2113,9 @@ class GraphicsRenderer(Logger):
         df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
         df_formatted_table.fillna('', inplace=True)
 
-        for col in df_formatted_table:
-            if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 1) if x != '' else x)
+        # for col in df_formatted_table:
+        #     if col in software_array:
+        #         df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 1) if x != '' else x)
         df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 1) if x != '' else x)
         df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 1) if x != '' else x)
         df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 1) if x != '' else x)
