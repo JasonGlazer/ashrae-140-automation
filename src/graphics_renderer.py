@@ -2059,9 +2059,9 @@ class GraphicsRenderer(Logger):
             software_array.append(json_obj['identifying_information']['software_name'])
             df = pd.concat([df, df_obj], axis=0)
 
-            data2['Average'] = {'Hour': ''}
-            data2['Minimum'] = {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}
-            data2['Maximum'] = {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}
+            data2['Average'] = {'Month': ''}
+            data2['Minimum'] = {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
+            data2['Maximum'] = {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
             df_obj = pd.DataFrame.from_dict(data2)
             df_obj['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
