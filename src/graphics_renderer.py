@@ -2012,6 +2012,7 @@ class GraphicsRenderer(Logger):
         data = {}
         data1 = {}
         data2 = {}
+        data3 = {}
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             data = json_obj['solar_radiation_annual_incident']['600']['Surface']
             df_obj = pd.DataFrame.from_dict(data)
@@ -2051,18 +2052,26 @@ class GraphicsRenderer(Logger):
             df = pd.concat([df, df_obj], axis=0)
             df_float = pd.concat([df_float, df_float_obj], axis = 0)
 
-            data1['Average'] = {'Hour': ''}
-            data1['Minimum'] = {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}
-            data1['Maximum'] = {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}
+            data1['Average'] = {'Month': ''}
+            data1['Minimum'] = {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
+            data1['Maximum'] = {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
             df_obj = pd.DataFrame.from_dict(data1)
             df_obj['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
             df = pd.concat([df, df_obj], axis=0)
 
-            data2['Average'] = {'Month': ''}
-            data2['Minimum'] = {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
-            data2['Maximum'] = {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
+            data2['Average'] = {'Day': ''}
+            data2['Minimum'] = {'Day': json_obj['sky_temperature_output']['600']['Minimum']['Day']}
+            data2['Maximum'] = {'Day': json_obj['sky_temperature_output']['600']['Maximum']['Day']}
             df_obj = pd.DataFrame.from_dict(data2)
+            df_obj['software'] = json_obj['identifying_information']['software_name']
+            software_array.append(json_obj['identifying_information']['software_name'])
+            df = pd.concat([df, df_obj], axis=0)
+
+            data3['Average'] = {'Hour': ''}
+            data3['Minimum'] = {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}
+            data3['Maximum'] = {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}
+            df_obj = pd.DataFrame.from_dict(data3)
             df_obj['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
             df = pd.concat([df, df_obj], axis=0)
