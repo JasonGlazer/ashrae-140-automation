@@ -297,7 +297,7 @@ class ExcelProcessor(Logger):
             data_d['600'].update({'Minimum': {
                 'C': row['Minimum C'],
                 'Month': row['Minimum Month'],
-                'Day': row['Mininum Day'],
+                'Day': row['Minimum Day'],
                 'Hour': row['Minimum Hour']}})
             data_d['600'].update({'Maximum': {
                 'C': row['Maximum C'],
