@@ -574,11 +574,8 @@ class GraphicsRenderer(Logger):
         :return: pandas dataframe and output msg for general navigation.
         """
         # get and format dataframe into required shape
-        df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                 .loc[
-             :,
-             self.df_data['conditioned_zone_loads_non_free_float']
-             .columns.get_level_values(1) == output_value]
+        df = self.df_data['conditioned_zone_loads_non_free_float'].loc[:,
+             self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1) == output_value]
         df.columns = df.columns.droplevel(level=1)
         # round values
         df = df.round(3)
@@ -1018,13 +1015,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -1062,13 +1055,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -1143,13 +1132,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -1187,13 +1172,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -1273,13 +1254,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -1356,13 +1333,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -1438,13 +1411,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -1483,13 +1452,9 @@ class GraphicsRenderer(Logger):
                     (
                             df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
+            df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
+                                      df_formatted.iloc[:,
+                                      range(len(df_formatted.columns) - 1, len(df_formatted.columns))]], axis=1)
             program_rgx = re.compile(r'(^[a-zA-Z]+)')
             df_formatted.columns = [
                 program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
@@ -2413,22 +2378,17 @@ class GraphicsRenderer(Logger):
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             tmp_data = []
             try:
-                tmp_data.append(
-                    1 - (
-                            json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']
-                            ['kWh/m2'] /
-                            json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']
-                            ['kWh/m2']
-                    ))
+                tmp_data.append(1 - (
+                            json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2'] /
+                            json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South'][
+                                'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             try:
-                tmp_data.append(
-                    1 - (
-                            json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']
-                            ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']
-                            ['West']['kWh/m2']
-                    ))
+                tmp_data.append(1 - (
+                            json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2'] /
+                            json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West'][
+                                'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
