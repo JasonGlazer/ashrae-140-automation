@@ -2379,15 +2379,15 @@ class GraphicsRenderer(Logger):
             tmp_data = []
             try:
                 tmp_data.append(1 - (
-                    json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2'] /
-                    json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South'][
+                    json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2']
+                    / json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South'][
                         'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(1 - (
-                    json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2'] /
-                    json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West'][
+                    json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2']
+                    / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West'][
                         'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
@@ -7649,8 +7649,8 @@ class GraphicsRenderer(Logger):
                 except (KeyError, ValueError):
                     tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
-            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' +
-                            json_obj['identifying_information']['program_organization'])
+            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n'
+                            + json_obj['identifying_information']['program_organization'])
 
             fig, ax = self._create_bar_plot(
                 data=data,
