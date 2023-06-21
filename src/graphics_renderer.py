@@ -195,8 +195,8 @@ class GraphicsRenderer(Logger):
                 self.json_data.update({model_name: data})
                 # make mapping dictionary of file name to cleansed model name
                 if data.get('identifying_information') and data[
-                    'identifying_information'].get('software_name') and data[
-                    'identifying_information'].get('software_version'):
+                        'identifying_information'].get('software_name') and data[
+                        'identifying_information'].get('software_version'):
                     self.cleansed_model_names[model_name] = '-'.join([
                         str(data['identifying_information']['software_name']),
                         str(data['identifying_information']['software_version'])])
@@ -600,17 +600,17 @@ class GraphicsRenderer(Logger):
         # rename cases by joining the detailed description table and re-order them
         df_formatted_table = df_formatted_table \
             .merge(
-            self.case_detailed_df,
-            how='left',
-            left_on=['cases', ],
-            right_index=True) \
+                self.case_detailed_df,
+                how='left',
+                left_on=['cases', ],
+                right_index=True) \
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case',
-            'col_min': 'min',
-            'col_max': 'max',
-            'col_mean': 'mean'})
+                'case_name': 'Case',
+                'col_min': 'min',
+                'col_max': 'max',
+                'col_mean': 'mean'})
         # reorder dataframe columns
         column_list = ['Case', ] + \
                       [i for i in df_formatted_table.columns if i != 'Case' and i != self.model_name] + \
@@ -676,12 +676,8 @@ class GraphicsRenderer(Logger):
         :return: pandas dataframe and output msg for general navigation.
         """
         # get and format dataframe into required shape
-        df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                 .loc[
-             :,
-             [
-                 i in output_values for i in self.df_data['conditioned_zone_loads_non_free_float']
-             .columns.get_level_values(1)]]
+        df = self.df_data['conditioned_zone_loads_non_free_float'].loc[:, [i in output_values for i in self.df_data[
+            'conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -740,7 +736,7 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case'})
+                'case_name': 'Case'})
         # set fig size
         fig, ax = plt.subplots(
             nrows=1,
@@ -752,8 +748,8 @@ class GraphicsRenderer(Logger):
                 df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
-                :,
-                range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+                    :,
+                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
             axis=1)
         tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
         cell_dict = tab.get_celld()
@@ -803,12 +799,8 @@ class GraphicsRenderer(Logger):
         :return:
         """
         # get and format dataframe into required shape
-        df = self.df_data['free_float_case_zone_temperatures'] \
-                 .loc[
-             :,
-             [
-                 i in output_values for i in self.df_data['free_float_case_zone_temperatures']
-             .columns.get_level_values(1)]]
+        df = self.df_data['free_float_case_zone_temperatures'].loc[:, [i in output_values for i in self.df_data[
+            'free_float_case_zone_temperatures'].columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -868,7 +860,7 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case'})
+                'case_name': 'Case'})
         df_formatted_table = pd.concat(
             [
                 df_formatted_name_table,
@@ -876,8 +868,8 @@ class GraphicsRenderer(Logger):
                     columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - split_column)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
-                :,
-                range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
+                    :,
+                    range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
             axis=1)
         return df_formatted_table, program_list_short
 
@@ -1002,11 +994,8 @@ class GraphicsRenderer(Logger):
                 [0, 2]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['610 - 600 Heat, S. Shade'] = (df['610'] - df['600']).round(3)
@@ -1047,11 +1036,9 @@ class GraphicsRenderer(Logger):
                 ['annual_cooling_MWh', 'peak_cooling_kW'],
                 [1, 3]):
             # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'].loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+            df = self.df_data['conditioned_zone_loads_non_free_float'] \
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['610 - 600 Cool, S. Shade'] = (df['610'] - df['600']).round(3)
@@ -1132,11 +1119,8 @@ class GraphicsRenderer(Logger):
                 [0, 2]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['900 - 600 Mass, Heat'] = (df['900'] - df['600']).round(3)
@@ -1178,11 +1162,8 @@ class GraphicsRenderer(Logger):
                 [1, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['900 - 600 Mass, Cool'] = (df['610'] - df['600']).round(3)
@@ -1263,11 +1244,8 @@ class GraphicsRenderer(Logger):
                 [0, 1, 2, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['200-195 Surface Convection'] = (df['200'] - df['195']).round(3)
@@ -1352,11 +1330,8 @@ class GraphicsRenderer(Logger):
                 [0, 1, 2, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['400-395 Surf. Conv. & IR'] = (df['400'] - df['395']).round(3)
@@ -1438,11 +1413,8 @@ class GraphicsRenderer(Logger):
                 [0, 2]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
@@ -1485,11 +1457,8 @@ class GraphicsRenderer(Logger):
                 [1, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                     .loc[
-                 :,
-                 [
-                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                 .columns.get_level_values(1)]]
+                     .loc[:, [i == measurement_type for i in
+                              self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
@@ -1604,8 +1573,8 @@ class GraphicsRenderer(Logger):
         df_table_b8_11 = pd.DataFrame()
         df_table_b8_11 = pd.DataFrame(columns=df_table_b8_14.columns)
         for key in index_dict:
-            df_table_b8_11.loc[key] = df_table_b8_14.loc[index_dict[key][0]].div(df_table_b8_13.loc[index_dict[key][1]]) \
-                .where(df_table_b8_13.loc[index_dict[key][1]] != 0, np.nan)
+            df_table_b8_11.loc[key] = df_table_b8_14.loc[index_dict[key][0]].div(
+                df_table_b8_13.loc[index_dict[key][1]]).where(df_table_b8_13.loc[index_dict[key][1]] != 0, np.nan)
 
         # calculate stats
         df_stats = pd.DataFrame()
@@ -2034,12 +2003,22 @@ class GraphicsRenderer(Logger):
             # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
             # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
             # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
-            # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C'], 'Hour': '', 'Month': ''}
-            # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
-            # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
-            # data['Average'] = [{'C': json_obj['sky_temperature_output']['600']['Average']['C']}, {'Hour': ''}, {'Month': ''}]
-            # data['Minimum'] = [{'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}, {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}, {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}]
-            # data['Maximum'] = [{'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}, {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}, {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}]
+            # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C'],
+            # 'Hour': '', 'Month': ''}
+            # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'],
+            # 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'],
+            # 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
+            # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'],
+            # 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'],
+            # 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
+            # data['Average'] = [{'C': json_obj['sky_temperature_output']['600']['Average']['C']}, {'Hour': ''},
+            #  {'Month': ''}]
+            # data['Minimum'] = [{'C': json_obj['sky_temperature_output']['600']['Minimum']['C']},
+            # {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']},
+            # {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}]
+            # data['Maximum'] = [{'C': json_obj['sky_temperature_output']['600']['Maximum']['C']},
+            # {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']},
+            # {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}]
             data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
             data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
             data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
@@ -2203,12 +2182,9 @@ class GraphicsRenderer(Logger):
         :return: pandas dataframe and output msg for general navigation.
         """
         # get and format dataframe into required shape
-        df = self.df_data['solar_radiation_annual_incident'] \
-                 .loc[
-             :,
-             [
-                 i in output_values for i in self.df_data['solar_radiation_annual_incident']
-             .columns.get_level_values(1)]]
+        df = self.df_data['solar_radiation_annual_incident'].loc[:, [i in output_values for i in
+                                                                     self.df_data['solar_radiation_annual_incident']
+                                                                     .columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -2263,20 +2239,18 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case'})
+                'case_name': 'Case'})
         # set fig size
         fig, ax = plt.subplots(
             nrows=1,
             ncols=1,
             figsize=(30, 20))
         df_formatted_table = pd.concat(
-            [
-                df_formatted_name_table,
+            [df_formatted_name_table,
                 df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
                 df_stats,
-                df_formatted_table.drop(columns=['cases', ]).iloc[
-                :,
-                range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+                df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5,
+                                                                           len(df_formatted_table.columns) - 1)]],
             axis=1)
         tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
         cell_dict = tab.get_celld()
@@ -7589,7 +7563,7 @@ class GraphicsRenderer(Logger):
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             df_obj = pd.DataFrame.from_dict(json_obj[output_value])
             df_obj['software'] = json_obj['identifying_information']['program_name_and_version'] + '\n' + \
-                                 json_obj['identifying_information']['program_organization']
+                json_obj['identifying_information']['program_organization']
             software_array.append(json_obj['identifying_information']['program_name_and_version'])
             df = pd.concat([df, df_obj], axis=0)
         df = df.set_index('software')
@@ -7697,7 +7671,8 @@ class GraphicsRenderer(Logger):
             self,
             output_value='mean_zone_temperature',
             figure_name='section_5_4_figure_b16_6_5',
-            caption='Figure B16.6-5. Comparison of the Mean Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases'):
+            caption='Figure B16.6-5. Comparison of the Mean Zone Temperature \n'
+                    'for the Fuel-Fired Furnace Comparative Test Cases'):
         """
         Render Section 5-4 Figure B16.6-5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -7736,7 +7711,8 @@ class GraphicsRenderer(Logger):
         fig, ax = self.render_section_5_4_figure_b16_6_5(
             output_value='maximum_zone_temperature',
             figure_name='section_5_4_figure_b16_6_6',
-            caption='Figure B16.6-6.  Comparison of the Max Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases')
+            caption='Figure B16.6-6.  Comparison of the Max Zone Temperature \n'
+                    'for the Fuel-Fired Furnace Comparative Test Cases')
 
         return fig, ax
 
@@ -7748,6 +7724,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self.render_section_5_4_figure_b16_6_5(
             output_value='minimum_zone_temperature',
             figure_name='section_5_4_figure_b16_6_7',
-            caption='Figure B16.6-7.  Comparison of the Min Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases')
+            caption='Figure B16.6-7.  Comparison of the Min Zone Temperature \n'
+                    'for the Fuel-Fired Furnace Comparative Test Cases')
 
         return fig, ax
