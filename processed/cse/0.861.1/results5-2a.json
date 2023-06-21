@@ -1343,11 +1343,13 @@
             },
             "Maximum": {
                 "C": 30.08121,
+                "Day": 13,
                 "Hour": 15,
                 "Month": "Jun"
             },
             "Minimum": {
                 "C": -46.22457,
+                "Day": 31,
                 "Hour": 24,
                 "Month": "Dec"
             }

@@ -195,8 +195,8 @@ class GraphicsRenderer(Logger):
                 self.json_data.update({model_name: data})
                 # make mapping dictionary of file name to cleansed model name
                 if data.get('identifying_information') and data[
-                    'identifying_information'].get('software_name') and data[
-                    'identifying_information'].get('software_version'):
+                        'identifying_information'].get('software_name') and data[
+                        'identifying_information'].get('software_version'):
                     self.cleansed_model_names[model_name] = '-'.join([
                         str(data['identifying_information']['software_name']),
                         str(data['identifying_information']['software_version'])])
@@ -575,7 +575,7 @@ class GraphicsRenderer(Logger):
         """
         # get and format dataframe into required shape
         df = self.df_data['conditioned_zone_loads_non_free_float'].loc[:,
-             self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1) == output_value]
+                                                                       self.df_data['conditioned_zone_loads_non_free_float'].columns.get_level_values(1) == output_value]
         df.columns = df.columns.droplevel(level=1)
         # round values
         df = df.round(3)
@@ -597,17 +597,17 @@ class GraphicsRenderer(Logger):
         # rename cases by joining the detailed description table and re-order them
         df_formatted_table = df_formatted_table \
             .merge(
-            self.case_detailed_df,
-            how='left',
-            left_on=['cases', ],
-            right_index=True) \
+                self.case_detailed_df,
+                how='left',
+                left_on=['cases', ],
+                right_index=True) \
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case',
-            'col_min': 'min',
-            'col_max': 'max',
-            'col_mean': 'mean'})
+                'case_name': 'Case',
+                'col_min': 'min',
+                'col_max': 'max',
+                'col_mean': 'mean'})
         # reorder dataframe columns
         column_list = ['Case', ] + \
                       [i for i in df_formatted_table.columns if i != 'Case' and i != self.model_name] + \
@@ -733,7 +733,7 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case'})
+                'case_name': 'Case'})
         # set fig size
         fig, ax = plt.subplots(
             nrows=1,
@@ -745,8 +745,8 @@ class GraphicsRenderer(Logger):
                 df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
-                :,
-                range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+                    :,
+                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
             axis=1)
         tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
         cell_dict = tab.get_celld()
@@ -857,7 +857,7 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case'})
+                'case_name': 'Case'})
         df_formatted_table = pd.concat(
             [
                 df_formatted_name_table,
@@ -865,8 +865,8 @@ class GraphicsRenderer(Logger):
                     columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - split_column)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
-                :,
-                range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
+                    :,
+                    range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
             axis=1)
         return df_formatted_table, program_list_short
 
@@ -1013,7 +1013,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -1053,7 +1053,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -1130,7 +1130,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -1170,7 +1170,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -1252,7 +1252,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -1331,7 +1331,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -1409,7 +1409,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -1450,7 +1450,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat([df_formatted.iloc[:, range(len(df_formatted.columns))], df_stats,
                                       df_formatted.iloc[:,
@@ -2112,11 +2112,11 @@ class GraphicsRenderer(Logger):
             header[0].set_fontsize(16)
             header[0].set_text_props(ha="left")
             header[0].visible_edges = "open"
-            if idx != 29:
-                ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
-            else:
-                ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+            #if idx != 29:
+            #    ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+            #else:
+            #    ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
+        #ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
 
         plt.suptitle(caption, fontsize=30, y=1.05)
         self._make_image_from_plt(figure_name)
@@ -2204,7 +2204,7 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-            'case_name': 'Case'})
+                'case_name': 'Case'})
         # set fig size
         fig, ax = plt.subplots(
             nrows=1,
@@ -2379,16 +2379,16 @@ class GraphicsRenderer(Logger):
             tmp_data = []
             try:
                 tmp_data.append(1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2']
-                        / json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South'][
-                            'kWh/m2']))
+                    json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2'] /
+                    json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South'][
+                        'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2']
-                        / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West'][
-                            'kWh/m2']))
+                    json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2'] /
+                    json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West'][
+                        'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
@@ -7523,7 +7523,7 @@ class GraphicsRenderer(Logger):
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             df_obj = pd.DataFrame.from_dict(json_obj[output_value])
             df_obj['software'] = json_obj['identifying_information']['program_name_and_version'] + '\n' + \
-                                 json_obj['identifying_information']['program_organization']
+                json_obj['identifying_information']['program_organization']
             software_array.append(json_obj['identifying_information']['program_name_and_version'])
             df = pd.concat([df, df_obj], axis=0)
         df = df.set_index('software')
@@ -7649,8 +7649,8 @@ class GraphicsRenderer(Logger):
                 except (KeyError, ValueError):
                     tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
-            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n'
-                            + json_obj['identifying_information']['program_organization'])
+            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' +
+                            json_obj['identifying_information']['program_organization'])
 
             fig, ax = self._create_bar_plot(
                 data=data,
