@@ -17,6 +17,7 @@ class SectionType:
     """
     Identify Section Type based on input file name
     """
+
     def __get__(self, obj, owner):
         section_type = obj._section_type
         return section_type
@@ -194,8 +195,8 @@ class GraphicsRenderer(Logger):
                 self.json_data.update({model_name: data})
                 # make mapping dictionary of file name to cleansed model name
                 if data.get('identifying_information') and data[
-                        'identifying_information'].get('software_name') and data[
-                        'identifying_information'].get('software_version'):
+                    'identifying_information'].get('software_name') and data[
+                    'identifying_information'].get('software_version'):
                     self.cleansed_model_names[model_name] = '-'.join([
                         str(data['identifying_information']['software_name']),
                         str(data['identifying_information']['software_version'])])
@@ -573,18 +574,18 @@ class GraphicsRenderer(Logger):
         :return: pandas dataframe and output msg for general navigation.
         """
         # get and format dataframe into required shape
-        df = self.df_data['conditioned_zone_loads_non_free_float']\
-            .loc[
-                :,
-                self.df_data['conditioned_zone_loads_non_free_float']
-                    .columns.get_level_values(1) == output_value]
+        df = self.df_data['conditioned_zone_loads_non_free_float'] \
+                 .loc[
+             :,
+             self.df_data['conditioned_zone_loads_non_free_float']
+             .columns.get_level_values(1) == output_value]
         df.columns = df.columns.droplevel(level=1)
         # round values
         df = df.round(3)
-        df_formatted_table = df.unstack()\
-            .reset_index()\
-            .rename(columns={0: 'val'})\
-            .pivot(index=['level_0'], columns=['program_name', ], values=['val', ])\
+        df_formatted_table = df.unstack() \
+            .reset_index() \
+            .rename(columns={0: 'val'}) \
+            .pivot(index=['level_0'], columns=['program_name', ], values=['val', ]) \
             .reset_index()
         df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
         df_formatted_table_column_names = [i for i in df_formatted_table.columns]
@@ -597,19 +598,19 @@ class GraphicsRenderer(Logger):
         df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
             lambda x: '' if x.col_mean == 0 else '{:.2%}'.format(abs((x.col_max - x.col_min) / x.col_mean)), axis=1)
         # rename cases by joining the detailed description table and re-order them
-        df_formatted_table = df_formatted_table\
+        df_formatted_table = df_formatted_table \
             .merge(
-                self.case_detailed_df,
-                how='left',
-                left_on=['cases', ],
-                right_index=True)\
-            .sort_values(['case_order'])\
-            .drop(['cases', 'case_order'], axis=1)\
+            self.case_detailed_df,
+            how='left',
+            left_on=['cases', ],
+            right_index=True) \
+            .sort_values(['case_order']) \
+            .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-                'case_name': 'Case',
-                'col_min': 'min',
-                'col_max': 'max',
-                'col_mean': 'mean'})
+            'case_name': 'Case',
+            'col_min': 'min',
+            'col_max': 'max',
+            'col_mean': 'mean'})
         # reorder dataframe columns
         column_list = ['Case', ] + \
                       [i for i in df_formatted_table.columns if i != 'Case' and i != self.model_name] + \
@@ -676,11 +677,11 @@ class GraphicsRenderer(Logger):
         """
         # get and format dataframe into required shape
         df = self.df_data['conditioned_zone_loads_non_free_float'] \
-            .loc[
-                :,
-                [
-                    i in output_values for i in self.df_data['conditioned_zone_loads_non_free_float']
-                    .columns.get_level_values(1)]]
+                 .loc[
+             :,
+             [
+                 i in output_values for i in self.df_data['conditioned_zone_loads_non_free_float']
+             .columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -732,14 +733,14 @@ class GraphicsRenderer(Logger):
         df_formatted_table.columns = column_names
         df_formatted_name_table = df_formatted_table[['cases']] \
             .merge(
-                self.case_detailed_df,
-                how='left',
-                left_on=['cases', ],
-                right_index=True) \
+            self.case_detailed_df,
+            how='left',
+            left_on=['cases', ],
+            right_index=True) \
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-                'case_name': 'Case'})
+            'case_name': 'Case'})
         # set fig size
         fig, ax = plt.subplots(
             nrows=1,
@@ -751,8 +752,8 @@ class GraphicsRenderer(Logger):
                 df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
-                    :,
-                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+                :,
+                range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
             axis=1)
         tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
         cell_dict = tab.get_celld()
@@ -803,11 +804,11 @@ class GraphicsRenderer(Logger):
         """
         # get and format dataframe into required shape
         df = self.df_data['free_float_case_zone_temperatures'] \
-            .loc[
-                :,
-                [
-                    i in output_values for i in self.df_data['free_float_case_zone_temperatures']
-                    .columns.get_level_values(1)]]
+                 .loc[
+             :,
+             [
+                 i in output_values for i in self.df_data['free_float_case_zone_temperatures']
+             .columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -867,7 +868,7 @@ class GraphicsRenderer(Logger):
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-                'case_name': 'Case'})
+            'case_name': 'Case'})
         df_formatted_table = pd.concat(
             [
                 df_formatted_name_table,
@@ -875,8 +876,8 @@ class GraphicsRenderer(Logger):
                     columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - split_column)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
-                    :,
-                    range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
+                :,
+                range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
             axis=1)
         return df_formatted_table, program_list_short
 
@@ -902,7 +903,7 @@ class GraphicsRenderer(Logger):
         df_list.append(df)
         program_list.append(programs)
         df, programs = self._make_table_b8_5_df(
-            output_values=('average_temperature', ),
+            output_values=('average_temperature',),
             split_column=2,
         )
         df_list.append(df)
@@ -1001,11 +1002,11 @@ class GraphicsRenderer(Logger):
                 [0, 2]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['610 - 600 Heat, S. Shade'] = (df['610'] - df['600']).round(3)
@@ -1026,7 +1027,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1047,10 +1048,10 @@ class GraphicsRenderer(Logger):
                 [1, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'].loc[
-                :,
-                [
-                    i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                    .columns.get_level_values(1)]]
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['610 - 600 Cool, S. Shade'] = (df['610'] - df['600']).round(3)
@@ -1072,7 +1073,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1131,11 +1132,11 @@ class GraphicsRenderer(Logger):
                 [0, 2]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['900 - 600 Mass, Heat'] = (df['900'] - df['600']).round(3)
@@ -1156,7 +1157,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1177,11 +1178,11 @@ class GraphicsRenderer(Logger):
                 [1, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['900 - 600 Mass, Cool'] = (df['610'] - df['600']).round(3)
@@ -1203,7 +1204,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1262,11 +1263,11 @@ class GraphicsRenderer(Logger):
                 [0, 1, 2, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['200-195 Surface Convection'] = (df['200'] - df['195']).round(3)
@@ -1292,7 +1293,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1351,11 +1352,11 @@ class GraphicsRenderer(Logger):
                 [0, 1, 2, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['400-395 Surf. Conv. & IR'] = (df['400'] - df['395']).round(3)
@@ -1378,7 +1379,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1437,11 +1438,11 @@ class GraphicsRenderer(Logger):
                 [0, 2]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
@@ -1463,7 +1464,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1484,11 +1485,11 @@ class GraphicsRenderer(Logger):
                 [1, 3]):
             # get and format dataframe into required shape
             df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
+                     .loc[
+                 :,
+                 [
+                     i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
+                 .columns.get_level_values(1)]]
             df.columns = df.columns.droplevel(level=1)
             df_formatted = pd.DataFrame()
             df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
@@ -1511,7 +1512,7 @@ class GraphicsRenderer(Logger):
             df_stats['(max - min)\n/ mean %'] = \
                 abs(
                     (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
+                            df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
                         df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
             df_formatted = pd.concat(
                 [
@@ -1603,7 +1604,7 @@ class GraphicsRenderer(Logger):
         df_table_b8_11 = pd.DataFrame()
         df_table_b8_11 = pd.DataFrame(columns=df_table_b8_14.columns)
         for key in index_dict:
-            df_table_b8_11.loc[key] = df_table_b8_14.loc[index_dict[key][0]].div(df_table_b8_13.loc[index_dict[key][1]])\
+            df_table_b8_11.loc[key] = df_table_b8_14.loc[index_dict[key][0]].div(df_table_b8_13.loc[index_dict[key][1]]) \
                 .where(df_table_b8_13.loc[index_dict[key][1]] != 0, np.nan)
 
         # calculate stats
@@ -1724,7 +1725,8 @@ class GraphicsRenderer(Logger):
         df_table_b8_12 = pd.DataFrame(columns=df_table_b8_14.columns)
 
         for key in index_dict:
-            df_table_b8_12.loc[key] = 1 - df_table_b8_15.loc[index_dict[key][0]].div(df_table_b8_14.loc[index_dict[key][1]])\
+            df_table_b8_12.loc[key] = 1 - df_table_b8_15.loc[index_dict[key][0]].div(
+                df_table_b8_14.loc[index_dict[key][1]]) \
                 .where(df_table_b8_14.loc[index_dict[key][1]] != 0, np.nan)
 
         # calculate stats
@@ -2036,10 +2038,10 @@ class GraphicsRenderer(Logger):
             # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
             # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'], 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'], 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
             # data['Average'] = [{'C': json_obj['sky_temperature_output']['600']['Average']['C']}, {'Hour': ''}, {'Month': ''}]
-            # data['Minimum'] = [{'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}, {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}, {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}]            
+            # data['Minimum'] = [{'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}, {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}, {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}]
             # data['Maximum'] = [{'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}, {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}, {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}]
             data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
-            data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}            
+            data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
             data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
             data_float['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
             data_float['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
@@ -2050,7 +2052,7 @@ class GraphicsRenderer(Logger):
             df_float_obj['software'] = json_obj['identifying_information']['software_name']
             software_array.append(json_obj['identifying_information']['software_name'])
             df = pd.concat([df, df_obj], axis=0)
-            df_float = pd.concat([df_float, df_float_obj], axis = 0)
+            df_float = pd.concat([df_float, df_float_obj], axis=0)
 
             data1['Average'] = {'Month': ''}
             data1['Minimum'] = {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
@@ -2118,7 +2120,9 @@ class GraphicsRenderer(Logger):
             'Maximum': 'Maximum Annual Hourly Integrated'
         }
         df_formatted_table = df_merged.rename(index=index_dict)
-        df_formatted_table = df_formatted_table.reindex(['Average Annual Hourly Integrated', 'Minimum Annual Hourly Integrated', 'Maximum Annual Hourly Integrated'])
+        df_formatted_table = df_formatted_table.reindex(
+            ['Average Annual Hourly Integrated', 'Minimum Annual Hourly Integrated',
+             'Maximum Annual Hourly Integrated'])
         df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
         df_formatted_table.fillna('', inplace=True)
 
@@ -2157,7 +2161,7 @@ class GraphicsRenderer(Logger):
         plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
 
         # Set annotations (additional for extra group headers similar to Table 5-2A B8-3 and B8-4)
-        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], software_array): #program_list_short):
+        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], software_array):  # program_list_short):
             header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
             header[0].get_text().set_text(hdr.upper())
             header[0].PAD = 0.1
@@ -2186,7 +2190,7 @@ class GraphicsRenderer(Logger):
         # )
 
         return fig, ax
-    
+
     def render_section_5_2a_table_b8_16_new_call(
             self,
             output_values=('case600_skyTC', 'case600_sky_month', 'case600_sky_day', 'case600_sky_hour'),
@@ -2200,11 +2204,11 @@ class GraphicsRenderer(Logger):
         """
         # get and format dataframe into required shape
         df = self.df_data['solar_radiation_annual_incident'] \
-            .loc[
-                :,
-                [
-                    i in output_values for i in self.df_data['solar_radiation_annual_incident']
-                    .columns.get_level_values(1)]]
+                 .loc[
+             :,
+             [
+                 i in output_values for i in self.df_data['solar_radiation_annual_incident']
+             .columns.get_level_values(1)]]
         df_formatted_table = df.unstack() \
             .reset_index() \
             .rename(columns={0: 'val', 'level_0': 'case'}) \
@@ -2252,14 +2256,14 @@ class GraphicsRenderer(Logger):
         df_formatted_table.columns = column_names
         df_formatted_name_table = df_formatted_table[['cases']] \
             .merge(
-                self.case_detailed_df,
-                how='left',
-                left_on=['cases', ],
-                right_index=True) \
+            self.case_detailed_df,
+            how='left',
+            left_on=['cases', ],
+            right_index=True) \
             .sort_values(['case_order']) \
             .drop(['cases', 'case_order'], axis=1) \
             .rename(columns={
-                'case_name': 'Case'})
+            'case_name': 'Case'})
         # set fig size
         fig, ax = plt.subplots(
             nrows=1,
@@ -2271,8 +2275,8 @@ class GraphicsRenderer(Logger):
                 df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
                 df_stats,
                 df_formatted_table.drop(columns=['cases', ]).iloc[
-                    :,
-                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+                :,
+                range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
             axis=1)
         tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
         cell_dict = tab.get_celld()
@@ -2437,18 +2441,19 @@ class GraphicsRenderer(Logger):
             try:
                 tmp_data.append(
                     1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']
-                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']
-                        ['kWh/m2']
+                            json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']
+                            ['kWh/m2'] /
+                            json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']
+                            ['kWh/m2']
                     ))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(
                     1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']
-                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']
-                        ['West']['kWh/m2']
+                            json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']
+                            ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']
+                            ['West']['kWh/m2']
                     ))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
@@ -7583,7 +7588,8 @@ class GraphicsRenderer(Logger):
         # get data
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             df_obj = pd.DataFrame.from_dict(json_obj[output_value])
-            df_obj['software'] = json_obj['identifying_information']['program_name_and_version'] + '\n' + json_obj['identifying_information']['program_organization']
+            df_obj['software'] = json_obj['identifying_information']['program_name_and_version'] + '\n' + \
+                                 json_obj['identifying_information']['program_organization']
             software_array.append(json_obj['identifying_information']['program_name_and_version'])
             df = pd.concat([df, df_obj], axis=0)
         df = df.set_index('software')
@@ -7626,7 +7632,9 @@ class GraphicsRenderer(Logger):
         df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 2) if x != '' else x)
         df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 2) if x != '' else x)
         df_formatted_table['(max-min)\n/mean*'] = df_formatted_table['(max-min)\n/mean*'].apply(
-            lambda x: '{0:.1f}%'.format(math.floor(x * 1000) / 10) if x * 1000 - math.floor(x * 1000) < 0.5 else '{0:.1f}%'.format(math.ceil(x * 1000) / 10))  # check all rounds, 1.5 is round to 1 currently
+            lambda x: '{0:.1f}%'.format(math.floor(x * 1000) / 10) if x * 1000 - math.floor(
+                x * 1000) < 0.5 else '{0:.1f}%'.format(
+                math.ceil(x * 1000) / 10))  # check all rounds, 1.5 is round to 1 currently
 
         wrapped_col = {}
         for col in df_formatted_table:
@@ -7706,7 +7714,8 @@ class GraphicsRenderer(Logger):
                 except (KeyError, ValueError):
                     tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
-            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' + json_obj['identifying_information']['program_organization'])
+            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' +
+                            json_obj['identifying_information']['program_organization'])
 
             fig, ax = self._create_bar_plot(
                 data=data,
