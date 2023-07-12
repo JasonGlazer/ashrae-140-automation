@@ -518,7 +518,7 @@ class GraphicsRenderer(Logger):
         return
 
     @staticmethod
-    def _make_table_from_df(df, ax, case_col_width=2):
+    def _make_table_from_df(df, ax, case_col_width=2, cell_text=[]):
         """
         Create a matplotlib table from dataframe
 
@@ -526,12 +526,26 @@ class GraphicsRenderer(Logger):
         :param ax: matplotlib axis to insert table
         :return: matplotlib table object
         """
-        tab = ax.table(
-            cellText=df.values,
-            colLabels=df.columns,
-            zorder=1,
-            bbox=[0, 0, 1, 1],
-            edges='LR')
+
+        if cell_text:
+            tab = ax.table(
+                cellText=cell_text,
+                colLabels=df.columns,
+                zorder=1,
+                bbox=[0, 0, 1, 1],
+                edges='LR')
+            num_columns = 2
+            num_rows = 2
+        else:
+            tab = ax.table(
+                cellText=df.values,
+                colLabels=df.columns,
+                zorder=1,
+                bbox=[0, 0, 1, 1],
+                edges='LR')
+            num_columns = len(df.columns)
+            num_rows = df.shape[0] + 1
+
         ax.axis('tight')
         ax.axis('off')
         # set font
@@ -539,14 +553,14 @@ class GraphicsRenderer(Logger):
         tab.set_fontsize(12)
         # set cell properties individually
         cell_dict = tab.get_celld()
-        for i in range(len(df.columns)):
+        for i in range(num_columns):
             cell_dict[(0, i)].set_height(1)
             cell_dict[(0, i)].set_fontsize(16)
             cell_dict[(0, 0)].set_width(case_col_width)
             cell_dict[(0, i)].set_width(0.5)
             cell_dict[(0, i)].visible_edges = 'closed'
             cell_dict[(0, i)].set_facecolor('#EAEEED')
-            for j in range(1, df.shape[0] + 1):
+            for j in range(1, num_rows):
                 cell_dict[(j, 0)].set_width(case_col_width)
                 cell_dict[(j, 0)].set_text_props(ha="left")
                 cell_dict[(j, 0)].PAD = 0.02
@@ -2135,7 +2149,129 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-    def render_section_5_2a_table_b8_16_new_call(
+
+
+    def xender_section_5_2a_table_b8_16b(
+            self,
+            output_values=('peak_heating_kW', 'peak_heating_month', 'peak_heating_day', 'peak_heating_hour'),
+            figure_name='section_5_2_a_table_b8_16b',
+            caption='Table B8-16b. Sky Temperature Output, Case 600'):
+        """
+        Create dataframe from class dataframe object for table 5-2A B8-16
+
+        :return: pandas dataframe and output msg for general navigation.
+        """
+        # get and format dataframe into required shape
+        df = self.df_data['conditioned_zone_loads_non_free_float'].loc[:, [i in output_values for i in self.df_data[
+            'conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
+        df_formatted_table = df.unstack() \
+            .reset_index() \
+            .rename(columns={0: 'val', 'level_0': 'case'}) \
+            .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
+            .unstack() \
+           .reset_index()
+        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+        kw_cols = [i for i in df_formatted_table.columns if 'kw' in i[1].lower()]
+        df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
+            lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
+        df_stats = pd.DataFrame()
+        base_kw_cols = [i for i in kw_cols if i[0] in self.baseline_model_names]
+        df_stats['min'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
+        df_stats['max'] = df_formatted_table[base_kw_cols].max(axis=1).round(2)
+        df_stats['mean'] = df_formatted_table[base_kw_cols].mean(axis=1).round(2)
+        df_stats['(max - min)\n/ mean %'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
+        int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
+        df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
+        df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
+        df_formatted_table = df_formatted_table.fillna('')
+        column_formatting_names = {
+            'peak_heating_kW': 'kW',
+            'peak_heating_month': 'Mo',
+            'peak_heating_day': 'Day',
+            'peak_heating_hour': 'Hr',
+            'peak_cooling_kW': 'kW',
+            'peak_cooling_month': 'Mo',
+            'peak_cooling_day': 'Day',
+            'peak_cooling_hour': 'Hr'
+        }
+        # reorder columns so test program is last
+        column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
+            i for i in df_formatted_table.columns if i[0] == self.model_name]
+        df_formatted_table = df_formatted_table[column_names]
+        column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
+                        for i in list(df_formatted_table.columns)]
+        column_names[0] = 'cases'
+        # make list of program names
+        program_list = sorted(
+            set(
+                [i[0] for i in df_formatted_table.columns if i[0]]),
+            key=[i[0] for i in df_formatted_table.columns].index)
+        program_rgx = re.compile(r'(^[a-zA-Z]+)')
+        program_list_short = []
+        for p in program_list:
+            result = program_rgx.search(p)
+            if result:
+                program_list_short.append(result.group(1))
+        df_formatted_table.columns = column_names
+        df_formatted_name_table = df_formatted_table[['cases']] \
+            .merge(
+            self.case_detailed_df,
+            how='left',
+            left_on=['cases', ],
+            right_index=True) \
+            .sort_values(['case_order']) \
+            .drop(['cases', 'case_order'], axis=1) \
+            .rename(columns={
+                'case_name': 'Case'})
+        # set fig size
+        fig, ax = plt.subplots(
+            nrows=1,
+            ncols=1,
+            figsize=(30, 20))
+        df_formatted_table = pd.concat(
+            [
+                df_formatted_name_table,
+                df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
+                df_stats,
+                df_formatted_table.drop(columns=['cases', ]).iloc[
+                    :,
+                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+            axis=1)
+        gridvalues = [
+            ['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd',],
+            ['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd','a', 'b', 'c', 'd',]
+        ]
+        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5, cell_text=[gridvalues])
+
+# this experiment did not do anything
+#        cell_data = [['a','b'],['c','d']]
+#        tab.cellText = cell_data
+
+        cell_dict = tab.get_celld()
+        for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
+            for j in range(df_formatted_table.shape[0] + 1):
+                cell_dict[(j, i)].set_width(w)
+                cell_dict[(j, i)].set_text_props(ha="center")
+        # Set annotations
+        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
+            header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
+            header[0].get_text().set_text(hdr.upper())
+            header[0].PAD = 0.1
+            header[0].set_fontsize(16)
+            header[0].set_text_props(ha="left")
+            header[0].visible_edges = "open"
+            if idx != 29:
+                ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+            else:
+                ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
+        ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+        # save the result
+        plt.suptitle(caption, fontsize=30)
+        self._make_image_from_plt(figure_name)
+        plt.subplots_adjust(top=0.92)
+        return fig, ax
+
+    def xender_section_5_2a_table_b8_16_new_call(
             self,
             output_values=('case600_skyTC', 'case600_sky_month', 'case600_sky_day', 'case600_sky_hour'),
             figure_name='section_5_2_a_table_b8_16',

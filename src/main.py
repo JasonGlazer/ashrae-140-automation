@@ -111,8 +111,12 @@ def create_images(input_file, args, logger_name):
 
 def create_markdown(input_file):
     # get markdown file directory
-    folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])
-    destination_directory = root_directory.joinpath('rendered', 'images', folder_name)
+    input_file_path_parts = input_file.parts
+    folder_parts = input_file_path_parts[-3:-1]
+    # folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])
+    # destination_directory = root_directory.joinpath('rendered', 'images', folder_name)
+    # img_file_directory = destination_directory.joinpath('images')
+    destination_directory = root_directory.joinpath('rendered', 'images', folder_parts[0], folder_parts[1])
     img_file_directory = destination_directory.joinpath('images')
 
     if img_file_directory.exists():
