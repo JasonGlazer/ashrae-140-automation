@@ -517,6 +517,50 @@ class GraphicsRenderer(Logger):
         plt.savefig(img_name, bbox_inches='tight', facecolor='white')
         return
 
+    def _make_markdown_from_table(self, figure_name, caption, table, footnotes=[],
+                                  destination_directory=root_directory.joinpath('rendered', 'images')):
+        """
+        make a markdown .md file from table (list of lists) save it to a directory
+
+        :param figure_name: name of figure to append to file name
+        :param caption: the title of the figure appearing above the table
+        :param table: a list of lists where the outer list contains rows and each row list contains column values
+        :param footnotes: a list of footnotes that appear below the table
+        :param destination_directory: list of directories leading to the output directory
+        """
+        program_name = self.model_results_file.parts[-3].lower()
+        version = self.model_results_file.parts[-2].lower()
+        img_directory = destination_directory.joinpath(
+            program_name,
+            version,
+            'images')
+        pathlib.Path(img_directory).mkdir(parents=True, exist_ok=True)
+        md_name = img_directory.joinpath(
+            '.'.join(
+                [
+                    '-'.join(
+                        [
+                            self.model_results_file.stem,
+                            figure_name,
+                        ]),
+                    'md'
+                ]))
+        with open(md_name, 'w') as md:
+            md.write('# ' + caption + '\n')
+            for indx, row in enumerate(table):
+                md_string = "| "
+                for value in row:
+                    md_string += str(value) + " |"
+                md.write(md_string + '\n')
+                # header row
+                if indx == 0:
+                    md.write("|-----|" + "-----:|" * (len(row) - 1) + '\n')
+            md.write('\n')
+            for footnote in footnotes:
+                md.write(footnote + '\n')
+            md.write('\n')
+        return
+
     @staticmethod
     def _make_table_from_df(df, ax, case_col_width=2, cell_text=[]):
         """
@@ -7826,15 +7870,18 @@ class GraphicsRenderer(Logger):
         return fig, ax
 
     def render_section_5_2a_table_b8_16_md(self):
+        figure_name = 'section_5_2_figure_b8_16'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
-        x = self.json_data
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+
         table = []
-        header_row = ['Case', 'Parameter', 'Annual Hourly Integrated Average', 'Annual Hourly Integrated Minimum',
-                      'Annual Hourly Integrated Maximum']
-        table.append(header_row)
         averages = []
         minimums = []
         maximums = []
+
+        header_row = ['Case', 'Parameter', 'Annual Hourly<br>Integrated Average', 'Annual Hourly<br>Integrated Minimum',
+                      'Annual Hourly<br>Integrated Maximum']
+        table.append(header_row)
         for index, (tst, json_obj) in enumerate(self.json_data.items()):
             sky_600 = json_obj['sky_temperature_output']['600']
             data_row = [json_obj['identifying_information']['software_name'], 'T(C)']
@@ -7860,6 +7907,8 @@ class GraphicsRenderer(Logger):
                 timestamp_row.append(sky_600['Maximum']['Month'] + ' ' +
                                      str(sky_600['Maximum']['Day']) + ' ' +
                                      str(sky_600['Maximum']['Hour']))
+
+            # if it is not the tested program, add it to the table
             if index < (len(self.json_data) - 1):
                 table.append(data_row)
                 table.append(timestamp_row)
@@ -7881,17 +7930,17 @@ class GraphicsRenderer(Logger):
         table.append(['', 'Mo Day Hr'])
 
         # now do the statistic rows
-        mininum_of_averages = min(averages)
+        minimum_of_averages = min(averages)
         minimum_of_minimums = min(minimums)
         minimum_of_maximums = min(maximums)
-        row = ['Min', 'T(C)', round(mininum_of_averages, 1), round(minimum_of_minimums, 1),
+        row = ['Min', 'T(C)', round(minimum_of_averages, 1), round(minimum_of_minimums, 1),
                round(minimum_of_maximums, 1)]
         table.append(row)
 
-        maxinum_of_averages = max(averages)
+        maximum_of_averages = max(averages)
         maximum_of_minimums = max(minimums)
         maximum_of_maximums = max(maximums)
-        row = ['Max', 'T(C)', round(maxinum_of_averages, 1), round(maximum_of_minimums, 1),
+        row = ['Max', 'T(C)', round(maximum_of_averages, 1), round(maximum_of_minimums, 1),
                round(maximum_of_maximums, 1)]
         table.append(row)
 
@@ -7901,8 +7950,14 @@ class GraphicsRenderer(Logger):
         row = ['Mean', 'T(C)', round(mean_of_averages, 1), round(mean_of_minimums, 1),
                round(mean_of_maximums, 1)]
         table.append(row)
-
+        row = ['(Max-Min)/Mean [^1]',' % ',
+               round(100 * abs((maximum_of_averages - minimum_of_averages) / mean_of_averages), 1),
+               round(100 * abs((maximum_of_minimums - minimum_of_minimums) / mean_of_minimums), 1),
+               round(100 * abs((maximum_of_maximums - minimum_of_maximums) / mean_of_maximums), 1)]
+        table.append(row)
         # now put in the tested program rows
         table.append(tested_program_data_row)
         table.append(tested_program_timestamp_row)
+
+        self._make_markdown_from_table(figure_name, caption, table, footnotes)
         return
