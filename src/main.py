@@ -157,8 +157,20 @@ def create_markdown(input_file):
             line = '![figure ' + str(idx) + '](images/' + png + ')'
             md_file.write(line + '\n')
 
-    md_file.close()
+    # test code
+    md_file.write('\n')
+    md_file.write('| a  | b  |  c |\n')
+    md_file.write('|----|----|----|\n')
+    md_file.write('| 1  | 2  |  3 |\n')
+    md_file.write('| 9  | 8  |  7 |\n')
 
+    md_file.close()
+    return md_file.name
+
+def add_markdown_tables(markdown_file, input_file, args, logger_name):
+    with open(markdown_file, 'a') as md:
+        md.write('test\n')
+    return
 
 def main(args=None):
     if hasattr(args, 'version') and args.version:
@@ -229,7 +241,8 @@ def main(args=None):
 
         # create a markdown file to list all figures and tables in the rendered folder
         if 'processed' in f.parts:
-            create_markdown(input_file=f)
+            markdown_file = create_markdown(input_file=f)
+            add_markdown_tables(markdown_file, input_file=f, args=args, logger_name=logger_name)
     return
 
 
