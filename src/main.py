@@ -122,10 +122,13 @@ def create_markdown(input_file):
     if img_file_directory.exists():
         if img_file_directory.is_dir():
             img_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.png']
+            md_table_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.md']
         else:
             img_files = []
+            md_table_files = []
     else:
         img_files = []
+        md_table_files = []
 
     img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
 
@@ -157,20 +160,14 @@ def create_markdown(input_file):
             line = '![figure ' + str(idx) + '](images/' + png + ')'
             md_file.write(line + '\n')
 
-    # test code
+    # append each mark down file to the end
     md_file.write('\n')
-    md_file.write('| a  | b  |  c |\n')
-    md_file.write('|----|----|----|\n')
-    md_file.write('| 1  | 2  |  3 |\n')
-    md_file.write('| 9  | 8  |  7 |\n')
+    for md_table_file in md_table_files:
+        with open(pathlib.Path.joinpath(destination_directory, 'images', md_table_file), 'r') as f:
+            md_file.write(f.read())
 
     md_file.close()
     return md_file.name
-
-def add_markdown_tables(markdown_file, input_file, args, logger_name):
-    with open(markdown_file, 'a') as md:
-        md.write('test\n')
-    return
 
 def main(args=None):
     if hasattr(args, 'version') and args.version:
@@ -242,7 +239,6 @@ def main(args=None):
         # create a markdown file to list all figures and tables in the rendered folder
         if 'processed' in f.parts:
             markdown_file = create_markdown(input_file=f)
-            add_markdown_tables(markdown_file, input_file=f, args=args, logger_name=logger_name)
     return
 
 

@@ -1991,436 +1991,436 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-    def render_section_5_2a_table_b8_16(
-            self,
-            figure_name='section_5_2_a_table_b8_16',
-            caption='Table B8-16. Sky Temperature Output, Case 600'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-16
+    # def render_section_5_2a_table_b8_16(
+    #         self,
+    #         figure_name='section_5_2_a_table_b8_16',
+    #         caption='Table B8-16. Sky Temperature Output, Case 600'):
+    #     """
+    #     Create dataframe from class dataframe object for table 5-2A B8-16
+    #
+    #     :return: pandas dataframe and output msg for general navigation.
+    #     """
+    #     dfo = pd.DataFrame()
+    #     software_arrayo = []
+    #     # get data
+    #     data = {}
+    #     data1 = {}
+    #     data2 = {}
+    #     data3 = {}
+    #     for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+    #         data = json_obj['solar_radiation_annual_incident']['600']['Surface']
+    #         df_obj = pd.DataFrame.from_dict(data)
+    #         df_obj['software'] = json_obj['identifying_information']['software_name']
+    #         software_arrayo.append(json_obj['identifying_information']['software_name'])
+    #         dfo = pd.concat([dfo, df_obj], axis=0)
+    #     dfo = dfo.set_index('software')
+    #     dfo = dfo.transpose()
+    #
+    #     df = pd.DataFrame()
+    #     df_float = pd.DataFrame()
+    #     software_array = []
+    #     # get data
+    #     data = {}
+    #     data_float = {}
+    #     for idx, (tst, json_obj) in enumerate(self.json_data.items()):
+    #         # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+    #         # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
+    #         # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
+    #         # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C'],
+    #         # 'Hour': '', 'Month': ''}
+    #         # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'],
+    #         # 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'],
+    #         # 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
+    #         # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'],
+    #         # 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'],
+    #         # 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
+    #         # data['Average'] = [{'C': json_obj['sky_temperature_output']['600']['Average']['C']}, {'Hour': ''},
+    #         #  {'Month': ''}]
+    #         # data['Minimum'] = [{'C': json_obj['sky_temperature_output']['600']['Minimum']['C']},
+    #         # {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']},
+    #         # {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}]
+    #         # data['Maximum'] = [{'C': json_obj['sky_temperature_output']['600']['Maximum']['C']},
+    #         # {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']},
+    #         # {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}]
+    #         data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+    #         data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
+    #         data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
+    #         data_float['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
+    #         data_float['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
+    #         data_float['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
+    #         df_obj = pd.DataFrame.from_dict(data)
+    #         df_float_obj = pd.DataFrame.from_dict(data_float)
+    #         df_obj['software'] = json_obj['identifying_information']['software_name']
+    #         df_float_obj['software'] = json_obj['identifying_information']['software_name']
+    #         software_array.append(json_obj['identifying_information']['software_name'])
+    #         df = pd.concat([df, df_obj], axis=0)
+    #         df_float = pd.concat([df_float, df_float_obj], axis=0)
+    #
+    #         data1['Average'] = {'Month': ''}
+    #         data1['Minimum'] = {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
+    #         data1['Maximum'] = {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
+    #         df_obj = pd.DataFrame.from_dict(data1)
+    #         df_obj['software'] = json_obj['identifying_information']['software_name']
+    #         software_array.append(json_obj['identifying_information']['software_name'])
+    #         df = pd.concat([df, df_obj], axis=0)
+    #
+    #         data2['Average'] = {'Day': ''}
+    #         data2['Minimum'] = {'Day': json_obj['sky_temperature_output']['600']['Minimum']['Day']}
+    #         data2['Maximum'] = {'Day': json_obj['sky_temperature_output']['600']['Maximum']['Day']}
+    #         df_obj = pd.DataFrame.from_dict(data2)
+    #         df_obj['software'] = json_obj['identifying_information']['software_name']
+    #         software_array.append(json_obj['identifying_information']['software_name'])
+    #         df = pd.concat([df, df_obj], axis=0)
+    #
+    #         data3['Average'] = {'Hour': ''}
+    #         data3['Minimum'] = {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}
+    #         data3['Maximum'] = {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}
+    #         df_obj = pd.DataFrame.from_dict(data3)
+    #         df_obj['software'] = json_obj['identifying_information']['software_name']
+    #         software_array.append(json_obj['identifying_information']['software_name'])
+    #         df = pd.concat([df, df_obj], axis=0)
+    #
+    #     df = df.set_index('software')
+    #     df_float = df_float.set_index('software')
+    #     df = df.transpose()
+    #     df_float = df_float.transpose()
+    #
+    #     # for row in range(len(df)):
+    #     #    for col in range(len(df.columns)):
+    #     #        try:
+    #     #            df.at[df.index[row], df.columns[col]]
+    #     #        except (KeyError, ValueError):
+    #     #            df.at[df.index[row], df.columns[col]] = float('NaN')
+    #
+    #     for row in range(len(df_float)):
+    #         for col in range(len(df_float.columns)):
+    #             try:
+    #                 df_float.at[df_float.index[row], df_float.columns[col]]
+    #             except (KeyError, ValueError):
+    #                 df_float.at[df_float.index[row], df_float.columns[col]] = float('NaN')
+    #
+    #     # calculate stats
+    #     df_stats = pd.DataFrame()
+    #     df_stats['min'] = df_float.iloc[:, 0:-1].min(axis=1)
+    #     df_stats['max'] = df_float.iloc[:, 0:-1].max(axis=1)
+    #     df_stats['mean'] = df_float.iloc[:, 0:-1].mean(axis=1)
+    #     df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
+    #         df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
+    #
+    #     # merge dataframes
+    #     df_merged = pd.concat(
+    #         [
+    #             df.iloc[:, range(len(df.columns) - 1)],
+    #             df_stats,
+    #             df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
+    #         ],
+    #         axis=1)
+    #
+    #     index_dict = {
+    #         'Average': 'Average Annual Hourly Integrated',
+    #         'Minimum': 'Minimum Annual Hourly Integrated',
+    #         'Maximum': 'Maximum Annual Hourly Integrated'
+    #     }
+    #     df_formatted_table = df_merged.rename(index=index_dict)
+    #     df_formatted_table = df_formatted_table.reindex(
+    #         ['Average Annual Hourly Integrated', 'Minimum Annual Hourly Integrated',
+    #          'Maximum Annual Hourly Integrated'])
+    #     df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
+    #     df_formatted_table.fillna('', inplace=True)
+    #
+    #     # for col in df_formatted_table:
+    #     #     if col in software_array:
+    #     #         df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 1) if x != '' else x)
+    #     df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 1) if x != '' else x)
+    #     df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 1) if x != '' else x)
+    #     df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 1) if x != '' else x)
+    #     df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
+    #         lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
+    #
+    #     # wrap text in table
+    #     wrapped_col = {}
+    #     for col in df_formatted_table:
+    #         wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
+    #     df_formatted_table.rename(columns=wrapped_col, inplace=True)
+    #
+    #     # save results
+    #     fig, ax = plt.subplots(
+    #         nrows=1,
+    #         ncols=1,
+    #         figsize=(24, 6))
+    #     tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
+    #
+    #     # Set annotations
+    #     header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
+    #     header_stats[0].get_text().set_text('Statistics for Example Results')
+    #     header_stats[0].PAD = 0.5
+    #     header_stats[0].set_fontsize(16)
+    #     header_stats[0].set_text_props(ha="left")
+    #     header_stats[0].visible_edges = "open"
+    #     header_stats[1].visible_edges = "open"
+    #     header_stats[2].visible_edges = "open"
+    #     header_stats[3].visible_edges = "open"
+    #     plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
+    #
+    #     # Set annotations (additional for extra group headers similar to Table 5-2A B8-3 and B8-4)
+    #     for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], software_array):  # program_list_short):
+    #         header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
+    #         header[0].get_text().set_text(hdr.upper())
+    #         header[0].PAD = 0.1
+    #         header[0].set_fontsize(16)
+    #         header[0].set_text_props(ha="left")
+    #         header[0].visible_edges = "open"
+    #         # if idx != 29:
+    #         #    ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+    #         # else:
+    #         #    ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
+    #     # ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+    #
+    #     plt.suptitle(caption, fontsize=30, y=1.05)
+    #     self._make_image_from_plt(figure_name)
+    #
+    #     """
+    #     Calling using similar way to B8-4 to create dataframe from class dataframe object for table 5-2A B8-16
+    #
+    #         :return: pandas dataframe and output msg for general navigation.
+    #     """
+    #     # # An alternative way to create the table using a structure similiar to 5-2A B8-3 and B8-4
+    #     # fig, ax = self.render_section_5_2a_table_b8_16_new_call(
+    #     #     output_values=('case600_sky_TC', 'case600_sky_month', 'cae600_sky_day', 'case600_sky_hour'),
+    #     #     figure_name='section_5_2_a_table_b8_16',
+    #     #     caption='Table B8-16. Sky Temperature Output, Case 600'
+    #     # )
+    #
+    #     return fig, ax
 
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        dfo = pd.DataFrame()
-        software_arrayo = []
-        # get data
-        data = {}
-        data1 = {}
-        data2 = {}
-        data3 = {}
-        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            data = json_obj['solar_radiation_annual_incident']['600']['Surface']
-            df_obj = pd.DataFrame.from_dict(data)
-            df_obj['software'] = json_obj['identifying_information']['software_name']
-            software_arrayo.append(json_obj['identifying_information']['software_name'])
-            dfo = pd.concat([dfo, df_obj], axis=0)
-        dfo = dfo.set_index('software')
-        dfo = dfo.transpose()
+    # def render_section_5_2a_table_b8_16b(
+    #         self,
+    #         output_values=('peak_heating_kW', 'peak_heating_month', 'peak_heating_day', 'peak_heating_hour'),
+    #         figure_name='section_5_2_a_table_b8_16b',
+    #         caption='Table B8-16b. Sky Temperature Output, Case 600'):
+    #     """
+    #     Create dataframe from class dataframe object for table 5-2A B8-16
+    #
+    #     :return: pandas dataframe and output msg for general navigation.
+    #     """
+    #     # get and format dataframe into required shape
+    #     df = self.df_data['conditioned_zone_loads_non_free_float'].loc[:, [i in output_values for i in self.df_data[
+    #         'conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
+    #     df_formatted_table = df.unstack() \
+    #         .reset_index() \
+    #         .rename(columns={0: 'val', 'level_0': 'case'}) \
+    #         .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
+    #         .unstack() \
+    #         .reset_index()
+    #     df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+    #     kw_cols = [i for i in df_formatted_table.columns if 'kw' in i[1].lower()]
+    #     df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
+    #         lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
+    #     df_stats = pd.DataFrame()
+    #     base_kw_cols = [i for i in kw_cols if i[0] in self.baseline_model_names]
+    #     df_stats['min'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
+    #     df_stats['max'] = df_formatted_table[base_kw_cols].max(axis=1).round(2)
+    #     df_stats['mean'] = df_formatted_table[base_kw_cols].mean(axis=1).round(2)
+    #     df_stats['(max - min)\n/ mean %'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
+    #     int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
+    #     df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
+    #     df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
+    #     df_formatted_table = df_formatted_table.fillna('')
+    #     column_formatting_names = {
+    #         'peak_heating_kW': 'kW',
+    #         'peak_heating_month': 'Mo',
+    #         'peak_heating_day': 'Day',
+    #         'peak_heating_hour': 'Hr',
+    #         'peak_cooling_kW': 'kW',
+    #         'peak_cooling_month': 'Mo',
+    #         'peak_cooling_day': 'Day',
+    #         'peak_cooling_hour': 'Hr'
+    #     }
+    #     # reorder columns so test program is last
+    #     column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
+    #         i for i in df_formatted_table.columns if i[0] == self.model_name]
+    #     df_formatted_table = df_formatted_table[column_names]
+    #     column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
+    #                     for i in list(df_formatted_table.columns)]
+    #     column_names[0] = 'cases'
+    #     # make list of program names
+    #     program_list = sorted(
+    #         set(
+    #             [i[0] for i in df_formatted_table.columns if i[0]]),
+    #         key=[i[0] for i in df_formatted_table.columns].index)
+    #     program_rgx = re.compile(r'(^[a-zA-Z]+)')
+    #     program_list_short = []
+    #     for p in program_list:
+    #         result = program_rgx.search(p)
+    #         if result:
+    #             program_list_short.append(result.group(1))
+    #     df_formatted_table.columns = column_names
+    #     df_formatted_name_table = df_formatted_table[['cases']] \
+    #         .merge(
+    #         self.case_detailed_df,
+    #         how='left',
+    #         left_on=['cases', ],
+    #         right_index=True) \
+    #         .sort_values(['case_order']) \
+    #         .drop(['cases', 'case_order'], axis=1) \
+    #         .rename(columns={
+    #         'case_name': 'Case'})
+    #     # set fig size
+    #     fig, ax = plt.subplots(
+    #         nrows=1,
+    #         ncols=1,
+    #         figsize=(30, 20))
+    #     df_formatted_table = pd.concat(
+    #         [
+    #             df_formatted_name_table,
+    #             df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
+    #             df_stats,
+    #             df_formatted_table.drop(columns=['cases', ]).iloc[
+    #             :,
+    #             range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
+    #         axis=1)
+    #     gridvalues = [
+    #         ['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a',
+    #          'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', ],
+    #         ['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a',
+    #          'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', ]
+    #     ]
+    #     tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5, cell_text=[gridvalues])
+    #
+    #     # this experiment did not do anything
+    #     #        cell_data = [['a','b'],['c','d']]
+    #     #        tab.cellText = cell_data
+    #
+    #     cell_dict = tab.get_celld()
+    #     for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
+    #         for j in range(df_formatted_table.shape[0] + 1):
+    #             cell_dict[(j, i)].set_width(w)
+    #             cell_dict[(j, i)].set_text_props(ha="center")
+    #     # Set annotations
+    #     for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
+    #         header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
+    #         header[0].get_text().set_text(hdr.upper())
+    #         header[0].PAD = 0.1
+    #         header[0].set_fontsize(16)
+    #         header[0].set_text_props(ha="left")
+    #         header[0].visible_edges = "open"
+    #         if idx != 29:
+    #             ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+    #         else:
+    #             ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
+    #     ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+    #     # save the result
+    #     plt.suptitle(caption, fontsize=30)
+    #     self._make_image_from_plt(figure_name)
+    #     plt.subplots_adjust(top=0.92)
+    #     return fig, ax
 
-        df = pd.DataFrame()
-        df_float = pd.DataFrame()
-        software_array = []
-        # get data
-        data = {}
-        data_float = {}
-        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
-            # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
-            # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
-            # data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C'],
-            # 'Hour': '', 'Month': ''}
-            # data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C'],
-            # 'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour'],
-            # 'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
-            # data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C'],
-            # 'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour'],
-            # 'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
-            # data['Average'] = [{'C': json_obj['sky_temperature_output']['600']['Average']['C']}, {'Hour': ''},
-            #  {'Month': ''}]
-            # data['Minimum'] = [{'C': json_obj['sky_temperature_output']['600']['Minimum']['C']},
-            # {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']},
-            # {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}]
-            # data['Maximum'] = [{'C': json_obj['sky_temperature_output']['600']['Maximum']['C']},
-            # {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']},
-            # {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}]
-            data['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
-            data['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
-            data['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
-            data_float['Average'] = {'C': json_obj['sky_temperature_output']['600']['Average']['C']}
-            data_float['Minimum'] = {'C': json_obj['sky_temperature_output']['600']['Minimum']['C']}
-            data_float['Maximum'] = {'C': json_obj['sky_temperature_output']['600']['Maximum']['C']}
-            df_obj = pd.DataFrame.from_dict(data)
-            df_float_obj = pd.DataFrame.from_dict(data_float)
-            df_obj['software'] = json_obj['identifying_information']['software_name']
-            df_float_obj['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df = pd.concat([df, df_obj], axis=0)
-            df_float = pd.concat([df_float, df_float_obj], axis=0)
-
-            data1['Average'] = {'Month': ''}
-            data1['Minimum'] = {'Month': json_obj['sky_temperature_output']['600']['Minimum']['Month']}
-            data1['Maximum'] = {'Month': json_obj['sky_temperature_output']['600']['Maximum']['Month']}
-            df_obj = pd.DataFrame.from_dict(data1)
-            df_obj['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df = pd.concat([df, df_obj], axis=0)
-
-            data2['Average'] = {'Day': ''}
-            data2['Minimum'] = {'Day': json_obj['sky_temperature_output']['600']['Minimum']['Day']}
-            data2['Maximum'] = {'Day': json_obj['sky_temperature_output']['600']['Maximum']['Day']}
-            df_obj = pd.DataFrame.from_dict(data2)
-            df_obj['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df = pd.concat([df, df_obj], axis=0)
-
-            data3['Average'] = {'Hour': ''}
-            data3['Minimum'] = {'Hour': json_obj['sky_temperature_output']['600']['Minimum']['Hour']}
-            data3['Maximum'] = {'Hour': json_obj['sky_temperature_output']['600']['Maximum']['Hour']}
-            df_obj = pd.DataFrame.from_dict(data3)
-            df_obj['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df = pd.concat([df, df_obj], axis=0)
-
-        df = df.set_index('software')
-        df_float = df_float.set_index('software')
-        df = df.transpose()
-        df_float = df_float.transpose()
-
-        # for row in range(len(df)):
-        #    for col in range(len(df.columns)):
-        #        try:
-        #            df.at[df.index[row], df.columns[col]]
-        #        except (KeyError, ValueError):
-        #            df.at[df.index[row], df.columns[col]] = float('NaN')
-
-        for row in range(len(df_float)):
-            for col in range(len(df_float.columns)):
-                try:
-                    df_float.at[df_float.index[row], df_float.columns[col]]
-                except (KeyError, ValueError):
-                    df_float.at[df_float.index[row], df_float.columns[col]] = float('NaN')
-
-        # calculate stats
-        df_stats = pd.DataFrame()
-        df_stats['min'] = df_float.iloc[:, 0:-1].min(axis=1)
-        df_stats['max'] = df_float.iloc[:, 0:-1].max(axis=1)
-        df_stats['mean'] = df_float.iloc[:, 0:-1].mean(axis=1)
-        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
-            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-
-        # merge dataframes
-        df_merged = pd.concat(
-            [
-                df.iloc[:, range(len(df.columns) - 1)],
-                df_stats,
-                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
-            ],
-            axis=1)
-
-        index_dict = {
-            'Average': 'Average Annual Hourly Integrated',
-            'Minimum': 'Minimum Annual Hourly Integrated',
-            'Maximum': 'Maximum Annual Hourly Integrated'
-        }
-        df_formatted_table = df_merged.rename(index=index_dict)
-        df_formatted_table = df_formatted_table.reindex(
-            ['Average Annual Hourly Integrated', 'Minimum Annual Hourly Integrated',
-             'Maximum Annual Hourly Integrated'])
-        df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
-        df_formatted_table.fillna('', inplace=True)
-
-        # for col in df_formatted_table:
-        #     if col in software_array:
-        #         df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 1) if x != '' else x)
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 1) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 1) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 1) if x != '' else x)
-        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
-
-        # wrap text in table
-        wrapped_col = {}
-        for col in df_formatted_table:
-            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
-        df_formatted_table.rename(columns=wrapped_col, inplace=True)
-
-        # save results
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(24, 6))
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
-
-        # Set annotations
-        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
-        header_stats[0].get_text().set_text('Statistics for Example Results')
-        header_stats[0].PAD = 0.5
-        header_stats[0].set_fontsize(16)
-        header_stats[0].set_text_props(ha="left")
-        header_stats[0].visible_edges = "open"
-        header_stats[1].visible_edges = "open"
-        header_stats[2].visible_edges = "open"
-        header_stats[3].visible_edges = "open"
-        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-
-        # Set annotations (additional for extra group headers similar to Table 5-2A B8-3 and B8-4)
-        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], software_array):  # program_list_short):
-            header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
-            header[0].get_text().set_text(hdr.upper())
-            header[0].PAD = 0.1
-            header[0].set_fontsize(16)
-            header[0].set_text_props(ha="left")
-            header[0].visible_edges = "open"
-            # if idx != 29:
-            #    ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
-            # else:
-            #    ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
-        # ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
-
-        plt.suptitle(caption, fontsize=30, y=1.05)
-        self._make_image_from_plt(figure_name)
-
-        """
-        Calling using similar way to B8-4 to create dataframe from class dataframe object for table 5-2A B8-16
-
-            :return: pandas dataframe and output msg for general navigation.
-        """
-        # # An alternative way to create the table using a structure similiar to 5-2A B8-3 and B8-4
-        # fig, ax = self.render_section_5_2a_table_b8_16_new_call(
-        #     output_values=('case600_sky_TC', 'case600_sky_month', 'cae600_sky_day', 'case600_sky_hour'),
-        #     figure_name='section_5_2_a_table_b8_16',
-        #     caption='Table B8-16. Sky Temperature Output, Case 600'
-        # )
-
-        return fig, ax
-
-    def xender_section_5_2a_table_b8_16b(
-            self,
-            output_values=('peak_heating_kW', 'peak_heating_month', 'peak_heating_day', 'peak_heating_hour'),
-            figure_name='section_5_2_a_table_b8_16b',
-            caption='Table B8-16b. Sky Temperature Output, Case 600'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-16
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        # get and format dataframe into required shape
-        df = self.df_data['conditioned_zone_loads_non_free_float'].loc[:, [i in output_values for i in self.df_data[
-            'conditioned_zone_loads_non_free_float'].columns.get_level_values(1)]]
-        df_formatted_table = df.unstack() \
-            .reset_index() \
-            .rename(columns={0: 'val', 'level_0': 'case'}) \
-            .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
-            .unstack() \
-            .reset_index()
-        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
-        kw_cols = [i for i in df_formatted_table.columns if 'kw' in i[1].lower()]
-        df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
-            lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
-        df_stats = pd.DataFrame()
-        base_kw_cols = [i for i in kw_cols if i[0] in self.baseline_model_names]
-        df_stats['min'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
-        df_stats['max'] = df_formatted_table[base_kw_cols].max(axis=1).round(2)
-        df_stats['mean'] = df_formatted_table[base_kw_cols].mean(axis=1).round(2)
-        df_stats['(max - min)\n/ mean %'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
-        int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
-        df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
-        df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
-        df_formatted_table = df_formatted_table.fillna('')
-        column_formatting_names = {
-            'peak_heating_kW': 'kW',
-            'peak_heating_month': 'Mo',
-            'peak_heating_day': 'Day',
-            'peak_heating_hour': 'Hr',
-            'peak_cooling_kW': 'kW',
-            'peak_cooling_month': 'Mo',
-            'peak_cooling_day': 'Day',
-            'peak_cooling_hour': 'Hr'
-        }
-        # reorder columns so test program is last
-        column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
-            i for i in df_formatted_table.columns if i[0] == self.model_name]
-        df_formatted_table = df_formatted_table[column_names]
-        column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
-                        for i in list(df_formatted_table.columns)]
-        column_names[0] = 'cases'
-        # make list of program names
-        program_list = sorted(
-            set(
-                [i[0] for i in df_formatted_table.columns if i[0]]),
-            key=[i[0] for i in df_formatted_table.columns].index)
-        program_rgx = re.compile(r'(^[a-zA-Z]+)')
-        program_list_short = []
-        for p in program_list:
-            result = program_rgx.search(p)
-            if result:
-                program_list_short.append(result.group(1))
-        df_formatted_table.columns = column_names
-        df_formatted_name_table = df_formatted_table[['cases']] \
-            .merge(
-            self.case_detailed_df,
-            how='left',
-            left_on=['cases', ],
-            right_index=True) \
-            .sort_values(['case_order']) \
-            .drop(['cases', 'case_order'], axis=1) \
-            .rename(columns={
-            'case_name': 'Case'})
-        # set fig size
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(30, 20))
-        df_formatted_table = pd.concat(
-            [
-                df_formatted_name_table,
-                df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
-                df_stats,
-                df_formatted_table.drop(columns=['cases', ]).iloc[
-                :,
-                range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
-            axis=1)
-        gridvalues = [
-            ['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a',
-             'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', ],
-            ['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a',
-             'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', ]
-        ]
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5, cell_text=[gridvalues])
-
-        # this experiment did not do anything
-        #        cell_data = [['a','b'],['c','d']]
-        #        tab.cellText = cell_data
-
-        cell_dict = tab.get_celld()
-        for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
-            for j in range(df_formatted_table.shape[0] + 1):
-                cell_dict[(j, i)].set_width(w)
-                cell_dict[(j, i)].set_text_props(ha="center")
-        # Set annotations
-        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
-            header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
-            header[0].get_text().set_text(hdr.upper())
-            header[0].PAD = 0.1
-            header[0].set_fontsize(16)
-            header[0].set_text_props(ha="left")
-            header[0].visible_edges = "open"
-            if idx != 29:
-                ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
-            else:
-                ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return fig, ax
-
-    def xender_section_5_2a_table_b8_16_new_call(
-            self,
-            output_values=('case600_skyTC', 'case600_sky_month', 'case600_sky_day', 'case600_sky_hour'),
-            figure_name='section_5_2_a_table_b8_16',
-            caption='Table B8-16. Sky Temperature Output, Case 600'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-16
-        an alternative way based on similar style from Table 5-2A B8-3 and B8-4
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        # get and format dataframe into required shape
-        df = self.df_data['solar_radiation_annual_incident'].loc[:, [i in output_values for i in
-                                                                     self.df_data['solar_radiation_annual_incident']
-                                                                     .columns.get_level_values(1)]]
-        df_formatted_table = df.unstack() \
-            .reset_index() \
-            .rename(columns={0: 'val', 'level_0': 'case'}) \
-            .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
-            .unstack() \
-            .reset_index()
-        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
-        kw_cols = [i for i in df_formatted_table.columns if 'C' in i[1].lower()]
-        df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
-            lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
-        df_stats = pd.DataFrame()
-        sky_TC_cols = [i for i in kw_cols if i[0] in self.baseline_model_names]
-        df_stats['min'] = df_formatted_table[sky_TC_cols].min(axis=1).round(2)
-        df_stats['max'] = df_formatted_table[sky_TC_cols].max(axis=1).round(2)
-        df_stats['mean'] = df_formatted_table[sky_TC_cols].mean(axis=1).round(2)
-        df_stats['(max - min)\n/ mean %'] = df_formatted_table[sky_TC_cols].min(axis=1).round(2)
-        int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
-        df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
-        df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
-        df_formatted_table = df_formatted_table.fillna('')
-        column_formatting_names = {
-            'case600_sky_TC': 'C',
-            'case600_sky_month': 'Mo',
-            'case600_sky_day': 'Day',
-            'case600_sky_hour': 'Hr',
-        }
-        # reorder columns so test program is last
-        column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
-            i for i in df_formatted_table.columns if i[0] == self.model_name]
-        df_formatted_table = df_formatted_table[column_names]
-        column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
-                        for i in list(df_formatted_table.columns)]
-        column_names[0] = 'cases'
-        # make list of program names
-        program_list = sorted(
-            set(
-                [i[0] for i in df_formatted_table.columns if i[0]]),
-            key=[i[0] for i in df_formatted_table.columns].index)
-        program_rgx = re.compile(r'(^[a-zA-Z]+)')
-        program_list_short = []
-        for p in program_list:
-            result = program_rgx.search(p)
-            if result:
-                program_list_short.append(result.group(1))
-        df_formatted_table.columns = column_names
-        df_formatted_name_table = df_formatted_table[['cases']] \
-            .merge(
-            self.case_detailed_df,
-            how='left',
-            left_on=['cases', ],
-            right_index=True) \
-            .sort_values(['case_order']) \
-            .drop(['cases', 'case_order'], axis=1) \
-            .rename(columns={
-            'case_name': 'Case'})
-        # set fig size
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(30, 20))
-        df_formatted_table = pd.concat(
-            [df_formatted_name_table,
-             df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
-             df_stats,
-             df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5,
-                                                                        len(df_formatted_table.columns) - 1)]],
-            axis=1)
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
-        cell_dict = tab.get_celld()
-        for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
-            for j in range(df_formatted_table.shape[0] + 1):
-                cell_dict[(j, i)].set_width(w)
-                cell_dict[(j, i)].set_text_props(ha="center")
-        # Set annotations
-        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
-            header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
-            header[0].get_text().set_text(hdr.upper())
-            header[0].PAD = 0.1
-            header[0].set_fontsize(16)
-            header[0].set_text_props(ha="left")
-            header[0].visible_edges = "open"
-            if idx != 29:
-                ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
-            else:
-                ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return fig, ax
+    # def render_section_5_2a_table_b8_16_new_call(
+    #         self,
+    #         output_values=('case600_skyTC', 'case600_sky_month', 'case600_sky_day', 'case600_sky_hour'),
+    #         figure_name='section_5_2_a_table_b8_16',
+    #         caption='Table B8-16. Sky Temperature Output, Case 600'):
+    #     """
+    #     Create dataframe from class dataframe object for table 5-2A B8-16
+    #     an alternative way based on similar style from Table 5-2A B8-3 and B8-4
+    #
+    #     :return: pandas dataframe and output msg for general navigation.
+    #     """
+    #     # get and format dataframe into required shape
+    #     df = self.df_data['solar_radiation_annual_incident'].loc[:, [i in output_values for i in
+    #                                                                  self.df_data['solar_radiation_annual_incident']
+    #                                                                  .columns.get_level_values(1)]]
+    #     df_formatted_table = df.unstack() \
+    #         .reset_index() \
+    #         .rename(columns={0: 'val', 'level_0': 'case'}) \
+    #         .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
+    #         .unstack() \
+    #         .reset_index()
+    #     df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
+    #     kw_cols = [i for i in df_formatted_table.columns if 'C' in i[1].lower()]
+    #     df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
+    #         lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
+    #     df_stats = pd.DataFrame()
+    #     sky_TC_cols = [i for i in kw_cols if i[0] in self.baseline_model_names]
+    #     df_stats['min'] = df_formatted_table[sky_TC_cols].min(axis=1).round(2)
+    #     df_stats['max'] = df_formatted_table[sky_TC_cols].max(axis=1).round(2)
+    #     df_stats['mean'] = df_formatted_table[sky_TC_cols].mean(axis=1).round(2)
+    #     df_stats['(max - min)\n/ mean %'] = df_formatted_table[sky_TC_cols].min(axis=1).round(2)
+    #     int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
+    #     df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
+    #     df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
+    #     df_formatted_table = df_formatted_table.fillna('')
+    #     column_formatting_names = {
+    #         'case600_sky_TC': 'C',
+    #         'case600_sky_month': 'Mo',
+    #         'case600_sky_day': 'Day',
+    #         'case600_sky_hour': 'Hr',
+    #     }
+    #     # reorder columns so test program is last
+    #     column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
+    #         i for i in df_formatted_table.columns if i[0] == self.model_name]
+    #     df_formatted_table = df_formatted_table[column_names]
+    #     column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
+    #                     for i in list(df_formatted_table.columns)]
+    #     column_names[0] = 'cases'
+    #     # make list of program names
+    #     program_list = sorted(
+    #         set(
+    #             [i[0] for i in df_formatted_table.columns if i[0]]),
+    #         key=[i[0] for i in df_formatted_table.columns].index)
+    #     program_rgx = re.compile(r'(^[a-zA-Z]+)')
+    #     program_list_short = []
+    #     for p in program_list:
+    #         result = program_rgx.search(p)
+    #         if result:
+    #             program_list_short.append(result.group(1))
+    #     df_formatted_table.columns = column_names
+    #     df_formatted_name_table = df_formatted_table[['cases']] \
+    #         .merge(
+    #         self.case_detailed_df,
+    #         how='left',
+    #         left_on=['cases', ],
+    #         right_index=True) \
+    #         .sort_values(['case_order']) \
+    #         .drop(['cases', 'case_order'], axis=1) \
+    #         .rename(columns={
+    #         'case_name': 'Case'})
+    #     # set fig size
+    #     fig, ax = plt.subplots(
+    #         nrows=1,
+    #         ncols=1,
+    #         figsize=(30, 20))
+    #     df_formatted_table = pd.concat(
+    #         [df_formatted_name_table,
+    #          df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
+    #          df_stats,
+    #          df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5,
+    #                                                                     len(df_formatted_table.columns) - 1)]],
+    #         axis=1)
+    #     tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
+    #     cell_dict = tab.get_celld()
+    #     for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
+    #         for j in range(df_formatted_table.shape[0] + 1):
+    #             cell_dict[(j, i)].set_width(w)
+    #             cell_dict[(j, i)].set_text_props(ha="center")
+    #     # Set annotations
+    #     for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
+    #         header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
+    #         header[0].get_text().set_text(hdr.upper())
+    #         header[0].PAD = 0.1
+    #         header[0].set_fontsize(16)
+    #         header[0].set_text_props(ha="left")
+    #         header[0].visible_edges = "open"
+    #         if idx != 29:
+    #             ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+    #         else:
+    #             ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
+    #     ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
+    #     # save the result
+    #     plt.suptitle(caption, fontsize=30)
+    #     self._make_image_from_plt(figure_name)
+    #     plt.subplots_adjust(top=0.92)
+    #     return fig, ax
 
     def render_section_5_2a_figure_b8_1(self):
         """
@@ -7872,7 +7872,7 @@ class GraphicsRenderer(Logger):
     def render_section_5_2a_table_b8_16_md(self):
         figure_name = 'section_5_2_figure_b8_16'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
 
         table = []
         averages = []
@@ -7950,7 +7950,7 @@ class GraphicsRenderer(Logger):
         row = ['Mean', 'T(C)', round(mean_of_averages, 1), round(mean_of_minimums, 1),
                round(mean_of_maximums, 1)]
         table.append(row)
-        row = ['(Max-Min)/Mean [^1]',' % ',
+        row = ['(Max-Min)/Mean [^1]', ' % ',
                round(100 * abs((maximum_of_averages - minimum_of_averages) / mean_of_averages), 1),
                round(100 * abs((maximum_of_minimums - minimum_of_minimums) / mean_of_minimums), 1),
                round(100 * abs((maximum_of_maximums - minimum_of_maximums) / mean_of_maximums), 1)]
