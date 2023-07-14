@@ -2559,15 +2559,15 @@ class GraphicsRenderer(Logger):
             tmp_data = []
             try:
                 tmp_data.append(1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2'] /
-                        json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South'][
+                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']['kWh/m2']
+                        / json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South'][
                             'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             try:
                 tmp_data.append(1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2'] /
-                        json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West'][
+                        json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']['kWh/m2']
+                        / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']['West'][
                             'kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
@@ -7829,8 +7829,8 @@ class GraphicsRenderer(Logger):
                 except (KeyError, ValueError):
                     tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
-            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' +
-                            json_obj['identifying_information']['program_organization'])
+            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n'
+                            + json_obj['identifying_information']['program_organization'])
 
             fig, ax = self._create_bar_plot(
                 data=data,
@@ -7901,12 +7901,12 @@ class GraphicsRenderer(Logger):
             # now work on the timestamp rows
             timestamp_row = ['', 'Mo Day Hr', '']  # include extra space for average column that doesn't have timestamp
             if not math.isnan(sky_600['Average']['C']):
-                timestamp_row.append(sky_600['Minimum']['Month'] + ' ' +
-                                     str(sky_600['Minimum']['Day']) + ' ' +
-                                     str(sky_600['Minimum']['Hour']))
-                timestamp_row.append(sky_600['Maximum']['Month'] + ' ' +
-                                     str(sky_600['Maximum']['Day']) + ' ' +
-                                     str(sky_600['Maximum']['Hour']))
+                timestamp_row.append(sky_600['Minimum']['Month'] + ' '
+                                     + str(sky_600['Minimum']['Day']) + ' '
+                                     + str(sky_600['Minimum']['Hour']))
+                timestamp_row.append(sky_600['Maximum']['Month'] + ' '
+                                     + str(sky_600['Maximum']['Day']) + ' '
+                                     + str(sky_600['Maximum']['Hour']))
 
             # if it is not the tested program, add it to the table
             if index < (len(self.json_data) - 1):

@@ -169,6 +169,7 @@ def create_markdown(input_file):
     md_file.close()
     return md_file.name
 
+
 def main(args=None):
     if hasattr(args, 'version') and args.version:
         version = get_property('__version__')
@@ -238,7 +239,7 @@ def main(args=None):
 
         # create a markdown file to list all figures and tables in the rendered folder
         if 'processed' in f.parts:
-            markdown_file = create_markdown(input_file=f)
+            create_markdown(input_file=f)
     return
 
 
