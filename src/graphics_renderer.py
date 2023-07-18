@@ -7874,14 +7874,15 @@ class GraphicsRenderer(Logger):
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
 
-        table = []
+        top_table = []
+        bottom_table = []
         averages = []
         minimums = []
         maximums = []
 
         header_row = ['Case', 'Parameter', 'Annual Hourly<br>Integrated Average', 'Annual Hourly<br>Integrated Minimum',
                       'Annual Hourly<br>Integrated Maximum']
-        table.append(header_row)
+        top_table.append(header_row)
         for index, (tst, json_obj) in enumerate(self.json_data.items()):
             sky_600 = json_obj['sky_temperature_output']['600']
             data_row = [json_obj['identifying_information']['software_name'], 'T(C)']
@@ -7899,7 +7900,7 @@ class GraphicsRenderer(Logger):
                 data_row.append(round(maximum, 1))
 
             # now work on the timestamp rows
-            timestamp_row = ['', 'Mo Day Hr', '']  # include extra space for average column that doesn't have timestamp
+            timestamp_row = [json_obj['identifying_information']['software_name'], 'Mo Day Hr', '']  # include extra space for average column that doesn't have timestamp
             if not math.isnan(sky_600['Average']['C']):
                 timestamp_row.append(sky_600['Minimum']['Month'] + ' '
                                      + str(sky_600['Minimum']['Day']) + ' '
@@ -7910,8 +7911,8 @@ class GraphicsRenderer(Logger):
 
             # if it is not the tested program, add it to the table
             if index < (len(self.json_data) - 1):
-                table.append(data_row)
-                table.append(timestamp_row)
+                top_table.append(data_row)
+                bottom_table.append(timestamp_row)
             else:
                 tested_program_data_row = data_row
                 tested_program_timestamp_row = timestamp_row
@@ -7926,8 +7927,8 @@ class GraphicsRenderer(Logger):
         averages.append(-5.9)
         minimums.append(-46.9)
         maximums.append(24.6)
-        table.append(row)
-        table.append(['', 'Mo Day Hr'])
+        top_table.append(row)
+        bottom_table.append(['', 'Mo Day Hr'])
 
         # now do the statistic rows
         minimum_of_averages = min(averages)
@@ -7935,29 +7936,32 @@ class GraphicsRenderer(Logger):
         minimum_of_maximums = min(maximums)
         row = ['Min', 'T(C)', round(minimum_of_averages, 1), round(minimum_of_minimums, 1),
                round(minimum_of_maximums, 1)]
-        table.append(row)
+        top_table.append(row)
 
         maximum_of_averages = max(averages)
         maximum_of_minimums = max(minimums)
         maximum_of_maximums = max(maximums)
         row = ['Max', 'T(C)', round(maximum_of_averages, 1), round(maximum_of_minimums, 1),
                round(maximum_of_maximums, 1)]
-        table.append(row)
+        top_table.append(row)
 
         mean_of_averages = sum(averages) / len(averages)
         mean_of_minimums = sum(minimums) / len(minimums)
         mean_of_maximums = sum(maximums) / len(maximums)
         row = ['Mean', 'T(C)', round(mean_of_averages, 1), round(mean_of_minimums, 1),
                round(mean_of_maximums, 1)]
-        table.append(row)
+        top_table.append(row)
         row = ['(Max-Min)/Mean [^1]', ' % ',
                round(100 * abs((maximum_of_averages - minimum_of_averages) / mean_of_averages), 1),
                round(100 * abs((maximum_of_minimums - minimum_of_minimums) / mean_of_minimums), 1),
                round(100 * abs((maximum_of_maximums - minimum_of_maximums) / mean_of_maximums), 1)]
-        table.append(row)
+        top_table.append(row)
         # now put in the tested program rows
-        table.append(tested_program_data_row)
-        table.append(tested_program_timestamp_row)
+        top_table.append(tested_program_data_row)
+        bottom_table.append(tested_program_timestamp_row)
 
+        table = top_table
+        table.append(['',]) #add blank row
+        table.extend(bottom_table)
         self._make_markdown_from_table(figure_name, caption, table, footnotes)
         return
