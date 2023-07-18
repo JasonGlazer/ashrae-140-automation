@@ -7829,8 +7829,8 @@ class GraphicsRenderer(Logger):
                 except (KeyError, ValueError):
                     tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
-            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n'
-                            + json_obj['identifying_information']['program_organization'])
+            programs.insert(idx, json_obj['identifying_information']['program_name_and_version'] + '\n' +
+                            json_obj['identifying_information']['program_organization'])
 
             fig, ax = self._create_bar_plot(
                 data=data,
@@ -7900,14 +7900,13 @@ class GraphicsRenderer(Logger):
                 data_row.append(round(maximum, 1))
 
             # now work on the timestamp rows
-            timestamp_row = [json_obj['identifying_information']['software_name'], 'Mo Day Hr', '']  # include extra space for average column that doesn't have timestamp
+            timestamp_row = [json_obj['identifying_information']['software_name'], 'Mo Day Hr',
+                             '']  # include extra space for average column that doesn't have timestamp
             if not math.isnan(sky_600['Average']['C']):
-                timestamp_row.append(sky_600['Minimum']['Month'] + ' '
-                                     + str(sky_600['Minimum']['Day']) + ' '
-                                     + str(sky_600['Minimum']['Hour']))
-                timestamp_row.append(sky_600['Maximum']['Month'] + ' '
-                                     + str(sky_600['Maximum']['Day']) + ' '
-                                     + str(sky_600['Maximum']['Hour']))
+                timestamp_row.append(sky_600['Minimum']['Month'] + ' ' + str(sky_600['Minimum']['Day']) + ' ' + str(
+                    sky_600['Minimum']['Hour']))
+                timestamp_row.append(sky_600['Maximum']['Month'] + ' ' + str(sky_600['Maximum']['Day']) + ' ' + str(
+                    sky_600['Maximum']['Hour']))
 
             # if it is not the tested program, add it to the table
             if index < (len(self.json_data) - 1):
@@ -7961,7 +7960,7 @@ class GraphicsRenderer(Logger):
         bottom_table.append(tested_program_timestamp_row)
 
         table = top_table
-        table.append(['',]) #add blank row
+        table.append(['', ])  # add blank row
         table.extend(bottom_table)
         self._make_markdown_from_table(figure_name, caption, table, footnotes)
         return
