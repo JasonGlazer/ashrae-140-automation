@@ -7927,6 +7927,8 @@ class GraphicsRenderer(Logger):
         minimums.append(-46.9)
         maximums.append(24.6)
         top_table.append(row)
+        top_table.append(['', ])  # add blank row
+
         bottom_table.append(['', 'Mo Day Hr'])
 
         # now do the statistic rows
@@ -7956,7 +7958,9 @@ class GraphicsRenderer(Logger):
                round(100 * abs((maximum_of_maximums - minimum_of_maximums) / mean_of_maximums), 1)]
         top_table.append(row)
         # now put in the tested program rows
+        top_table.append(['', ])  # add blank row
         top_table.append(tested_program_data_row)
+        bottom_table.append(['', ])  # add blank row
         bottom_table.append(tested_program_timestamp_row)
 
         table = top_table
