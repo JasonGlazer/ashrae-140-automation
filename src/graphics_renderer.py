@@ -580,8 +580,11 @@ class GraphicsRenderer(Logger):
             row.append(formatting_string.format(row_max))
             row_mean = sum(reference_data_row) / len(reference_data_row)
             row.append(formatting_string.format(row_mean))
-            row_dev = abs((row_max - row_min) / row_mean) * 100
-            row.append(formatting_string.format(row_dev))
+            if row_mean != 0:
+                row_dev = abs((row_max - row_min) / row_mean) * 100
+                row.append(formatting_string.format(row_dev))
+            else:
+                row.append('-')
             row.append('')
             row.append(formatting_string.format(data_row[-1]))  # now add the last column back
             text_table_with_stats.append(row)
@@ -8010,6 +8013,26 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['monthly_conditioned_zone_loads']['600'][month]['total_heating_kwh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m1b(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m1b'
+        caption = 'Table B8-M1b. Monthly Heating Loads (kWh), Case 900'
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['monthly_conditioned_zone_loads']['900'][month]['total_heating_kwh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
