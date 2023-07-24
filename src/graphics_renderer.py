@@ -562,16 +562,26 @@ class GraphicsRenderer(Logger):
         return
 
     @staticmethod
-    def _add_stats_to_table(row_headings, column_headings, data_table, digits=1):
+    def _add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=[]):
         formatting_string = '{:.' + str(digits) + 'f}'
-        final_column_headings = column_headings[:-1]
+        if time_stamps:
+            final_column_headings = [column_headings[0],]
+            for column_heading in column_headings[1:-1]:
+                final_column_headings.append(column_heading + ' value day hr')
+        else:
+            final_column_headings = column_headings[:-1]
         final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % [^1]', ''])
         final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
-        for indx, data_row in enumerate(data_table):
-            row = [row_headings[indx], ]  # first add the heading for the row
-            for item in data_row[:-1]:
-                row.append(formatting_string.format(item))
+        for row_index, data_row in enumerate(data_table):
+            row = [row_headings[row_index], ]  # first add the heading for the row
+            for column_index, item in enumerate(data_row[:-1]):
+                data_as_string = formatting_string.format(item)
+                # if time stamps were provided, add them to the string for the data
+                if time_stamps:
+                    stamp = time_stamps[row_index][column_index]
+                    data_as_string += ' ' + stamp
+                row.append(data_as_string)
             reference_data_row = data_row[:-1]  # remove the last item which is the tested software
             row.append('')
             row_min = min(reference_data_row)
@@ -8078,6 +8088,33 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
+    def render_section_5_2a_table_b8_m3a(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m3a'
+        caption = 'Table B8-M3a. Monthly Hourly Integrated Peak Heating Loads (kW), Case 600'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['600'][month]
+                data_row.append(monthly_results['peak_heating_kw'])
+                day = int(monthly_results['peak_heating_day'])
+                hour = int(monthly_results['peak_heating_hour'])
+                time_stamp_row.append(f'{day} {hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
     def render_section_5_2a_table_b8_m5a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m5a'
         caption = 'Table B8-M5a. Monthly Load 600-900 Sensitivity Tests - Annual Heating (kWh)'
@@ -8148,28 +8185,4 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m5d(self):
-        figure_name = 'section_5_2_table_b8_m5d'
-        caption = 'Table B8-M5d. Monthly Load 600-900 Sensitivity Tests - Peak Sensible Cooling (kW)'
-        data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        column_headings = ['Month']
-        # create column headings
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        # create table of values
-        for month in row_headings:
-            row = []
-            for tst, json_obj in self.json_data.items():
-                value_600 = float(json_obj['monthly_conditioned_zone_loads']['600'][month]['peak_cooling_kw'])
-                if math.isnan(value_600):
-                    value_600 = 0
-                value_900 = float(json_obj['monthly_conditioned_zone_loads']['900'][month]['peak_cooling_kw'])
-                if math.isnan(value_900):
-                    value_900 = 0
-                row.append(value_600 - value_900)
-            data_table.append(row)
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, 3)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        return
+
