@@ -615,6 +615,19 @@ class GraphicsRenderer(Logger):
                 text_table_with_stats.append(row)
         return text_table_with_stats
 
+    def _int_0_if_nan(self, value_in):
+        """
+        Protected int() and returns zero if not-a-number (NAN)
+
+        :param value_in: a numeric value
+        :return: int() of value_in or 0 if value_in is NAN
+        """
+        if not math.isnan(value_in):
+            value_out = int(value_in)
+        else:
+            value_out = 0
+        return value_out
+
     @staticmethod
     def _make_table_from_df(df, ax, case_col_width=2, cell_text=[]):
         """
@@ -8120,6 +8133,33 @@ class GraphicsRenderer(Logger):
                 data_row.append(monthly_results['peak_heating_kw'])
                 day = int(monthly_results['peak_heating_day'])
                 hour = int(monthly_results['peak_heating_hour'])
+                time_stamp_row.append(f'{day}-{hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m3b(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m3b'
+        caption = 'Table B8-M3b. Monthly Hourly Integrated Peak Heating Loads (kW), Case 900'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['900'][month]
+                data_row.append(monthly_results['peak_heating_kw'])
+                day = self._int_0_if_nan(monthly_results['peak_heating_day'])
+                hour = self._int_0_if_nan(monthly_results['peak_heating_hour'])
                 time_stamp_row.append(f'{day}-{hour}')
             data_table.append(data_row)
             time_stamp_table.append(time_stamp_row)
