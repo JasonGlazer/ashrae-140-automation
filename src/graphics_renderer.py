@@ -600,9 +600,9 @@ class GraphicsRenderer(Logger):
             text_table_with_stats.append(row)
         # now add the rows with time stamps
         if time_stamps:
-            text_table_with_stats.append(['',])  # add blank line
-            text_table_with_stats.append(['Time Stamps',])  # add blank line
-            mid_header = ['Month',]
+            text_table_with_stats.append(['', ])  # add blank line
+            text_table_with_stats.append(['Time Stamps', ])  # add blank line
+            mid_header = ['Month', ]
             mid_header.extend(['Day-Hr' for x in column_headings[:-2]])
             mid_header.extend(['' for x in range(6)])
             mid_header.append('Day-Hr')
@@ -8160,6 +8160,60 @@ class GraphicsRenderer(Logger):
                 data_row.append(monthly_results['peak_heating_kw'])
                 day = self._int_0_if_nan(monthly_results['peak_heating_day'])
                 hour = self._int_0_if_nan(monthly_results['peak_heating_hour'])
+                time_stamp_row.append(f'{day}-{hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m4a(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m4a'
+        caption = 'Table B8-M4a. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 600'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['600'][month]
+                data_row.append(monthly_results['peak_cooling_kw'])
+                day = int(monthly_results['peak_cooling_day'])
+                hour = int(monthly_results['peak_cooling_hour'])
+                time_stamp_row.append(f'{day}-{hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m4b(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m4b'
+        caption = 'Table B8-M4b. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 900'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['900'][month]
+                data_row.append(monthly_results['peak_cooling_kw'])
+                day = self._int_0_if_nan(monthly_results['peak_cooling_day'])
+                hour = self._int_0_if_nan(monthly_results['peak_cooling_hour'])
                 time_stamp_row.append(f'{day}-{hour}')
             data_table.append(data_row)
             time_stamp_table.append(time_stamp_row)
