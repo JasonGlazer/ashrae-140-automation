@@ -563,25 +563,25 @@ class GraphicsRenderer(Logger):
 
     @staticmethod
     def _add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=[]):
+        """
+        Add statisics to a table as well as merging the headings and time stamps
+
+        :param row_headings: a list of headings for each row of the table
+        :param column_headings: a list of headings for each column of the table including the top left
+        :param data_table: a list of lists where the outer list contains rows and each row list contains values
+        :param digits: the number of digits shown to the right of the decimal point
+        :param time_stamps: a list of lists where the outer list contains rows and each row list contains time stamps
+        :return: merged table (list of lists) containing text for every column and row formatted and merged
+        """
         formatting_string = '{:.' + str(digits) + 'f}'
-        if time_stamps:
-            final_column_headings = [column_headings[0], ]
-            for column_heading in column_headings[1:-1]:
-                final_column_headings.append(column_heading + ' value day hr')
-        else:
-            final_column_headings = column_headings[:-1]
+        final_column_headings = column_headings[:-1]
         final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % [^1]', ''])
         final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
             row = [row_headings[row_index], ]  # first add the heading for the row
-            for column_index, item in enumerate(data_row[:-1]):
-                data_as_string = formatting_string.format(item)
-                # if time stamps were provided, add them to the string for the data
-                if time_stamps:
-                    stamp = time_stamps[row_index][column_index]
-                    data_as_string += ' ' + stamp
-                row.append(data_as_string)
+            for item in data_row[:-1]:
+                row.append(formatting_string.format(item))
             reference_data_row = data_row[:-1]  # remove the last item which is the tested software
             row.append('')
             row_min = min(reference_data_row)
@@ -598,6 +598,21 @@ class GraphicsRenderer(Logger):
             row.append('')
             row.append(formatting_string.format(data_row[-1]))  # now add the last column back
             text_table_with_stats.append(row)
+        # now add the rows with time stamps
+        if time_stamps:
+            text_table_with_stats.append(['',])  # add blank line
+            text_table_with_stats.append(['Time Stamps',])  # add blank line
+            mid_header = ['Month',]
+            mid_header.extend(['Day-Hr' for x in column_headings[:-2]])
+            mid_header.extend(['' for x in range(6)])
+            mid_header.append('Day-Hr')
+            text_table_with_stats.append(mid_header)
+            for row_index, time_row in enumerate(time_stamps):
+                row = [row_headings[row_index], ]  # first add the heading for the row
+                row.extend(time_row[:-1])
+                row.extend(['' for x in range(6)])
+                row.append(time_row[-1])
+                text_table_with_stats.append(row)
         return text_table_with_stats
 
     @staticmethod
@@ -8105,7 +8120,7 @@ class GraphicsRenderer(Logger):
                 data_row.append(monthly_results['peak_heating_kw'])
                 day = int(monthly_results['peak_heating_day'])
                 hour = int(monthly_results['peak_heating_hour'])
-                time_stamp_row.append(f'{day} {hour}')
+                time_stamp_row.append(f'{day}-{hour}')
             data_table.append(data_row)
             time_stamp_table.append(time_stamp_row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
