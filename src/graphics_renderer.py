@@ -8216,10 +8216,71 @@ class GraphicsRenderer(Logger):
                 time_stamp_row.append(f'{month} {day}-{hour}')
             data_table.append(row)
             time_stamp_table.append(time_stamp_row)
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=time_stamp_table)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
+    def render_section_5_2a_table_b8_5b(self):
+        figure_name = 'section_5_2_table_b8_5b'
+        caption = 'Table B8-5b. Free-Float Temperature Output Minimum Annual Hourly Integrated Zone Temperature (C)'
+        free_float_cases = {
+            '600FF': '600FF - Low Mass Building with South Windows',
+            '900FF': '900FF - High Mass Building with South Windows',
+            '650FF': '650FF - Case 600FF with Night Ventilation',
+            '950FF': '950FF - Case 900FF with Night Ventilation',
+            '680FF': '680FF - Case 600FF with More Insulation',
+            '980FF': '980FF - Case 900FF with More Insulation',
+            '960': '960 - Sunspace'}
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(free_float_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in free_float_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['free_float_case_zone_temperatures'][case]
+                row.append(case_json['minimum_temperature'])
+                month = case_json['minimum_month']
+                day = self._int_0_if_nan(case_json['minimum_day'])
+                hour = self._int_0_if_nan(case_json['minimum_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_5c(self):
+        figure_name = 'section_5_2_table_b8_5c'
+        caption = 'Table B8-5c. Free-Float Temperature Output Average Annual Hourly Integrated Zone Temperature (C)'
+        free_float_cases = {
+            '600FF': '600FF - Low Mass Building with South Windows',
+            '900FF': '900FF - High Mass Building with South Windows',
+            '650FF': '650FF - Case 600FF with Night Ventilation',
+            '950FF': '950FF - Case 900FF with Night Ventilation',
+            '680FF': '680FF - Case 600FF with More Insulation',
+            '980FF': '980FF - Case 900FF with More Insulation',
+            '960': '960 - Sunspace'}
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(free_float_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in free_float_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['free_float_case_zone_temperatures'][case]
+                row.append(case_json['average_temperature'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
 
     def render_section_5_2a_table_b8_m1a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m1a'
