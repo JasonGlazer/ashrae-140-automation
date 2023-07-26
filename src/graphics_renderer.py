@@ -1468,7 +1468,7 @@ class GraphicsRenderer(Logger):
         plt.subplots_adjust(top=0.92)
         return
 
-    def render_section_5_2a_table_b8_9(
+    def render_section_5_2a_table_b8_9_old(
             self,
             figure_name='section_5_2_a_table_b8_9',
             caption='Table B8-9. Low Mass In-Depth (Cases 395 Thru 440) Sensitivity Tests'):
@@ -8568,7 +8568,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_8a(self):
         figure_name = 'section_5_2_table_b8_8a'
-        caption = 'Table B8-8a. Low Mass In-Depth Sensitivity Tests - Annual Heating (MWh)'
+        caption = 'Table B8-8a. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
             ('210', '200'): '210-200 Ext IR (Int IR "off")',
@@ -8608,7 +8608,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_8b(self):
         figure_name = 'section_5_2_table_b8_8b'
-        caption = 'Table B8-8b. Low Mass In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)'
+        caption = 'Table B8-8b. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
             ('210', '200'): '210-200 Ext IR (Int IR "off")',
@@ -8648,7 +8648,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_8c(self):
         figure_name = 'section_5_2_table_b8_8c'
-        caption = 'Table B8-8c. Low Mass In-Depth Sensitivity Tests - Peak Heating (kW)'
+        caption = 'Table B8-8c. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
             ('210', '200'): '210-200 Ext IR (Int IR "off")',
@@ -8688,7 +8688,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_8d(self):
         figure_name = 'section_5_2_table_b8_8d'
-        caption = 'Table B8-8d. Low Mass In-Depth Sensitivity Tests - Peak Sensible Cooling (kW)'
+        caption = 'Table B8-8d. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
             ('210', '200'): '210-200 Ext IR (Int IR "off")',
@@ -8704,6 +8704,154 @@ class GraphicsRenderer(Logger):
             ('290', '270'): '290-270 South Shading',
             ('300', '270'): '300-270 E&W Windows',
             ('310', '300'): '310-300 E&W Shading'}
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
+                if math.isnan(case_a_value):
+                    case_a_value = 0
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
+                if math.isnan(case_b_value):
+                    case_b_value = 0
+                row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9a(self):
+        figure_name = 'section_5_2_table_b8_9a'
+        caption = 'Table B8-9a. Low Mass In-Depth (Cases 395 thru 440) sensitivity Tests - Annual Heating (MWh)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
+                if math.isnan(case_a_value):
+                    case_a_value = 0
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
+                if math.isnan(case_b_value):
+                    case_b_value = 0
+                row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9b(self):
+        figure_name = 'section_5_2_table_b8_9b'
+        caption = 'Table B8-9b. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Annual Sensible Cooling (MWh)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
+                if math.isnan(case_a_value):
+                    case_a_value = 0
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
+                if math.isnan(case_b_value):
+                    case_b_value = 0
+                row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9c(self):
+        figure_name = 'section_5_2_table_b8_9c'
+        caption = 'Table B8-9c. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Heating (kW)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
+                if math.isnan(case_a_value):
+                    case_a_value = 0
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
+                if math.isnan(case_b_value):
+                    case_b_value = 0
+                row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9d(self):
+        figure_name = 'section_5_2_table_b8_9d'
+        caption = 'Table B8-9d. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Sensible Cooling (kW)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
         data_table = []
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
