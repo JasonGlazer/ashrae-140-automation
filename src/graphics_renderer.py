@@ -177,6 +177,55 @@ class GraphicsRenderer(Logger):
         self.colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'black', 'orange']
         self.markers = ['o', '^', 'h', 'x', 'D', '*', '>']
         self._get_data()
+
+        self.case_map = {
+            '600': '600 Base Case, South Windows',
+            '610': '610 S. Windows + Overhang',
+            '620': '620 East & West Windows',
+            '630': '630 E&W Windows + Overhang & Fins',
+            '640': '640 Case 600 with Htg Temp. Setback',
+            '650': '650 Case 600 with Night Ventilation',
+            '660': '660 Low-E Windows',
+            '670': '670 Single-Pane Windows',
+            '680': '680 Case 600 with Increased Insulation',
+            '685': '685 Case 600 with "20/20" Thermostat',
+            '695': '695 Case 685 with Increased Insulation',
+            '900': '900 South Windows',
+            '910': '910 S. Windows + Overhang',
+            '920': '920 East & West Windows',
+            '930': '930 E&W Windows + Overhang + Fins',
+            '940': '940 Case 900 with Htg Temp. Setback',
+            '950': '950 Case 900 with Night Ventilation',
+            '960': '960 Sunspace',
+            '980': '980 Case 900 with Increased Insulation',
+            '985': '985 Case 900 with "20/20" Thermostat',
+            '995': '995 Case 985 with Increased Insulation',
+            '195': '195 Solid Conduction',
+            '200': '200 Surface Convection (Int & Ext IR="off")',
+            '210': '210 Infrared Radiation (Int IR="off", Ext IR="on")',
+            '215': '215 Infrared Radiation (Int IR="on", Ext IR="off")',
+            '220': '220 In-Depth Base Case',
+            '230': '230 Infiltration',
+            '240': '240 Internal Gains',
+            '250': '250 Exterior Shortwave Absoptance',
+            '270': '270 South Solar Windows',
+            '280': '280 Cavity Albedo',
+            '290': '290 South Shading',
+            '300': '300 East/West Window',
+            '310': '310 East/West Shading',
+            '320': '320 Thermostat',
+            '395': '395 Low Mass Solid Conduction',
+            '400': '400 Low Mass High Cond. Wall Elements',
+            '410': '410 Low Mass Infiltration',
+            '420': '420 Low Mass Internal Gains',
+            '430': '430 Low Mass Ext. Shortwave Absoptance',
+            '440': '440 Low Mass Cavity Albedo',
+            '450': '450 Constant Interior and Exterior Surf Coeffs',
+            '460': '460 Constant Interior Surface Coefficients',
+            '470': '470 Constant Exterior Surface Coefficients',
+            '800': '800 High Mass Hig Cond. Wall Elements',
+            '810': '810 HIgh Mass Cavity Albedo'}
+
         return
 
     def _get_data(self):
@@ -688,7 +737,7 @@ class GraphicsRenderer(Logger):
         ax.axvline(x=1, color='black', linewidth=4, zorder=3)
         return tab
 
-    def render_section_5_2a_table_b8_1(
+    def render_section_5_2a_table_b8_1_old(
             self,
             output_value='annual_heating_MWh',
             figure_name='section_5_2_a_table_b8_1',
@@ -8031,6 +8080,24 @@ class GraphicsRenderer(Logger):
         table.append(['', ])  # add blank row
         table.extend(bottom_table)
         self._make_markdown_from_table(figure_name, caption, table, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_1(self):
+        figure_name = 'section_5_2_table_b8_1'
+        caption = 'Table B8-1. Annual Heating Loads (kWh), Case 600'
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['conditioned_zone_loads_non_free_float'][case]['annual_heating_MWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
     def render_section_5_2a_table_b8_m1a(self):  # case 600
