@@ -949,7 +949,7 @@ class GraphicsRenderer(Logger):
         plt.subplots_adjust(top=0.92)
         return fig, ax
 
-    def render_section_5_2a_table_b8_4(self):
+    def render_section_5_2a_table_b8_4_old(self):
         """
         Create dataframe from class dataframe object for table 5-2A B8-4
 
@@ -8128,7 +8128,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_3(self):
         figure_name = 'section_5_2_table_b8_3'
-        caption = 'Table B8-3. Annual Hourly Integrated Peak Loads (kWh)'
+        caption = 'Table B8-3. Annual Hourly Integrated Peak Heating Loads (kWh)'
         data_table = []
         time_stamp_table = []
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -8150,7 +8150,37 @@ class GraphicsRenderer(Logger):
             time_stamp_table.append(time_stamp_row)
         for blank_row in [44,35,21,11]:
             data_table.insert(blank_row,[])  # add blank line as separator
-            time_stamp_table.insert(blank_row,[])  
+            time_stamp_table.insert(blank_row,[])
+            row_headings.insert(blank_row, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_4(self):
+        figure_name = 'section_5_2_table_b8_4'
+        caption = 'Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['conditioned_zone_loads_non_free_float'][case]
+                row.append(case_json['peak_cooling_kW'])
+                month = case_json['peak_cooling_month']
+                day = self._int_0_if_nan(case_json['peak_cooling_day'])
+                hour = self._int_0_if_nan(case_json['peak_cooling_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        for blank_row in [44,35,21,11]:
+            data_table.insert(blank_row,[])  # add blank line as separator
+            time_stamp_table.insert(blank_row,[])
             row_headings.insert(blank_row, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
