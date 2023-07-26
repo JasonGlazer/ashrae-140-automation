@@ -629,23 +629,24 @@ class GraphicsRenderer(Logger):
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
             row = [row_headings[row_index], ]  # first add the heading for the row
-            for item in data_row[:-1]:
-                row.append(formatting_string.format(item))
-            reference_data_row = data_row[:-1]  # remove the last item which is the tested software
-            row.append('')
-            row_min = min(reference_data_row)
-            row.append(formatting_string.format(row_min))
-            row_max = max(reference_data_row)
-            row.append(formatting_string.format(row_max))
-            row_mean = sum(reference_data_row) / len(reference_data_row)
-            row.append(formatting_string.format(row_mean))
-            if row_mean != 0:
-                row_dev = abs((row_max - row_min) / row_mean) * 100
-                row.append('{:.1f}'.format(row_dev))
-            else:
-                row.append('-')
-            row.append('')
-            row.append(formatting_string.format(data_row[-1]))  # now add the last column back
+            if data_row:  # for blank rows just skip
+                for item in data_row[:-1]:
+                    row.append(formatting_string.format(item))
+                reference_data_row = data_row[:-1]  # remove the last item which is the tested software
+                row.append('')
+                row_min = min(reference_data_row)
+                row.append(formatting_string.format(row_min))
+                row_max = max(reference_data_row)
+                row.append(formatting_string.format(row_max))
+                row_mean = sum(reference_data_row) / len(reference_data_row)
+                row.append(formatting_string.format(row_mean))
+                if row_mean != 0:
+                    row_dev = abs((row_max - row_min) / row_mean) * 100
+                    row.append('{:.1f}'.format(row_dev))
+                else:
+                    row.append('-')
+                row.append('')
+                row.append(formatting_string.format(data_row[-1]))  # now add the last column back
             text_table_with_stats.append(row)
         # now add the rows with time stamps
         if time_stamps:
@@ -658,9 +659,10 @@ class GraphicsRenderer(Logger):
             text_table_with_stats.append(mid_header)
             for row_index, time_row in enumerate(time_stamps):
                 row = [row_headings[row_index], ]  # first add the heading for the row
-                row.extend(time_row[:-1])
-                row.extend(['' for x in range(6)])
-                row.append(time_row[-1])
+                if time_row:  # for blank rows just skip
+                    row.extend(time_row[:-1])
+                    row.extend(['' for x in range(6)])
+                    row.append(time_row[-1])
                 text_table_with_stats.append(row)
         return text_table_with_stats
 
@@ -823,7 +825,7 @@ class GraphicsRenderer(Logger):
         plt.subplots_adjust(top=0.92)
         return fig, ax
 
-    def render_section_5_2a_table_b8_2(self):
+    def render_section_5_2a_table_b8_2_old(self):
         """
         Create dataframe from class dataframe object for table 5-2A B8-2
 
@@ -8084,7 +8086,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_1(self):
         figure_name = 'section_5_2_table_b8_1'
-        caption = 'Table B8-1. Annual Heating Loads (kWh), Case 600'
+        caption = 'Table B8-1. Annual Heating Loads (kWh)'
         data_table = []
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
@@ -8096,9 +8098,34 @@ class GraphicsRenderer(Logger):
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['conditioned_zone_loads_non_free_float'][case]['annual_heating_MWh'])
             data_table.append(row)
+        for blank_row in [44,35,21,11]:
+            data_table.insert(blank_row,[])  # add blank line as separator
+            row_headings.insert(blank_row, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
+
+    def render_section_5_2a_table_b8_2(self):
+        figure_name = 'section_5_2_table_b8_2'
+        caption = 'Table B8-2. Annual Sensible Cooling Loads (kWh)'
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['conditioned_zone_loads_non_free_float'][case]['annual_cooling_MWh'])
+            data_table.append(row)
+        for blank_row in [44,35,21,11]:
+            data_table.insert(blank_row,[])  # add blank line as separator
+            row_headings.insert(blank_row, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
 
     def render_section_5_2a_table_b8_m1a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m1a'
