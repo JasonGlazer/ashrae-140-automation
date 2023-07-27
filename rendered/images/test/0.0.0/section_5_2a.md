@@ -287,6 +287,36 @@
 [^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 [^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation
 
+# Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins [^2]
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 610/600 South |0.218 |0.194 |0.176 |0.196 |0.224 |0.195 | |0.176 |0.224 |0.201 |24.0 | |0.196 |
+| 630/620 West |0.268 |nan |0.299 |0.278 |0.342 |0.286 | |0.268 |0.342 |nan |nan | |0.278 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+[^2]: (1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))
+
+# Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| Horizontal |1670 |1663 |1667 |1664 |1665 |1669 | |1663 |1670 |1666 |0.4 | |1664 |
+| North |453 |399 |477 |438 |432 |440 | |399 |477 |440 |17.8 | |438 |
+| East |1061 |1027 |1017 |1062 |1054 |1068 | |1017 |1068 |1048 |4.9 | |1062 |
+| South |1387 |1317 |1291 |1370 |1363 |1384 | |1291 |1387 |1352 |7.1 | |1370 |
+| West |997 |903 |906 |967 |961 |974 | |903 |997 |951 |9.9 | |967 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 600 South |820 |826 |805 |804 |814 |823 | |804 |826 |815 |2.6 | |804 |
+| 620 West |598 |nan |569 |581 |592 |624 | |569 |624 |nan |nan | |581 |
+| 660 South |447 |501 |506 |436 |443 |448 | |436 |506 |464 |15.2 | |436 |
+| 670 South |1037 |988 |994 |1024 |1028 |1039 | |988 |1039 |1018 |5.0 | |1024 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 # Table B8-2. Annual Sensible Cooling Loads (kWh)
 | Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|

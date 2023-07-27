@@ -1777,7 +1777,7 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-    def render_section_5_2a_table_b8_12(
+    def render_section_5_2a_table_b8_12_old(
             self,
             figure_name='section_5_2_a_table_b8_12',
             caption='Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'):
@@ -1898,7 +1898,7 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-    def render_section_5_2a_table_b8_13(
+    def render_section_5_2a_table_b8_13_old(
             self,
             figure_name='section_5_2_a_table_b8_13',
             caption='Table B8-13. Case 600 Annual Incident Solar Radiation ($kWh/m^{2}$)'):
@@ -1994,7 +1994,7 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-    def render_section_5_2a_table_b8_14(
+    def render_section_5_2a_table_b8_14_old(
             self,
             output_value='solar_radiation_unshaded_annual_transmitted',
             figure_name='section_5_2_a_table_b8_14',
@@ -9010,7 +9010,7 @@ class GraphicsRenderer(Logger):
         }
         data_table = []
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',
-                     '[^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation',]
+                     '[^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation']
         row_headings = list(transmitted_cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -9029,6 +9029,81 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
+    def render_section_5_2a_table_b8_12(self):
+        figure_name = 'section_5_2_table_b8_12'
+        caption = 'Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins [^2]'
+        coefficient_cases = {
+            '610/600 South': ('610', '600', 'South'),
+            '630/620 West': ('630', '620', 'West')}
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',
+                     '[^2]: (1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))']
+        row_headings = list(coefficient_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_shaded, case_unshaded, case_direction) in coefficient_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                shaded = json_obj['solar_radiation_shaded_annual_transmitted'][case_shaded]['Surface'][case_direction]['kWh/m2']
+                unshaded = json_obj['solar_radiation_unshaded_annual_transmitted'][case_unshaded]['Surface'][case_direction]['kWh/m2']
+                if unshaded != 0:
+                    row.append(1 - (float(shaded)/float(unshaded)))
+                else:
+                    row.append('')
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_13(self):
+        figure_name = 'section_5_2_table_b8_13'
+        caption = 'Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)'
+        directions = {
+            'HORZ.': 'Horizontal',
+            'NORTH': 'North',
+            'EAST': 'East',
+            'SOUTH': 'South',
+            'WEST': 'West',
+        }
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+        row_headings = list(directions.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case_direction in directions.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['solar_radiation_annual_incident']['600']['Surface'][case_direction]['kWh/m2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_14(self):
+        figure_name = 'section_5_2_table_b8_14'
+        caption = 'Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)'
+        transmitted_cases = {
+            '600 South': ('600', 'South'),
+            '620 West': ('620', 'West'),
+            '660 South': ('660', 'South'),
+            '670 South': ('670', 'South')
+        }
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+        row_headings = list(transmitted_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_num, case_direction) in transmitted_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['solar_radiation_unshaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
 
     def render_section_5_2a_table_b8_m1a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m1a'
