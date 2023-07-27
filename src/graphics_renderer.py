@@ -2095,7 +2095,7 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-    def render_section_5_2a_table_b8_15(self):
+    def render_section_5_2a_table_b8_15_old(self):
         """
         Create dataframe from class dataframe object for table 5-2A B8-15
 
@@ -9100,6 +9100,28 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['solar_radiation_unshaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_15(self):
+        figure_name = 'section_5_2_table_b8_15'
+        caption = 'Table B8-15. Annual Transmitted Solar Radiation - Shaded (kWh/m2)'
+        transmitted_cases = {
+            '610 South': ('610', 'South'),
+            '630 West': ('630', 'West'),
+        }
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+        row_headings = list(transmitted_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_num, case_direction) in transmitted_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['solar_radiation_shaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
