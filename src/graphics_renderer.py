@@ -687,7 +687,7 @@ class GraphicsRenderer(Logger):
         """
         list_out = []
         for item in list_in:
-            if type(item) == int or type(item) ==float:
+            if type(item) == int or type(item) == float:
                 if not math.isnan(item):
                     list_out.append(item)
             elif type(item) == str:
@@ -9037,7 +9037,7 @@ class GraphicsRenderer(Logger):
                 incident_600 = json_obj['solar_radiation_annual_incident']['600']['Surface'][case_direction.upper()]['kWh/m2']
                 transmitted_value = json_obj['solar_radiation_unshaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2']
                 if incident_600 != 0:
-                    row.append(float(transmitted_value)/float(incident_600))
+                    row.append(float(transmitted_value) / float(incident_600))
                 else:
                     row.append('')
             data_table.append(row)
@@ -9064,7 +9064,7 @@ class GraphicsRenderer(Logger):
                 shaded = json_obj['solar_radiation_shaded_annual_transmitted'][case_shaded]['Surface'][case_direction]['kWh/m2']
                 unshaded = json_obj['solar_radiation_unshaded_annual_transmitted'][case_unshaded]['Surface'][case_direction]['kWh/m2']
                 if unshaded != 0:
-                    row.append(1 - (float(shaded)/float(unshaded)))
+                    row.append(1 - (float(shaded) / float(unshaded)))
                 else:
                     row.append('')
             data_table.append(row)
@@ -9083,7 +9083,7 @@ class GraphicsRenderer(Logger):
             'WEST': 'West',
         }
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(directions.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -9107,7 +9107,7 @@ class GraphicsRenderer(Logger):
             '670 South': ('670', 'South')
         }
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(transmitted_cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
