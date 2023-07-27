@@ -6014,7 +6014,7 @@ class GraphicsRenderer(Logger):
         return fig, ax
 
     def render_section_5_2a_table_b8_16_alt(self):
-        figure_name = 'section_5_2_figure_b8_16_alt'
+        figure_name = 'section_5_2_table_b8_16_alt'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
 
@@ -6114,7 +6114,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_1(self):
-        figure_name = 'section_5_2_table_b8_1'
+        figure_name = 'section_5_2_table_b8_01'
         caption = 'Table B8-1. Annual Heating Loads (kWh)'
         data_table = []
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -6135,7 +6135,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_2(self):
-        figure_name = 'section_5_2_table_b8_2'
+        figure_name = 'section_5_2_table_b8_02'
         caption = 'Table B8-2. Annual Sensible Cooling Loads (kWh)'
         data_table = []
         footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -6156,7 +6156,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_3(self):
-        figure_name = 'section_5_2_table_b8_3'
+        figure_name = 'section_5_2_table_b8_03'
         caption = 'Table B8-3. Annual Hourly Integrated Peak Heating Loads (kWh)'
         data_table = []
         time_stamp_table = []
@@ -6186,7 +6186,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_4(self):
-        figure_name = 'section_5_2_table_b8_4'
+        figure_name = 'section_5_2_table_b8_04'
         caption = 'Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)'
         data_table = []
         time_stamp_table = []
@@ -6216,7 +6216,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_5a(self):
-        figure_name = 'section_5_2_table_b8_5a'
+        figure_name = 'section_5_2_table_b8_05a'
         caption = 'Table B8-5a. Free-Float Temperature Output Maximum Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
             '600FF': '600FF - Low Mass Building with South Windows',
@@ -6250,7 +6250,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_5b(self):
-        figure_name = 'section_5_2_table_b8_5b'
+        figure_name = 'section_5_2_table_b8_05b'
         caption = 'Table B8-5b. Free-Float Temperature Output Minimum Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
             '600FF': '600FF - Low Mass Building with South Windows',
@@ -6284,7 +6284,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_5c(self):
-        figure_name = 'section_5_2_table_b8_5c'
+        figure_name = 'section_5_2_table_b8_05c'
         caption = 'Table B8-5c. Free-Float Temperature Output Average Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
             '600FF': '600FF - Low Mass Building with South Windows',
@@ -6311,7 +6311,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_6a(self):
-        figure_name = 'section_5_2_table_b8_6a'
+        figure_name = 'section_5_2_table_b8_06a'
         caption = 'Table B8-6a. Low Mass Basic Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Heat, S. Shade',
@@ -6345,7 +6345,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_6b(self):
-        figure_name = 'section_5_2_table_b8_6b'
+        figure_name = 'section_5_2_table_b8_06b'
         caption = 'Table B8-6b. Low Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Cool, S. Shade',
@@ -6380,7 +6380,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_6c(self):
-        figure_name = 'section_5_2_table_b8_6c'
+        figure_name = 'section_5_2_table_b8_06c'
         caption = 'Table B8-6c. Low Mass Basic Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Heat, S. Shade',
@@ -6414,7 +6414,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_6d(self):
-        figure_name = 'section_5_2_table_b8_6d'
+        figure_name = 'section_5_2_table_b8_06d'
         caption = 'Table B8-6d. Low Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Cool, S. Shade',
@@ -6449,7 +6449,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_7a(self):
-        figure_name = 'section_5_2_table_b8_7a'
+        figure_name = 'section_5_2_table_b8_07a'
         caption = 'Table B8-7a. High Mass Basic Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Heat',
@@ -6483,7 +6483,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_7b(self):
-        figure_name = 'section_5_2_table_b8_7b'
+        figure_name = 'section_5_2_table_b8_07b'
         caption = 'Table B8-7b. High Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Cool',
@@ -6518,7 +6518,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_7c(self):
-        figure_name = 'section_5_2_table_b8_7c'
+        figure_name = 'section_5_2_table_b8_07c'
         caption = 'Table B8-7c. High Mass Basic Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Heat',
@@ -6552,7 +6552,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_7d(self):
-        figure_name = 'section_5_2_table_b8_7d'
+        figure_name = 'section_5_2_table_b8_07d'
         caption = 'Table B8-7d. High Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Cool',
@@ -6587,7 +6587,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_8a(self):
-        figure_name = 'section_5_2_table_b8_8a'
+        figure_name = 'section_5_2_table_b8_08a'
         caption = 'Table B8-8a. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6626,7 +6626,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_8b(self):
-        figure_name = 'section_5_2_table_b8_8b'
+        figure_name = 'section_5_2_table_b8_08b'
         caption = 'Table B8-8b. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6665,7 +6665,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_8c(self):
-        figure_name = 'section_5_2_table_b8_8c'
+        figure_name = 'section_5_2_table_b8_08c'
         caption = 'Table B8-8c. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6704,7 +6704,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_8d(self):
-        figure_name = 'section_5_2_table_b8_8d'
+        figure_name = 'section_5_2_table_b8_08d'
         caption = 'Table B8-8d. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6743,7 +6743,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_9a(self):
-        figure_name = 'section_5_2_table_b8_9a'
+        figure_name = 'section_5_2_table_b8_09a'
         caption = 'Table B8-9a. Low Mass In-Depth (Cases 395 thru 440) sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -6779,7 +6779,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_9b(self):
-        figure_name = 'section_5_2_table_b8_9b'
+        figure_name = 'section_5_2_table_b8_09b'
         caption = 'Table B8-9b. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -6815,7 +6815,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_9c(self):
-        figure_name = 'section_5_2_table_b8_9c'
+        figure_name = 'section_5_2_table_b8_09c'
         caption = 'Table B8-9c. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -6851,7 +6851,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_9d(self):
-        figure_name = 'section_5_2_table_b8_9d'
+        figure_name = 'section_5_2_table_b8_09d'
         caption = 'Table B8-9d. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -7157,7 +7157,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_5_2a_table_b8_16(self):
-        figure_name = 'section_5_2_figure_b8_16'
+        figure_name = 'section_5_2_table_b8_16'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
         cases = {
             'Annual Hourly Integrated Average': 'Average',

@@ -1,173 +1,4 @@
 # Section 5-2A  
-![table 1](images/RESULTS5-2A-section_5_2_a_table_b8_1.png)
-![table 2](images/RESULTS5-2A-section_5_2_a_table_b8_2.png)
-![table 3](images/RESULTS5-2A-section_5_2_a_table_b8_3.png)
-![table 4](images/RESULTS5-2A-section_5_2_a_table_b8_4.png)
-![table 5](images/RESULTS5-2A-section_5_2_a_table_b8_5.png)
-![table 6](images/RESULTS5-2A-section_5_2_a_table_b8_6.png)
-![table 7](images/RESULTS5-2A-section_5_2_a_table_b8_7.png)
-![table 8](images/RESULTS5-2A-section_5_2_a_table_b8_8.png)
-![table 9](images/RESULTS5-2A-section_5_2_a_table_b8_9.png)
-![table 10](images/RESULTS5-2A-section_5_2_a_table_b8_10.png)
-![table 11](images/RESULTS5-2A-section_5_2_a_table_b8_11.png)
-![table 12](images/RESULTS5-2A-section_5_2_a_table_b8_12.png)
-![table 13](images/RESULTS5-2A-section_5_2_a_table_b8_13.png)
-![table 14](images/RESULTS5-2A-section_5_2_a_table_b8_14.png)
-![table 15](images/RESULTS5-2A-section_5_2_a_table_b8_15.png)
-![figure 1](images/RESULTS5-2A-section_5_2_a_figure_b8_1.png)
-![figure 2](images/RESULTS5-2A-section_5_2_a_figure_b8_2.png)
-![figure 3](images/RESULTS5-2A-section_5_2_a_figure_b8_3.png)
-![figure 4](images/RESULTS5-2A-section_5_2_a_figure_b8_4.png)
-![figure 5](images/RESULTS5-2A-section_5_2_a_figure_b8_5.png)
-![figure 6](images/RESULTS5-2A-section_5_2_a_figure_b8_6.png)
-![figure 7](images/RESULTS5-2A-section_5_2_a_figure_b8_7.png)
-![figure 8](images/RESULTS5-2A-section_5_2_a_figure_b8_8.png)
-![figure 9](images/RESULTS5-2A-section_5_2_a_figure_b8_9.png)
-![figure 10](images/RESULTS5-2A-section_5_2_a_figure_b8_10.png)
-![figure 11](images/RESULTS5-2A-section_5_2_a_figure_b8_11.png)
-![figure 12](images/RESULTS5-2A-section_5_2_a_figure_b8_12.png)
-![figure 13](images/RESULTS5-2A-section_5_2_a_figure_b8_13.png)
-![figure 14](images/RESULTS5-2A-section_5_2_a_figure_b8_14.png)
-![figure 15](images/RESULTS5-2A-section_5_2_a_figure_b8_15.png)
-![figure 16](images/RESULTS5-2A-section_5_2_a_figure_b8_16.png)
-![figure 17](images/RESULTS5-2A-section_5_2_a_figure_b8_17.png)
-![figure 18](images/RESULTS5-2A-section_5_2_a_figure_b8_18.png)
-![figure 19](images/RESULTS5-2A-section_5_2_a_figure_b8_19.png)
-![figure 20](images/RESULTS5-2A-section_5_2_a_figure_b8_20.png)
-![figure 21](images/RESULTS5-2A-section_5_2_a_figure_b8_21.png)
-![figure 22](images/RESULTS5-2A-section_5_2_a_figure_b8_22.png)
-![figure 23](images/RESULTS5-2A-section_5_2_a_figure_b8_23.png)
-![figure 24](images/RESULTS5-2A-section_5_2_a_figure_b8_24.png)
-![figure 25](images/RESULTS5-2A-section_5_2_a_figure_b8_25.png)
-![figure 26](images/RESULTS5-2A-section_5_2_a_figure_b8_26.png)
-![figure 27](images/RESULTS5-2A-section_5_2_a_figure_b8_27.png)
-![figure 28](images/RESULTS5-2A-section_5_2_a_figure_b8_28.png)
-![figure 29](images/RESULTS5-2A-section_5_2_a_figure_b8_29.png)
-![figure 30](images/RESULTS5-2A-section_5_2_a_figure_b8_30.png)
-![figure 31](images/RESULTS5-2A-section_5_2_a_figure_b8_31.png)
-![figure 32](images/RESULTS5-2A-section_5_2_a_figure_b8_32.png)
-![figure 33](images/RESULTS5-2A-section_5_2_a_figure_b8_33.png)
-![figure 34](images/RESULTS5-2A-section_5_2_a_figure_b8_34.png)
-![figure 35](images/RESULTS5-2A-section_5_2_a_figure_b8_35.png)
-![figure 36](images/RESULTS5-2A-section_5_2_a_figure_b8_36.png)
-![figure 37](images/RESULTS5-2A-section_5_2_a_figure_b8_37.png)
-![figure 38](images/RESULTS5-2A-section_5_2_a_figure_b8_38.png)
-![figure 39](images/RESULTS5-2A-section_5_2_a_figure_b8_39.png)
-![figure 40](images/RESULTS5-2A-section_5_2_a_figure_b8_40.png)
-![figure 41](images/RESULTS5-2A-section_5_2_a_figure_b8_41.png)
-![figure 42](images/RESULTS5-2A-section_5_2_a_figure_b8_42.png)
-![figure 43](images/RESULTS5-2A-section_5_2_a_figure_b8_43.png)
-![figure 44](images/RESULTS5-2A-section_5_2_a_figure_b8_44.png)
-![figure 45](images/RESULTS5-2A-section_5_2_a_figure_b8_45.png)
-![figure 46](images/RESULTS5-2A-section_5_2_a_figure_b8_46.png)
-![figure 47](images/RESULTS5-2A-section_5_2_a_figure_b8_47.png)
-![figure 48](images/RESULTS5-2A-section_5_2_a_figure_b8_48.png)
-![figure 49](images/RESULTS5-2A-section_5_2_a_figure_b8_49.png)
-![figure 50](images/RESULTS5-2A-section_5_2_a_figure_b8_50.png)
-![figure 51](images/RESULTS5-2A-section_5_2_a_figure_b8_51.png)
-![figure 52](images/RESULTS5-2A-section_5_2_a_figure_b8_52.png)
-![figure 53](images/RESULTS5-2A-section_5_2_a_figure_b8_53.png)
-![figure 54](images/RESULTS5-2A-section_5_2_a_figure_b8_54.png)
-![figure 55](images/RESULTS5-2A-section_5_2_a_figure_b8_55.png)
-![figure 56](images/RESULTS5-2A-section_5_2_a_figure_b8_56.png)
-![figure 57](images/RESULTS5-2A-section_5_2_a_figure_b8_57.png)
-![figure 58](images/RESULTS5-2A-section_5_2_a_figure_b8_58.png)
-![figure 59](images/RESULTS5-2A-section_5_2_a_figure_b8_59.png)
-![figure h1](images/RESULTS5-2A-section_5_2_a_figure_b8_h1.png)
-![figure h2](images/RESULTS5-2A-section_5_2_a_figure_b8_h2.png)
-![figure h3](images/RESULTS5-2A-section_5_2_a_figure_b8_h3.png)
-![figure h4](images/RESULTS5-2A-section_5_2_a_figure_b8_h4.png)
-![figure h5](images/RESULTS5-2A-section_5_2_a_figure_b8_h5.png)
-![figure h6](images/RESULTS5-2A-section_5_2_a_figure_b8_h6.png)
-![figure h7](images/RESULTS5-2A-section_5_2_a_figure_b8_h7.png)
-![figure h8](images/RESULTS5-2A-section_5_2_a_figure_b8_h8.png)
-![figure h9](images/RESULTS5-2A-section_5_2_a_figure_b8_h9.png)
-![figure h10](images/RESULTS5-2A-section_5_2_a_figure_b8_h10.png)
-![figure h11](images/RESULTS5-2A-section_5_2_a_figure_b8_h11.png)
-![figure h12](images/RESULTS5-2A-section_5_2_a_figure_b8_h12.png)
-![figure h13](images/RESULTS5-2A-section_5_2_a_figure_b8_h13.png)
-![figure h14](images/RESULTS5-2A-section_5_2_a_figure_b8_h14.png)
-![figure h15](images/RESULTS5-2A-section_5_2_a_figure_b8_h15.png)
-![figure h16](images/RESULTS5-2A-section_5_2_a_figure_b8_h16.png)
-![figure h17](images/RESULTS5-2A-section_5_2_a_figure_b8_h17.png)
-![figure h18](images/RESULTS5-2A-section_5_2_a_figure_b8_h18.png)
-![figure h19](images/RESULTS5-2A-section_5_2_a_figure_b8_h19.png)
-![figure h20](images/RESULTS5-2A-section_5_2_a_figure_b8_h20.png)
-![figure h21](images/RESULTS5-2A-section_5_2_a_figure_b8_h21.png)
-![figure h22](images/RESULTS5-2A-section_5_2_a_figure_b8_h22.png)
-![figure h23](images/RESULTS5-2A-section_5_2_a_figure_b8_h23.png)
-![figure h24](images/RESULTS5-2A-section_5_2_a_figure_b8_h24.png)
-![figure h25](images/RESULTS5-2A-section_5_2_a_figure_b8_h25.png)
-![figure h26](images/RESULTS5-2A-section_5_2_a_figure_b8_h26.png)
-![figure h27](images/RESULTS5-2A-section_5_2_a_figure_b8_h27.png)
-![figure h28](images/RESULTS5-2A-section_5_2_a_figure_b8_h28.png)
-![figure h29](images/RESULTS5-2A-section_5_2_a_figure_b8_h29.png)
-![figure h30](images/RESULTS5-2A-section_5_2_a_figure_b8_h30.png)
-![figure h31](images/RESULTS5-2A-section_5_2_a_figure_b8_h31.png)
-![figure h32](images/RESULTS5-2A-section_5_2_a_figure_b8_h32.png)
-![figure h33](images/RESULTS5-2A-section_5_2_a_figure_b8_h33.png)
-![figure h34](images/RESULTS5-2A-section_5_2_a_figure_b8_h34.png)
-![figure h35](images/RESULTS5-2A-section_5_2_a_figure_b8_h35.png)
-![figure h36](images/RESULTS5-2A-section_5_2_a_figure_b8_h36.png)
-![figure h37](images/RESULTS5-2A-section_5_2_a_figure_b8_h37.png)
-![figure h38](images/RESULTS5-2A-section_5_2_a_figure_b8_h38.png)
-![figure m1](images/RESULTS5-2A-section_5_2_a_figure_b8_m1.png)
-![figure m2](images/RESULTS5-2A-section_5_2_a_figure_b8_m2.png)
-![figure m3](images/RESULTS5-2A-section_5_2_a_figure_b8_m3.png)
-![figure m4](images/RESULTS5-2A-section_5_2_a_figure_b8_m4.png)
-![figure m5](images/RESULTS5-2A-section_5_2_a_figure_b8_m5.png)
-![figure m6](images/RESULTS5-2A-section_5_2_a_figure_b8_m6.png)
-![figure m7](images/RESULTS5-2A-section_5_2_a_figure_b8_m7.png)
-![figure m8](images/RESULTS5-2A-section_5_2_a_figure_b8_m8.png)
-![figure m9](images/RESULTS5-2A-section_5_2_a_figure_b8_m9.png)
-![figure m10](images/RESULTS5-2A-section_5_2_a_figure_b8_m10.png)
-![figure m11](images/RESULTS5-2A-section_5_2_a_figure_b8_m11.png)
-![figure m12](images/RESULTS5-2A-section_5_2_a_figure_b8_m12.png)
-
-# Table B8-16. Sky Temperatures Output, Case 600
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS |TestSpec-Alt | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| Annual Hourly Integrated Average |nan |-3.9 |-5.9 |-2.0 |-5.2 |-5.1 |-5.9 | |-5.9 |-2.0 |-4.7 |83.2 | |-2.0 |
-| Annual Hourly Integrated Minimum |nan |-46.2 |-46.9 |-38.0 |-46.9 |-46.2 |-46.9 | |-46.9 |-38.0 |-45.2 |19.7 | |-38.0 |
-| Annual Hourly Integrated Maximum |nan |30.1 |24.6 |24.7 |26.7 |26.0 |24.6 | |24.6 |30.1 |26.1 |21.0 | |24.7 |
-|  |
-| Time Stamps |
-| Month |Day-Hr |Day-Hr |Day-Hr |Day-Hr |Day-Hr |Day-Hr |Day-Hr | | | | | | |Day-Hr |
-| Annual Hourly Integrated Average | | | | | | | | | | | | | | |
-| Annual Hourly Integrated Minimum |nan 0-0 |Dec 31-24 |Dec 31-23 |Dec 31-24 |Dec 31-23 |Dec 31-24 | | | | | | | |Dec 31-24 |
-| Annual Hourly Integrated Maximum |nan 0-0 |Jun 13-15 |Aug 4-15 |Aug 4-16 |Aug 4-15 |Jun 13-18 | | | | | | | |Aug 4-16 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-16. Sky Temperatures Output, Case 600
-| Case |Parameter |Annual Hourly<br>Integrated Average |Annual Hourly<br>Integrated Minimum |Annual Hourly<br>Integrated Maximum |
-|-----|-----:|-----:|-----:|-----:|
-| BSIMAC 9 |T(C) |
-| CSE |T(C) |-3.9 |-46.2 |30.1 |
-| DeST |T(C) |-5.9 |-46.9 |24.6 |
-| EnergyPlus |T(C) |-2.0 |-38.0 |24.7 |
-| ESP-r |T(C) |-5.2 |-46.9 |26.7 |
-| TRNSYS |T(C) |-5.1 |-46.2 |26.0 |
-| TestSpec-Alt |T(C) |-5.9 |-46.9 |24.6 |
-|  |
-| Min |T(C) |-5.9 |-46.9 |24.6 |
-| Max |T(C) |-2.0 |-38.0 |30.1 |
-| Mean |T(C) |-4.7 |-45.2 |26.1 |
-| (Max-Min)/Mean [^1] | %  |83.2 |19.7 |21.0 |
-|  |
-| TestSoftware1 |T(C) |-2.0 |-38.0 |24.7 |
-|  |
-| BSIMAC 9 |Mo Day Hr | |
-| CSE |Mo Day Hr | |Dec 31 24 |Jun 13 15 |
-| DeST |Mo Day Hr | |Dec 31 23 |Aug 4 15 |
-| EnergyPlus |Mo Day Hr | |Dec 31 24 |Aug 4 16 |
-| ESP-r |Mo Day Hr | |Dec 31 23 |Aug 4 15 |
-| TRNSYS |Mo Day Hr | |Dec 31 24 |Jun 13 18 |
-|  |Mo Day Hr |
-|  |
-| TestSoftware1 |Mo Day Hr | |Dec 31 24 |Aug 4 16 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 # Table B8-1. Annual Heating Loads (kWh)
 | Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
@@ -222,121 +53,6 @@
 |  |
 | 800 High Mass Hig Cond. Wall Elements |5.141 |4.906 |5.403 |5.116 |4.980 |5.369 | |4.906 |5.403 |5.152 |9.7 | |5.116 |
 | 810 HIgh Mass Cavity Albedo |nan |2.038 |2.454 |2.342 |2.185 |2.610 | |2.038 |2.610 |2.326 |24.6 | |2.342 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-10a. High Mass Basic and In-Depth Sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 800-430 Mass, w/ High Cond. Wall |-0.030 |-0.548 |-0.551 |-0.504 |-0.565 |-0.481 | |-0.565 |-0.030 |-0.447 |119.8 | |-0.504 |
-| 900-800 Himass, S. Win. |-3.415 |-3.527 |-3.812 |-3.452 |-3.395 |-3.555 | |-3.812 |-3.395 |-3.526 |11.8 | |-3.452 |
-| 900-810 Himass, Int. Solar Abs. |1.726 |-0.659 |-0.863 |-0.678 |-0.600 |-0.796 | |-0.863 |1.726 |-0.312 |830.9 | |-0.678 |
-| 910-610 Mass, w/ S. Shade |-2.000 |-2.419 |-2.284 |-2.419 |-2.460 |-2.460 | |-2.460 |-2.000 |-2.340 |19.7 | |-2.419 |
-| 920-620 Mass, w/ E&W Win. |-0.870 |-1.138 |-1.038 |-1.148 |-1.215 |-1.112 | |-1.215 |-0.870 |-1.087 |31.7 | |-1.148 |
-| 930-630 Mass, w/ E&W Shade |-0.653 |-0.832 |-0.744 |-0.790 |-0.773 |-0.754 | |-0.832 |-0.653 |-0.758 |23.7 | |-0.790 |
-| 940-640 Mass, w/ Htg. Setback |-1.293 |-1.540 |-1.470 |-1.595 |-1.640 |-1.484 | |-1.640 |-1.293 |-1.504 |23.1 | |-1.595 |
-| 980-680 Mass, w/ Insulation 20/27 |-1.499 |-1.540 |-1.466 |-1.769 |-1.781 |-1.836 | |-1.836 |-1.466 |-1.649 |22.4 | |-1.769 |
-| 985-685 Mass, w/ 20/20 Tstat |-1.731 |-2.454 |-2.367 |-2.508 |-2.620 |-2.506 | |-2.620 |-1.731 |-2.364 |37.6 | |-2.508 |
-| 995-695 Mass, w/ Insulation 20/20 |-1.379 |-1.660 |-1.615 |-1.796 |-1.827 |-1.815 | |-1.827 |-1.379 |-1.682 |26.7 | |-1.796 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-10b. High Mass Basic and In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 800-430 Mass, w/ High Cond. Wall |-0.611 |-0.526 |-0.582 |-0.482 |-0.561 |-0.457 | |-0.611 |-0.457 |-0.537 |28.7 | |-0.482 |
-| 900-800 Himass, S. Win. |2.241 |2.084 |2.021 |2.115 |2.096 |1.985 | |1.985 |2.241 |2.090 |12.2 | |2.115 |
-| 900-810 Himass, Int. Solar Abs. |2.714 |0.983 |1.026 |0.981 |0.882 |0.973 | |0.882 |2.714 |1.260 |145.4 | |0.981 |
-| 910-610 Mass, w/ S. Shade |-2.815 |-2.967 |-2.683 |-2.950 |-2.950 |-2.926 | |-2.967 |-2.683 |-2.882 |9.9 | |-2.950 |
-| 920-620 Mass, w/ E&W Win. |-1.276 |-1.290 |-1.203 |-1.329 |-1.431 |-1.292 | |-1.431 |-1.203 |-1.304 |17.5 | |-1.329 |
-| 930-630 Mass, w/ E&W Shade |-0.913 |-0.945 |-0.879 |-0.917 |-0.942 |-0.901 | |-0.945 |-0.879 |-0.916 |7.2 | |-0.917 |
-| 940-640 Mass, w/ Htg. Setback |-3.191 |-3.247 |-2.894 |-3.339 |-3.465 |-3.274 | |-3.465 |-2.894 |-3.235 |17.7 | |-3.339 |
-| 940-640 Mass, w/ Night Vent |-4.043 |-4.056 |-3.568 |-4.110 |-4.289 |-3.991 | |-4.289 |-3.568 |-4.009 |18.0 | |-4.110 |
-| 980-680 Mass, w/ Insulation 20/27 |-2.437 |-2.435 |-2.174 |-2.732 |-2.755 |-2.791 | |-2.791 |-2.174 |-2.554 |24.2 | |-2.732 |
-| 985-685 Mass, w/ 20/20 Tstat |-1.857 |-2.626 |-2.358 |-2.760 |-2.872 |-2.738 | |-2.872 |-1.857 |-2.535 |40.0 | |-2.760 |
-| 995-695 Mass, w/ Insulation 20/20 |-1.273 |-1.772 |-1.615 |-1.969 |-2.000 |-1.975 | |-2.000 |-1.273 |-1.767 |41.1 | |-1.969 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-10c. High Mass Basic and In-Depth Sensitivity Tests - Peak Heating (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 800-430 Mass, w/ High Cond. Wall |-0.343 |-0.476 |-0.496 |-0.392 |-0.445 |-0.442 | |-0.496 |-0.343 |-0.432 |35.4 | |-0.392 |
-| 900-800 Himass, S. Win. |-0.406 |-0.334 |-0.411 |-0.237 |-0.207 |-0.188 | |-0.411 |-0.188 |-0.297 |74.9 | |-0.237 |
-| 900-810 Himass, Int. Solar Abs. |2.551 |-0.057 |-0.059 |-0.062 |-0.062 |-0.066 | |-0.066 |2.551 |0.374 |699.4 | |-0.062 |
-| 910-610 Mass, w/ S. Shade |-0.405 |-0.552 |-0.565 |-0.493 |-0.549 |-0.560 | |-0.565 |-0.405 |-0.521 |30.7 | |-0.493 |
-| 920-620 Mass, w/ E&W Win. |-0.250 |-0.525 |-0.555 |-0.459 |-0.547 |-0.520 | |-0.555 |-0.250 |-0.476 |64.1 | |-0.459 |
-| 930-630 Mass, w/ E&W Shade |-0.284 |-0.502 |-0.523 |-0.422 |-0.494 |-0.487 | |-0.523 |-0.284 |-0.452 |52.9 | |-0.422 |
-| 940-640 Mass, w/ Htg. Setback |-0.751 |-1.171 |-0.999 |-1.416 |-0.979 |-0.634 | |-1.416 |-0.634 |-0.992 |78.9 | |-1.416 |
-| 980-680 Mass, w/ Insulation 20/27 |-0.433 |-0.524 |-0.429 |-0.514 |-0.549 |-0.523 | |-0.549 |-0.429 |-0.495 |24.2 | |-0.514 |
-| 985-685 Mass, w/ 20/20 Tstat |-0.415 |-0.580 |-0.596 |-0.528 |-0.605 |-0.589 | |-0.605 |-0.415 |-0.552 |34.4 | |-0.528 |
-| 995-695 Mass, w/ Insulation 20/20 |-0.427 |-0.426 |-0.393 |-0.450 |-0.465 |-0.456 | |-0.465 |-0.393 |-0.436 |16.5 | |-0.450 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-10d. High Mass Basic and In-Depth Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 800-430 Mass, w/ High Cond. Wall |-0.881 |-0.738 |-0.683 |-0.883 |-0.822 |-0.768 | |-0.883 |-0.683 |-0.796 |25.1 | |-0.883 |
-| 900-800 Himass, S. Win. |1.753 |2.275 |1.399 |1.994 |1.844 |2.004 | |1.399 |2.275 |1.878 |46.6 | |1.994 |
-| 900-810 Himass, Int. Solar Abs. |3.039 |0.966 |0.616 |0.770 |0.717 |0.827 | |0.616 |3.039 |1.156 |209.6 | |0.770 |
-| 910-610 Mass, w/ S. Shade |-2.973 |-3.710 |-3.228 |-3.913 |-3.722 |-3.787 | |-3.913 |-2.973 |-3.555 |26.4 | |-3.913 |
-| 920-620 Mass, w/ E&W Win. |-1.223 |-1.436 |-1.245 |-1.537 |-1.523 |-1.434 | |-1.537 |-1.223 |-1.400 |22.4 | |-1.537 |
-| 930-630 Mass, w/ E&W Shade |-1.069 |-1.336 |-1.191 |-1.430 |-1.477 |-1.336 | |-1.477 |-1.069 |-1.307 |31.2 | |-1.430 |
-| 940-640 Mass, w/ Htg. Setback |-2.492 |-3.053 |-2.809 |-3.257 |-3.236 |-3.029 | |-3.257 |-2.492 |-2.979 |25.7 | |-3.257 |
-| 940-640 Mass, w/ Night Vent |-3.282 |-3.926 |-2.991 |-3.750 |-3.759 |-3.561 | |-3.926 |-2.991 |-3.545 |26.4 | |-3.750 |
-| 980-680 Mass, w/ Insulation 20/27 |-2.377 |-3.383 |-2.931 |-3.320 |-3.335 |-3.244 | |-3.383 |-2.377 |-3.098 |32.5 | |-3.320 |
-| 985-685 Mass, w/ 20/20 Tstat |-2.341 |-2.934 |-2.863 |-3.192 |-3.198 |-2.983 | |-3.198 |-2.341 |-2.918 |29.4 | |-3.192 |
-| 995-695 Mass, w/ Insulation 20/20 |-2.103 |-3.317 |-3.040 |-3.157 |-3.285 |-3.060 | |-3.317 |-2.103 |-2.994 |40.6 | |-3.157 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-11. Annual Transmissivity Coefficient of Windows [^2]
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 600 South |0.591 |0.627 |0.624 |0.587 |0.597 |0.594 | |0.587 |0.627 |0.603 |6.7 | |0.587 |
-| 620 West |0.600 |nan |0.629 |0.601 |0.616 |0.640 | |0.600 |0.640 |0.617 |6.5 | |0.601 |
-| 660 South, Low-E |0.322 |0.381 |0.392 |0.318 |0.325 |0.324 | |0.318 |0.392 |0.344 |21.6 | |0.318 |
-| 670 South, Single Pane |0.748 |0.750 |0.770 |0.747 |0.754 |0.751 | |0.747 |0.770 |0.753 |3.1 | |0.747 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-[^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation
-
-# Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins [^2]
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 610/600 South |0.218 |0.194 |0.176 |0.196 |0.224 |0.195 | |0.176 |0.224 |0.201 |24.0 | |0.196 |
-| 630/620 West |0.268 |nan |0.299 |0.278 |0.342 |0.286 | |0.268 |0.342 |0.294 |25.2 | |0.278 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-[^2]: (1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))
-
-# Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| Horizontal |1670 |1663 |1667 |1664 |1665 |1669 | |1663 |1670 |1666 |0.4 | |1664 |
-| North |453 |399 |477 |438 |432 |440 | |399 |477 |440 |17.8 | |438 |
-| East |1061 |1027 |1017 |1062 |1054 |1068 | |1017 |1068 |1048 |4.9 | |1062 |
-| South |1387 |1317 |1291 |1370 |1363 |1384 | |1291 |1387 |1352 |7.1 | |1370 |
-| West |997 |903 |906 |967 |961 |974 | |903 |997 |951 |9.9 | |967 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 600 South |820 |826 |805 |804 |814 |823 | |804 |826 |815 |2.6 | |804 |
-| 620 West |598 |nan |569 |581 |592 |624 | |569 |624 |593 |9.2 | |581 |
-| 660 South |447 |501 |506 |436 |443 |448 | |436 |506 |464 |15.2 | |436 |
-| 670 South |1037 |988 |994 |1024 |1028 |1039 | |988 |1039 |1018 |5.0 | |1024 |
-
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-
-# Table B8-15. Annual Transmitted Solar Radiation - Shaded (kWh/m2)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
-|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| 610 South |641 |665 |663 |646 |631 |662 | |631 |665 |651 |5.2 | |646 |
-| 630 West |438 |nan |399 |419 |390 |446 | |390 |446 |418 |13.4 | |419 |
 
 [^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
@@ -945,6 +661,166 @@
 
 [^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
+# Table B8-10a. High Mass Basic and In-Depth Sensitivity Tests - Annual Heating (MWh)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 800-430 Mass, w/ High Cond. Wall |-0.030 |-0.548 |-0.551 |-0.504 |-0.565 |-0.481 | |-0.565 |-0.030 |-0.447 |119.8 | |-0.504 |
+| 900-800 Himass, S. Win. |-3.415 |-3.527 |-3.812 |-3.452 |-3.395 |-3.555 | |-3.812 |-3.395 |-3.526 |11.8 | |-3.452 |
+| 900-810 Himass, Int. Solar Abs. |1.726 |-0.659 |-0.863 |-0.678 |-0.600 |-0.796 | |-0.863 |1.726 |-0.312 |830.9 | |-0.678 |
+| 910-610 Mass, w/ S. Shade |-2.000 |-2.419 |-2.284 |-2.419 |-2.460 |-2.460 | |-2.460 |-2.000 |-2.340 |19.7 | |-2.419 |
+| 920-620 Mass, w/ E&W Win. |-0.870 |-1.138 |-1.038 |-1.148 |-1.215 |-1.112 | |-1.215 |-0.870 |-1.087 |31.7 | |-1.148 |
+| 930-630 Mass, w/ E&W Shade |-0.653 |-0.832 |-0.744 |-0.790 |-0.773 |-0.754 | |-0.832 |-0.653 |-0.758 |23.7 | |-0.790 |
+| 940-640 Mass, w/ Htg. Setback |-1.293 |-1.540 |-1.470 |-1.595 |-1.640 |-1.484 | |-1.640 |-1.293 |-1.504 |23.1 | |-1.595 |
+| 980-680 Mass, w/ Insulation 20/27 |-1.499 |-1.540 |-1.466 |-1.769 |-1.781 |-1.836 | |-1.836 |-1.466 |-1.649 |22.4 | |-1.769 |
+| 985-685 Mass, w/ 20/20 Tstat |-1.731 |-2.454 |-2.367 |-2.508 |-2.620 |-2.506 | |-2.620 |-1.731 |-2.364 |37.6 | |-2.508 |
+| 995-695 Mass, w/ Insulation 20/20 |-1.379 |-1.660 |-1.615 |-1.796 |-1.827 |-1.815 | |-1.827 |-1.379 |-1.682 |26.7 | |-1.796 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-10b. High Mass Basic and In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 800-430 Mass, w/ High Cond. Wall |-0.611 |-0.526 |-0.582 |-0.482 |-0.561 |-0.457 | |-0.611 |-0.457 |-0.537 |28.7 | |-0.482 |
+| 900-800 Himass, S. Win. |2.241 |2.084 |2.021 |2.115 |2.096 |1.985 | |1.985 |2.241 |2.090 |12.2 | |2.115 |
+| 900-810 Himass, Int. Solar Abs. |2.714 |0.983 |1.026 |0.981 |0.882 |0.973 | |0.882 |2.714 |1.260 |145.4 | |0.981 |
+| 910-610 Mass, w/ S. Shade |-2.815 |-2.967 |-2.683 |-2.950 |-2.950 |-2.926 | |-2.967 |-2.683 |-2.882 |9.9 | |-2.950 |
+| 920-620 Mass, w/ E&W Win. |-1.276 |-1.290 |-1.203 |-1.329 |-1.431 |-1.292 | |-1.431 |-1.203 |-1.304 |17.5 | |-1.329 |
+| 930-630 Mass, w/ E&W Shade |-0.913 |-0.945 |-0.879 |-0.917 |-0.942 |-0.901 | |-0.945 |-0.879 |-0.916 |7.2 | |-0.917 |
+| 940-640 Mass, w/ Htg. Setback |-3.191 |-3.247 |-2.894 |-3.339 |-3.465 |-3.274 | |-3.465 |-2.894 |-3.235 |17.7 | |-3.339 |
+| 940-640 Mass, w/ Night Vent |-4.043 |-4.056 |-3.568 |-4.110 |-4.289 |-3.991 | |-4.289 |-3.568 |-4.009 |18.0 | |-4.110 |
+| 980-680 Mass, w/ Insulation 20/27 |-2.437 |-2.435 |-2.174 |-2.732 |-2.755 |-2.791 | |-2.791 |-2.174 |-2.554 |24.2 | |-2.732 |
+| 985-685 Mass, w/ 20/20 Tstat |-1.857 |-2.626 |-2.358 |-2.760 |-2.872 |-2.738 | |-2.872 |-1.857 |-2.535 |40.0 | |-2.760 |
+| 995-695 Mass, w/ Insulation 20/20 |-1.273 |-1.772 |-1.615 |-1.969 |-2.000 |-1.975 | |-2.000 |-1.273 |-1.767 |41.1 | |-1.969 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-10c. High Mass Basic and In-Depth Sensitivity Tests - Peak Heating (kW)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 800-430 Mass, w/ High Cond. Wall |-0.343 |-0.476 |-0.496 |-0.392 |-0.445 |-0.442 | |-0.496 |-0.343 |-0.432 |35.4 | |-0.392 |
+| 900-800 Himass, S. Win. |-0.406 |-0.334 |-0.411 |-0.237 |-0.207 |-0.188 | |-0.411 |-0.188 |-0.297 |74.9 | |-0.237 |
+| 900-810 Himass, Int. Solar Abs. |2.551 |-0.057 |-0.059 |-0.062 |-0.062 |-0.066 | |-0.066 |2.551 |0.374 |699.4 | |-0.062 |
+| 910-610 Mass, w/ S. Shade |-0.405 |-0.552 |-0.565 |-0.493 |-0.549 |-0.560 | |-0.565 |-0.405 |-0.521 |30.7 | |-0.493 |
+| 920-620 Mass, w/ E&W Win. |-0.250 |-0.525 |-0.555 |-0.459 |-0.547 |-0.520 | |-0.555 |-0.250 |-0.476 |64.1 | |-0.459 |
+| 930-630 Mass, w/ E&W Shade |-0.284 |-0.502 |-0.523 |-0.422 |-0.494 |-0.487 | |-0.523 |-0.284 |-0.452 |52.9 | |-0.422 |
+| 940-640 Mass, w/ Htg. Setback |-0.751 |-1.171 |-0.999 |-1.416 |-0.979 |-0.634 | |-1.416 |-0.634 |-0.992 |78.9 | |-1.416 |
+| 980-680 Mass, w/ Insulation 20/27 |-0.433 |-0.524 |-0.429 |-0.514 |-0.549 |-0.523 | |-0.549 |-0.429 |-0.495 |24.2 | |-0.514 |
+| 985-685 Mass, w/ 20/20 Tstat |-0.415 |-0.580 |-0.596 |-0.528 |-0.605 |-0.589 | |-0.605 |-0.415 |-0.552 |34.4 | |-0.528 |
+| 995-695 Mass, w/ Insulation 20/20 |-0.427 |-0.426 |-0.393 |-0.450 |-0.465 |-0.456 | |-0.465 |-0.393 |-0.436 |16.5 | |-0.450 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-10d. High Mass Basic and In-Depth Sensitivity Tests - Peak Sensible Cooling (kW)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 800-430 Mass, w/ High Cond. Wall |-0.881 |-0.738 |-0.683 |-0.883 |-0.822 |-0.768 | |-0.883 |-0.683 |-0.796 |25.1 | |-0.883 |
+| 900-800 Himass, S. Win. |1.753 |2.275 |1.399 |1.994 |1.844 |2.004 | |1.399 |2.275 |1.878 |46.6 | |1.994 |
+| 900-810 Himass, Int. Solar Abs. |3.039 |0.966 |0.616 |0.770 |0.717 |0.827 | |0.616 |3.039 |1.156 |209.6 | |0.770 |
+| 910-610 Mass, w/ S. Shade |-2.973 |-3.710 |-3.228 |-3.913 |-3.722 |-3.787 | |-3.913 |-2.973 |-3.555 |26.4 | |-3.913 |
+| 920-620 Mass, w/ E&W Win. |-1.223 |-1.436 |-1.245 |-1.537 |-1.523 |-1.434 | |-1.537 |-1.223 |-1.400 |22.4 | |-1.537 |
+| 930-630 Mass, w/ E&W Shade |-1.069 |-1.336 |-1.191 |-1.430 |-1.477 |-1.336 | |-1.477 |-1.069 |-1.307 |31.2 | |-1.430 |
+| 940-640 Mass, w/ Htg. Setback |-2.492 |-3.053 |-2.809 |-3.257 |-3.236 |-3.029 | |-3.257 |-2.492 |-2.979 |25.7 | |-3.257 |
+| 940-640 Mass, w/ Night Vent |-3.282 |-3.926 |-2.991 |-3.750 |-3.759 |-3.561 | |-3.926 |-2.991 |-3.545 |26.4 | |-3.750 |
+| 980-680 Mass, w/ Insulation 20/27 |-2.377 |-3.383 |-2.931 |-3.320 |-3.335 |-3.244 | |-3.383 |-2.377 |-3.098 |32.5 | |-3.320 |
+| 985-685 Mass, w/ 20/20 Tstat |-2.341 |-2.934 |-2.863 |-3.192 |-3.198 |-2.983 | |-3.198 |-2.341 |-2.918 |29.4 | |-3.192 |
+| 995-695 Mass, w/ Insulation 20/20 |-2.103 |-3.317 |-3.040 |-3.157 |-3.285 |-3.060 | |-3.317 |-2.103 |-2.994 |40.6 | |-3.157 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-11. Annual Transmissivity Coefficient of Windows [^2]
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 600 South |0.591 |0.627 |0.624 |0.587 |0.597 |0.594 | |0.587 |0.627 |0.603 |6.7 | |0.587 |
+| 620 West |0.600 |nan |0.629 |0.601 |0.616 |0.640 | |0.600 |0.640 |0.617 |6.5 | |0.601 |
+| 660 South, Low-E |0.322 |0.381 |0.392 |0.318 |0.325 |0.324 | |0.318 |0.392 |0.344 |21.6 | |0.318 |
+| 670 South, Single Pane |0.748 |0.750 |0.770 |0.747 |0.754 |0.751 | |0.747 |0.770 |0.753 |3.1 | |0.747 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+[^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation
+
+# Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins [^2]
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 610/600 South |0.218 |0.194 |0.176 |0.196 |0.224 |0.195 | |0.176 |0.224 |0.201 |24.0 | |0.196 |
+| 630/620 West |0.268 |nan |0.299 |0.278 |0.342 |0.286 | |0.268 |0.342 |0.294 |25.2 | |0.278 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+[^2]: (1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))
+
+# Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| Horizontal |1670 |1663 |1667 |1664 |1665 |1669 | |1663 |1670 |1666 |0.4 | |1664 |
+| North |453 |399 |477 |438 |432 |440 | |399 |477 |440 |17.8 | |438 |
+| East |1061 |1027 |1017 |1062 |1054 |1068 | |1017 |1068 |1048 |4.9 | |1062 |
+| South |1387 |1317 |1291 |1370 |1363 |1384 | |1291 |1387 |1352 |7.1 | |1370 |
+| West |997 |903 |906 |967 |961 |974 | |903 |997 |951 |9.9 | |967 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 600 South |820 |826 |805 |804 |814 |823 | |804 |826 |815 |2.6 | |804 |
+| 620 West |598 |nan |569 |581 |592 |624 | |569 |624 |593 |9.2 | |581 |
+| 660 South |447 |501 |506 |436 |443 |448 | |436 |506 |464 |15.2 | |436 |
+| 670 South |1037 |988 |994 |1024 |1028 |1039 | |988 |1039 |1018 |5.0 | |1024 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-15. Annual Transmitted Solar Radiation - Shaded (kWh/m2)
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| 610 South |641 |665 |663 |646 |631 |662 | |631 |665 |651 |5.2 | |646 |
+| 630 West |438 |nan |399 |419 |390 |446 | |390 |446 |418 |13.4 | |419 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-16. Sky Temperatures Output, Case 600
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS |TestSpec-Alt | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+|-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| Annual Hourly Integrated Average |nan |-3.9 |-5.9 |-2.0 |-5.2 |-5.1 |-5.9 | |-5.9 |-2.0 |-4.7 |83.2 | |-2.0 |
+| Annual Hourly Integrated Minimum |nan |-46.2 |-46.9 |-38.0 |-46.9 |-46.2 |-46.9 | |-46.9 |-38.0 |-45.2 |19.7 | |-38.0 |
+| Annual Hourly Integrated Maximum |nan |30.1 |24.6 |24.7 |26.7 |26.0 |24.6 | |24.6 |30.1 |26.1 |21.0 | |24.7 |
+|  |
+| Time Stamps |
+| Month |Day-Hr |Day-Hr |Day-Hr |Day-Hr |Day-Hr |Day-Hr |Day-Hr | | | | | | |Day-Hr |
+| Annual Hourly Integrated Average | | | | | | | | | | | | | | |
+| Annual Hourly Integrated Minimum |nan 0-0 |Dec 31-24 |Dec 31-23 |Dec 31-24 |Dec 31-23 |Dec 31-24 | | | | | | | |Dec 31-24 |
+| Annual Hourly Integrated Maximum |nan 0-0 |Jun 13-15 |Aug 4-15 |Aug 4-16 |Aug 4-15 |Jun 13-18 | | | | | | | |Aug 4-16 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+# Table B8-16. Sky Temperatures Output, Case 600
+| Case |Parameter |Annual Hourly<br>Integrated Average |Annual Hourly<br>Integrated Minimum |Annual Hourly<br>Integrated Maximum |
+|-----|-----:|-----:|-----:|-----:|
+| BSIMAC 9 |T(C) |
+| CSE |T(C) |-3.9 |-46.2 |30.1 |
+| DeST |T(C) |-5.9 |-46.9 |24.6 |
+| EnergyPlus |T(C) |-2.0 |-38.0 |24.7 |
+| ESP-r |T(C) |-5.2 |-46.9 |26.7 |
+| TRNSYS |T(C) |-5.1 |-46.2 |26.0 |
+| TestSpec-Alt |T(C) |-5.9 |-46.9 |24.6 |
+|  |
+| Min |T(C) |-5.9 |-46.9 |24.6 |
+| Max |T(C) |-2.0 |-38.0 |30.1 |
+| Mean |T(C) |-4.7 |-45.2 |26.1 |
+| (Max-Min)/Mean [^1] | %  |83.2 |19.7 |21.0 |
+|  |
+| TestSoftware1 |T(C) |-2.0 |-38.0 |24.7 |
+|  |
+| BSIMAC 9 |Mo Day Hr | |
+| CSE |Mo Day Hr | |Dec 31 24 |Jun 13 15 |
+| DeST |Mo Day Hr | |Dec 31 23 |Aug 4 15 |
+| EnergyPlus |Mo Day Hr | |Dec 31 24 |Aug 4 16 |
+| ESP-r |Mo Day Hr | |Dec 31 23 |Aug 4 15 |
+| TRNSYS |Mo Day Hr | |Dec 31 24 |Jun 13 18 |
+|  |Mo Day Hr |
+|  |
+| TestSoftware1 |Mo Day Hr | |Dec 31 24 |Aug 4 16 |
+
+[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 # Table B8-M1a. Monthly Heating Loads (kWh), Case 600
 | Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
@@ -1221,3 +1097,112 @@
 
 [^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
+![figure 1](images/RESULTS5-2A-section_5_2_a_figure_b8_1.png)
+![figure 2](images/RESULTS5-2A-section_5_2_a_figure_b8_2.png)
+![figure 3](images/RESULTS5-2A-section_5_2_a_figure_b8_3.png)
+![figure 4](images/RESULTS5-2A-section_5_2_a_figure_b8_4.png)
+![figure 5](images/RESULTS5-2A-section_5_2_a_figure_b8_5.png)
+![figure 6](images/RESULTS5-2A-section_5_2_a_figure_b8_6.png)
+![figure 7](images/RESULTS5-2A-section_5_2_a_figure_b8_7.png)
+![figure 8](images/RESULTS5-2A-section_5_2_a_figure_b8_8.png)
+![figure 9](images/RESULTS5-2A-section_5_2_a_figure_b8_9.png)
+![figure 10](images/RESULTS5-2A-section_5_2_a_figure_b8_10.png)
+![figure 11](images/RESULTS5-2A-section_5_2_a_figure_b8_11.png)
+![figure 12](images/RESULTS5-2A-section_5_2_a_figure_b8_12.png)
+![figure 13](images/RESULTS5-2A-section_5_2_a_figure_b8_13.png)
+![figure 14](images/RESULTS5-2A-section_5_2_a_figure_b8_14.png)
+![figure 15](images/RESULTS5-2A-section_5_2_a_figure_b8_15.png)
+![figure 16](images/RESULTS5-2A-section_5_2_a_figure_b8_16.png)
+![figure 17](images/RESULTS5-2A-section_5_2_a_figure_b8_17.png)
+![figure 18](images/RESULTS5-2A-section_5_2_a_figure_b8_18.png)
+![figure 19](images/RESULTS5-2A-section_5_2_a_figure_b8_19.png)
+![figure 20](images/RESULTS5-2A-section_5_2_a_figure_b8_20.png)
+![figure 21](images/RESULTS5-2A-section_5_2_a_figure_b8_21.png)
+![figure 22](images/RESULTS5-2A-section_5_2_a_figure_b8_22.png)
+![figure 23](images/RESULTS5-2A-section_5_2_a_figure_b8_23.png)
+![figure 24](images/RESULTS5-2A-section_5_2_a_figure_b8_24.png)
+![figure 25](images/RESULTS5-2A-section_5_2_a_figure_b8_25.png)
+![figure 26](images/RESULTS5-2A-section_5_2_a_figure_b8_26.png)
+![figure 27](images/RESULTS5-2A-section_5_2_a_figure_b8_27.png)
+![figure 28](images/RESULTS5-2A-section_5_2_a_figure_b8_28.png)
+![figure 29](images/RESULTS5-2A-section_5_2_a_figure_b8_29.png)
+![figure 30](images/RESULTS5-2A-section_5_2_a_figure_b8_30.png)
+![figure 31](images/RESULTS5-2A-section_5_2_a_figure_b8_31.png)
+![figure 32](images/RESULTS5-2A-section_5_2_a_figure_b8_32.png)
+![figure 33](images/RESULTS5-2A-section_5_2_a_figure_b8_33.png)
+![figure 34](images/RESULTS5-2A-section_5_2_a_figure_b8_34.png)
+![figure 35](images/RESULTS5-2A-section_5_2_a_figure_b8_35.png)
+![figure 36](images/RESULTS5-2A-section_5_2_a_figure_b8_36.png)
+![figure 37](images/RESULTS5-2A-section_5_2_a_figure_b8_37.png)
+![figure 38](images/RESULTS5-2A-section_5_2_a_figure_b8_38.png)
+![figure 39](images/RESULTS5-2A-section_5_2_a_figure_b8_39.png)
+![figure 40](images/RESULTS5-2A-section_5_2_a_figure_b8_40.png)
+![figure 41](images/RESULTS5-2A-section_5_2_a_figure_b8_41.png)
+![figure 42](images/RESULTS5-2A-section_5_2_a_figure_b8_42.png)
+![figure 43](images/RESULTS5-2A-section_5_2_a_figure_b8_43.png)
+![figure 44](images/RESULTS5-2A-section_5_2_a_figure_b8_44.png)
+![figure 45](images/RESULTS5-2A-section_5_2_a_figure_b8_45.png)
+![figure 46](images/RESULTS5-2A-section_5_2_a_figure_b8_46.png)
+![figure 47](images/RESULTS5-2A-section_5_2_a_figure_b8_47.png)
+![figure 48](images/RESULTS5-2A-section_5_2_a_figure_b8_48.png)
+![figure 49](images/RESULTS5-2A-section_5_2_a_figure_b8_49.png)
+![figure 50](images/RESULTS5-2A-section_5_2_a_figure_b8_50.png)
+![figure 51](images/RESULTS5-2A-section_5_2_a_figure_b8_51.png)
+![figure 52](images/RESULTS5-2A-section_5_2_a_figure_b8_52.png)
+![figure 53](images/RESULTS5-2A-section_5_2_a_figure_b8_53.png)
+![figure 54](images/RESULTS5-2A-section_5_2_a_figure_b8_54.png)
+![figure 55](images/RESULTS5-2A-section_5_2_a_figure_b8_55.png)
+![figure 56](images/RESULTS5-2A-section_5_2_a_figure_b8_56.png)
+![figure 57](images/RESULTS5-2A-section_5_2_a_figure_b8_57.png)
+![figure 58](images/RESULTS5-2A-section_5_2_a_figure_b8_58.png)
+![figure 59](images/RESULTS5-2A-section_5_2_a_figure_b8_59.png)
+![figure h1](images/RESULTS5-2A-section_5_2_a_figure_b8_h1.png)
+![figure h2](images/RESULTS5-2A-section_5_2_a_figure_b8_h2.png)
+![figure h3](images/RESULTS5-2A-section_5_2_a_figure_b8_h3.png)
+![figure h4](images/RESULTS5-2A-section_5_2_a_figure_b8_h4.png)
+![figure h5](images/RESULTS5-2A-section_5_2_a_figure_b8_h5.png)
+![figure h6](images/RESULTS5-2A-section_5_2_a_figure_b8_h6.png)
+![figure h7](images/RESULTS5-2A-section_5_2_a_figure_b8_h7.png)
+![figure h8](images/RESULTS5-2A-section_5_2_a_figure_b8_h8.png)
+![figure h9](images/RESULTS5-2A-section_5_2_a_figure_b8_h9.png)
+![figure h10](images/RESULTS5-2A-section_5_2_a_figure_b8_h10.png)
+![figure h11](images/RESULTS5-2A-section_5_2_a_figure_b8_h11.png)
+![figure h12](images/RESULTS5-2A-section_5_2_a_figure_b8_h12.png)
+![figure h13](images/RESULTS5-2A-section_5_2_a_figure_b8_h13.png)
+![figure h14](images/RESULTS5-2A-section_5_2_a_figure_b8_h14.png)
+![figure h15](images/RESULTS5-2A-section_5_2_a_figure_b8_h15.png)
+![figure h16](images/RESULTS5-2A-section_5_2_a_figure_b8_h16.png)
+![figure h17](images/RESULTS5-2A-section_5_2_a_figure_b8_h17.png)
+![figure h18](images/RESULTS5-2A-section_5_2_a_figure_b8_h18.png)
+![figure h19](images/RESULTS5-2A-section_5_2_a_figure_b8_h19.png)
+![figure h20](images/RESULTS5-2A-section_5_2_a_figure_b8_h20.png)
+![figure h21](images/RESULTS5-2A-section_5_2_a_figure_b8_h21.png)
+![figure h22](images/RESULTS5-2A-section_5_2_a_figure_b8_h22.png)
+![figure h23](images/RESULTS5-2A-section_5_2_a_figure_b8_h23.png)
+![figure h24](images/RESULTS5-2A-section_5_2_a_figure_b8_h24.png)
+![figure h25](images/RESULTS5-2A-section_5_2_a_figure_b8_h25.png)
+![figure h26](images/RESULTS5-2A-section_5_2_a_figure_b8_h26.png)
+![figure h27](images/RESULTS5-2A-section_5_2_a_figure_b8_h27.png)
+![figure h28](images/RESULTS5-2A-section_5_2_a_figure_b8_h28.png)
+![figure h29](images/RESULTS5-2A-section_5_2_a_figure_b8_h29.png)
+![figure h30](images/RESULTS5-2A-section_5_2_a_figure_b8_h30.png)
+![figure h31](images/RESULTS5-2A-section_5_2_a_figure_b8_h31.png)
+![figure h32](images/RESULTS5-2A-section_5_2_a_figure_b8_h32.png)
+![figure h33](images/RESULTS5-2A-section_5_2_a_figure_b8_h33.png)
+![figure h34](images/RESULTS5-2A-section_5_2_a_figure_b8_h34.png)
+![figure h35](images/RESULTS5-2A-section_5_2_a_figure_b8_h35.png)
+![figure h36](images/RESULTS5-2A-section_5_2_a_figure_b8_h36.png)
+![figure h37](images/RESULTS5-2A-section_5_2_a_figure_b8_h37.png)
+![figure h38](images/RESULTS5-2A-section_5_2_a_figure_b8_h38.png)
+![figure m1](images/RESULTS5-2A-section_5_2_a_figure_b8_m1.png)
+![figure m2](images/RESULTS5-2A-section_5_2_a_figure_b8_m2.png)
+![figure m3](images/RESULTS5-2A-section_5_2_a_figure_b8_m3.png)
+![figure m4](images/RESULTS5-2A-section_5_2_a_figure_b8_m4.png)
+![figure m5](images/RESULTS5-2A-section_5_2_a_figure_b8_m5.png)
+![figure m6](images/RESULTS5-2A-section_5_2_a_figure_b8_m6.png)
+![figure m7](images/RESULTS5-2A-section_5_2_a_figure_b8_m7.png)
+![figure m8](images/RESULTS5-2A-section_5_2_a_figure_b8_m8.png)
+![figure m9](images/RESULTS5-2A-section_5_2_a_figure_b8_m9.png)
+![figure m10](images/RESULTS5-2A-section_5_2_a_figure_b8_m10.png)
+![figure m11](images/RESULTS5-2A-section_5_2_a_figure_b8_m11.png)
+![figure m12](images/RESULTS5-2A-section_5_2_a_figure_b8_m12.png)

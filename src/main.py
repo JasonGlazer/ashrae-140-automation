@@ -151,20 +151,18 @@ def create_markdown(input_file):
     md_file = open(pathlib.Path.joinpath(destination_directory, 'section_5_2a.md'), 'w')
     md_file.write('# Section 5-2A  \n')
 
-    for png in sorted_files:
-        idx = png.split('_')[-1].split('.png')[0]
-        if 'table' in png:
-            line = '![table ' + str(idx) + '](images/' + png + ')'
-            md_file.write(line + '\n')
-        if 'figure' in png:
-            line = '![figure ' + str(idx) + '](images/' + png + ')'
-            md_file.write(line + '\n')
-
     # append each mark down file to the end
+    md_table_files.sort()
     md_file.write('\n')
     for md_table_file in md_table_files:
         with open(pathlib.Path.joinpath(destination_directory, 'images', md_table_file), 'r') as f:
             md_file.write(f.read())
+
+    for png in sorted_files:
+        idx = png.split('_')[-1].split('.png')[0]
+        if 'figure' in png:
+            line = '![figure ' + str(idx) + '](images/' + png + ')'
+            md_file.write(line + '\n')
 
     md_file.close()
     return md_file.name
