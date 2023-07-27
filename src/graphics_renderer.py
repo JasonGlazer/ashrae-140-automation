@@ -8098,8 +8098,8 @@ class GraphicsRenderer(Logger):
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['conditioned_zone_loads_non_free_float'][case]['annual_heating_MWh'])
             data_table.append(row)
-        for blank_row in [44,35,21,11]:
-            data_table.insert(blank_row,[])  # add blank line as separator
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
             row_headings.insert(blank_row, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -8119,8 +8119,8 @@ class GraphicsRenderer(Logger):
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['conditioned_zone_loads_non_free_float'][case]['annual_cooling_MWh'])
             data_table.append(row)
-        for blank_row in [44,35,21,11]:
-            data_table.insert(blank_row,[])  # add blank line as separator
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
             row_headings.insert(blank_row, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -8148,9 +8148,9 @@ class GraphicsRenderer(Logger):
                 time_stamp_row.append(f'{month} {day}-{hour}')
             data_table.append(row)
             time_stamp_table.append(time_stamp_row)
-        for blank_row in [44,35,21,11]:
-            data_table.insert(blank_row,[])  # add blank line as separator
-            time_stamp_table.insert(blank_row,[])
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
+            time_stamp_table.insert(blank_row, [])
             row_headings.insert(blank_row, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -8178,9 +8178,9 @@ class GraphicsRenderer(Logger):
                 time_stamp_row.append(f'{month} {day}-{hour}')
             data_table.append(row)
             time_stamp_table.append(time_stamp_row)
-        for blank_row in [44,35,21,11]:
-            data_table.insert(blank_row,[])  # add blank line as separator
-            time_stamp_table.insert(blank_row,[])
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
+            time_stamp_table.insert(blank_row, [])
             row_headings.insert(blank_row, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -8273,7 +8273,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for case in free_float_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_json = json_obj['free_float_case_zone_temperatures'][case]
                 row.append(case_json['average_temperature'])
@@ -8303,7 +8302,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
                 if math.isnan(case_a_value):
@@ -8339,7 +8337,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
                 if math.isnan(case_a_value):
@@ -8374,7 +8371,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
                 if math.isnan(case_a_value):
@@ -8410,7 +8406,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
                 if math.isnan(case_a_value):
@@ -8445,7 +8440,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
                 if math.isnan(case_a_value):
@@ -8481,7 +8475,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
                 if math.isnan(case_a_value):
@@ -8516,7 +8509,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
                 if math.isnan(case_a_value):
@@ -8552,7 +8544,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
                 if math.isnan(case_a_value):
@@ -8592,7 +8583,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
                 if math.isnan(case_a_value):
@@ -8632,7 +8622,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
                 if math.isnan(case_a_value):
@@ -8672,7 +8661,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
                 if math.isnan(case_a_value):
@@ -8712,7 +8700,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
                 if math.isnan(case_a_value):
@@ -8749,7 +8736,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
                 if math.isnan(case_a_value):
@@ -8786,7 +8772,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
                 if math.isnan(case_a_value):
@@ -8823,7 +8808,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
                 if math.isnan(case_a_value):
@@ -8860,7 +8844,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
                 if math.isnan(case_a_value):
@@ -8896,7 +8879,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
                 if math.isnan(case_a_value):
@@ -8933,7 +8915,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
                 if math.isnan(case_a_value):
@@ -8969,7 +8950,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
                 if math.isnan(case_a_value):
@@ -9006,7 +8986,6 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for (case_a, case_b) in sensitivity_cases.keys():
             row = []
-            time_stamp_row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
                 if math.isnan(case_a_value):
