@@ -610,10 +610,9 @@ class GraphicsRenderer(Logger):
             md.write('\n')
         return
 
-    @staticmethod
-    def _add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=[]):
+    def _add_stats_to_table(self, row_headings, column_headings, data_table, digits=1, time_stamps=[]):
         """
-        Add statisics to a table as well as merging the headings and time stamps
+        Add statistics to a table as well as merging the headings and time stamps
 
         :param row_headings: a list of headings for each row of the table
         :param column_headings: a list of headings for each column of the table including the top left
@@ -632,7 +631,7 @@ class GraphicsRenderer(Logger):
             if data_row:  # for blank rows just skip
                 for item in data_row[:-1]:
                     row.append(formatting_string.format(item))
-                reference_data_row = data_row[:-1]  # remove the last item which is the tested software
+                reference_data_row = self._scrub_number_list(data_row[:-1])  # remove the last item which is the tested software
                 row.append('')
                 row_min = min(reference_data_row)
                 row.append(formatting_string.format(row_min))
@@ -678,6 +677,23 @@ class GraphicsRenderer(Logger):
         else:
             value_out = 0
         return value_out
+
+    def _scrub_number_list(self, list_in):
+        """
+        Remove NAN and non-number in a list of number
+
+        :param list_in: a list containing numeric values
+        :return: the input list but without non-numbers or NAN
+        """
+        list_out = []
+        for item in list_in:
+            if type(item) == int or type(item) ==float:
+                if not math.isnan(item):
+                    list_out.append(item)
+            elif type(item) == str:
+                if item.isnumeric():
+                    list_out.append(float(item))
+        return list_out
 
     @staticmethod
     def _make_table_from_df(df, ax, case_col_width=2, cell_text=[]):
@@ -9113,7 +9129,7 @@ class GraphicsRenderer(Logger):
             '630 West': ('630', 'West'),
         }
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',]
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(transmitted_cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -9124,6 +9140,49 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['solar_radiation_shaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_16_alt(self):
+        figure_name = 'section_5_2_figure_b8_16'
+        caption = 'Table B8-16. Sky Temperatures Output, Case 600'
+        cases = {
+            'Annual Hourly Integrated Average': 'Average',
+            'Annual Hourly Integrated Minimum': 'Minimum',
+            'Annual Hourly Integrated Maximum': 'Maximum'
+        }
+        test_spec_alt = {
+            'Average': -5.9,
+            'Minimum': -46.9,
+            'Maximum': 24.6
+        }
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        column_headings.insert(len(column_headings) - 1, 'TestSpec-Alt')
+        for case in cases.values():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                sky_600 = json_obj['sky_temperature_output']['600'][case]
+                row.append(sky_600['C'])
+                if case != 'Average':
+                    month = sky_600['Month']
+                    day = self._int_0_if_nan(sky_600['Day'])
+                    hour = self._int_0_if_nan(sky_600['Hour'])
+                    time_stamp_row.append(f'{month} {day}-{hour}')
+                else:
+                    time_stamp_row.append('')
+            # add the test spec column
+            row.insert(len(row) - 1, test_spec_alt[case])
+            time_stamp_row.insert(len(time_stamp_row) - 1, '')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=time_stamp_table)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
