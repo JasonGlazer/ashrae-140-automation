@@ -1666,7 +1666,7 @@ class GraphicsRenderer(Logger):
         plt.subplots_adjust(top=0.92)
         return
 
-    def render_section_5_2a_table_b8_11(
+    def render_section_5_2a_table_b8_11_old(
             self,
             figure_name='section_5_2_a_table_b8_11',
             caption='Table B8-11. Annual Transmissivity Coefficient of Windows'):
@@ -8998,6 +8998,37 @@ class GraphicsRenderer(Logger):
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
+
+    def render_section_5_2a_table_b8_11(self):
+        figure_name = 'section_5_2_table_b8_11'
+        caption = 'Table B8-11. Annual Transmissivity Coefficient of Windows [^2]'
+        transmitted_cases = {
+            '600 South': ('600', 'South'),
+            '620 West': ('620', 'West'),
+            '660 South, Low-E': ('660', 'South'),
+            '670 South, Single Pane': ('670', 'South')
+        }
+        data_table = []
+        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',
+                     '[^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation',]
+        row_headings = list(transmitted_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_num, case_direction) in transmitted_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                incident_600 = json_obj['solar_radiation_annual_incident']['600']['Surface'][case_direction.upper()]['kWh/m2']
+                transmitted_value = json_obj['solar_radiation_unshaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2']
+                if incident_600 != 0:
+                    row.append(float(transmitted_value)/float(incident_600))
+                else:
+                    row.append('')
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
 
     def render_section_5_2a_table_b8_m1a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m1a'
