@@ -141,6 +141,3 @@ cover/
 # excel lock files
 \.~*\.xlsx#
 
-# github action created files
-processed/
-rendered/

@@ -847,7 +847,7 @@ class GraphicsRenderer(Logger):
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        fig, ax = self.render_section_5_2a_table_b8_1(
+        fig, ax = self.render_section_5_2a_table_b8_1_old(
             output_value='annual_cooling_MWh',
             figure_name='section_5_2_a_table_b8_2',
             caption='Table B8.2 Annual Sensible Cooling Loads (MWh)'
@@ -971,7 +971,7 @@ class GraphicsRenderer(Logger):
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        fig, ax = self.render_section_5_2a_table_b8_3(
+        fig, ax = self.render_section_5_2a_table_b8_3_old(
             output_values=('peak_cooling_kW', 'peak_cooling_month', 'peak_cooling_day', 'peak_cooling_hour'),
             figure_name='section_5_2_a_table_b8_4',
             caption='Table B8-4. Annual Hourly Integrated Peak Cooling Loads'
@@ -2117,7 +2117,7 @@ class GraphicsRenderer(Logger):
 
         :return: pandas dataframe and output msg for general navigation.
         """
-        fig, ax = self.render_section_5_2a_table_b8_14(
+        fig, ax = self.render_section_5_2a_table_b8_14_old(
             output_value='solar_radiation_shaded_annual_transmitted',
             figure_name='section_5_2_a_table_b8_15',
             caption='Table B8.15 Annual Transmitted Solar Radiation - Shaded ($kWh/m^{2}$)'
