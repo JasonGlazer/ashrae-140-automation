@@ -1,5 +1,5 @@
 # Table B8-5c. Free-Float Temperature Output Average Annual Hourly Integrated Zone Temperature (C)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600FF - Low Mass Building with South Windows |26.1 |25.6 |25.3 |24.9 |25.3 |24.3 | |24.3 |26.1 |25.2 |7.3 | |24.9 |
 | 900FF - High Mass Building with South Windows |25.5 |25.7 |25.2 |25.1 |25.3 |24.5 | |24.5 |25.7 |25.2 |4.9 | |25.1 |
@@ -9,5 +9,6 @@
 | 980FF - Case 900FF with More Insulation |30.7 |33.3 |33.3 |31.2 |31.8 |30.5 | |30.5 |33.3 |31.8 |8.8 | |31.2 |
 | 960 - Sunspace |nan |28.6 |29.4 |27.7 |27.7 |26.8 | |26.8 |29.4 |28.1 |9.5 | |27.7 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

@@ -1,5 +1,5 @@
 # Table B8-M5c. Monthly Load 600-900 Sensitivity Tests - Peak Heating (kW)
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |0.778 |0.943 |0.858 |1.075 |1.030 |0.980 | |0.778 |1.075 |0.944 |31.5 | |1.075 |
 | Feb |0.490 |0.456 |0.469 |0.380 |0.510 |0.447 | |0.380 |0.510 |0.459 |28.3 | |0.380 |
@@ -14,5 +14,6 @@
 | Nov |0.828 |0.764 |0.730 |0.790 |0.830 |0.744 | |0.730 |0.830 |0.781 |12.8 | |0.790 |
 | Dec |1.051 |1.014 |0.991 |1.029 |1.130 |1.098 | |0.991 |1.130 |1.052 |13.2 | |1.029 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

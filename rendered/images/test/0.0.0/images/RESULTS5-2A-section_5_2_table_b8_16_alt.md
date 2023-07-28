@@ -26,5 +26,6 @@
 |  |
 | TestSoftware1 |Mo Day Hr | |Dec 31 24 |Aug 4 16 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

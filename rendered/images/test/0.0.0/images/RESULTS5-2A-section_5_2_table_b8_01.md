@@ -1,5 +1,5 @@
 # Table B8-1. Annual Heating Loads (kWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 Base Case, South Windows |4.050 |3.993 |4.047 |4.324 |4.362 |4.504 | |3.993 |4.504 |4.213 |12.1 | |4.324 |
 | 610 S. Windows + Overhang |4.163 |4.066 |4.144 |4.375 |4.527 |4.592 | |4.066 |4.592 |4.311 |12.2 | |4.375 |
@@ -52,5 +52,6 @@
 | 800 High Mass Hig Cond. Wall Elements |5.141 |4.906 |5.403 |5.116 |4.980 |5.369 | |4.906 |5.403 |5.152 |9.7 | |5.116 |
 | 810 HIgh Mass Cavity Albedo |nan |2.038 |2.454 |2.342 |2.185 |2.610 | |2.038 |2.610 |2.326 |24.6 | |2.342 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

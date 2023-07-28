@@ -1,5 +1,5 @@
 # Table B8-8a. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 200-195 Surface Convection |0.824 |0.823 |1.069 |1.035 |0.970 |1.049 | |0.823 |1.069 |0.962 |25.5 | |1.035 |
 | 210-200 Ext IR (Int IR "off") |0.586 |1.153 |1.305 |0.942 |1.397 |1.287 | |0.586 |1.397 |1.112 |72.9 | |0.942 |
@@ -16,5 +16,6 @@
 | 300-270 E&W Windows |0.000 |-0.028 |0.187 |0.040 |0.092 |0.094 | |-0.028 |0.187 |0.064 |335.4 | |0.040 |
 | 310-300 E&W Shading |0.000 |0.262 |0.386 |0.266 |0.572 |0.437 | |0.000 |0.572 |0.320 |178.4 | |0.266 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

@@ -1,5 +1,5 @@
 # Table B8-M1b. Monthly Heating Loads (kWh), Case 900
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |277.8 |206.1 |275.3 |255.8 |266.0 |291.9 | |206.1 |291.9 |262.2 |32.7 | |255.8 |
 | Feb |307.4 |243.2 |292.9 |294.2 |283.0 |322.1 | |243.2 |322.1 |290.5 |27.2 | |294.2 |
@@ -14,5 +14,6 @@
 | Nov |298.2 |251.6 |283.9 |297.0 |286.0 |318.2 | |251.6 |318.2 |289.2 |23.0 | |297.0 |
 | Dec |329.8 |254.7 |314.3 |307.9 |308.0 |339.4 | |254.7 |339.4 |309.0 |27.4 | |307.9 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

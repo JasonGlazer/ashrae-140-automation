@@ -1,5 +1,5 @@
 # Table B8-7a. High Mass Basic Sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 900 - 600 Mass, Heat |-2.324 |-2.614 |-2.456 |-2.660 |-2.777 |-2.690 | |-2.777 |-2.324 |-2.587 |17.5 | |-2.660 |
 | 910 - 900 Heat, S.Shade |0.437 |0.269 |0.269 |0.292 |0.483 |0.318 | |0.269 |0.483 |0.345 |62.0 | |0.292 |
@@ -11,5 +11,6 @@
 | 985 - 900 Heat, > 20/20 tstat |1.075 |0.741 |0.688 |0.705 |0.699 |0.722 | |0.688 |1.075 |0.772 |50.1 | |0.705 |
 | 995 - 985 Heat, > Ins. 20/20 |-1.471 |-1.365 |-1.509 |-1.363 |-1.379 |-1.459 | |-1.509 |-1.363 |-1.424 |10.3 | |-1.363 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

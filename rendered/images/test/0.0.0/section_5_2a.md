@@ -1,7 +1,7 @@
 # Section 5-2A  
 
 # Table B8-1. Annual Heating Loads (kWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 Base Case, South Windows |4.050 |3.993 |4.047 |4.324 |4.362 |4.504 | |3.993 |4.504 |4.213 |12.1 | |4.324 |
 | 610 S. Windows + Overhang |4.163 |4.066 |4.144 |4.375 |4.527 |4.592 | |4.066 |4.592 |4.311 |12.2 | |4.375 |
@@ -54,10 +54,11 @@
 | 800 High Mass Hig Cond. Wall Elements |5.141 |4.906 |5.403 |5.116 |4.980 |5.369 | |4.906 |5.403 |5.152 |9.7 | |5.116 |
 | 810 HIgh Mass Cavity Albedo |nan |2.038 |2.454 |2.342 |2.185 |2.610 | |2.038 |2.610 |2.326 |24.6 | |2.342 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-2. Annual Sensible Cooling Loads (kWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 Base Case, South Windows |5.822 |5.913 |5.432 |6.027 |6.162 |5.780 | |5.432 |6.162 |5.856 |12.5 | |6.027 |
 | 610 S. Windows + Overhang |4.299 |4.382 |4.173 |4.333 |4.232 |4.117 | |4.117 |4.382 |4.256 |6.2 | |4.333 |
@@ -110,10 +111,11 @@
 | 800 High Mass Hig Cond. Wall Elements |0.473 |0.380 |0.362 |0.374 |0.391 |0.282 | |0.282 |0.473 |0.377 |50.6 | |0.374 |
 | 810 HIgh Mass Cavity Albedo |nan |1.481 |1.357 |1.508 |1.606 |1.295 | |1.295 |1.606 |1.449 |21.5 | |1.508 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-3. Annual Hourly Integrated Peak Heating Loads (kWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 Base Case, South Windows |3.255 |3.020 |3.035 |3.204 |3.228 |3.359 | |3.020 |3.359 |3.184 |10.6 | |3.204 |
 | 610 S. Windows + Overhang |3.166 |3.021 |3.039 |3.192 |3.233 |3.360 | |3.021 |3.360 |3.168 |10.7 | |3.192 |
@@ -219,10 +221,11 @@
 | 800 High Mass Hig Cond. Wall Elements |Dec 31-24 |Feb 9-6 |Feb 9-5 |Feb 9-6 |Feb 9-7 |Feb 9-6 | | | | | | |Feb 9-6 |
 | 810 HIgh Mass Cavity Albedo |nan 0-0 |Feb 9-6 |Feb 9-5 |Feb 9-6 |Feb 9-7 |Feb 9-6 | | | | | | |Feb 9-6 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 Base Case, South Windows |5.650 |6.481 |5.422 |6.352 |6.193 |6.046 | |5.422 |6.481 |6.024 |17.6 | |6.352 |
 | 610 S. Windows + Overhang |5.466 |6.432 |5.331 |6.135 |5.934 |5.868 | |5.331 |6.432 |5.861 |18.8 | |6.135 |
@@ -328,10 +331,11 @@
 | 800 High Mass Hig Cond. Wall Elements |Jun 26-16 |Aug 5-15 |Aug 5-14 |Jun 26-16 |Aug 5-15 |Aug 5-15 | | | | | | |Jun 26-16 |
 | 810 HIgh Mass Cavity Albedo |nan 0-0 |Sep 4-15 |Sep 11-14 |Sep 11-15 |Sep 4-15 |Sep 11-15 | | | | | | |Sep 11-15 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-5a. Free-Float Temperature Output Maximum Annual Hourly Integrated Zone Temperature (C)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600FF - Low Mass Building with South Windows |63.4 |68.4 |65.0 |63.8 |64.6 |62.4 | |62.4 |68.4 |64.6 |9.3 | |63.8 |
 | 900FF - High Mass Building with South Windows |46.0 |45.1 |44.5 |44.3 |44.3 |43.3 | |43.3 |46.0 |44.6 |6.2 | |44.3 |
@@ -351,10 +355,11 @@
 | 980FF - Case 900FF with More Insulation |Oct 1-17 |Sep 12-15 |Oct 21-14 |Sep 12-16 |Sep 12-15 |Sep 12-15 | | | | | | |Sep 12-16 |
 | 960 - Sunspace |nan 0-0 |Oct 2-16 |Oct 20-14 |Oct 12-15 |Oct 12-15 |Oct 12-15 | | | | | | |Oct 12-15 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-5b. Free-Float Temperature Output Minimum Annual Hourly Integrated Zone Temperature (C)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600FF - Low Mass Building with South Windows |-9.9 |-12.9 |-13.5 |-12.6 |-13.5 |-13.8 | |-13.8 |-9.9 |-12.7 |31.1 | |-12.6 |
 | 900FF - High Mass Building with South Windows |0.6 |2.2 |1.3 |1.2 |1.6 |0.6 | |0.6 |2.2 |1.3 |124.3 | |1.2 |
@@ -374,10 +379,11 @@
 | 980FF - Case 900FF with More Insulation |Feb 8-11 |Nov 4-7 |Nov 5-6 |Nov 4-7 |Nov 4-8 |Nov 4-7 | | | | | | |Nov 4-7 |
 | 960 - Sunspace |nan 0-0 |Feb 9-8 |Feb 9-6 |Feb 9-7 |Feb 9-7 |Feb 9-7 | | | | | | |Feb 9-7 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-5c. Free-Float Temperature Output Average Annual Hourly Integrated Zone Temperature (C)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600FF - Low Mass Building with South Windows |26.1 |25.6 |25.3 |24.9 |25.3 |24.3 | |24.3 |26.1 |25.2 |7.3 | |24.9 |
 | 900FF - High Mass Building with South Windows |25.5 |25.7 |25.2 |25.1 |25.3 |24.5 | |24.5 |25.7 |25.2 |4.9 | |25.1 |
@@ -387,10 +393,11 @@
 | 980FF - Case 900FF with More Insulation |30.7 |33.3 |33.3 |31.2 |31.8 |30.5 | |30.5 |33.3 |31.8 |8.8 | |31.2 |
 | 960 - Sunspace |nan |28.6 |29.4 |27.7 |27.7 |26.8 | |26.8 |29.4 |28.1 |9.5 | |27.7 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-6a. Low Mass Basic Sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 610 - 600 Heat, S. Shade |0.113 |0.074 |0.097 |0.051 |0.165 |0.089 | |0.051 |0.165 |0.098 |116.3 | |0.051 |
 | 620 - 600 Heat, E&W Orient |0.320 |0.101 |0.250 |0.161 |0.152 |0.215 | |0.101 |0.320 |0.200 |109.6 | |0.161 |
@@ -402,10 +409,11 @@
 | 685 - 600 Heat, 20/20 tstat |0.482 |0.582 |0.599 |0.553 |0.542 |0.539 | |0.482 |0.599 |0.549 |21.3 | |0.553 |
 | 695 - 685 Heat, > Ins. 20/20 |-1.823 |-2.159 |-2.261 |-2.075 |-2.171 |-2.150 | |-2.261 |-1.823 |-2.107 |20.8 | |-2.075 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-6b. Low Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 610 - 600 Cool, S. Shade |-1.523 |-1.531 |-1.259 |-1.694 |-1.929 |-1.663 | |-1.929 |-1.259 |-1.600 |41.9 | |-1.694 |
 | 620 - 600 Cool, E&W Orient |-1.418 |-1.834 |-1.523 |-1.967 |-1.916 |-1.939 | |-1.967 |-1.418 |-1.766 |31.1 | |-1.967 |
@@ -418,10 +426,11 @@
 | 685 - 600 Heat, 20/20 tstat |3.308 |2.946 |2.806 |3.092 |2.960 |3.072 | |2.806 |3.308 |3.031 |16.6 | |3.092 |
 | 695 - 685 Heat, > Ins. 20/20 |-0.375 |0.115 |0.148 |0.053 |0.028 |0.188 | |-0.375 |0.188 |0.026 |2160.6 | |0.053 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-6c. Low Mass Basic Sensitivity Tests - Peak Heating (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 610 - 600 Heat, S. Shade |-0.089 |0.001 |0.004 |-0.012 |0.005 |0.001 | |-0.089 |0.005 |-0.015 |620.7 | |-0.012 |
 | 620 - 600 Heat, E&W Orient |-0.110 |0.018 |0.033 |0.025 |0.025 |0.026 | |-0.110 |0.033 |0.003 |5255.6 | |0.025 |
@@ -433,10 +442,11 @@
 | 685 - 600 Heat, 20/20 tstat |-0.086 |0.012 |0.019 |0.019 |0.019 |0.016 | |-0.086 |0.019 |-0.000 |34201.0 | |0.019 |
 | 695 - 685 Heat, > Ins. 20/20 |-1.031 |-1.237 |-1.199 |-1.151 |-1.222 |-1.257 | |-1.257 |-1.031 |-1.183 |19.1 | |-1.151 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-6d. Low Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 610 - 600 Cool, S. Shade |-0.184 |-0.049 |-0.091 |-0.217 |-0.259 |-0.178 | |-0.259 |-0.049 |-0.163 |129.0 | |-0.217 |
 | 620 - 600 Cool, E&W Orient |-0.946 |-1.988 |-1.467 |-1.555 |-1.571 |-1.457 | |-1.988 |-0.946 |-1.497 |69.6 | |-1.555 |
@@ -449,10 +459,11 @@
 | 685 - 600 Heat, 20/20 tstat |0.668 |0.678 |0.649 |0.755 |0.741 |0.822 | |0.649 |0.822 |0.719 |24.0 | |0.755 |
 | 695 - 685 Heat, > Ins. 20/20 |-0.086 |0.381 |0.284 |0.227 |0.305 |0.308 | |-0.086 |0.381 |0.237 |197.6 | |0.227 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-7a. High Mass Basic Sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 900 - 600 Mass, Heat |-2.324 |-2.614 |-2.456 |-2.660 |-2.777 |-2.690 | |-2.777 |-2.324 |-2.587 |17.5 | |-2.660 |
 | 910 - 900 Heat, S.Shade |0.437 |0.269 |0.269 |0.292 |0.483 |0.318 | |0.269 |0.483 |0.345 |62.0 | |0.292 |
@@ -464,10 +475,11 @@
 | 985 - 900 Heat, > 20/20 tstat |1.075 |0.741 |0.688 |0.705 |0.699 |0.722 | |0.688 |1.075 |0.772 |50.1 | |0.705 |
 | 995 - 985 Heat, > Ins. 20/20 |-1.471 |-1.365 |-1.509 |-1.363 |-1.379 |-1.459 | |-1.509 |-1.363 |-1.424 |10.3 | |-1.363 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-7b. High Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 900 - 600 Mass, Cool |-3.108 |-3.449 |-3.049 |-3.538 |-3.674 |-3.512 | |-3.674 |-3.049 |-3.388 |18.4 | |-3.538 |
 | 910 - 900 Cool, S.Shade |-1.230 |-1.049 |-0.893 |-1.106 |-1.205 |-1.076 | |-1.230 |-0.893 |-1.093 |30.8 | |-1.106 |
@@ -480,10 +492,11 @@
 | 985 - 900 Heat, > 20/20 tstat |4.559 |3.770 |3.497 |3.870 |3.762 |3.846 | |3.497 |4.559 |3.884 |27.3 | |3.870 |
 | 995 - 985 Heat, > Ins. 20/20 |0.209 |0.969 |0.891 |0.844 |0.899 |0.950 | |0.209 |0.969 |0.794 |95.7 | |0.844 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-7c. High Mass Basic Sensitivity Tests - Peak Heating (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 900 - 600 Mass, Heat |-0.704 |-0.577 |-0.582 |-0.517 |-0.595 |-0.580 | |-0.704 |-0.517 |-0.593 |31.6 | |-0.517 |
 | 910 - 900 Heat, S.Shade |0.210 |0.026 |0.021 |0.012 |0.051 |0.021 | |0.012 |0.210 |0.057 |349.1 | |0.012 |
@@ -495,10 +508,11 @@
 | 985 - 900 Heat, > 20/20 tstat |0.203 |0.009 |0.005 |0.008 |0.009 |0.007 | |0.005 |0.203 |0.040 |493.5 | |0.008 |
 | 995 - 985 Heat, > Ins. 20/20 |-1.043 |-1.083 |-0.996 |-1.073 |-1.082 |-1.123 | |-1.123 |-0.996 |-1.067 |11.9 | |-1.073 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-7d. High Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 900 - 600 Mass, Cool |-2.611 |-3.105 |-2.866 |-3.312 |-3.297 |-3.106 | |-3.312 |-2.611 |-3.049 |23.0 | |-3.312 |
 | 910 - 900 Cool, S.Shade |-0.546 |-0.654 |-0.453 |-0.818 |-0.684 |-0.859 | |-0.859 |-0.453 |-0.669 |60.7 | |-0.818 |
@@ -511,10 +525,11 @@
 | 985 - 900 Heat, > 20/20 tstat |0.938 |0.849 |0.652 |0.875 |0.840 |0.945 | |0.652 |0.945 |0.850 |34.4 | |0.875 |
 | 995 - 985 Heat, > Ins. 20/20 |0.152 |-0.001 |0.107 |0.262 |0.218 |0.230 | |-0.001 |0.262 |0.161 |163.4 | |0.262 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-8a. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 200-195 Surface Convection |0.824 |0.823 |1.069 |1.035 |0.970 |1.049 | |0.823 |1.069 |0.962 |25.5 | |1.035 |
 | 210-200 Ext IR (Int IR "off") |0.586 |1.153 |1.305 |0.942 |1.397 |1.287 | |0.586 |1.397 |1.112 |72.9 | |0.942 |
@@ -531,10 +546,11 @@
 | 300-270 E&W Windows |0.000 |-0.028 |0.187 |0.040 |0.092 |0.094 | |-0.028 |0.187 |0.064 |335.4 | |0.040 |
 | 310-300 E&W Shading |0.000 |0.262 |0.386 |0.266 |0.572 |0.437 | |0.000 |0.572 |0.320 |178.4 | |0.266 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-8b. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 200-195 Surface Convection |0.127 |0.195 |0.207 |0.202 |0.189 |0.197 | |0.127 |0.207 |0.186 |43.0 | |0.202 |
 | 210-200 Ext IR (Int IR "off") |-0.151 |-0.297 |-0.339 |-0.254 |-0.282 |-0.329 | |-0.339 |-0.151 |-0.275 |68.3 | |-0.254 |
@@ -551,10 +567,11 @@
 | 300-270 E&W Windows |0.000 |-2.216 |-1.893 |-2.370 |-2.271 |-2.376 | |-2.376 |0.000 |-1.854 |128.1 | |-2.370 |
 | 310-300 E&W Shading |0.000 |-1.303 |-1.403 |-1.483 |-1.910 |-1.589 | |-1.910 |0.000 |-1.281 |149.1 | |-1.483 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-8c. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Heating (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 200-195 Surface Convection |0.470 |0.435 |0.509 |0.547 |0.473 |0.557 | |0.435 |0.557 |0.499 |24.4 | |0.547 |
 | 210-200 Ext IR (Int IR "off") |0.102 |0.403 |0.297 |0.224 |0.396 |0.397 | |0.102 |0.403 |0.303 |99.3 | |0.224 |
@@ -571,10 +588,11 @@
 | 300-270 E&W Windows |0.000 |0.003 |0.029 |0.006 |0.018 |0.010 | |0.000 |0.029 |0.011 |263.3 | |0.006 |
 | 310-300 E&W Shading |0.000 |0.001 |0.003 |-0.023 |0.005 |0.003 | |-0.023 |0.005 |-0.002 |1458.6 | |-0.023 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-8d. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 200-195 Surface Convection |0.153 |0.221 |0.266 |0.266 |0.254 |0.265 | |0.153 |0.266 |0.238 |47.6 | |0.266 |
 | 210-200 Ext IR (Int IR "off") |-0.078 |-0.270 |-0.302 |-0.223 |-0.321 |-0.375 | |-0.375 |-0.078 |-0.261 |113.5 | |-0.223 |
@@ -591,10 +609,11 @@
 | 300-270 E&W Windows |0.000 |-2.848 |-2.137 |-2.364 |-2.392 |-2.359 | |-2.848 |0.000 |-2.017 |141.2 | |-2.364 |
 | 310-300 E&W Shading |0.000 |-0.367 |-0.443 |-0.505 |-0.603 |-0.577 | |-0.603 |0.000 |-0.416 |145.0 | |-0.505 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-9a. Low Mass In-Depth (Cases 395 thru 440) sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 400-395 Surf. Conv. & IR |1.341 |1.681 |1.902 |1.707 |1.744 |1.861 | |1.341 |1.902 |1.706 |32.9 | |1.707 |
 | 410-400 Infiltration |1.724 |1.509 |1.614 |1.732 |1.602 |1.676 | |1.509 |1.732 |1.643 |13.6 | |1.732 |
@@ -608,10 +627,11 @@
 | 470-600 Const Ext Surf Coefs |-0.008 |-0.093 |-0.507 |-0.230 |-0.402 |-0.429 | |-0.507 |-0.008 |-0.278 |179.3 | |-0.230 |
 | 470-450 Auto Int Surf Heat Transf |0.299 |-0.091 |0.165 |0.132 |0.109 |0.204 | |-0.091 |0.299 |0.136 |286.0 | |0.132 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-9b. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 400-395 Surf. Conv. & IR |0.042 |0.016 |0.011 |0.021 |0.019 |0.009 | |0.009 |0.042 |0.020 |167.5 | |0.021 |
 | 410-400 Infiltration |0.033 |0.025 |0.024 |0.026 |0.028 |0.022 | |0.022 |0.033 |0.026 |40.0 | |0.026 |
@@ -625,10 +645,11 @@
 | 470-600 Const Ext Surf Coefs |0.165 |-0.269 |0.217 |0.002 |-0.156 |0.276 | |-0.269 |0.276 |0.039 |1394.6 | |0.002 |
 | 470-450 Auto Int Surf Heat Transf |-0.185 |-0.045 |-0.512 |-0.478 |-0.608 |-0.475 | |-0.608 |-0.045 |-0.384 |146.6 | |-0.478 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-9c. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Heating (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 400-395 Surf. Conv. & IR |0.611 |0.682 |0.778 |0.740 |0.698 |0.717 | |0.611 |0.778 |0.704 |23.7 | |0.740 |
 | 410-400 Infiltration |0.779 |0.601 |0.680 |0.812 |0.685 |0.718 | |0.601 |0.812 |0.713 |29.6 | |0.812 |
@@ -642,10 +663,11 @@
 | 470-600 Const Ext Surf Coefs |-0.137 |-0.020 |-0.228 |0.003 |-0.059 |-0.127 | |-0.228 |0.003 |-0.095 |244.0 | |0.003 |
 | 470-450 Auto Int Surf Heat Transf |0.129 |0.022 |0.054 |0.107 |0.127 |0.194 | |0.022 |0.194 |0.106 |162.7 | |0.107 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-9d. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 400-395 Surf. Conv. & IR |0.251 |0.136 |0.149 |0.230 |0.162 |0.107 | |0.107 |0.251 |0.172 |83.6 | |0.230 |
 | 410-400 Infiltration |0.213 |0.206 |0.252 |0.221 |0.168 |0.232 | |0.168 |0.252 |0.215 |39.0 | |0.221 |
@@ -659,10 +681,11 @@
 | 470-600 Const Ext Surf Coefs |0.045 |-0.093 |0.148 |0.092 |0.214 |0.274 | |-0.093 |0.274 |0.113 |324.4 | |0.092 |
 | 470-450 Auto Int Surf Heat Transf |-0.117 |0.208 |-0.493 |-0.022 |-0.094 |0.007 | |-0.493 |0.208 |-0.085 |822.1 | |-0.022 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-10a. High Mass Basic and In-Depth Sensitivity Tests - Annual Heating (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 800-430 Mass, w/ High Cond. Wall |-0.030 |-0.548 |-0.551 |-0.504 |-0.565 |-0.481 | |-0.565 |-0.030 |-0.447 |119.8 | |-0.504 |
 | 900-800 Himass, S. Win. |-3.415 |-3.527 |-3.812 |-3.452 |-3.395 |-3.555 | |-3.812 |-3.395 |-3.526 |11.8 | |-3.452 |
@@ -675,10 +698,11 @@
 | 985-685 Mass, w/ 20/20 Tstat |-1.731 |-2.454 |-2.367 |-2.508 |-2.620 |-2.506 | |-2.620 |-1.731 |-2.364 |37.6 | |-2.508 |
 | 995-695 Mass, w/ Insulation 20/20 |-1.379 |-1.660 |-1.615 |-1.796 |-1.827 |-1.815 | |-1.827 |-1.379 |-1.682 |26.7 | |-1.796 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-10b. High Mass Basic and In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 800-430 Mass, w/ High Cond. Wall |-0.611 |-0.526 |-0.582 |-0.482 |-0.561 |-0.457 | |-0.611 |-0.457 |-0.537 |28.7 | |-0.482 |
 | 900-800 Himass, S. Win. |2.241 |2.084 |2.021 |2.115 |2.096 |1.985 | |1.985 |2.241 |2.090 |12.2 | |2.115 |
@@ -692,10 +716,11 @@
 | 985-685 Mass, w/ 20/20 Tstat |-1.857 |-2.626 |-2.358 |-2.760 |-2.872 |-2.738 | |-2.872 |-1.857 |-2.535 |40.0 | |-2.760 |
 | 995-695 Mass, w/ Insulation 20/20 |-1.273 |-1.772 |-1.615 |-1.969 |-2.000 |-1.975 | |-2.000 |-1.273 |-1.767 |41.1 | |-1.969 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-10c. High Mass Basic and In-Depth Sensitivity Tests - Peak Heating (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 800-430 Mass, w/ High Cond. Wall |-0.343 |-0.476 |-0.496 |-0.392 |-0.445 |-0.442 | |-0.496 |-0.343 |-0.432 |35.4 | |-0.392 |
 | 900-800 Himass, S. Win. |-0.406 |-0.334 |-0.411 |-0.237 |-0.207 |-0.188 | |-0.411 |-0.188 |-0.297 |74.9 | |-0.237 |
@@ -708,10 +733,11 @@
 | 985-685 Mass, w/ 20/20 Tstat |-0.415 |-0.580 |-0.596 |-0.528 |-0.605 |-0.589 | |-0.605 |-0.415 |-0.552 |34.4 | |-0.528 |
 | 995-695 Mass, w/ Insulation 20/20 |-0.427 |-0.426 |-0.393 |-0.450 |-0.465 |-0.456 | |-0.465 |-0.393 |-0.436 |16.5 | |-0.450 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-10d. High Mass Basic and In-Depth Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 800-430 Mass, w/ High Cond. Wall |-0.881 |-0.738 |-0.683 |-0.883 |-0.822 |-0.768 | |-0.883 |-0.683 |-0.796 |25.1 | |-0.883 |
 | 900-800 Himass, S. Win. |1.753 |2.275 |1.399 |1.994 |1.844 |2.004 | |1.399 |2.275 |1.878 |46.6 | |1.994 |
@@ -725,30 +751,33 @@
 | 985-685 Mass, w/ 20/20 Tstat |-2.341 |-2.934 |-2.863 |-3.192 |-3.198 |-2.983 | |-3.198 |-2.341 |-2.918 |29.4 | |-3.192 |
 | 995-695 Mass, w/ Insulation 20/20 |-2.103 |-3.317 |-3.040 |-3.157 |-3.285 |-3.060 | |-3.317 |-2.103 |-2.994 |40.6 | |-3.157 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
-# Table B8-11. Annual Transmissivity Coefficient of Windows [^2]
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+
+# Table B8-11. Annual Transmissivity Coefficient of Windows
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 South |0.591 |0.627 |0.624 |0.587 |0.597 |0.594 | |0.587 |0.627 |0.603 |6.7 | |0.587 |
 | 620 West |0.600 |nan |0.629 |0.601 |0.616 |0.640 | |0.600 |0.640 |0.617 |6.5 | |0.601 |
 | 660 South, Low-E |0.322 |0.381 |0.392 |0.318 |0.325 |0.324 | |0.318 |0.392 |0.344 |21.6 | |0.318 |
 | 670 South, Single Pane |0.748 |0.750 |0.770 |0.747 |0.754 |0.751 | |0.747 |0.770 |0.753 |3.1 | |0.747 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-[^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation
+Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation
 
-# Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins [^2]
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
+
+# Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 610/600 South |0.218 |0.194 |0.176 |0.196 |0.224 |0.195 | |0.176 |0.224 |0.201 |24.0 | |0.196 |
 | 630/620 West |0.268 |nan |0.299 |0.278 |0.342 |0.286 | |0.268 |0.342 |0.294 |25.2 | |0.278 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
-[^2]: (1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))
+(1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Horizontal |1670 |1663 |1667 |1664 |1665 |1669 | |1663 |1670 |1666 |0.4 | |1664 |
 | North |453 |399 |477 |438 |432 |440 | |399 |477 |440 |17.8 | |438 |
@@ -756,28 +785,31 @@
 | South |1387 |1317 |1291 |1370 |1363 |1384 | |1291 |1387 |1352 |7.1 | |1370 |
 | West |997 |903 |906 |967 |961 |974 | |903 |997 |951 |9.9 | |967 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 South |820 |826 |805 |804 |814 |823 | |804 |826 |815 |2.6 | |804 |
 | 620 West |598 |nan |569 |581 |592 |624 | |569 |624 |593 |9.2 | |581 |
 | 660 South |447 |501 |506 |436 |443 |448 | |436 |506 |464 |15.2 | |436 |
 | 670 South |1037 |988 |994 |1024 |1028 |1039 | |988 |1039 |1018 |5.0 | |1024 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-15. Annual Transmitted Solar Radiation - Shaded (kWh/m2)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 610 South |641 |665 |663 |646 |631 |662 | |631 |665 |651 |5.2 | |646 |
 | 630 West |438 |nan |399 |419 |390 |446 | |390 |446 |418 |13.4 | |419 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-16. Sky Temperatures Output, Case 600
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS |TestSpec-Alt | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS |TestSpec-Alt | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Annual Hourly Integrated Average |nan |-3.9 |-5.9 |-2.0 |-5.2 |-5.1 |-5.9 | |-5.9 |-2.0 |-4.7 |83.2 | |-2.0 |
 | Annual Hourly Integrated Minimum |nan |-46.2 |-46.9 |-38.0 |-46.9 |-46.2 |-46.9 | |-46.9 |-38.0 |-45.2 |19.7 | |-38.0 |
@@ -789,7 +821,8 @@
 | Annual Hourly Integrated Minimum |nan 0-0 |Dec 31-24 |Dec 31-23 |Dec 31-24 |Dec 31-23 |Dec 31-24 | | | | | | | |Dec 31-24 |
 | Annual Hourly Integrated Maximum |nan 0-0 |Jun 13-15 |Aug 4-15 |Aug 4-16 |Aug 4-15 |Jun 13-18 | | | | | | | |Aug 4-16 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-16. Sky Temperatures Output, Case 600
 | Case |Parameter |Annual Hourly<br>Integrated Average |Annual Hourly<br>Integrated Minimum |Annual Hourly<br>Integrated Maximum |
@@ -819,10 +852,11 @@
 |  |
 | TestSoftware1 |Mo Day Hr | |Dec 31 24 |Aug 4 16 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M1a. Monthly Heating Loads (kWh), Case 600
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |664.0 |655.6 |672.7 |711.9 |732.0 |734.9 | |655.6 |734.9 |695.2 |11.4 | |711.9 |
 | Feb |653.3 |626.3 |635.3 |682.6 |682.0 |702.1 | |626.3 |702.1 |663.6 |11.4 | |682.6 |
@@ -837,10 +871,11 @@
 | Nov |598.7 |575.6 |585.8 |625.3 |629.0 |645.8 | |575.6 |645.8 |610.0 |11.5 | |625.3 |
 | Dec |698.7 |682.0 |697.8 |735.7 |750.0 |763.5 | |682.0 |763.5 |721.3 |11.3 | |735.7 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M1b. Monthly Heating Loads (kWh), Case 900
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |277.8 |206.1 |275.3 |255.8 |266.0 |291.9 | |206.1 |291.9 |262.2 |32.7 | |255.8 |
 | Feb |307.4 |243.2 |292.9 |294.2 |283.0 |322.1 | |243.2 |322.1 |290.5 |27.2 | |294.2 |
@@ -855,10 +890,11 @@
 | Nov |298.2 |251.6 |283.9 |297.0 |286.0 |318.2 | |251.6 |318.2 |289.2 |23.0 | |297.0 |
 | Dec |329.8 |254.7 |314.3 |307.9 |308.0 |339.4 | |254.7 |339.4 |309.0 |27.4 | |307.9 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M2a. Monthly Sensible Cooling Loads (kWh), Case 600
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |475.4 |554.0 |417.9 |521.8 |523.0 |495.0 | |417.9 |554.0 |497.9 |27.3 | |521.8 |
 | Feb |349.2 |394.3 |315.4 |387.5 |398.0 |367.4 | |315.4 |398.0 |368.6 |22.4 | |387.5 |
@@ -873,10 +909,11 @@
 | Nov |394.3 |454.7 |377.1 |437.7 |444.0 |418.6 | |377.1 |454.7 |421.1 |18.4 | |437.7 |
 | Dec |433.3 |503.3 |386.2 |481.9 |476.0 |456.1 | |386.2 |503.3 |456.1 |25.7 | |481.9 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M2b. Monthly Sensible Cooling Loads (kWh), Case 900
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |73.3 |67.8 |33.5 |53.3 |42.0 |44.6 | |33.5 |73.3 |52.4 |75.9 | |53.3 |
 | Feb |24.0 |15.1 |4.7 |12.3 |11.0 |9.2 | |4.7 |24.0 |12.7 |151.3 | |12.3 |
@@ -891,10 +928,11 @@
 | Nov |72.7 |80.5 |56.2 |68.0 |63.0 |60.2 | |56.2 |80.5 |66.8 |36.4 | |68.0 |
 | Dec |62.1 |73.7 |38.1 |60.9 |48.0 |49.5 | |38.1 |73.7 |55.4 |64.4 | |60.9 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M3a. Monthly Hourly Integrated Peak Heating Loads (kW), Case 600
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |3.100 |3.020 |3.036 |2.978 |3.230 |3.359 | |2.978 |3.359 |3.121 |12.2 | |2.978 |
 | Feb |3.041 |2.900 |2.922 |3.067 |3.140 |3.225 | |2.900 |3.225 |3.049 |10.7 | |3.067 |
@@ -924,10 +962,11 @@
 | Nov |26-8 |26-8 |26-7 |26-7 |26-7 |26-8 | | | | | | |26-7 |
 | Dec |31-24 |31-24 |31-23 |31-24 |31-24 |31-24 | | | | | | |31-24 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M3b. Monthly Hourly Integrated Peak Heating Loads (kW), Case 900
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |2.322 |2.077 |2.178 |1.903 |2.200 |2.379 | |1.903 |2.379 |2.177 |21.9 | |1.903 |
 | Feb |2.551 |2.443 |2.453 |2.687 |2.630 |2.778 | |2.443 |2.778 |2.590 |12.9 | |2.687 |
@@ -957,10 +996,11 @@
 | Nov |1-7 |26-8 |26-7 |26-7 |26-8 |26-8 | | | | | | |26-7 |
 | Dec |31-8 |31-8 |9-6 |31-7 |9-7 |9-7 | | | | | | |31-7 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M4a. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 600
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |5.650 |6.481 |5.422 |6.352 |6.190 |6.046 | |5.422 |6.481 |6.023 |17.6 | |6.352 |
 | Feb |4.921 |5.393 |4.444 |5.537 |5.420 |5.155 | |4.444 |5.537 |5.145 |21.2 | |5.537 |
@@ -990,10 +1030,11 @@
 | Nov |28-14 |28-13 |29-13 |28-13 |28-14 |28-14 | | | | | | |28-13 |
 | Dec |1-14 |1-14 |1-13 |1-14 |1-14 |1-14 | | | | | | |1-14 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M4b. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 900
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |1.982 |2.242 |1.637 |2.078 |1.810 |1.878 | |1.637 |2.242 |1.938 |31.2 | |2.078 |
 | Feb |1.096 |0.996 |0.588 |0.979 |0.850 |0.829 | |0.588 |1.096 |0.890 |57.1 | |0.979 |
@@ -1023,10 +1064,11 @@
 | Nov |6-15 |20-15 |20-14 |20-15 |20-15 |22-14 | | | | | | |20-15 |
 | Dec |1-15 |1-15 |2-14 |2-15 |2-15 |2-15 | | | | | | |2-15 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M5a. Monthly Load 600-900 Sensitivity Tests - Annual Heating (kWh)
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |386.2 |449.5 |397.4 |456.0 |466.0 |443.0 | |386.2 |466.0 |433.0 |18.4 | |456.0 |
 | Feb |345.9 |383.0 |342.4 |388.4 |399.0 |379.9 | |342.4 |399.0 |373.1 |15.2 | |388.4 |
@@ -1041,10 +1083,11 @@
 | Nov |300.5 |324.0 |301.9 |328.3 |343.0 |327.6 | |300.5 |343.0 |320.9 |13.2 | |328.3 |
 | Dec |368.9 |427.3 |383.5 |427.9 |442.0 |424.2 | |368.9 |442.0 |412.3 |17.7 | |427.9 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M5b. Monthly Load 600-900 Sensitivity Tests - Annual Sensible Cooling (kWh)
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |402.1 |486.2 |384.4 |468.5 |481.0 |450.4 | |384.4 |486.2 |445.4 |22.8 | |468.5 |
 | Feb |325.2 |379.2 |310.7 |375.2 |387.0 |358.2 | |310.7 |387.0 |355.9 |21.4 | |375.2 |
@@ -1059,10 +1102,11 @@
 | Nov |321.6 |374.3 |320.9 |369.7 |381.0 |358.4 | |320.9 |381.0 |354.3 |17.0 | |369.7 |
 | Dec |371.2 |429.5 |348.2 |420.9 |428.0 |406.6 | |348.2 |429.5 |400.7 |20.3 | |420.9 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M5c. Monthly Load 600-900 Sensitivity Tests - Peak Heating (kW)
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |0.778 |0.943 |0.858 |1.075 |1.030 |0.980 | |0.778 |1.075 |0.944 |31.5 | |1.075 |
 | Feb |0.490 |0.456 |0.469 |0.380 |0.510 |0.447 | |0.380 |0.510 |0.459 |28.3 | |0.380 |
@@ -1077,10 +1121,11 @@
 | Nov |0.828 |0.764 |0.730 |0.790 |0.830 |0.744 | |0.730 |0.830 |0.781 |12.8 | |0.790 |
 | Dec |1.051 |1.014 |0.991 |1.029 |1.130 |1.098 | |0.991 |1.130 |1.052 |13.2 | |1.029 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 # Table B8-M5d. Monthly Load 600-900 Sensitivity Tests - Peak Sensible Cooling (kW)
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |3.668 |4.239 |3.785 |4.274 |4.380 |4.168 | |3.668 |4.380 |4.086 |17.4 | |4.274 |
 | Feb |3.825 |4.397 |3.856 |4.558 |4.570 |4.326 | |3.825 |4.570 |4.255 |17.5 | |4.558 |
@@ -1095,7 +1140,8 @@
 | Nov |3.494 |3.916 |3.546 |4.192 |4.090 |3.883 | |3.494 |4.192 |3.854 |18.1 | |4.192 |
 | Dec |3.468 |4.345 |3.699 |4.283 |4.450 |4.252 | |3.468 |4.450 |4.083 |24.1 | |4.283 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
 ![figure 1](images/RESULTS5-2A-section_5_2_a_figure_b8_1.png)
 ![figure 2](images/RESULTS5-2A-section_5_2_a_figure_b8_2.png)

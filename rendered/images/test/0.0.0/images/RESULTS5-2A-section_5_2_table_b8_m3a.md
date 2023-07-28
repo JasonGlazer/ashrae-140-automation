@@ -1,5 +1,5 @@
 # Table B8-M3a. Monthly Hourly Integrated Peak Heating Loads (kW), Case 600
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |3.100 |3.020 |3.036 |2.978 |3.230 |3.359 | |2.978 |3.359 |3.121 |12.2 | |2.978 |
 | Feb |3.041 |2.900 |2.922 |3.067 |3.140 |3.225 | |2.900 |3.225 |3.049 |10.7 | |3.067 |
@@ -29,5 +29,6 @@
 | Nov |26-8 |26-8 |26-7 |26-7 |26-7 |26-8 | | | | | | |26-7 |
 | Dec |31-24 |31-24 |31-23 |31-24 |31-24 |31-24 | | | | | | |31-24 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

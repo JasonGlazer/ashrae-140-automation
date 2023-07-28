@@ -1,5 +1,5 @@
 # Table B8-M4a. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 600
-| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Month |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | Jan |5.650 |6.481 |5.422 |6.352 |6.190 |6.046 | |5.422 |6.481 |6.023 |17.6 | |6.352 |
 | Feb |4.921 |5.393 |4.444 |5.537 |5.420 |5.155 | |4.444 |5.537 |5.145 |21.2 | |5.537 |
@@ -29,5 +29,6 @@
 | Nov |28-14 |28-13 |29-13 |28-13 |28-14 |28-14 | | | | | | |28-13 |
 | Dec |1-14 |1-14 |1-13 |1-14 |1-14 |1-14 | | | | | | |1-14 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

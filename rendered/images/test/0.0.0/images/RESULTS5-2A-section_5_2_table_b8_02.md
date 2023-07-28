@@ -1,5 +1,5 @@
 # Table B8-2. Annual Sensible Cooling Loads (kWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 Base Case, South Windows |5.822 |5.913 |5.432 |6.027 |6.162 |5.780 | |5.432 |6.162 |5.856 |12.5 | |6.027 |
 | 610 S. Windows + Overhang |4.299 |4.382 |4.173 |4.333 |4.232 |4.117 | |4.117 |4.382 |4.256 |6.2 | |4.333 |
@@ -52,5 +52,6 @@
 | 800 High Mass Hig Cond. Wall Elements |0.473 |0.380 |0.362 |0.374 |0.391 |0.282 | |0.282 |0.473 |0.377 |50.6 | |0.374 |
 | 810 HIgh Mass Cavity Albedo |nan |1.481 |1.357 |1.508 |1.606 |1.295 | |1.295 |1.606 |1.449 |21.5 | |1.508 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

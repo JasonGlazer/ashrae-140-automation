@@ -605,7 +605,7 @@ class GraphicsRenderer(Logger):
                     md.write("|-----|" + "-----:|" * (len(row) - 1) + '\n')
             md.write('\n')
             for footnote in footnotes:
-                md.write(footnote + '\n')
+                md.write(footnote + '\n\n')
             md.write('\n')
         return
 
@@ -622,7 +622,7 @@ class GraphicsRenderer(Logger):
         """
         formatting_string = '{:.' + str(digits) + 'f}'
         final_column_headings = column_headings[:-1]
-        final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % [^1]', ''])
+        final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
         final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
@@ -6016,7 +6016,7 @@ class GraphicsRenderer(Logger):
     def render_section_5_2a_table_b8_16_alt(self):
         figure_name = 'section_5_2_table_b8_16_alt'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
 
         top_table = []
         bottom_table = []
@@ -6117,7 +6117,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_01'
         caption = 'Table B8-1. Annual Heating Loads (kWh)'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6138,7 +6138,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_02'
         caption = 'Table B8-2. Annual Sensible Cooling Loads (kWh)'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6160,7 +6160,7 @@ class GraphicsRenderer(Logger):
         caption = 'Table B8-3. Annual Hourly Integrated Peak Heating Loads (kWh)'
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6190,7 +6190,7 @@ class GraphicsRenderer(Logger):
         caption = 'Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)'
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6228,7 +6228,7 @@ class GraphicsRenderer(Logger):
             '960': '960 - Sunspace'}
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(free_float_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6262,7 +6262,7 @@ class GraphicsRenderer(Logger):
             '960': '960 - Sunspace'}
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(free_float_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6295,7 +6295,7 @@ class GraphicsRenderer(Logger):
             '980FF': '980FF - Case 900FF with More Insulation',
             '960': '960 - Sunspace'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(free_float_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6324,7 +6324,7 @@ class GraphicsRenderer(Logger):
             ('685', '600'): '685 - 600 Heat, 20/20 tstat',
             ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6359,7 +6359,7 @@ class GraphicsRenderer(Logger):
             ('685', '600'): '685 - 600 Heat, 20/20 tstat',
             ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6393,7 +6393,7 @@ class GraphicsRenderer(Logger):
             ('685', '600'): '685 - 600 Heat, 20/20 tstat',
             ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6428,7 +6428,7 @@ class GraphicsRenderer(Logger):
             ('685', '600'): '685 - 600 Heat, 20/20 tstat',
             ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6462,7 +6462,7 @@ class GraphicsRenderer(Logger):
             ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
             ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6497,7 +6497,7 @@ class GraphicsRenderer(Logger):
             ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
             ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6531,7 +6531,7 @@ class GraphicsRenderer(Logger):
             ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
             ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6566,7 +6566,7 @@ class GraphicsRenderer(Logger):
             ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
             ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6605,7 +6605,7 @@ class GraphicsRenderer(Logger):
             ('300', '270'): '300-270 E&W Windows',
             ('310', '300'): '310-300 E&W Shading'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6644,7 +6644,7 @@ class GraphicsRenderer(Logger):
             ('300', '270'): '300-270 E&W Windows',
             ('310', '300'): '310-300 E&W Shading'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6683,7 +6683,7 @@ class GraphicsRenderer(Logger):
             ('300', '270'): '300-270 E&W Windows',
             ('310', '300'): '310-300 E&W Shading'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6722,7 +6722,7 @@ class GraphicsRenderer(Logger):
             ('300', '270'): '300-270 E&W Windows',
             ('310', '300'): '310-300 E&W Shading'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6758,7 +6758,7 @@ class GraphicsRenderer(Logger):
             ('470', '600'): '470-600 Const Ext Surf Coefs',
             ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6794,7 +6794,7 @@ class GraphicsRenderer(Logger):
             ('470', '600'): '470-600 Const Ext Surf Coefs',
             ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6830,7 +6830,7 @@ class GraphicsRenderer(Logger):
             ('470', '600'): '470-600 Const Ext Surf Coefs',
             ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6866,7 +6866,7 @@ class GraphicsRenderer(Logger):
             ('470', '600'): '470-600 Const Ext Surf Coefs',
             ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6901,7 +6901,7 @@ class GraphicsRenderer(Logger):
             ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
             ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6937,7 +6937,7 @@ class GraphicsRenderer(Logger):
             ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
             ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -6972,7 +6972,7 @@ class GraphicsRenderer(Logger):
             ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
             ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7008,7 +7008,7 @@ class GraphicsRenderer(Logger):
             ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
             ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(sensitivity_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7030,7 +7030,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_11(self):
         figure_name = 'section_5_2_table_b8_11'
-        caption = 'Table B8-11. Annual Transmissivity Coefficient of Windows [^2]'
+        caption = 'Table B8-11. Annual Transmissivity Coefficient of Windows'
         transmitted_cases = {
             '600 South': ('600', 'South'),
             '620 West': ('620', 'West'),
@@ -7038,8 +7038,8 @@ class GraphicsRenderer(Logger):
             '670 South, Single Pane': ('670', 'South')
         }
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',
-                     '[^2]:Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation']
+        footnotes = ['Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation',
+                     '$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]']
         row_headings = list(transmitted_cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7060,13 +7060,13 @@ class GraphicsRenderer(Logger):
 
     def render_section_5_2a_table_b8_12(self):
         figure_name = 'section_5_2_table_b8_12'
-        caption = 'Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins [^2]'
+        caption = 'Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'
         coefficient_cases = {
             '610/600 South': ('610', '600', 'South'),
             '630/620 West': ('630', '620', 'West')}
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]',
-                     '[^2]: (1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))']
+        footnotes = ['(1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))'
+                     '$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]']
         row_headings = list(coefficient_cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7096,7 +7096,7 @@ class GraphicsRenderer(Logger):
             'WEST': 'West',
         }
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(directions.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7120,7 +7120,7 @@ class GraphicsRenderer(Logger):
             '670 South': ('670', 'South')
         }
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(transmitted_cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7142,7 +7142,7 @@ class GraphicsRenderer(Logger):
             '630 West': ('630', 'West'),
         }
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(transmitted_cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7171,7 +7171,7 @@ class GraphicsRenderer(Logger):
         }
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(cases.keys())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7203,7 +7203,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m1a'
         caption = 'Table B8-M1a. Monthly Heating Loads (kWh), Case 600'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7223,7 +7223,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m1b'
         caption = 'Table B8-M1b. Monthly Heating Loads (kWh), Case 900'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7243,7 +7243,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m2a'
         caption = 'Table B8-M2a. Monthly Sensible Cooling Loads (kWh), Case 600'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7263,7 +7263,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m2b'
         caption = 'Table B8-M2b. Monthly Sensible Cooling Loads (kWh), Case 900'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7284,7 +7284,7 @@ class GraphicsRenderer(Logger):
         caption = 'Table B8-M3a. Monthly Hourly Integrated Peak Heating Loads (kW), Case 600'
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7311,7 +7311,7 @@ class GraphicsRenderer(Logger):
         caption = 'Table B8-M3b. Monthly Hourly Integrated Peak Heating Loads (kW), Case 900'
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7338,7 +7338,7 @@ class GraphicsRenderer(Logger):
         caption = 'Table B8-M4a. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 600'
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7365,7 +7365,7 @@ class GraphicsRenderer(Logger):
         caption = 'Table B8-M4b. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 900'
         data_table = []
         time_stamp_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7391,7 +7391,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m5a'
         caption = 'Table B8-M5a. Monthly Load 600-900 Sensitivity Tests - Annual Heating (kWh)'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7413,7 +7413,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m5b'
         caption = 'Table B8-M5b. Monthly Load 600-900 Sensitivity Tests - Annual Sensible Cooling (kWh)'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7435,7 +7435,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m5c'
         caption = 'Table B8-M5c. Monthly Load 600-900 Sensitivity Tests - Peak Heating (kW)'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings
@@ -7461,7 +7461,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_5_2_table_b8_m5d'
         caption = 'Table B8-M5d. Monthly Load 600-900 Sensitivity Tests - Peak Sensible Cooling (kW)'
         data_table = []
-        footnotes = ['[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         column_headings = ['Month']
         # create column headings

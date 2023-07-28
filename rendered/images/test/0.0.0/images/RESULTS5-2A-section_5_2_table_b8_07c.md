@@ -1,5 +1,5 @@
 # Table B8-7c. High Mass Basic Sensitivity Tests - Peak Heating (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 900 - 600 Mass, Heat |-0.704 |-0.577 |-0.582 |-0.517 |-0.595 |-0.580 | |-0.704 |-0.517 |-0.593 |31.6 | |-0.517 |
 | 910 - 900 Heat, S.Shade |0.210 |0.026 |0.021 |0.012 |0.051 |0.021 | |0.012 |0.210 |0.057 |349.1 | |0.012 |
@@ -11,5 +11,6 @@
 | 985 - 900 Heat, > 20/20 tstat |0.203 |0.009 |0.005 |0.008 |0.009 |0.007 | |0.005 |0.203 |0.040 |493.5 | |0.008 |
 | 995 - 985 Heat, > Ins. 20/20 |-1.043 |-1.083 |-0.996 |-1.073 |-1.082 |-1.123 | |-1.123 |-0.996 |-1.067 |11.9 | |-1.073 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

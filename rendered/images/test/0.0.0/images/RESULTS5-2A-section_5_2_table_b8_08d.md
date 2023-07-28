@@ -1,5 +1,5 @@
 # Table B8-8d. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 200-195 Surface Convection |0.153 |0.221 |0.266 |0.266 |0.254 |0.265 | |0.153 |0.266 |0.238 |47.6 | |0.266 |
 | 210-200 Ext IR (Int IR "off") |-0.078 |-0.270 |-0.302 |-0.223 |-0.321 |-0.375 | |-0.375 |-0.078 |-0.261 |113.5 | |-0.223 |
@@ -16,5 +16,6 @@
 | 300-270 E&W Windows |0.000 |-2.848 |-2.137 |-2.364 |-2.392 |-2.359 | |-2.848 |0.000 |-2.017 |141.2 | |-2.364 |
 | 310-300 E&W Shading |0.000 |-0.367 |-0.443 |-0.505 |-0.603 |-0.577 | |-0.603 |0.000 |-0.416 |145.0 | |-0.505 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

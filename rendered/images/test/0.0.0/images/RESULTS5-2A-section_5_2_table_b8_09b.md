@@ -1,5 +1,5 @@
 # Table B8-9b. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 400-395 Surf. Conv. & IR |0.042 |0.016 |0.011 |0.021 |0.019 |0.009 | |0.009 |0.042 |0.020 |167.5 | |0.021 |
 | 410-400 Infiltration |0.033 |0.025 |0.024 |0.026 |0.028 |0.022 | |0.022 |0.033 |0.026 |40.0 | |0.026 |
@@ -13,5 +13,6 @@
 | 470-600 Const Ext Surf Coefs |0.165 |-0.269 |0.217 |0.002 |-0.156 |0.276 | |-0.269 |0.276 |0.039 |1394.6 | |0.002 |
 | 470-450 Auto Int Surf Heat Transf |-0.185 |-0.045 |-0.512 |-0.478 |-0.608 |-0.475 | |-0.608 |-0.045 |-0.384 |146.6 | |-0.478 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

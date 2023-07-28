@@ -1,5 +1,5 @@
 # Table B8-6d. Low Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 610 - 600 Cool, S. Shade |-0.184 |-0.049 |-0.091 |-0.217 |-0.259 |-0.178 | |-0.259 |-0.049 |-0.163 |129.0 | |-0.217 |
 | 620 - 600 Cool, E&W Orient |-0.946 |-1.988 |-1.467 |-1.555 |-1.571 |-1.457 | |-1.988 |-0.946 |-1.497 |69.6 | |-1.555 |
@@ -12,5 +12,6 @@
 | 685 - 600 Heat, 20/20 tstat |0.668 |0.678 |0.649 |0.755 |0.741 |0.822 | |0.649 |0.822 |0.719 |24.0 | |0.755 |
 | 695 - 685 Heat, > Ins. 20/20 |-0.086 |0.381 |0.284 |0.227 |0.305 |0.308 | |-0.086 |0.381 |0.237 |197.6 | |0.227 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

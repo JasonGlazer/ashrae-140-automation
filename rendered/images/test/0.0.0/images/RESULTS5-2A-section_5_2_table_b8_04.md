@@ -1,5 +1,5 @@
 # Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 600 Base Case, South Windows |5.650 |6.481 |5.422 |6.352 |6.193 |6.046 | |5.422 |6.481 |6.024 |17.6 | |6.352 |
 | 610 S. Windows + Overhang |5.466 |6.432 |5.331 |6.135 |5.934 |5.868 | |5.331 |6.432 |5.861 |18.8 | |6.135 |
@@ -105,5 +105,6 @@
 | 800 High Mass Hig Cond. Wall Elements |Jun 26-16 |Aug 5-15 |Aug 5-14 |Jun 26-16 |Aug 5-15 |Aug 5-15 | | | | | | |Jun 26-16 |
 | 810 HIgh Mass Cavity Albedo |nan 0-0 |Sep 4-15 |Sep 11-14 |Sep 11-15 |Sep 4-15 |Sep 11-15 | | | | | | |Sep 11-15 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 

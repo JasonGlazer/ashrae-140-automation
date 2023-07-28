@@ -1,5 +1,5 @@
 # Table B8-10b. High Mass Basic and In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)
-| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % [^1] | |TestSoftware1 |
+| Case |BSIMAC 9 |CSE |DeST |EnergyPlus |ESP-r |TRNSYS | |Min |Max |Mean |Dev % $$ | |TestSoftware1 |
 |-----|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
 | 800-430 Mass, w/ High Cond. Wall |-0.611 |-0.526 |-0.582 |-0.482 |-0.561 |-0.457 | |-0.611 |-0.457 |-0.537 |28.7 | |-0.482 |
 | 900-800 Himass, S. Win. |2.241 |2.084 |2.021 |2.115 |2.096 |1.985 | |1.985 |2.241 |2.090 |12.2 | |2.115 |
@@ -13,5 +13,6 @@
 | 985-685 Mass, w/ 20/20 Tstat |-1.857 |-2.626 |-2.358 |-2.760 |-2.872 |-2.738 | |-2.872 |-1.857 |-2.535 |40.0 | |-2.760 |
 | 995-695 Mass, w/ Insulation 20/20 |-1.273 |-1.772 |-1.615 |-1.969 |-2.000 |-1.975 | |-2.000 |-1.273 |-1.767 |41.1 | |-1.969 |
 
-[^1]: ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+
 
