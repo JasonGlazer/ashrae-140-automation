@@ -1,347 +1,347 @@
 {
     "conditioned_zone_loads_non_free_float": {
         "195": {
-            "annual_cooling_MWh": 0.612,
-            "annual_heating_MWh": 4.07,
+            "annual_cooling_MWh": 0.6115192774237722,
+            "annual_heating_MWh": 4.069608164979865,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.041,
+            "peak_cooling_kW": 1.040983949712286,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 1.794,
+            "peak_heating_kW": 1.7944106654119583,
             "peak_heating_month": "Dec"
         },
         "200": {
-            "annual_cooling_MWh": 0.814,
-            "annual_heating_MWh": 5.105,
+            "annual_cooling_MWh": 0.8140803932027314,
+            "annual_heating_MWh": 5.105383543843584,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.307,
+            "peak_cooling_kW": 1.307466304499786,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 26,
             "peak_heating_hour": 8,
-            "peak_heating_kW": 2.341,
+            "peak_heating_kW": 2.3413323495706666,
             "peak_heating_month": "Nov"
         },
         "210": {
-            "annual_cooling_MWh": 0.56,
-            "annual_heating_MWh": 6.047,
+            "annual_cooling_MWh": 0.5598966152660761,
+            "annual_heating_MWh": 6.0465629590385035,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.084,
+            "peak_cooling_kW": 1.0843806818245332,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.565,
+            "peak_heating_kW": 2.5645606256152473,
             "peak_heating_month": "Dec"
         },
         "215": {
-            "annual_cooling_MWh": 0.877,
-            "annual_heating_MWh": 5.405,
+            "annual_cooling_MWh": 0.8774686341912409,
+            "annual_heating_MWh": 5.405419336882607,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.4,
+            "peak_cooling_kW": 1.4003868564288973,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 26,
             "peak_heating_hour": 8,
-            "peak_heating_kW": 2.478,
+            "peak_heating_kW": 2.4778185888973803,
             "peak_heating_month": "Nov"
         },
         "220": {
-            "annual_cooling_MWh": 0.61,
-            "annual_heating_MWh": 6.455,
+            "annual_cooling_MWh": 0.6099037587164603,
+            "annual_heating_MWh": 6.455136085431722,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 1.184,
+            "peak_cooling_kW": 1.1844831491279082,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.692,
+            "peak_heating_kW": 2.692032473318694,
             "peak_heating_month": "Dec"
         },
         "230": {
-            "annual_cooling_MWh": 0.991,
-            "annual_heating_MWh": 9.93,
+            "annual_cooling_MWh": 0.9912129573167486,
+            "annual_heating_MWh": 9.929857597179115,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.841,
+            "peak_cooling_kW": 1.8408786461636304,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 4.316,
+            "peak_heating_kW": 4.316098489918805,
             "peak_heating_month": "Dec"
         },
         "240": {
-            "annual_cooling_MWh": 0.979,
-            "annual_heating_MWh": 5.279,
+            "annual_cooling_MWh": 0.9787481143544694,
+            "annual_heating_MWh": 5.279376550308902,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 1.366,
+            "peak_cooling_kW": 1.3659364281534667,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.507,
+            "peak_heating_kW": 2.507116163294861,
             "peak_heating_month": "Dec"
         },
         "250": {
-            "annual_cooling_MWh": 3.182,
-            "annual_heating_MWh": 4.899,
+            "annual_cooling_MWh": 3.1816063636638763,
+            "annual_heating_MWh": 4.899115049030049,
             "peak_cooling_day": 12,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 2.867,
+            "peak_cooling_kW": 2.8665932367108886,
             "peak_cooling_month": "Sep",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.687,
+            "peak_heating_kW": 2.6874141795329582,
             "peak_heating_month": "Dec"
         },
         "270": {
-            "annual_cooling_MWh": 7.522,
-            "annual_heating_MWh": 4.385,
+            "annual_cooling_MWh": 7.521544424121661,
+            "annual_heating_MWh": 4.385351283641419,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.839,
+            "peak_cooling_kW": 6.8388144107288324,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.597,
+            "peak_heating_kW": 2.5966228976060277,
             "peak_heating_month": "Dec"
         },
         "280": {
-            "annual_cooling_MWh": 5.183,
-            "annual_heating_MWh": 4.57,
+            "annual_cooling_MWh": 5.182921318191241,
+            "annual_heating_MWh": 4.570066537238154,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 4.727,
+            "peak_cooling_kW": 4.727167803787196,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.602,
+            "peak_heating_kW": 2.6020069028132724,
             "peak_heating_month": "Dec"
         },
         "290": {
-            "annual_cooling_MWh": 5.743,
-            "annual_heating_MWh": 4.424,
+            "annual_cooling_MWh": 5.742533752184111,
+            "annual_heating_MWh": 4.424397370199252,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.595,
+            "peak_cooling_kW": 6.594551025371333,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.583,
+            "peak_heating_kW": 2.5834335749160084,
             "peak_heating_month": "Dec"
         },
         "300": {
-            "annual_cooling_MWh": 5.152,
-            "annual_heating_MWh": 4.425,
+            "annual_cooling_MWh": 5.1520207912687095,
+            "annual_heating_MWh": 4.42454792054457,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 4.475,
+            "peak_cooling_kW": 4.475487029555861,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.603,
+            "peak_heating_kW": 2.6031320389553416,
             "peak_heating_month": "Dec"
         },
         "310": {
-            "annual_cooling_MWh": 3.669,
-            "annual_heating_MWh": 4.691,
+            "annual_cooling_MWh": 3.6694788104965235,
+            "annual_heating_MWh": 4.691171435114891,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 3.97,
+            "peak_cooling_kW": 3.969546628651889,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.58,
+            "peak_heating_kW": 2.5800679099655612,
             "peak_heating_month": "Dec"
         },
         "320": {
-            "annual_cooling_MWh": 4.986,
-            "annual_heating_MWh": 3.771,
+            "annual_cooling_MWh": 4.9859588392543746,
+            "annual_heating_MWh": 3.7711958809967627,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.209,
+            "peak_cooling_kW": 6.209107534286333,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.573,
+            "peak_heating_kW": 2.5734807115871945,
             "peak_heating_month": "Dec"
         },
         "395": {
-            "annual_cooling_MWh": 0.01,
-            "annual_heating_MWh": 4.641,
+            "annual_cooling_MWh": 0.010380231519580037,
+            "annual_heating_MWh": 4.641217678318682,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 19,
-            "peak_cooling_kW": 0.377,
+            "peak_cooling_kW": 0.37747114436019724,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 1.952,
+            "peak_heating_kW": 1.9517291470892,
             "peak_heating_month": "Dec"
         },
         "400": {
-            "annual_cooling_MWh": 0.031,
-            "annual_heating_MWh": 6.348,
+            "annual_cooling_MWh": 0.030565647736824134,
+            "annual_heating_MWh": 6.347823048291983,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 0.607,
+            "peak_cooling_kW": 0.6069059115503361,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.692,
+            "peak_heating_kW": 2.692004973284161,
             "peak_heating_month": "Dec"
         },
         "410": {
-            "annual_cooling_MWh": 0.057,
-            "annual_heating_MWh": 8.08,
+            "annual_cooling_MWh": 0.0572686133713265,
+            "annual_heating_MWh": 8.0803328332046,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 0.828,
+            "peak_cooling_kW": 0.82784871333105,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.504,
+            "peak_heating_kW": 3.504037981584194,
             "peak_heating_month": "Dec"
         },
         "420": {
-            "annual_cooling_MWh": 0.153,
-            "annual_heating_MWh": 6.906,
+            "annual_cooling_MWh": 0.15257031168423119,
+            "annual_heating_MWh": 6.905798375670528,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 1.033,
+            "peak_cooling_kW": 1.0325401014967168,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.319,
+            "peak_heating_kW": 3.3191219199176945,
             "peak_heating_month": "Dec"
         },
         "430": {
-            "annual_cooling_MWh": 0.856,
-            "annual_heating_MWh": 5.62,
+            "annual_cooling_MWh": 0.8556237317140681,
+            "annual_heating_MWh": 5.620127035017815,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 16,
-            "peak_cooling_kW": 1.929,
+            "peak_cooling_kW": 1.9293660713617777,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.316,
+            "peak_heating_kW": 3.316252906611,
             "peak_heating_month": "Dec"
         },
         "440": {
-            "annual_cooling_MWh": 4.085,
-            "annual_heating_MWh": 4.5,
+            "annual_cooling_MWh": 4.085010832011259,
+            "annual_heating_MWh": 4.50006066016604,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 4.686,
+            "peak_cooling_kW": 4.686011920155889,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.219,
+            "peak_heating_kW": 3.2186543660346114,
             "peak_heating_month": "Dec"
         },
         "450": {
-            "annual_cooling_MWh": 6.507,
-            "annual_heating_MWh": 3.962,
+            "annual_cooling_MWh": 6.507258885738759,
+            "annual_heating_MWh": 3.962478576452696,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.466,
+            "peak_cooling_kW": 6.466327698213667,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.1,
+            "peak_heating_kW": 3.099818920820917,
             "peak_heating_month": "Dec"
         },
         "460": {
-            "annual_cooling_MWh": 6.475,
-            "annual_heating_MWh": 4.194,
+            "annual_cooling_MWh": 6.4746089105985005,
+            "annual_heating_MWh": 4.193750441631714,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.374,
+            "peak_cooling_kW": 6.374167603494472,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.091,
+            "peak_heating_kW": 3.0910523145708613,
             "peak_heating_month": "Dec"
         },
         "470": {
-            "annual_cooling_MWh": 6.029,
-            "annual_heating_MWh": 4.094,
+            "annual_cooling_MWh": 6.0293841751928685,
+            "annual_heating_MWh": 4.093863516025762,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.444,
+            "peak_cooling_kW": 6.4436386748211385,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.207,
+            "peak_heating_kW": 3.206738141443722,
             "peak_heating_month": "Dec"
         },
         "600": {
-            "annual_cooling_MWh": 6.027,
-            "annual_heating_MWh": 4.324,
+            "annual_cooling_MWh": 6.0270394016087305,
+            "annual_heating_MWh": 4.324374337528349,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.352,
+            "peak_cooling_kW": 6.351567196693167,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.204,
+            "peak_heating_kW": 3.204426316930861,
             "peak_heating_month": "Dec"
         },
         "610": {
-            "annual_cooling_MWh": 4.333,
-            "annual_heating_MWh": 4.375,
+            "annual_cooling_MWh": 4.3327583401901055,
+            "annual_heating_MWh": 4.374805418267,
             "peak_cooling_day": 1,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.135,
+            "peak_cooling_kW": 6.1345421296626395,
             "peak_cooling_month": "Dec",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.192,
+            "peak_heating_kW": 3.191842426702028,
             "peak_heating_month": "Dec"
         },
         "620": {
-            "annual_cooling_MWh": 4.06,
-            "annual_heating_MWh": 4.485,
+            "annual_cooling_MWh": 4.059508957020599,
+            "annual_heating_MWh": 4.4850771739176,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 4.797,
+            "peak_cooling_kW": 4.797435810329278,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.229,
+            "peak_heating_kW": 3.2291222373626387,
             "peak_heating_month": "Dec"
         },
         "630": {
-            "annual_cooling_MWh": 2.836,
-            "annual_heating_MWh": 4.784,
+            "annual_cooling_MWh": 2.8360402244015956,
+            "annual_heating_MWh": 4.783548494117288,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 4.212,
+            "peak_cooling_kW": 4.2121743380140835,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.207,
+            "peak_heating_kW": 3.2065583099253057,
             "peak_heating_month": "Dec"
         },
         "640": {
-            "annual_cooling_MWh": 5.763,
-            "annual_heating_MWh": 2.662,
+            "annual_cooling_MWh": 5.763099877572754,
+            "annual_heating_MWh": 2.661844240865976,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.297,
+            "peak_cooling_kW": 6.297397179069306,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 26,
             "peak_heating_hour": 8,
-            "peak_heating_kW": 4.559,
+            "peak_heating_kW": 4.558533259997223,
             "peak_heating_month": "Nov"
         },
         "650": {
-            "annual_cooling_MWh": 4.817,
+            "annual_cooling_MWh": 4.816778552685596,
             "annual_heating_MWh": 0.0,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.138,
+            "peak_cooling_kW": 6.138147120833472,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 1,
             "peak_heating_hour": 1,
@@ -349,155 +349,155 @@
             "peak_heating_month": "Jan"
         },
         "660": {
-            "annual_cooling_MWh": 3.232,
-            "annual_heating_MWh": 3.707,
+            "annual_cooling_MWh": 3.2315368735820593,
+            "annual_heating_MWh": 3.7067371577640666,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 3.77,
+            "peak_cooling_kW": 3.7703386584635834,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.831,
+            "peak_heating_kW": 2.8311240818441665,
             "peak_heating_month": "Dec"
         },
         "670": {
-            "annual_cooling_MWh": 6.623,
-            "annual_heating_MWh": 5.616,
+            "annual_cooling_MWh": 6.622703417869582,
+            "annual_heating_MWh": 5.616124975708732,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.806,
+            "peak_cooling_kW": 6.806195003956139,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 26,
             "peak_heating_hour": 7,
-            "peak_heating_kW": 3.854,
+            "peak_heating_kW": 3.8535305096518058,
             "peak_heating_month": "Nov"
         },
         "680": {
-            "annual_cooling_MWh": 6.444,
-            "annual_heating_MWh": 2.18,
+            "annual_cooling_MWh": 6.443903453149411,
+            "annual_heating_MWh": 2.1796675887393078,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 6.77,
+            "peak_cooling_kW": 6.770223703914083,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 26,
             "peak_heating_hour": 7,
-            "peak_heating_kW": 2.052,
+            "peak_heating_kW": 2.052413801499181,
             "peak_heating_month": "Nov"
         },
         "685": {
-            "annual_cooling_MWh": 9.119,
-            "annual_heating_MWh": 4.877,
+            "annual_cooling_MWh": 9.118801250290051,
+            "annual_heating_MWh": 4.877119963468576,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 7.107,
+            "peak_cooling_kW": 7.106770185866944,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 3.223,
+            "peak_heating_kW": 3.2231671528998613,
             "peak_heating_month": "Dec"
         },
         "695": {
-            "annual_cooling_MWh": 9.172,
-            "annual_heating_MWh": 2.802,
+            "annual_cooling_MWh": 9.171560054778986,
+            "annual_heating_MWh": 2.801896774731026,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 7.334,
+            "peak_cooling_kW": 7.3342986190285275,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 31,
             "peak_heating_hour": 24,
-            "peak_heating_kW": 2.072,
+            "peak_heating_kW": 2.0717806326261945,
             "peak_heating_month": "Dec"
         },
         "800": {
-            "annual_cooling_MWh": 0.374,
-            "annual_heating_MWh": 5.116,
+            "annual_cooling_MWh": 0.37353234692909176,
+            "annual_heating_MWh": 5.115558856706499,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 16,
-            "peak_cooling_kW": 1.046,
+            "peak_cooling_kW": 1.0458327706611417,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.924,
+            "peak_heating_kW": 2.9236541637012223,
             "peak_heating_month": "Feb"
         },
         "810": {
-            "annual_cooling_MWh": 1.508,
-            "annual_heating_MWh": 2.342,
+            "annual_cooling_MWh": 1.5077960082186876,
+            "annual_heating_MWh": 2.3418239005067787,
             "peak_cooling_day": 11,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 2.27,
+            "peak_cooling_kW": 2.2702199991441168,
             "peak_cooling_month": "Sep",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.749,
+            "peak_heating_kW": 2.7490345306092445,
             "peak_heating_month": "Feb"
         },
         "900": {
-            "annual_cooling_MWh": 2.489,
-            "annual_heating_MWh": 1.664,
+            "annual_cooling_MWh": 2.488741367713275,
+            "annual_heating_MWh": 1.663686669222239,
             "peak_cooling_day": 1,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 3.04,
+            "peak_cooling_kW": 3.040447251546055,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.687,
+            "peak_heating_kW": 2.6874896063526754,
             "peak_heating_month": "Feb"
         },
         "910": {
-            "annual_cooling_MWh": 1.383,
-            "annual_heating_MWh": 1.956,
+            "annual_cooling_MWh": 1.3834777438114532,
+            "annual_heating_MWh": 1.9557369363138615,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 2.222,
+            "peak_cooling_kW": 2.2221010747404084,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.699,
+            "peak_heating_kW": 2.6989266282674835,
             "peak_heating_month": "Feb"
         },
         "920": {
-            "annual_cooling_MWh": 2.731,
-            "annual_heating_MWh": 3.337,
+            "annual_cooling_MWh": 2.7308427833342828,
+            "annual_heating_MWh": 3.3365100699681816,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 3.26,
+            "peak_cooling_kW": 3.260330055198278,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.77,
+            "peak_heating_kW": 2.7701794479573083,
             "peak_heating_month": "Feb"
         },
         "930": {
-            "annual_cooling_MWh": 1.919,
-            "annual_heating_MWh": 3.994,
+            "annual_cooling_MWh": 1.9191122099152138,
+            "annual_heating_MWh": 3.993812729789016,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 18,
-            "peak_cooling_kW": 2.782,
+            "peak_cooling_kW": 2.7815184723279445,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.785,
+            "peak_heating_kW": 2.7848982775920277,
             "peak_heating_month": "Feb"
         },
         "940": {
-            "annual_cooling_MWh": 2.424,
-            "annual_heating_MWh": 1.067,
+            "annual_cooling_MWh": 2.4243509390483053,
+            "annual_heating_MWh": 1.0673847073572145,
             "peak_cooling_day": 1,
             "peak_cooling_hour": 14,
-            "peak_cooling_kW": 3.04,
+            "peak_cooling_kW": 3.039962015978528,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 31,
             "peak_heating_hour": 9,
-            "peak_heating_kW": 3.143,
+            "peak_heating_kW": 3.142769067196361,
             "peak_heating_month": "Dec"
         },
         "950": {
-            "annual_cooling_MWh": 0.707,
+            "annual_cooling_MWh": 0.7069197836420551,
             "annual_heating_MWh": 0.0,
             "peak_cooling_day": 11,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 2.388,
+            "peak_cooling_kW": 2.3875281644443667,
             "peak_cooling_month": "Sep",
             "peak_heating_day": 1,
             "peak_heating_hour": 1,
@@ -505,131 +505,131 @@
             "peak_heating_month": "Jan"
         },
         "960": {
-            "annual_cooling_MWh": 0.907,
-            "annual_heating_MWh": 2.689,
+            "annual_cooling_MWh": 0.9071171714209376,
+            "annual_heating_MWh": 2.689043872736908,
             "peak_cooling_day": 26,
             "peak_cooling_hour": 17,
-            "peak_cooling_kW": 1.48,
+            "peak_cooling_kW": 1.4799194889740501,
             "peak_cooling_month": "Jun",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.259,
+            "peak_heating_kW": 2.2593649985640587,
             "peak_heating_month": "Feb"
         },
         "980": {
-            "annual_cooling_MWh": 3.712,
-            "annual_heating_MWh": 0.411,
+            "annual_cooling_MWh": 3.711815880399408,
+            "annual_heating_MWh": 0.41094140012062214,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 3.45,
+            "peak_cooling_kW": 3.45012275142575,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 1.538,
+            "peak_heating_kW": 1.5378337809819003,
             "peak_heating_month": "Feb"
         },
         "985": {
-            "annual_cooling_MWh": 6.359,
-            "annual_heating_MWh": 2.369,
+            "annual_cooling_MWh": 6.35918241220385,
+            "annual_heating_MWh": 2.36931914899094,
             "peak_cooling_day": 18,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 3.915,
+            "peak_cooling_kW": 3.9147831651936666,
             "peak_cooling_month": "Oct",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 2.695,
+            "peak_heating_kW": 2.6954432353354885,
             "peak_heating_month": "Feb"
         },
         "995": {
-            "annual_cooling_MWh": 7.203,
-            "annual_heating_MWh": 1.006,
+            "annual_cooling_MWh": 7.202854538329976,
+            "annual_heating_MWh": 1.0064883659767614,
             "peak_cooling_day": 22,
             "peak_cooling_hour": 15,
-            "peak_cooling_kW": 4.177,
+            "peak_cooling_kW": 4.177446844042361,
             "peak_cooling_month": "Jan",
             "peak_heating_day": 9,
             "peak_heating_hour": 6,
-            "peak_heating_kW": 1.622,
+            "peak_heating_kW": 1.6221238033650556,
             "peak_heating_month": "Feb"
         }
     },
     "free_float_case_zone_temperatures": {
         "600FF": {
-            "average_temperature": 24.92,
+            "average_temperature": 24.917301559957938,
             "maximum_day": 18,
             "maximum_hour": 16,
             "maximum_month": "Oct",
-            "maximum_temperature": 63.84,
+            "maximum_temperature": 63.8408396824451,
             "minimum_day": 9,
             "minimum_hour": 7,
             "minimum_month": "Feb",
-            "minimum_temperature": -12.56
+            "minimum_temperature": -12.5612600563572
         },
         "650FF": {
-            "average_temperature": 18.42,
+            "average_temperature": 18.419483428473118,
             "maximum_day": 18,
             "maximum_hour": 16,
             "maximum_month": "Oct",
-            "maximum_temperature": 62.47,
+            "maximum_temperature": 62.468972650122,
             "minimum_day": 31,
             "minimum_hour": 24,
             "minimum_month": "Dec",
-            "minimum_temperature": -17.08
+            "minimum_temperature": -17.0757529462032
         },
         "680FF": {
-            "average_temperature": 30.96,
+            "average_temperature": 30.95841378383712,
             "maximum_day": 22,
             "maximum_hour": 16,
             "maximum_month": "Jan",
-            "maximum_temperature": 70.14,
+            "maximum_temperature": 70.1446637055953,
             "minimum_day": 9,
             "minimum_hour": 7,
             "minimum_month": "Feb",
-            "minimum_temperature": -7.05
+            "minimum_temperature": -7.05233179755271
         },
         "900FF": {
-            "average_temperature": 25.12,
+            "average_temperature": 25.121267847919043,
             "maximum_day": 12,
             "maximum_hour": 15,
             "maximum_month": "Sep",
-            "maximum_temperature": 44.29,
+            "maximum_temperature": 44.292185943744,
             "minimum_day": 9,
             "minimum_hour": 7,
             "minimum_month": "Feb",
-            "minimum_temperature": 1.24
+            "minimum_temperature": 1.24241687833779
         },
         "950FF": {
-            "average_temperature": 14.79,
+            "average_temperature": 14.789019549892933,
             "maximum_day": 11,
             "maximum_hour": 16,
             "maximum_month": "Sep",
-            "maximum_temperature": 36.68,
+            "maximum_temperature": 36.6804590202979,
             "minimum_day": 9,
             "minimum_hour": 7,
             "minimum_month": "Feb",
-            "minimum_temperature": -12.81
+            "minimum_temperature": -12.8122266468082
         },
         "960": {
-            "average_temperature": 27.74,
+            "average_temperature": 27.742739432353172,
             "maximum_day": 12,
             "maximum_hour": 15,
             "maximum_month": "Oct",
-            "maximum_temperature": 49.88,
+            "maximum_temperature": 49.8772874645906,
             "minimum_day": 9,
             "minimum_hour": 7,
             "minimum_month": "Feb",
-            "minimum_temperature": 5.09
+            "minimum_temperature": 5.09310433059537
         },
         "980FF": {
-            "average_temperature": 31.16,
+            "average_temperature": 31.161752128177316,
             "maximum_day": 12,
             "maximum_hour": 16,
             "maximum_month": "Sep",
-            "maximum_temperature": 49.62,
+            "maximum_temperature": 49.6220616715362,
             "minimum_day": 4,
             "minimum_hour": 7,
             "minimum_month": "Nov",
-            "minimum_temperature": 9.92
+            "minimum_temperature": 9.9170446295161
         }
     },
     "hourly_annual_zone_temperature_bin_data": {
@@ -1095,260 +1095,260 @@
             "Apr": {
                 "peak_cooling_day": 12,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 3.931,
+                "peak_cooling_kw": 3.9307295208213056,
                 "peak_heating_day": 11,
                 "peak_heating_hour": 5,
-                "peak_heating_kw": 2.322,
-                "total_cooling_kwh": 240.46,
-                "total_heating_kwh": 510.12
+                "peak_heating_kw": 2.3222876020014307,
+                "total_cooling_kwh": 240.46105063040042,
+                "total_heating_kwh": 510.12438849059777
             },
             "Aug": {
                 "peak_cooling_day": 26,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 4.672,
+                "peak_cooling_kw": 4.6719597500999726,
                 "peak_heating_day": 17,
                 "peak_heating_hour": 6,
-                "peak_heating_kw": 0.479,
-                "total_cooling_kwh": 648.5,
-                "total_heating_kwh": 6.59
+                "peak_heating_kw": 0.4785235323409695,
+                "total_cooling_kwh": 648.5013110451102,
+                "total_heating_kwh": 6.587748938974597
             },
             "Dec": {
                 "peak_cooling_day": 1,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 6.251,
+                "peak_cooling_kw": 6.250957455981833,
                 "peak_heating_day": 31,
                 "peak_heating_hour": 24,
-                "peak_heating_kw": 3.204,
-                "total_cooling_kwh": 481.86,
-                "total_heating_kwh": 735.73
+                "peak_heating_kw": 3.204426316930861,
+                "total_cooling_kwh": 481.8593726671105,
+                "total_heating_kwh": 735.7302917816185
             },
             "Feb": {
                 "peak_cooling_day": 2,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 5.537,
+                "peak_cooling_kw": 5.537254325313861,
                 "peak_heating_day": 9,
                 "peak_heating_hour": 6,
-                "peak_heating_kw": 3.067,
-                "total_cooling_kwh": 387.5,
-                "total_heating_kwh": 682.63
+                "peak_heating_kw": 3.0666431562516387,
+                "total_cooling_kwh": 387.49812256271707,
+                "total_heating_kwh": 682.6319645677064
             },
             "Jan": {
                 "peak_cooling_day": 22,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 6.352,
+                "peak_cooling_kw": 6.351567196693167,
                 "peak_heating_day": 1,
                 "peak_heating_hour": 3,
-                "peak_heating_kw": 2.978,
-                "total_cooling_kwh": 521.8,
-                "total_heating_kwh": 711.88
+                "peak_heating_kw": 2.977570330754139,
+                "total_cooling_kwh": 521.7980363486048,
+                "total_heating_kwh": 711.8797320759338
             },
             "Jul": {
                 "peak_cooling_day": 17,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 3.628,
+                "peak_cooling_kw": 3.6283710456183056,
                 "peak_heating_day": 26,
                 "peak_heating_hour": 5,
-                "peak_heating_kw": 0.514,
-                "total_cooling_kwh": 536.38,
-                "total_heating_kwh": 12.02
+                "peak_heating_kw": 0.5144490757031166,
+                "total_cooling_kwh": 536.383440975315,
+                "total_heating_kwh": 12.018218893735234
             },
             "Jun": {
                 "peak_cooling_day": 13,
                 "peak_cooling_hour": 13,
-                "peak_cooling_kw": 3.449,
+                "peak_cooling_kw": 3.4487326804979164,
                 "peak_heating_day": 9,
                 "peak_heating_hour": 5,
-                "peak_heating_kw": 0.732,
-                "total_cooling_kwh": 539.6,
-                "total_heating_kwh": 10.08
+                "peak_heating_kw": 0.7324294301144999,
+                "total_cooling_kwh": 539.6049900009539,
+                "total_heating_kwh": 10.081226086637937
             },
             "Mar": {
                 "peak_cooling_day": 9,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 5.009,
+                "peak_cooling_kw": 5.008532532564445,
                 "peak_heating_day": 17,
                 "peak_heating_hour": 6,
-                "peak_heating_kw": 2.115,
-                "total_cooling_kwh": 484.36,
-                "total_heating_kwh": 472.22
+                "peak_heating_kw": 2.1145564832492303,
+                "total_cooling_kwh": 484.3611296608599,
+                "total_heating_kwh": 472.21667115034046
             },
             "May": {
                 "peak_cooling_day": 10,
                 "peak_cooling_hour": 13,
-                "peak_cooling_kw": 3.086,
+                "peak_cooling_kw": 3.086362600249167,
                 "peak_heating_day": 1,
                 "peak_heating_hour": 5,
-                "peak_heating_kw": 1.624,
-                "total_cooling_kwh": 339.91,
-                "total_heating_kwh": 136.82
+                "peak_heating_kw": 1.6241275763121277,
+                "total_cooling_kwh": 339.9138828752391,
+                "total_heating_kwh": 136.8191722237705
             },
             "Nov": {
                 "peak_cooling_day": 28,
                 "peak_cooling_hour": 13,
-                "peak_cooling_kw": 6.194,
+                "peak_cooling_kw": 6.193976005662666,
                 "peak_heating_day": 26,
                 "peak_heating_hour": 7,
-                "peak_heating_kw": 3.106,
-                "total_cooling_kwh": 437.68,
-                "total_heating_kwh": 625.26
+                "peak_heating_kw": 3.1061123809166946,
+                "total_cooling_kwh": 437.6813887548735,
+                "total_heating_kwh": 625.2595611735608
             },
             "Oct": {
                 "peak_cooling_day": 18,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 6.222,
+                "peak_cooling_kw": 6.222110949486416,
                 "peak_heating_day": 15,
                 "peak_heating_hour": 5,
-                "peak_heating_kw": 1.682,
-                "total_cooling_kwh": 675.27,
-                "total_heating_kwh": 347.71
+                "peak_heating_kw": 1.681996402231211,
+                "total_cooling_kwh": 675.268701178886,
+                "total_heating_kwh": 347.7083628906039
             },
             "Sep": {
                 "peak_cooling_day": 30,
                 "peak_cooling_hour": 13,
-                "peak_cooling_kw": 5.715,
+                "peak_cooling_kw": 5.7147972674268885,
                 "peak_heating_day": 28,
                 "peak_heating_hour": 24,
-                "peak_heating_kw": 1.13,
-                "total_cooling_kwh": 733.71,
-                "total_heating_kwh": 73.32
+                "peak_heating_kw": 1.1295497813086557,
+                "total_cooling_kwh": 733.7079749086578,
+                "total_heating_kwh": 73.31699925486295
             }
         },
         "900": {
             "Apr": {
                 "peak_cooling_day": 7,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 0.953,
+                "peak_cooling_kw": 0.9526199413857639,
                 "peak_heating_day": 3,
                 "peak_heating_hour": 4,
-                "peak_heating_kw": 2.004,
-                "total_cooling_kwh": 18.47,
-                "total_heating_kwh": 268.65
+                "peak_heating_kw": 2.003638658557386,
+                "total_cooling_kwh": 18.46944216592575,
+                "total_heating_kwh": 268.6543106049376
             },
             "Aug": {
                 "peak_cooling_day": 29,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 2.526,
+                "peak_cooling_kw": 2.5257826864474056,
                 "peak_heating_day": 1,
                 "peak_heating_hour": 1,
                 "peak_heating_kw": 0.0,
-                "total_cooling_kwh": 510.32,
+                "total_cooling_kwh": 510.31742760543426,
                 "total_heating_kwh": 0.0
             },
             "Dec": {
                 "peak_cooling_day": 2,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 1.968,
+                "peak_cooling_kw": 1.9681552954349222,
                 "peak_heating_day": 31,
                 "peak_heating_hour": 7,
-                "peak_heating_kw": 2.175,
-                "total_cooling_kwh": 60.94,
-                "total_heating_kwh": 307.87
+                "peak_heating_kw": 2.174874558366745,
+                "total_cooling_kwh": 60.93530772348165,
+                "total_heating_kwh": 307.86881153329045
             },
             "Feb": {
                 "peak_cooling_day": 15,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 0.979,
+                "peak_cooling_kw": 0.9794309910432945,
                 "peak_heating_day": 9,
                 "peak_heating_hour": 6,
-                "peak_heating_kw": 2.687,
-                "total_cooling_kwh": 12.34,
-                "total_heating_kwh": 294.18
+                "peak_heating_kw": 2.6874896063526754,
+                "total_cooling_kwh": 12.33911048892418,
+                "total_heating_kwh": 294.1814322861227
             },
             "Jan": {
                 "peak_cooling_day": 22,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 2.078,
+                "peak_cooling_kw": 2.077882070797939,
                 "peak_heating_day": 29,
                 "peak_heating_hour": 7,
-                "peak_heating_kw": 1.903,
-                "total_cooling_kwh": 53.28,
-                "total_heating_kwh": 255.84
+                "peak_heating_kw": 1.902809089863714,
+                "total_cooling_kwh": 53.28048979226335,
+                "total_heating_kwh": 255.8354900986798
             },
             "Jul": {
                 "peak_cooling_day": 17,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 2.068,
+                "peak_cooling_kw": 2.0680600424329776,
                 "peak_heating_day": 1,
                 "peak_heating_hour": 1,
                 "peak_heating_kw": 0.0,
-                "total_cooling_kwh": 398.71,
+                "total_cooling_kwh": 398.70635548270553,
                 "total_heating_kwh": 0.0
             },
             "Jun": {
                 "peak_cooling_day": 14,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 1.966,
+                "peak_cooling_kw": 1.9655826116810278,
                 "peak_heating_day": 1,
                 "peak_heating_hour": 1,
                 "peak_heating_kw": 0.0,
-                "total_cooling_kwh": 401.33,
+                "total_cooling_kwh": 401.33438809179654,
                 "total_heating_kwh": 0.0
             },
             "Mar": {
                 "peak_cooling_day": 11,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 1.493,
+                "peak_cooling_kw": 1.4930582677108557,
                 "peak_heating_day": 17,
                 "peak_heating_hour": 6,
-                "peak_heating_kw": 1.744,
-                "total_cooling_kwh": 65.39,
-                "total_heating_kwh": 125.54
+                "peak_heating_kw": 1.744347740197775,
+                "total_cooling_kwh": 65.38619958611626,
+                "total_heating_kwh": 125.54241914544262
             },
             "May": {
                 "peak_cooling_day": 11,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 1.534,
+                "peak_cooling_kw": 1.5338523322635667,
                 "peak_heating_day": 1,
                 "peak_heating_hour": 5,
-                "peak_heating_kw": 1.268,
-                "total_cooling_kwh": 114.49,
-                "total_heating_kwh": 33.41
+                "peak_heating_kw": 1.2682445636841055,
+                "total_cooling_kwh": 114.48736189713124,
+                "total_heating_kwh": 33.413922856179965
             },
             "Nov": {
                 "peak_cooling_day": 20,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 2.002,
+                "peak_cooling_kw": 2.001754613270264,
                 "peak_heating_day": 26,
                 "peak_heating_hour": 7,
-                "peak_heating_kw": 2.316,
-                "total_cooling_kwh": 67.98,
-                "total_heating_kwh": 296.99
+                "peak_heating_kw": 2.316139106999725,
+                "total_cooling_kwh": 67.98283460217824,
+                "total_heating_kwh": 296.9873972990314
             },
             "Oct": {
                 "peak_cooling_day": 1,
                 "peak_cooling_hour": 14,
-                "peak_cooling_kw": 3.04,
+                "peak_cooling_kw": 3.040447251546055,
                 "peak_heating_day": 7,
                 "peak_heating_hour": 7,
-                "peak_heating_kw": 1.326,
-                "total_cooling_kwh": 292.67,
-                "total_heating_kwh": 81.09
+                "peak_heating_kw": 1.3258428814740166,
+                "total_cooling_kwh": 292.66548479732757,
+                "total_heating_kwh": 81.0904749223851
             },
             "Sep": {
                 "peak_cooling_day": 11,
                 "peak_cooling_hour": 15,
-                "peak_cooling_kw": 2.989,
+                "peak_cooling_kw": 2.988764110018556,
                 "peak_heating_day": 29,
                 "peak_heating_hour": 7,
-                "peak_heating_kw": 0.064,
-                "total_cooling_kwh": 492.84,
-                "total_heating_kwh": 0.11
+                "peak_heating_kw": 0.0641568943308525,
+                "total_cooling_kwh": 492.83696547998926,
+                "total_heating_kwh": 0.11241047617275447
             }
         }
     },
     "sky_temperature_output": {
         "600": {
             "Average": {
-                "C": -2.02
+                "C": -2.021630760575721
             },
             "Maximum": {
-                "C": 24.73,
+                "C": 24.7268214847877,
                 "Day": 4,
                 "Hour": 16,
                 "Month": "Aug"
             },
             "Minimum": {
-                "C": -37.98,
+                "C": -37.9797614376704,
                 "Day": 31,
                 "Hour": 24,
                 "Month": "Dec"
@@ -1359,19 +1359,19 @@
         "600": {
             "Surface": {
                 "EAST": {
-                    "kWh/m2": 1062.16
+                    "kWh/m2": 1062.1572472556932
                 },
                 "HORZ.": {
-                    "kWh/m2": 1664.34
+                    "kWh/m2": 1664.342459296343
                 },
                 "NORTH": {
-                    "kWh/m2": 438.24
+                    "kWh/m2": 438.24098705483976
                 },
                 "SOUTH": {
-                    "kWh/m2": 1370.48
+                    "kWh/m2": 1370.481923281788
                 },
                 "WEST": {
-                    "kWh/m2": 967.28
+                    "kWh/m2": 967.2780254716987
                 }
             }
         }
@@ -1380,14 +1380,14 @@
         "610": {
             "Surface": {
                 "South": {
-                    "kWh/m2": 646.13
+                    "kWh/m2": 646.1319199331439
                 }
             }
         },
         "630": {
             "Surface": {
                 "West": {
-                    "kWh/m2": 419.35
+                    "kWh/m2": 419.3544752501423
                 }
             }
         }
@@ -1396,28 +1396,28 @@
         "600": {
             "Surface": {
                 "South": {
-                    "kWh/m2": 804.02
+                    "kWh/m2": 804.0205104790357
                 }
             }
         },
         "620": {
             "Surface": {
                 "West": {
-                    "kWh/m2": 581.04
+                    "kWh/m2": 581.0395466297483
                 }
             }
         },
         "660": {
             "Surface": {
                 "South": {
-                    "kWh/m2": 436.0
+                    "kWh/m2": 435.9950008695212
                 }
             }
         },
         "670": {
             "Surface": {
                 "South": {
-                    "kWh/m2": 1024.2
+                    "kWh/m2": 1024.202596164778
                 }
             }
         }
@@ -1441,52 +1441,52 @@
                                 "Whm/m2": 0.0
                             },
                             "5": {
-                                "Whm/m2": 5.65
+                                "Whm/m2": 5.65028311394324
                             },
                             "6": {
-                                "Whm/m2": 103.19
+                                "Whm/m2": 103.192589438962
                             },
                             "7": {
-                                "Whm/m2": 289.86
+                                "Whm/m2": 289.864587225077
                             },
                             "8": {
-                                "Whm/m2": 493.43
+                                "Whm/m2": 493.429148398664
                             },
                             "9": {
-                                "Whm/m2": 682.34
+                                "Whm/m2": 682.33521420243
                             },
                             "10": {
-                                "Whm/m2": 837.84
+                                "Whm/m2": 837.844547911318
                             },
                             "11": {
-                                "Whm/m2": 948.0
+                                "Whm/m2": 947.997209235484
                             },
                             "12": {
-                                "Whm/m2": 1005.24
+                                "Whm/m2": 1005.2372645978
                             },
                             "13": {
-                                "Whm/m2": 1004.03
+                                "Whm/m2": 1004.0328195931
                             },
                             "14": {
-                                "Whm/m2": 946.15
+                                "Whm/m2": 946.146816095772
                             },
                             "15": {
-                                "Whm/m2": 835.48
+                                "Whm/m2": 835.477872304503
                             },
                             "16": {
-                                "Whm/m2": 679.26
+                                "Whm/m2": 679.25953638356
                             },
                             "17": {
-                                "Whm/m2": 489.97
+                                "Whm/m2": 489.971574114166
                             },
                             "18": {
-                                "Whm/m2": 285.84
+                                "Whm/m2": 285.835136923029
                             },
                             "19": {
-                                "Whm/m2": 99.08
+                                "Whm/m2": 99.0838285991225
                             },
                             "20": {
-                                "Whm/m2": 4.44
+                                "Whm/m2": 4.43640557417065
                             },
                             "21": {
                                 "Whm/m2": 0.0
@@ -1517,52 +1517,52 @@
                                 "Whm/m2": 0.0
                             },
                             "5": {
-                                "Whm/m2": 2.83
+                                "Whm/m2": 2.82504506767936
                             },
                             "6": {
-                                "Whm/m2": 27.06
+                                "Whm/m2": 27.0561634288897
                             },
                             "7": {
-                                "Whm/m2": 55.39
+                                "Whm/m2": 55.3885107204661
                             },
                             "8": {
-                                "Whm/m2": 82.4
+                                "Whm/m2": 82.4039859395492
                             },
                             "9": {
-                                "Whm/m2": 179.12
+                                "Whm/m2": 179.121116715258
                             },
                             "10": {
-                                "Whm/m2": 305.79
+                                "Whm/m2": 305.786937582836
                             },
                             "11": {
-                                "Whm/m2": 396.71
+                                "Whm/m2": 396.713874880794
                             },
                             "12": {
-                                "Whm/m2": 443.51
+                                "Whm/m2": 443.511619933436
                             },
                             "13": {
-                                "Whm/m2": 442.66
+                                "Whm/m2": 442.657206135917
                             },
                             "14": {
-                                "Whm/m2": 394.89
+                                "Whm/m2": 394.890150261029
                             },
                             "15": {
-                                "Whm/m2": 303.17
+                                "Whm/m2": 303.167752504229
                             },
                             "16": {
-                                "Whm/m2": 175.53
+                                "Whm/m2": 175.52884141727
                             },
                             "17": {
-                                "Whm/m2": 81.51
+                                "Whm/m2": 81.5141638927553
                             },
                             "18": {
-                                "Whm/m2": 54.81
+                                "Whm/m2": 54.8087985426254
                             },
                             "19": {
-                                "Whm/m2": 26.26
+                                "Whm/m2": 26.2620958653874
                             },
                             "20": {
-                                "Whm/m2": 2.35
+                                "Whm/m2": 2.34963835921879
                             },
                             "21": {
                                 "Whm/m2": 0.0
@@ -1593,52 +1593,52 @@
                                 "Whm/m2": 0.0
                             },
                             "5": {
-                                "Whm/m2": 2.83
+                                "Whm/m2": 2.82504506767936
                             },
                             "6": {
-                                "Whm/m2": 27.06
+                                "Whm/m2": 27.0561634288897
                             },
                             "7": {
-                                "Whm/m2": 55.39
+                                "Whm/m2": 55.3885107204661
                             },
                             "8": {
-                                "Whm/m2": 81.97
+                                "Whm/m2": 81.9745665693135
                             },
                             "9": {
-                                "Whm/m2": 104.12
+                                "Whm/m2": 104.1184698122
                             },
                             "10": {
-                                "Whm/m2": 119.48
+                                "Whm/m2": 119.483921828978
                             },
                             "11": {
-                                "Whm/m2": 128.25
+                                "Whm/m2": 128.245789290371
                             },
                             "12": {
-                                "Whm/m2": 131.55
+                                "Whm/m2": 131.546116084255
                             },
                             "13": {
-                                "Whm/m2": 258.93
+                                "Whm/m2": 258.931625369954
                             },
                             "14": {
-                                "Whm/m2": 491.65
+                                "Whm/m2": 491.651710999284
                             },
                             "15": {
-                                "Whm/m2": 683.86
+                                "Whm/m2": 683.857642351763
                             },
                             "16": {
-                                "Whm/m2": 811.98
+                                "Whm/m2": 811.978117435126
                             },
                             "17": {
-                                "Whm/m2": 853.44
+                                "Whm/m2": 853.440562327175
                             },
                             "18": {
-                                "Whm/m2": 778.08
+                                "Whm/m2": 778.076986051543
                             },
                             "19": {
-                                "Whm/m2": 527.4
+                                "Whm/m2": 527.400396955804
                             },
                             "20": {
-                                "Whm/m2": 70.21
+                                "Whm/m2": 70.2140713141
                             },
                             "21": {
                                 "Whm/m2": 0.0
@@ -1680,7 +1680,7 @@
                                 "Whm/m2": 64.75
                             },
                             "8": {
-                                "Whm/m2": 114.58
+                                "Whm/m2": 114.583333333333
                             },
                             "9": {
                                 "Whm/m2": 160.25
@@ -1689,16 +1689,16 @@
                                 "Whm/m2": 203.25
                             },
                             "11": {
-                                "Whm/m2": 259.83
+                                "Whm/m2": 259.833333333333
                             },
                             "12": {
-                                "Whm/m2": 276.58
+                                "Whm/m2": 276.583333333333
                             },
                             "13": {
-                                "Whm/m2": 274.08
+                                "Whm/m2": 274.083333333333
                             },
                             "14": {
-                                "Whm/m2": 255.17
+                                "Whm/m2": 255.166666666666
                             },
                             "15": {
                                 "Whm/m2": 222.0
@@ -1707,13 +1707,13 @@
                                 "Whm/m2": 172.0
                             },
                             "17": {
-                                "Whm/m2": 101.92
+                                "Whm/m2": 101.916666666666
                             },
                             "18": {
                                 "Whm/m2": 50.25
                             },
                             "19": {
-                                "Whm/m2": 10.53
+                                "Whm/m2": 10.5277777777777
                             },
                             "20": {
                                 "Whm/m2": 0.0
@@ -1750,46 +1750,46 @@
                                 "Whm/m2": 0.0
                             },
                             "6": {
-                                "Whm/m2": 10.98
+                                "Whm/m2": 10.9831103489645
                             },
                             "7": {
-                                "Whm/m2": 33.82
+                                "Whm/m2": 33.8228754611911
                             },
                             "8": {
-                                "Whm/m2": 59.97
+                                "Whm/m2": 59.9653956264812
                             },
                             "9": {
-                                "Whm/m2": 84.39
+                                "Whm/m2": 84.3926481004382
                             },
                             "10": {
-                                "Whm/m2": 108.11
+                                "Whm/m2": 108.114560281551
                             },
                             "11": {
-                                "Whm/m2": 139.61
+                                "Whm/m2": 139.605715555867
                             },
                             "12": {
-                                "Whm/m2": 149.44
+                                "Whm/m2": 149.435869460497
                             },
                             "13": {
-                                "Whm/m2": 147.92
+                                "Whm/m2": 147.922268542812
                             },
                             "14": {
-                                "Whm/m2": 136.71
+                                "Whm/m2": 136.712307482727
                             },
                             "15": {
-                                "Whm/m2": 117.61
+                                "Whm/m2": 117.608227467241
                             },
                             "16": {
-                                "Whm/m2": 90.0
+                                "Whm/m2": 90.0006917001623
                             },
                             "17": {
-                                "Whm/m2": 53.26
+                                "Whm/m2": 53.2617471568736
                             },
                             "18": {
-                                "Whm/m2": 26.16
+                                "Whm/m2": 26.1649507924249
                             },
                             "19": {
-                                "Whm/m2": 5.43
+                                "Whm/m2": 5.42928864099848
                             },
                             "20": {
                                 "Whm/m2": 0.0
@@ -1826,46 +1826,46 @@
                                 "Whm/m2": 0.0
                             },
                             "6": {
-                                "Whm/m2": 10.98
+                                "Whm/m2": 10.9831103489645
                             },
                             "7": {
-                                "Whm/m2": 33.82
+                                "Whm/m2": 33.8228754611911
                             },
                             "8": {
-                                "Whm/m2": 59.78
+                                "Whm/m2": 59.7762018521394
                             },
                             "9": {
-                                "Whm/m2": 83.07
+                                "Whm/m2": 83.0745379510878
                             },
                             "10": {
-                                "Whm/m2": 104.63
+                                "Whm/m2": 104.629003313357
                             },
                             "11": {
-                                "Whm/m2": 132.04
+                                "Whm/m2": 132.039718764296
                             },
                             "12": {
-                                "Whm/m2": 140.24
+                                "Whm/m2": 140.235978374365
                             },
                             "13": {
-                                "Whm/m2": 142.63
+                                "Whm/m2": 142.63422040403
                             },
                             "14": {
-                                "Whm/m2": 137.73
+                                "Whm/m2": 137.733849131687
                             },
                             "15": {
-                                "Whm/m2": 123.31
+                                "Whm/m2": 123.30770736321
                             },
                             "16": {
-                                "Whm/m2": 96.87
+                                "Whm/m2": 96.8707119683695
                             },
                             "17": {
-                                "Whm/m2": 54.93
+                                "Whm/m2": 54.9349233423063
                             },
                             "18": {
-                                "Whm/m2": 26.16
+                                "Whm/m2": 26.1649507924249
                             },
                             "19": {
-                                "Whm/m2": 5.43
+                                "Whm/m2": 5.42928864099848
                             },
                             "20": {
                                 "Whm/m2": 0.0
@@ -1890,228 +1890,228 @@
                 "feb_1": {
                     "hour": {
                         "1": {
-                            "C": -22.97
+                            "C": -22.9658810967317
                         },
                         "2": {
-                            "C": -24.14
+                            "C": -24.1358056868602
                         },
                         "3": {
-                            "C": -25.32
+                            "C": -25.3161797197095
                         },
                         "4": {
-                            "C": -27.19
+                            "C": -27.194661439493
                         },
                         "5": {
-                            "C": -26.9
+                            "C": -26.8988450364629
                         },
                         "6": {
-                            "C": -26.67
+                            "C": -26.674182683082
                         },
                         "7": {
-                            "C": -27.39
+                            "C": -27.3883079708527
                         },
                         "8": {
-                            "C": -26.6
+                            "C": -26.6040649328104
                         },
                         "9": {
-                            "C": -25.36
+                            "C": -25.359553154158
                         },
                         "10": {
-                            "C": -24.49
+                            "C": -24.4946211384294
                         },
                         "11": {
-                            "C": -23.15
+                            "C": -23.1464753300251
                         },
                         "12": {
-                            "C": -21.79
+                            "C": -21.7912467200839
                         },
                         "13": {
-                            "C": -20.21
+                            "C": -20.2132474189284
                         },
                         "14": {
-                            "C": -20.69
+                            "C": -20.6930803128816
                         },
                         "15": {
-                            "C": -21.77
+                            "C": -21.7664325076071
                         },
                         "16": {
-                            "C": -22.21
+                            "C": -22.2074120699779
                         },
                         "17": {
-                            "C": -22.93
+                            "C": -22.9319577912816
                         },
                         "18": {
-                            "C": -24.62
+                            "C": -24.6208388133376
                         },
                         "19": {
-                            "C": -25.92
+                            "C": -25.9162969299393
                         },
                         "20": {
-                            "C": -26.5
+                            "C": -26.5019411887988
                         },
                         "21": {
-                            "C": -27.61
+                            "C": -27.6141644129369
                         },
                         "22": {
-                            "C": -28.94
+                            "C": -28.9393361894289
                         },
                         "23": {
-                            "C": -29.44
+                            "C": -29.4432943993568
                         },
                         "24": {
-                            "C": -29.27
+                            "C": -29.2659238174671
                         }
                     }
                 },
                 "july_14": {
                     "hour": {
                         "1": {
-                            "C": 4.36
+                            "C": 4.35752637174532
                         },
                         "2": {
-                            "C": 3.86
+                            "C": 3.85783296556516
                         },
                         "3": {
-                            "C": 2.95
+                            "C": 2.95263992916098
                         },
                         "4": {
-                            "C": 1.81
+                            "C": 1.8114455099239
                         },
                         "5": {
-                            "C": 0.74
+                            "C": 0.744671825744598
                         },
                         "6": {
-                            "C": 1.79
+                            "C": 1.78663102518098
                         },
                         "7": {
-                            "C": 4.42
+                            "C": 4.41730656322031
                         },
                         "8": {
-                            "C": 6.6
+                            "C": 6.59599576300222
                         },
                         "9": {
-                            "C": 8.39
+                            "C": 8.39146517623111
                         },
                         "10": {
-                            "C": 10.71
+                            "C": 10.7116555839769
                         },
                         "11": {
-                            "C": 12.61
+                            "C": 12.6113342088521
                         },
                         "12": {
-                            "C": 13.27
+                            "C": 13.2725859686619
                         },
                         "13": {
-                            "C": 13.9
+                            "C": 13.8950005350544
                         },
                         "14": {
-                            "C": 14.39
+                            "C": 14.3919327228107
                         },
                         "15": {
-                            "C": 14.9
+                            "C": 14.8999803119777
                         },
                         "16": {
-                            "C": 14.78
+                            "C": 14.7769073159868
                         },
                         "17": {
-                            "C": 14.47
+                            "C": 14.4692248260096
                         },
                         "18": {
-                            "C": 13.6
+                            "C": 13.5976219386947
                         },
                         "19": {
-                            "C": 12.31
+                            "C": 12.3122705207193
                         },
                         "20": {
-                            "C": 11.5
+                            "C": 11.5044741919113
                         },
                         "21": {
-                            "C": 9.45
+                            "C": 9.44717218636592
                         },
                         "22": {
-                            "C": 7.92
+                            "C": 7.91667110755182
                         },
                         "23": {
-                            "C": 7.17
+                            "C": 7.16789488050645
                         },
                         "24": {
-                            "C": 5.92
+                            "C": 5.92388226215529
                         }
                     }
                 },
                 "may_4": {
                     "hour": {
                         "1": {
-                            "C": -1.17
+                            "C": -1.16997887638411
                         },
                         "2": {
-                            "C": -1.19
+                            "C": -1.18792314663725
                         },
                         "3": {
-                            "C": -1.26
+                            "C": -1.26102164444985
                         },
                         "4": {
-                            "C": -1.44
+                            "C": -1.44376788898136
                         },
                         "5": {
-                            "C": -1.44
+                            "C": -1.44376788898136
                         },
                         "6": {
-                            "C": -1.44
+                            "C": -1.44376788898136
                         },
                         "7": {
-                            "C": -1.19
+                            "C": -1.18792314663725
                         },
                         "8": {
-                            "C": -0.88
+                            "C": -0.877717026813698
                         },
                         "9": {
-                            "C": -0.53
+                            "C": -0.532670879245131
                         },
                         "10": {
-                            "C": 0.65
+                            "C": 0.65280113951538
                         },
                         "11": {
-                            "C": 1.86
+                            "C": 1.86499204165228
                         },
                         "12": {
-                            "C": 2.1
+                            "C": 2.09525110354599
                         },
                         "13": {
-                            "C": 0.88
+                            "C": 0.884220132997991
                         },
                         "14": {
-                            "C": -0.55
+                            "C": -0.552136812999052
                         },
                         "15": {
-                            "C": -2.04
+                            "C": -2.03608302017202
                         },
                         "16": {
-                            "C": -2.0
+                            "C": -1.99738315735434
                         },
                         "17": {
-                            "C": -1.83
+                            "C": -1.82987380670197
                         },
                         "18": {
-                            "C": -2.11
+                            "C": -2.10566374793097
                         },
                         "19": {
-                            "C": -2.36
+                            "C": -2.36464773950087
                         },
                         "20": {
-                            "C": -2.94
+                            "C": -2.94051890559219
                         },
                         "21": {
-                            "C": -3.22
+                            "C": -3.21972076322379
                         },
                         "22": {
-                            "C": -3.75
+                            "C": -3.74546876831148
                         },
                         "23": {
-                            "C": -4.79
+                            "C": -4.78570914949742
                         },
                         "24": {
-                            "C": -5.26
+                            "C": -5.2604992150957
                         }
                     }
                 }
@@ -2141,37 +2141,37 @@
                             "Whm/m2": 0.0
                         },
                         "8": {
-                            "Whm/m2": 109.56
+                            "Whm/m2": 109.56307428592716
                         },
                         "9": {
-                            "Whm/m2": 323.8
+                            "Whm/m2": 323.79998592558
                         },
                         "10": {
-                            "Whm/m2": 484.08
+                            "Whm/m2": 484.0809354661567
                         },
                         "11": {
-                            "Whm/m2": 591.94
+                            "Whm/m2": 591.9351224451433
                         },
                         "12": {
-                            "Whm/m2": 648.74
+                            "Whm/m2": 648.7353634599184
                         },
                         "13": {
-                            "Whm/m2": 654.84
+                            "Whm/m2": 654.8384345414484
                         },
                         "14": {
-                            "Whm/m2": 609.27
+                            "Whm/m2": 609.26963425262
                         },
                         "15": {
-                            "Whm/m2": 513.04
+                            "Whm/m2": 513.0432706915084
                         },
                         "16": {
-                            "Whm/m2": 366.66
+                            "Whm/m2": 366.66409208254663
                         },
                         "17": {
-                            "Whm/m2": 178.37
+                            "Whm/m2": 178.37470356257165
                         },
                         "18": {
-                            "Whm/m2": 9.79
+                            "Whm/m2": 9.78892746393605
                         },
                         "19": {
                             "Whm/m2": 0.0
@@ -2208,52 +2208,52 @@
                             "Whm/m2": 0.0
                         },
                         "5": {
-                            "Whm/m2": 1.68
+                            "Whm/m2": 1.6848952729118498
                         },
                         "6": {
-                            "Whm/m2": 16.14
+                            "Whm/m2": 16.136663583181218
                         },
                         "7": {
-                            "Whm/m2": 33.03
+                            "Whm/m2": 33.034460566394664
                         },
                         "8": {
-                            "Whm/m2": 48.9
+                            "Whm/m2": 48.902650869742665
                         },
                         "9": {
-                            "Whm/m2": 70.5
+                            "Whm/m2": 70.50188794097033
                         },
                         "10": {
-                            "Whm/m2": 116.64
+                            "Whm/m2": 116.64399332258834
                         },
                         "11": {
-                            "Whm/m2": 169.45
+                            "Whm/m2": 169.44572023860835
                         },
                         "12": {
-                            "Whm/m2": 201.82
+                            "Whm/m2": 201.81584437861167
                         },
                         "13": {
-                            "Whm/m2": 201.24
+                            "Whm/m2": 201.23821630944
                         },
                         "14": {
-                            "Whm/m2": 168.17
+                            "Whm/m2": 168.17128959532832
                         },
                         "15": {
-                            "Whm/m2": 115.27
+                            "Whm/m2": 115.272329357235
                         },
                         "16": {
-                            "Whm/m2": 69.61
+                            "Whm/m2": 69.6147548781695
                         },
                         "17": {
-                            "Whm/m2": 48.62
+                            "Whm/m2": 48.616155186185004
                         },
                         "18": {
-                            "Whm/m2": 32.69
+                            "Whm/m2": 32.6887123447935
                         },
                         "19": {
-                            "Whm/m2": 15.66
+                            "Whm/m2": 15.66307089631595
                         },
                         "20": {
-                            "Whm/m2": 1.4
+                            "Whm/m2": 1.4013562508410435
                         },
                         "21": {
                             "Whm/m2": 0.0
@@ -2287,46 +2287,46 @@
                             "Whm/m2": 0.0
                         },
                         "6": {
-                            "Whm/m2": 6.55
+                            "Whm/m2": 6.550476281088533
                         },
                         "7": {
-                            "Whm/m2": 20.17
+                            "Whm/m2": 20.172422604096834
                         },
                         "8": {
-                            "Whm/m2": 35.76
+                            "Whm/m2": 35.7641769277485
                         },
                         "9": {
-                            "Whm/m2": 50.33
+                            "Whm/m2": 50.33292228847417
                         },
                         "10": {
-                            "Whm/m2": 64.48
+                            "Whm/m2": 64.4809931124275
                         },
                         "11": {
-                            "Whm/m2": 83.26
+                            "Whm/m2": 83.262746107191
                         },
                         "12": {
-                            "Whm/m2": 89.13
+                            "Whm/m2": 89.12558349530833
                         },
                         "13": {
-                            "Whm/m2": 88.22
+                            "Whm/m2": 88.222851336994
                         },
                         "14": {
-                            "Whm/m2": 81.54
+                            "Whm/m2": 81.53707820871634
                         },
                         "15": {
-                            "Whm/m2": 70.14
+                            "Whm/m2": 70.14314524825467
                         },
                         "16": {
-                            "Whm/m2": 53.68
+                            "Whm/m2": 53.6776357090005
                         },
                         "17": {
-                            "Whm/m2": 31.77
+                            "Whm/m2": 31.766029872706
                         },
                         "18": {
-                            "Whm/m2": 15.61
+                            "Whm/m2": 15.605132254524433
                         },
                         "19": {
-                            "Whm/m2": 3.24
+                            "Whm/m2": 3.23810153372415
                         },
                         "20": {
                             "Whm/m2": 0.0
@@ -2373,37 +2373,37 @@
                             "Whm/m2": 0.0
                         },
                         "8": {
-                            "Whm/m2": 58.7
+                            "Whm/m2": 58.703593934463335
                         },
                         "9": {
-                            "Whm/m2": 175.19
+                            "Whm/m2": 175.19229722682834
                         },
                         "10": {
-                            "Whm/m2": 263.02
+                            "Whm/m2": 263.02418504302665
                         },
                         "11": {
-                            "Whm/m2": 322.57
+                            "Whm/m2": 322.567669533505
                         },
                         "12": {
-                            "Whm/m2": 354.51
+                            "Whm/m2": 354.50782681153834
                         },
                         "13": {
-                            "Whm/m2": 357.98
+                            "Whm/m2": 357.9764884638583
                         },
                         "14": {
-                            "Whm/m2": 332.27
+                            "Whm/m2": 332.2657398084
                         },
                         "15": {
-                            "Whm/m2": 278.94
+                            "Whm/m2": 278.9430066310667
                         },
                         "16": {
-                            "Whm/m2": 198.67
+                            "Whm/m2": 198.66726431998165
                         },
                         "17": {
-                            "Whm/m2": 95.79
+                            "Whm/m2": 95.7856981670525
                         },
                         "18": {
-                            "Whm/m2": 5.2
+                            "Whm/m2": 5.196401395616999
                         },
                         "19": {
                             "Whm/m2": 0.0
@@ -2440,52 +2440,52 @@
                             "Whm/m2": 0.0
                         },
                         "5": {
-                            "Whm/m2": 0.92
+                            "Whm/m2": 0.9167415054786683
                         },
                         "6": {
-                            "Whm/m2": 8.78
+                            "Whm/m2": 8.7798627632699
                         },
                         "7": {
-                            "Whm/m2": 17.97
+                            "Whm/m2": 17.973853686451832
                         },
                         "8": {
-                            "Whm/m2": 26.61
+                            "Whm/m2": 26.607850860361335
                         },
                         "9": {
-                            "Whm/m2": 38.63
+                            "Whm/m2": 38.628863417003835
                         },
                         "10": {
-                            "Whm/m2": 63.03
+                            "Whm/m2": 63.02829248546734
                         },
                         "11": {
-                            "Whm/m2": 90.48
+                            "Whm/m2": 90.4756778050945
                         },
                         "12": {
-                            "Whm/m2": 107.48
+                            "Whm/m2": 107.47867144038582
                         },
                         "13": {
-                            "Whm/m2": 107.17
+                            "Whm/m2": 107.1723182427625
                         },
                         "14": {
-                            "Whm/m2": 89.81
+                            "Whm/m2": 89.80748696217866
                         },
                         "15": {
-                            "Whm/m2": 62.32
+                            "Whm/m2": 62.31777028000883
                         },
                         "16": {
-                            "Whm/m2": 38.14
+                            "Whm/m2": 38.141637357962665
                         },
                         "17": {
-                            "Whm/m2": 26.45
+                            "Whm/m2": 26.451761134651335
                         },
                         "18": {
-                            "Whm/m2": 17.79
+                            "Whm/m2": 17.785734133692166
                         },
                         "19": {
-                            "Whm/m2": 8.52
+                            "Whm/m2": 8.522183796677384
                         },
                         "20": {
-                            "Whm/m2": 0.76
+                            "Whm/m2": 0.7624696085043617
                         },
                         "21": {
                             "Whm/m2": 0.0
@@ -2519,46 +2519,46 @@
                             "Whm/m2": 0.0
                         },
                         "6": {
-                            "Whm/m2": 3.56
+                            "Whm/m2": 3.5640752182474333
                         },
                         "7": {
-                            "Whm/m2": 10.98
+                            "Whm/m2": 10.975695263998217
                         },
                         "8": {
-                            "Whm/m2": 19.46
+                            "Whm/m2": 19.459076137288502
                         },
                         "9": {
-                            "Whm/m2": 27.39
+                            "Whm/m2": 27.3858439130955
                         },
                         "10": {
-                            "Whm/m2": 35.08
+                            "Whm/m2": 35.0837251733085
                         },
                         "11": {
-                            "Whm/m2": 45.3
+                            "Whm/m2": 45.302765366941166
                         },
                         "12": {
-                            "Whm/m2": 48.49
+                            "Whm/m2": 48.49270034982617
                         },
                         "13": {
-                            "Whm/m2": 48.0
+                            "Whm/m2": 48.00152914698533
                         },
                         "14": {
-                            "Whm/m2": 44.36
+                            "Whm/m2": 44.363839718185666
                         },
                         "15": {
-                            "Whm/m2": 38.16
+                            "Whm/m2": 38.16446850299733
                         },
                         "16": {
-                            "Whm/m2": 29.21
+                            "Whm/m2": 29.2056826091995
                         },
                         "17": {
-                            "Whm/m2": 17.28
+                            "Whm/m2": 17.283708083682168
                         },
                         "18": {
-                            "Whm/m2": 8.49
+                            "Whm/m2": 8.490659725979766
                         },
                         "19": {
-                            "Whm/m2": 1.76
+                            "Whm/m2": 1.7618318020376666
                         },
                         "20": {
                             "Whm/m2": 0.0
@@ -2605,37 +2605,37 @@
                             "Whm/m2": 0.0
                         },
                         "8": {
-                            "Whm/m2": 144.96
+                            "Whm/m2": 144.9620830052805
                         },
                         "9": {
-                            "Whm/m2": 408.87
+                            "Whm/m2": 408.865156640095
                         },
                         "10": {
-                            "Whm/m2": 596.1
+                            "Whm/m2": 596.1030628630034
                         },
                         "11": {
-                            "Whm/m2": 720.94
+                            "Whm/m2": 720.93699009201
                         },
                         "12": {
-                            "Whm/m2": 786.61
+                            "Whm/m2": 786.6060153906783
                         },
                         "13": {
-                            "Whm/m2": 793.67
+                            "Whm/m2": 793.6699162625517
                         },
                         "14": {
-                            "Whm/m2": 740.93
+                            "Whm/m2": 740.9315215805817
                         },
                         "15": {
-                            "Whm/m2": 629.54
+                            "Whm/m2": 629.5384226022467
                         },
                         "16": {
-                            "Whm/m2": 459.36
+                            "Whm/m2": 459.3638548631333
                         },
                         "17": {
-                            "Whm/m2": 233.51
+                            "Whm/m2": 233.51248293816832
                         },
                         "18": {
-                            "Whm/m2": 13.56
+                            "Whm/m2": 13.557801033631234
                         },
                         "19": {
                             "Whm/m2": 0.0
@@ -2672,52 +2672,52 @@
                             "Whm/m2": 0.0
                         },
                         "5": {
-                            "Whm/m2": 2.13
+                            "Whm/m2": 2.127456351184367
                         },
                         "6": {
-                            "Whm/m2": 20.38
+                            "Whm/m2": 20.375181756925667
                         },
                         "7": {
-                            "Whm/m2": 41.71
+                            "Whm/m2": 41.71141914266733
                         },
                         "8": {
-                            "Whm/m2": 61.75
+                            "Whm/m2": 61.7496284930695
                         },
                         "9": {
-                            "Whm/m2": 96.5
+                            "Whm/m2": 96.49622761072533
                         },
                         "10": {
-                            "Whm/m2": 170.68
+                            "Whm/m2": 170.68477508537168
                         },
                         "11": {
-                            "Whm/m2": 244.31
+                            "Whm/m2": 244.31352333008
                         },
                         "12": {
-                            "Whm/m2": 286.21
+                            "Whm/m2": 286.20687656069
                         },
                         "13": {
-                            "Whm/m2": 285.47
+                            "Whm/m2": 285.469071137665
                         },
                         "14": {
-                            "Whm/m2": 242.66
+                            "Whm/m2": 242.657074364825
                         },
                         "15": {
-                            "Whm/m2": 168.67
+                            "Whm/m2": 168.667795221635
                         },
                         "16": {
-                            "Whm/m2": 94.97
+                            "Whm/m2": 94.96817565029517
                         },
                         "17": {
-                            "Whm/m2": 61.39
+                            "Whm/m2": 61.385861651962834
                         },
                         "18": {
-                            "Whm/m2": 41.27
+                            "Whm/m2": 41.274855362246164
                         },
                         "19": {
-                            "Whm/m2": 19.78
+                            "Whm/m2": 19.777193391865666
                         },
                         "20": {
-                            "Whm/m2": 1.77
+                            "Whm/m2": 1.7694418781122832
                         },
                         "21": {
                             "Whm/m2": 0.0
@@ -2751,46 +2751,46 @@
                             "Whm/m2": 0.0
                         },
                         "6": {
-                            "Whm/m2": 8.27
+                            "Whm/m2": 8.271049596691066
                         },
                         "7": {
-                            "Whm/m2": 25.47
+                            "Whm/m2": 25.47098877765433
                         },
                         "8": {
-                            "Whm/m2": 45.16
+                            "Whm/m2": 45.1581333113515
                         },
                         "9": {
-                            "Whm/m2": 63.55
+                            "Whm/m2": 63.553561409917336
                         },
                         "10": {
-                            "Whm/m2": 81.42
+                            "Whm/m2": 81.41781897852417
                         },
                         "11": {
-                            "Whm/m2": 105.13
+                            "Whm/m2": 105.13285951396966
                         },
                         "12": {
-                            "Whm/m2": 112.54
+                            "Whm/m2": 112.53565233904283
                         },
                         "13": {
-                            "Whm/m2": 111.4
+                            "Whm/m2": 111.39580507701966
                         },
                         "14": {
-                            "Whm/m2": 102.95
+                            "Whm/m2": 102.953921042441
                         },
                         "15": {
-                            "Whm/m2": 88.57
+                            "Whm/m2": 88.56721379041635
                         },
                         "16": {
-                            "Whm/m2": 67.78
+                            "Whm/m2": 67.77681013272533
                         },
                         "17": {
-                            "Whm/m2": 40.11
+                            "Whm/m2": 40.109817560237
                         },
                         "18": {
-                            "Whm/m2": 19.7
+                            "Whm/m2": 19.704036363390333
                         },
                         "19": {
-                            "Whm/m2": 4.09
+                            "Whm/m2": 4.088633747423216
                         },
                         "20": {
                             "Whm/m2": 0.0
@@ -2817,76 +2817,76 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 2.152
+                        "kWh": 2.152258325970034
                     },
                     "2": {
-                        "kWh": 2.222
+                        "kWh": 2.222335123864761
                     },
                     "3": {
-                        "kWh": 2.276
+                        "kWh": 2.2756727892519226
                     },
                     "4": {
-                        "kWh": 2.328
+                        "kWh": 2.32832751040355
                     },
                     "5": {
-                        "kWh": 2.351
+                        "kWh": 2.3510180340791775
                     },
                     "6": {
-                        "kWh": 2.351
+                        "kWh": 2.3514534589243805
                     },
                     "7": {
-                        "kWh": 2.355
+                        "kWh": 2.3551155009011784
                     },
                     "8": {
-                        "kWh": 1.883
+                        "kWh": 1.8831616090255308
                     },
                     "9": {
-                        "kWh": 0.494
+                        "kWh": 0.49396654957746944
                     },
                     "10": {
                         "kWh": 0.0
                     },
                     "11": {
-                        "kWh": -1.309
+                        "kWh": -1.3089137364072887
                     },
                     "12": {
-                        "kWh": -3.407
+                        "kWh": -3.4073702199471665
                     },
                     "13": {
-                        "kWh": -4.674
+                        "kWh": -4.674147615092472
                     },
                     "14": {
-                        "kWh": -4.933
+                        "kWh": -4.933409078569111
                     },
                     "15": {
-                        "kWh": -4.172
+                        "kWh": -4.172224511838167
                     },
                     "16": {
-                        "kWh": -2.928
+                        "kWh": -2.927691730762111
                     },
                     "17": {
-                        "kWh": -1.239
+                        "kWh": -1.239051309382289
                     },
                     "18": {
-                        "kWh": -0.02
+                        "kWh": -0.019928102931027918
                     },
                     "19": {
-                        "kWh": 0.087
+                        "kWh": 0.08650084620060444
                     },
                     "20": {
-                        "kWh": 0.981
+                        "kWh": 0.9813717410054333
                     },
                     "21": {
-                        "kWh": 1.639
+                        "kWh": 1.6393187460730696
                     },
                     "22": {
-                        "kWh": 2.06
+                        "kWh": 2.0595044479075275
                     },
                     "23": {
-                        "kWh": 2.323
+                        "kWh": 2.3233601672353497
                     },
                     "24": {
-                        "kWh": 2.435
+                        "kWh": 2.435166657576303
                     }
                 }
             },
@@ -2920,43 +2920,43 @@
                         "kWh": 0.0
                     },
                     "10": {
-                        "kWh": -0.359
+                        "kWh": -0.3594799978096
                     },
                     "11": {
-                        "kWh": -1.458
+                        "kWh": -1.4584326611522276
                     },
                     "12": {
-                        "kWh": -2.423
+                        "kWh": -2.4228022631479273
                     },
                     "13": {
-                        "kWh": -2.845
+                        "kWh": -2.8448840067608336
                     },
                     "14": {
-                        "kWh": -2.908
+                        "kWh": -2.908475845878556
                     },
                     "15": {
-                        "kWh": -2.641
+                        "kWh": -2.6409960178773724
                     },
                     "16": {
-                        "kWh": -2.21
+                        "kWh": -2.2096351307234947
                     },
                     "17": {
-                        "kWh": -1.763
+                        "kWh": -1.763078495482436
                     },
                     "18": {
-                        "kWh": -1.37
+                        "kWh": -1.370039061845061
                     },
                     "19": {
-                        "kWh": -0.983
+                        "kWh": -0.9828515257794055
                     },
                     "20": {
-                        "kWh": -0.567
+                        "kWh": -0.5669354500054694
                     },
                     "21": {
-                        "kWh": -0.231
+                        "kWh": -0.23099763119601832
                     },
                     "22": {
-                        "kWh": -0.047
+                        "kWh": -0.047430282102810556
                     },
                     "23": {
                         "kWh": 0.0
@@ -2971,99 +2971,99 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "C": 10.73,
-                        "kWh": 0.083
+                        "C": 10.7291486866674,
+                        "kWh": 0.08270649633505278
                     },
                     "2": {
-                        "C": 10.0,
-                        "kWh": 0.548
+                        "C": 10.0000000001418,
+                        "kWh": 0.5475459572832527
                     },
                     "3": {
                         "C": 10.0,
-                        "kWh": 0.918
+                        "kWh": 0.9175403615179639
                     },
                     "4": {
                         "C": 10.0,
-                        "kWh": 1.147
+                        "kWh": 1.1473369372805167
                     },
                     "5": {
                         "C": 10.0,
-                        "kWh": 1.275
+                        "kWh": 1.2746556607487916
                     },
                     "6": {
                         "C": 10.0,
-                        "kWh": 1.34
+                        "kWh": 1.3397055618204028
                     },
                     "7": {
                         "C": 10.0,
-                        "kWh": 1.384
+                        "kWh": 1.3839264220128389
                     },
                     "8": {
-                        "C": 15.81,
-                        "kWh": 3.381
+                        "C": 15.8146918306822,
+                        "kWh": 3.3807888728291116
                     },
                     "9": {
-                        "C": 20.0,
-                        "kWh": 1.752
+                        "C": 19.9999999891335,
+                        "kWh": 1.752496888575353
                     },
                     "10": {
-                        "C": 21.32,
-                        "kWh": 0.054
+                        "C": 21.3199514159837,
+                        "kWh": 0.05353326303714166
                     },
                     "11": {
-                        "C": 26.49,
-                        "kWh": -0.674
+                        "C": 26.4903485585945,
+                        "kWh": -0.6741199013087527
                     },
                     "12": {
-                        "C": 27.0,
-                        "kWh": -3.012
+                        "C": 26.9999999954187,
+                        "kWh": -3.0124720897641666
                     },
                     "13": {
-                        "C": 27.0,
-                        "kWh": -4.508
+                        "C": 26.9999999999994,
+                        "kWh": -4.508486193730084
                     },
                     "14": {
                         "C": 27.0,
-                        "kWh": -4.868
+                        "kWh": -4.867953794059194
                     },
                     "15": {
                         "C": 27.0,
-                        "kWh": -4.147
+                        "kWh": -4.147162934003944
                     },
                     "16": {
                         "C": 27.0,
-                        "kWh": -2.918
+                        "kWh": -2.9179663426378335
                     },
                     "17": {
-                        "C": 27.0,
-                        "kWh": -1.235
+                        "C": 26.9999999999999,
+                        "kWh": -1.2352733508367555
                     },
                     "18": {
-                        "C": 25.46,
-                        "kWh": -0.02
+                        "C": 25.4595077258664,
+                        "kWh": -0.019589078808689247
                     },
                     "19": {
-                        "C": 21.15,
-                        "kWh": 0.087
+                        "C": 21.1464516774241,
+                        "kWh": 0.08704536639292833
                     },
                     "20": {
-                        "C": 20.0,
-                        "kWh": 0.982
+                        "C": 20.0000002411951,
+                        "kWh": 0.9821623685050223
                     },
                     "21": {
-                        "C": 20.0,
-                        "kWh": 1.64
+                        "C": 20.0000000000001,
+                        "kWh": 1.6397710763215028
                     },
                     "22": {
                         "C": 20.0,
-                        "kWh": 2.06
+                        "kWh": 2.0597616584988643
                     },
                     "23": {
                         "C": 20.0,
-                        "kWh": 2.324
+                        "kWh": 2.3235010597991055
                     },
                     "24": {
-                        "C": 12.9,
+                        "C": 12.901822115631,
                         "kWh": 0.0
                     }
                 }
@@ -3073,76 +3073,76 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 1.85
+                        "kWh": 1.8504737127998752
                     },
                     "2": {
-                        "kWh": 1.904
+                        "kWh": 1.9038418649789224
                     },
                     "3": {
-                        "kWh": 1.943
+                        "kWh": 1.9434213215771805
                     },
                     "4": {
-                        "kWh": 1.983
+                        "kWh": 1.9827882672865775
                     },
                     "5": {
-                        "kWh": 1.999
+                        "kWh": 1.9988628671483473
                     },
                     "6": {
-                        "kWh": 2.001
+                        "kWh": 2.0005968566861805
                     },
                     "7": {
-                        "kWh": 2.009
+                        "kWh": 2.009102609770114
                     },
                     "8": {
-                        "kWh": 1.712
+                        "kWh": 1.7123280949379807
                     },
                     "9": {
-                        "kWh": 0.823
+                        "kWh": 0.823261142651189
                     },
                     "10": {
-                        "kWh": 0.062
+                        "kWh": 0.06178367291478361
                     },
                     "11": {
                         "kWh": 0.0
                     },
                     "12": {
-                        "kWh": -0.496
+                        "kWh": -0.4956694688386778
                     },
                     "13": {
-                        "kWh": -1.696
+                        "kWh": -1.6957172346473166
                     },
                     "14": {
-                        "kWh": -2.184
+                        "kWh": -2.184085848439653
                     },
                     "15": {
-                        "kWh": -1.873
+                        "kWh": -1.872602264075689
                     },
                     "16": {
-                        "kWh": -1.202
+                        "kWh": -1.2021178317783414
                     },
                     "17": {
-                        "kWh": -0.3
+                        "kWh": -0.2998055958583055
                     },
                     "18": {
                         "kWh": 0.0
                     },
                     "19": {
-                        "kWh": 0.103
+                        "kWh": 0.10282689657006222
                     },
                     "20": {
-                        "kWh": 0.847
+                        "kWh": 0.8473802914947416
                     },
                     "21": {
-                        "kWh": 1.408
+                        "kWh": 1.4078537479394584
                     },
                     "22": {
-                        "kWh": 1.779
+                        "kWh": 1.7785084274466139
                     },
                     "23": {
-                        "kWh": 2.005
+                        "kWh": 2.005099730408336
                     },
                     "24": {
-                        "kWh": 2.1
+                        "kWh": 2.1000123027521997
                     }
                 }
             },
@@ -3176,46 +3176,46 @@
                         "kWh": 0.0
                     },
                     "10": {
-                        "kWh": -0.163
+                        "kWh": -0.16326415924759055
                     },
                     "11": {
-                        "kWh": -0.887
+                        "kWh": -0.8865712772698054
                     },
                     "12": {
-                        "kWh": -1.599
+                        "kWh": -1.5987812429191637
                     },
                     "13": {
-                        "kWh": -1.913
+                        "kWh": -1.9127246067433223
                     },
                     "14": {
-                        "kWh": -2.006
+                        "kWh": -2.0064789538951553
                     },
                     "15": {
-                        "kWh": -1.901
+                        "kWh": -1.9012888797506138
                     },
                     "16": {
-                        "kWh": -1.689
+                        "kWh": -1.689436849252289
                     },
                     "17": {
-                        "kWh": -1.411
+                        "kWh": -1.4112206988105556
                     },
                     "18": {
-                        "kWh": -1.134
+                        "kWh": -1.1342940356750613
                     },
                     "19": {
-                        "kWh": -0.849
+                        "kWh": -0.849413814898436
                     },
                     "20": {
-                        "kWh": -0.522
+                        "kWh": -0.5222633405238807
                     },
                     "21": {
-                        "kWh": -0.24
+                        "kWh": -0.24015262078626584
                     },
                     "22": {
-                        "kWh": -0.081
+                        "kWh": -0.08142942151100611
                     },
                     "23": {
-                        "kWh": -0.006
+                        "kWh": -0.0055833904349771105
                     },
                     "24": {
                         "kWh": 0.0
@@ -3227,76 +3227,76 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 2.625
+                        "kWh": 2.624626972966547
                     },
                     "2": {
-                        "kWh": 2.731
+                        "kWh": 2.7314510333980526
                     },
                     "3": {
-                        "kWh": 2.82
+                        "kWh": 2.8195885393426945
                     },
                     "4": {
-                        "kWh": 2.908
+                        "kWh": 2.907872420226028
                     },
                     "5": {
-                        "kWh": 2.95
+                        "kWh": 2.949847358993583
                     },
                     "6": {
-                        "kWh": 2.943
+                        "kWh": 2.94342858477775
                     },
                     "7": {
-                        "kWh": 2.924
+                        "kWh": 2.9241873217271115
                     },
                     "8": {
-                        "kWh": 2.374
+                        "kWh": 2.374298472509978
                     },
                     "9": {
-                        "kWh": 0.729
+                        "kWh": 0.7292422321189195
                     },
                     "10": {
                         "kWh": 0.0
                     },
                     "11": {
-                        "kWh": -1.296
+                        "kWh": -1.295910009642836
                     },
                     "12": {
-                        "kWh": -3.529
+                        "kWh": -3.5294885502674167
                     },
                     "13": {
-                        "kWh": -4.938
+                        "kWh": -4.938417492131806
                     },
                     "14": {
-                        "kWh": -5.141
+                        "kWh": -5.140776284863361
                     },
                     "15": {
-                        "kWh": -4.167
+                        "kWh": -4.166653854699278
                     },
                     "16": {
-                        "kWh": -2.777
+                        "kWh": -2.7772706597354055
                     },
                     "17": {
-                        "kWh": -0.986
+                        "kWh": -0.9862341611539556
                     },
                     "18": {
                         "kWh": 0.0
                     },
                     "19": {
-                        "kWh": 0.462
+                        "kWh": 0.46190347501965834
                     },
                     "20": {
-                        "kWh": 1.622
+                        "kWh": 1.622262800836825
                     },
                     "21": {
-                        "kWh": 2.218
+                        "kWh": 2.2179305913828666
                     },
                     "22": {
-                        "kWh": 2.602
+                        "kWh": 2.601535233672686
                     },
                     "23": {
-                        "kWh": 2.878
+                        "kWh": 2.8784734930583884
                     },
                     "24": {
-                        "kWh": 2.994
+                        "kWh": 2.994141802073333
                     }
                 }
             },
@@ -3315,10 +3315,10 @@
                         "kWh": 0.0
                     },
                     "5": {
-                        "kWh": 0.116
+                        "kWh": 0.11574461613697361
                     },
                     "6": {
-                        "kWh": 0.101
+                        "kWh": 0.10059245994032194
                     },
                     "7": {
                         "kWh": 0.0
@@ -3330,43 +3330,43 @@
                         "kWh": 0.0
                     },
                     "10": {
-                        "kWh": -0.424
+                        "kWh": -0.4241265423088416
                     },
                     "11": {
-                        "kWh": -1.754
+                        "kWh": -1.7544660507445835
                     },
                     "12": {
-                        "kWh": -2.885
+                        "kWh": -2.885266165865306
                     },
                     "13": {
-                        "kWh": -3.378
+                        "kWh": -3.3784206148802776
                     },
                     "14": {
-                        "kWh": -3.448
+                        "kWh": -3.448267066883722
                     },
                     "15": {
-                        "kWh": -3.11
+                        "kWh": -3.1097501639227776
                     },
                     "16": {
-                        "kWh": -2.527
+                        "kWh": -2.5270512399571774
                     },
                     "17": {
-                        "kWh": -1.938
+                        "kWh": -1.937855164690703
                     },
                     "18": {
-                        "kWh": -1.463
+                        "kWh": -1.4631345146049277
                     },
                     "19": {
-                        "kWh": -1.015
+                        "kWh": -1.0152246880395333
                     },
                     "20": {
-                        "kWh": -0.552
+                        "kWh": -0.5524166118202528
                     },
                     "21": {
-                        "kWh": -0.178
+                        "kWh": -0.17821732095841167
                     },
                     "22": {
-                        "kWh": -0.008
+                        "kWh": -0.00800848731849739
                     },
                     "23": {
                         "kWh": 0.0
@@ -3381,58 +3381,58 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 1.252
+                        "kWh": 1.2515917671995334
                     },
                     "2": {
-                        "kWh": 1.364
+                        "kWh": 1.3643560524652223
                     },
                     "3": {
-                        "kWh": 1.442
+                        "kWh": 1.4424687126770612
                     },
                     "4": {
-                        "kWh": 1.505
+                        "kWh": 1.504945504828086
                     },
                     "5": {
-                        "kWh": 1.532
+                        "kWh": 1.532339744447025
                     },
                     "6": {
-                        "kWh": 1.547
+                        "kWh": 1.5467144273072444
                     },
                     "7": {
-                        "kWh": 1.547
+                        "kWh": 1.5469331015251446
                     },
                     "8": {
-                        "kWh": 1.161
+                        "kWh": 1.1608566724840583
                     },
                     "9": {
-                        "kWh": 0.156
+                        "kWh": 0.15572959775190692
                     },
                     "10": {
-                        "kWh": -0.119
+                        "kWh": -0.11857025631422362
                     },
                     "11": {
-                        "kWh": -2.26
+                        "kWh": -2.2599689486636363
                     },
                     "12": {
-                        "kWh": -4.318
+                        "kWh": -4.317678355247639
                     },
                     "13": {
-                        "kWh": -5.523
+                        "kWh": -5.522969952240584
                     },
                     "14": {
-                        "kWh": -5.712
+                        "kWh": -5.712199154731305
                     },
                     "15": {
-                        "kWh": -5.08
+                        "kWh": -5.0803137333918045
                     },
                     "16": {
-                        "kWh": -3.917
+                        "kWh": -3.917127308058278
                     },
                     "17": {
-                        "kWh": -2.235
+                        "kWh": -2.2347335319611887
                     },
                     "18": {
-                        "kWh": -0.363
+                        "kWh": -0.36295354501617777
                     },
                     "19": {
                         "kWh": 0.0
@@ -3441,16 +3441,16 @@
                         "kWh": 0.0
                     },
                     "21": {
-                        "kWh": 0.266
+                        "kWh": 0.26603734612999086
                     },
                     "22": {
-                        "kWh": 0.768
+                        "kWh": 0.7684328861780695
                     },
                     "23": {
-                        "kWh": 1.096
+                        "kWh": 1.095558998491703
                     },
                     "24": {
-                        "kWh": 1.32
+                        "kWh": 1.3197686080887692
                     }
                 }
             },
@@ -3484,46 +3484,46 @@
                         "kWh": 0.0
                     },
                     "10": {
-                        "kWh": -0.327
+                        "kWh": -0.3266266879756861
                     },
                     "11": {
-                        "kWh": -1.206
+                        "kWh": -1.2061778499618834
                     },
                     "12": {
-                        "kWh": -2.016
+                        "kWh": -2.0156496152105055
                     },
                     "13": {
-                        "kWh": -2.506
+                        "kWh": -2.5061673081161198
                     },
                     "14": {
-                        "kWh": -2.605
+                        "kWh": -2.6048011203077057
                     },
                     "15": {
-                        "kWh": -2.348
+                        "kWh": -2.3480313857249113
                     },
                     "16": {
-                        "kWh": -1.896
+                        "kWh": -1.8956580736129973
                     },
                     "17": {
-                        "kWh": -1.505
+                        "kWh": -1.5050457385389917
                     },
                     "18": {
-                        "kWh": -1.187
+                        "kWh": -1.1869050173952471
                     },
                     "19": {
-                        "kWh": -0.877
+                        "kWh": -0.876527790104914
                     },
                     "20": {
-                        "kWh": -0.573
+                        "kWh": -0.5728169799402472
                     },
                     "21": {
-                        "kWh": -0.331
+                        "kWh": -0.33075252777580827
                     },
                     "22": {
-                        "kWh": -0.168
+                        "kWh": -0.1675484046612939
                     },
                     "23": {
-                        "kWh": -0.054
+                        "kWh": -0.05370413041908584
                     },
                     "24": {
                         "kWh": 0.0
@@ -3535,152 +3535,152 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 2.186
+                        "kWh": 2.186062421923075
                     },
                     "2": {
-                        "kWh": 2.241
+                        "kWh": 2.2405960395091027
                     },
                     "3": {
-                        "kWh": 2.286
+                        "kWh": 2.2855047834972444
                     },
                     "4": {
-                        "kWh": 2.334
+                        "kWh": 2.333605256921011
                     },
                     "5": {
-                        "kWh": 2.354
+                        "kWh": 2.3537971932320696
                     },
                     "6": {
-                        "kWh": 2.353
+                        "kWh": 2.3529780869880663
                     },
                     "7": {
-                        "kWh": 2.356
+                        "kWh": 2.355943857173683
                     },
                     "8": {
-                        "kWh": 1.884
+                        "kWh": 1.8835854333020083
                     },
                     "9": {
-                        "kWh": 0.465
+                        "kWh": 0.46458634135764754
                     },
                     "10": {
-                        "kWh": -1.337
+                        "kWh": -1.336743558101764
                     },
                     "11": {
-                        "kWh": -3.259
+                        "kWh": -3.258519042410139
                     },
                     "12": {
-                        "kWh": -4.682
+                        "kWh": -4.682336287132417
                     },
                     "13": {
-                        "kWh": -5.608
+                        "kWh": -5.6081676469835005
                     },
                     "14": {
-                        "kWh": -5.714
+                        "kWh": -5.713516126480444
                     },
                     "15": {
-                        "kWh": -4.881
+                        "kWh": -4.880963898571277
                     },
                     "16": {
-                        "kWh": -3.594
+                        "kWh": -3.5937447432135277
                     },
                     "17": {
-                        "kWh": -1.876
+                        "kWh": -1.875976481455686
                     },
                     "18": {
-                        "kWh": 0.037
+                        "kWh": 0.0368986305401525
                     },
                     "19": {
-                        "kWh": 1.101
+                        "kWh": 1.1009303386939666
                     },
                     "20": {
-                        "kWh": 1.69
+                        "kWh": 1.690478543845464
                     },
                     "21": {
-                        "kWh": 2.031
+                        "kWh": 2.030684440521997
                     },
                     "22": {
-                        "kWh": 2.277
+                        "kWh": 2.2766124619802945
                     },
                     "23": {
-                        "kWh": 2.441
+                        "kWh": 2.4412008807719054
                     },
                     "24": {
-                        "kWh": 2.498
+                        "kWh": 2.4983510271189746
                     }
                 }
             },
             "july_14": {
                 "hour": {
                     "1": {
-                        "kWh": -0.084
+                        "kWh": -0.08447935646309833
                     },
                     "2": {
-                        "kWh": -0.025
+                        "kWh": -0.025064263387481064
                     },
                     "3": {
-                        "kWh": 0.056
+                        "kWh": 0.05645156854086917
                     },
                     "4": {
-                        "kWh": 0.175
+                        "kWh": 0.17528555625863723
                     },
                     "5": {
-                        "kWh": 0.272
+                        "kWh": 0.27165136610541496
                     },
                     "6": {
-                        "kWh": 0.161
+                        "kWh": 0.1608363822086775
                     },
                     "7": {
-                        "kWh": -0.135
+                        "kWh": -0.13512180146388278
                     },
                     "8": {
-                        "kWh": -0.535
+                        "kWh": -0.5351111893635612
                     },
                     "9": {
-                        "kWh": -1.019
+                        "kWh": -1.019391296990336
                     },
                     "10": {
-                        "kWh": -1.704
+                        "kWh": -1.7042618241767526
                     },
                     "11": {
-                        "kWh": -2.567
+                        "kWh": -2.567228342778264
                     },
                     "12": {
-                        "kWh": -3.316
+                        "kWh": -3.3159550937956666
                     },
                     "13": {
-                        "kWh": -3.614
+                        "kWh": -3.613980107301278
                     },
                     "14": {
-                        "kWh": -3.614
+                        "kWh": -3.6137665205315828
                     },
                     "15": {
-                        "kWh": -3.308
+                        "kWh": -3.307820889173444
                     },
                     "16": {
-                        "kWh": -2.852
+                        "kWh": -2.8517480103011668
                     },
                     "17": {
-                        "kWh": -2.395
+                        "kWh": -2.395399715896856
                     },
                     "18": {
-                        "kWh": -1.994
+                        "kWh": -1.9942627233305696
                     },
                     "19": {
-                        "kWh": -1.593
+                        "kWh": -1.592563102917453
                     },
                     "20": {
-                        "kWh": -1.148
+                        "kWh": -1.1478865115014723
                     },
                     "21": {
-                        "kWh": -0.782
+                        "kWh": -0.7815906255144722
                     },
                     "22": {
-                        "kWh": -0.573
+                        "kWh": -0.5734968328150889
                     },
                     "23": {
-                        "kWh": -0.436
+                        "kWh": -0.43593271576412224
                     },
                     "24": {
-                        "kWh": -0.307
+                        "kWh": -0.30737866268246944
                     }
                 }
             }
@@ -3689,152 +3689,152 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 1.384
+                        "kWh": 1.3840417726613112
                     },
                     "2": {
-                        "kWh": 1.444
+                        "kWh": 1.4443018605337916
                     },
                     "3": {
-                        "kWh": 1.49
+                        "kWh": 1.4903447731554889
                     },
                     "4": {
-                        "kWh": 1.533
+                        "kWh": 1.5333969581679054
                     },
                     "5": {
-                        "kWh": 1.549
+                        "kWh": 1.5490704231216805
                     },
                     "6": {
-                        "kWh": 1.557
+                        "kWh": 1.55671535880985
                     },
                     "7": {
-                        "kWh": 1.553
+                        "kWh": 1.5530781332468666
                     },
                     "8": {
-                        "kWh": 1.164
+                        "kWh": 1.1643615912703082
                     },
                     "9": {
-                        "kWh": -0.078
+                        "kWh": -0.07806536815180362
                     },
                     "10": {
-                        "kWh": -2.007
+                        "kWh": -2.0065634786714974
                     },
                     "11": {
-                        "kWh": -3.935
+                        "kWh": -3.9354158793343608
                     },
                     "12": {
-                        "kWh": -5.373
+                        "kWh": -5.372569145790499
                     },
                     "13": {
-                        "kWh": -6.259
+                        "kWh": -6.258605575320805
                     },
                     "14": {
-                        "kWh": -6.299
+                        "kWh": -6.299456967922138
                     },
                     "15": {
-                        "kWh": -5.603
+                        "kWh": -5.603070992705944
                     },
                     "16": {
-                        "kWh": -4.4
+                        "kWh": -4.399527003801417
                     },
                     "17": {
-                        "kWh": -2.704
+                        "kWh": -2.70381894783995
                     },
                     "18": {
-                        "kWh": -0.727
+                        "kWh": -0.7267764521502278
                     },
                     "19": {
-                        "kWh": 0.319
+                        "kWh": 0.31916436421590555
                     },
                     "20": {
-                        "kWh": 0.749
+                        "kWh": 0.7489419951266084
                     },
                     "21": {
-                        "kWh": 1.041
+                        "kWh": 1.041075439132361
                     },
                     "22": {
-                        "kWh": 1.279
+                        "kWh": 1.2788068244724835
                     },
                     "23": {
-                        "kWh": 1.453
+                        "kWh": 1.4530685517497723
                     },
                     "24": {
-                        "kWh": 1.545
+                        "kWh": 1.5445096232625222
                     }
                 }
             },
             "july_14": {
                 "hour": {
                     "1": {
-                        "kWh": -0.157
+                        "kWh": -0.15692981436524914
                     },
                     "2": {
-                        "kWh": -0.101
+                        "kWh": -0.1005677021000336
                     },
                     "3": {
-                        "kWh": -0.041
+                        "kWh": -0.04109081986376334
                     },
                     "4": {
-                        "kWh": 0.017
+                        "kWh": 0.017247416569962367
                     },
                     "5": {
-                        "kWh": 0.071
+                        "kWh": 0.07138454811082527
                     },
                     "6": {
-                        "kWh": 0.032
+                        "kWh": 0.032137169443464904
                     },
                     "7": {
-                        "kWh": -0.123
+                        "kWh": -0.12310018289221696
                     },
                     "8": {
-                        "kWh": -0.382
+                        "kWh": -0.3817468105375833
                     },
                     "9": {
-                        "kWh": -0.735
+                        "kWh": -0.7352077881078194
                     },
                     "10": {
-                        "kWh": -1.289
+                        "kWh": -1.2891640043583612
                     },
                     "11": {
-                        "kWh": -2.015
+                        "kWh": -2.014760776890178
                     },
                     "12": {
-                        "kWh": -2.675
+                        "kWh": -2.6747084662125693
                     },
                     "13": {
-                        "kWh": -3.071
+                        "kWh": -3.0711099660165555
                     },
                     "14": {
-                        "kWh": -3.113
+                        "kWh": -3.1133165154412494
                     },
                     "15": {
-                        "kWh": -2.82
+                        "kWh": -2.820347174644694
                     },
                     "16": {
-                        "kWh": -2.344
+                        "kWh": -2.344461613952072
                     },
                     "17": {
-                        "kWh": -1.947
+                        "kWh": -1.9470493690839972
                     },
                     "18": {
-                        "kWh": -1.624
+                        "kWh": -1.6239457421226526
                     },
                     "19": {
-                        "kWh": -1.304
+                        "kWh": -1.304417947577575
                     },
                     "20": {
-                        "kWh": -0.985
+                        "kWh": -0.9854533294457194
                     },
                     "21": {
-                        "kWh": -0.732
+                        "kWh": -0.7321361293684444
                     },
                     "22": {
-                        "kWh": -0.564
+                        "kWh": -0.5639401584565805
                     },
                     "23": {
-                        "kWh": -0.443
+                        "kWh": -0.4432353753597611
                     },
                     "24": {
-                        "kWh": -0.334
+                        "kWh": -0.33410011601923334
                     }
                 }
             }
@@ -3843,34 +3843,34 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 0.977
+                        "kWh": 0.9773420878196638
                     },
                     "2": {
-                        "kWh": 1.083
+                        "kWh": 1.0828757560409834
                     },
                     "3": {
-                        "kWh": 1.183
+                        "kWh": 1.182550621948175
                     },
                     "4": {
-                        "kWh": 1.286
+                        "kWh": 1.286246982876336
                     },
                     "5": {
-                        "kWh": 1.366
+                        "kWh": 1.365964023885675
                     },
                     "6": {
-                        "kWh": 1.438
+                        "kWh": 1.4384999481037501
                     },
                     "7": {
-                        "kWh": 1.505
+                        "kWh": 1.504850508454825
                     },
                     "8": {
-                        "kWh": 1.324
+                        "kWh": 1.3243292834723417
                     },
                     "9": {
-                        "kWh": 0.793
+                        "kWh": 0.7927115958405917
                     },
                     "10": {
-                        "kWh": 0.267
+                        "kWh": 0.2671641791261083
                     },
                     "11": {
                         "kWh": 0.0
@@ -3885,10 +3885,10 @@
                         "kWh": 0.0
                     },
                     "15": {
-                        "kWh": -0.046
+                        "kWh": -0.04632887056713361
                     },
                     "16": {
-                        "kWh": -0.027
+                        "kWh": -0.027471997832122525
                     },
                     "17": {
                         "kWh": 0.0
@@ -3909,20 +3909,20 @@
                         "kWh": 0.0
                     },
                     "23": {
-                        "kWh": 0.175
+                        "kWh": 0.1752219021187228
                     },
                     "24": {
-                        "kWh": 0.397
+                        "kWh": 0.39698662329619727
                     }
                 }
             },
             "july_14": {
                 "hour": {
                     "1": {
-                        "kWh": -0.101
+                        "kWh": -0.10115214295196084
                     },
                     "2": {
-                        "kWh": -0.03
+                        "kWh": -0.030142064871700555
                     },
                     "3": {
                         "kWh": 0.0
@@ -3940,55 +3940,55 @@
                         "kWh": 0.0
                     },
                     "8": {
-                        "kWh": -0.017
+                        "kWh": -0.016529056617467553
                     },
                     "9": {
-                        "kWh": -0.159
+                        "kWh": -0.15912258628694168
                     },
                     "10": {
-                        "kWh": -0.417
+                        "kWh": -0.417385290076375
                     },
                     "11": {
-                        "kWh": -0.765
+                        "kWh": -0.7650458723644722
                     },
                     "12": {
-                        "kWh": -1.101
+                        "kWh": -1.1012447395279863
                     },
                     "13": {
-                        "kWh": -1.331
+                        "kWh": -1.3309370486916028
                     },
                     "14": {
-                        "kWh": -1.47
+                        "kWh": -1.4697395926929582
                     },
                     "15": {
-                        "kWh": -1.482
+                        "kWh": -1.4822450429780165
                     },
                     "16": {
-                        "kWh": -1.399
+                        "kWh": -1.3989791968812861
                     },
                     "17": {
-                        "kWh": -1.291
+                        "kWh": -1.2909852938714916
                     },
                     "18": {
-                        "kWh": -1.165
+                        "kWh": -1.1649200829194584
                     },
                     "19": {
-                        "kWh": -1.013
+                        "kWh": -1.0134372722764138
                     },
                     "20": {
-                        "kWh": -0.846
+                        "kWh": -0.8455424697193751
                     },
                     "21": {
-                        "kWh": -0.702
+                        "kWh": -0.7023857661413417
                     },
                     "22": {
-                        "kWh": -0.591
+                        "kWh": -0.5907259026031111
                     },
                     "23": {
-                        "kWh": -0.489
+                        "kWh": -0.48863882487903615
                     },
                     "24": {
-                        "kWh": -0.375
+                        "kWh": -0.3753931275492917
                     }
                 }
             }
@@ -3997,99 +3997,99 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "C": 15.62,
+                        "C": 15.6173844927194,
                         "kWh": 0.0
                     },
                     "2": {
-                        "C": 15.01,
+                        "C": 15.0056585434811,
                         "kWh": 0.0
                     },
                     "3": {
-                        "C": 14.43,
+                        "C": 14.4319107336844,
                         "kWh": 0.0
                     },
                     "4": {
-                        "C": 13.86,
+                        "C": 13.8637840274086,
                         "kWh": 0.0
                     },
                     "5": {
-                        "C": 13.36,
+                        "C": 13.3569378602574,
                         "kWh": 0.0
                     },
                     "6": {
-                        "C": 12.88,
+                        "C": 12.8839552470703,
                         "kWh": 0.0
                     },
                     "7": {
-                        "C": 12.42,
+                        "C": 12.4204797603984,
                         "kWh": 0.0
                     },
                     "8": {
-                        "C": 15.98,
-                        "kWh": 1.26
+                        "C": 15.9824151929996,
+                        "kWh": 1.2639430896999306
                     },
                     "9": {
-                        "C": 20.0,
-                        "kWh": 1.55
+                        "C": 20.0000000005672,
+                        "kWh": 1.5508185632600693
                     },
                     "10": {
                         "C": 20.0,
-                        "kWh": 0.82
+                        "kWh": 0.8225582964639917
                     },
                     "11": {
-                        "C": 20.0,
-                        "kWh": 0.3
+                        "C": 19.9999999999999,
+                        "kWh": 0.2974135124727694
                     },
                     "12": {
-                        "C": 20.99,
+                        "C": 20.9908112506283,
                         "kWh": 0.0
                     },
                     "13": {
-                        "C": 23.12,
+                        "C": 23.1191755897419,
                         "kWh": 0.0
                     },
                     "14": {
-                        "C": 24.62,
+                        "C": 24.6214474671891,
                         "kWh": 0.0
                     },
                     "15": {
-                        "C": 25.25,
+                        "C": 25.2508684538869,
                         "kWh": 0.0
                     },
                     "16": {
-                        "C": 25.27,
+                        "C": 25.2715014766077,
                         "kWh": 0.0
                     },
                     "17": {
-                        "C": 24.48,
+                        "C": 24.4830051753236,
                         "kWh": 0.0
                     },
                     "18": {
-                        "C": 22.79,
+                        "C": 22.7901364754148,
                         "kWh": 0.0
                     },
                     "19": {
-                        "C": 21.47,
+                        "C": 21.4689246487152,
                         "kWh": 0.0
                     },
                     "20": {
-                        "C": 20.52,
+                        "C": 20.5228702920834,
                         "kWh": 0.0
                     },
                     "21": {
-                        "C": 20.0,
-                        "kWh": 0.12
+                        "C": 20.0025732623063,
+                        "kWh": 0.1209514816462875
                     },
                     "22": {
                         "C": 20.0,
-                        "kWh": 0.39
+                        "kWh": 0.3854216541338806
                     },
                     "23": {
                         "C": 20.0,
-                        "kWh": 0.61
+                        "kWh": 0.6100334219799667
                     },
                     "24": {
-                        "C": 18.0,
+                        "C": 18.003809733127,
                         "kWh": 0.0
                     }
                 }
@@ -4108,19 +4108,19 @@
                         "kWh": 0.0
                     },
                     "4": {
-                        "kWh": 0.01
+                        "kWh": 0.010066829543411416
                     },
                     "5": {
-                        "kWh": 0.112
+                        "kWh": 0.11176078718938418
                     },
                     "6": {
-                        "kWh": 0.23
+                        "kWh": 0.22967622778229832
                     },
                     "7": {
-                        "kWh": 0.323
+                        "kWh": 0.3225172859393277
                     },
                     "8": {
-                        "kWh": 0.196
+                        "kWh": 0.19641927337524306
                     },
                     "9": {
                         "kWh": 0.0
@@ -4132,25 +4132,25 @@
                         "kWh": 0.0
                     },
                     "12": {
-                        "kWh": -0.111
+                        "kWh": -0.11102230824373528
                     },
                     "13": {
-                        "kWh": -0.748
+                        "kWh": -0.7476205698656972
                     },
                     "14": {
-                        "kWh": -1.181
+                        "kWh": -1.181083023832064
                     },
                     "15": {
-                        "kWh": -1.348
+                        "kWh": -1.3475857602081471
                     },
                     "16": {
-                        "kWh": -1.277
+                        "kWh": -1.2767807114115945
                     },
                     "17": {
-                        "kWh": -0.879
+                        "kWh": -0.8792649540968722
                     },
                     "18": {
-                        "kWh": -0.218
+                        "kWh": -0.2183563767676631
                     },
                     "19": {
                         "kWh": 0.0
@@ -4175,16 +4175,16 @@
             "july_14": {
                 "hour": {
                     "1": {
-                        "kWh": -0.216
+                        "kWh": -0.21575050852874805
                     },
                     "2": {
-                        "kWh": -0.156
+                        "kWh": -0.1558823565854061
                     },
                     "3": {
-                        "kWh": -0.094
+                        "kWh": -0.09365153557258972
                     },
                     "4": {
-                        "kWh": -0.024
+                        "kWh": -0.02414285820956589
                     },
                     "5": {
                         "kWh": 0.0
@@ -4193,58 +4193,58 @@
                         "kWh": 0.0
                     },
                     "7": {
-                        "kWh": -0.063
+                        "kWh": -0.06298930428640973
                     },
                     "8": {
-                        "kWh": -0.171
+                        "kWh": -0.17090907589573945
                     },
                     "9": {
-                        "kWh": -0.302
+                        "kWh": -0.3024624476356889
                     },
                     "10": {
-                        "kWh": -0.529
+                        "kWh": -0.5291487925035028
                     },
                     "11": {
-                        "kWh": -0.827
+                        "kWh": -0.8273492995426944
                     },
                     "12": {
-                        "kWh": -1.099
+                        "kWh": -1.0994916287195862
                     },
                     "13": {
-                        "kWh": -1.317
+                        "kWh": -1.3165304683575196
                     },
                     "14": {
-                        "kWh": -1.442
+                        "kWh": -1.4416855982465944
                     },
                     "15": {
-                        "kWh": -1.438
+                        "kWh": -1.4379822047920805
                     },
                     "16": {
-                        "kWh": -1.33
+                        "kWh": -1.329974884201561
                     },
                     "17": {
-                        "kWh": -1.224
+                        "kWh": -1.2235603570892721
                     },
                     "18": {
-                        "kWh": -1.11
+                        "kWh": -1.1098036812228307
                     },
                     "19": {
-                        "kWh": -0.969
+                        "kWh": -0.9689342516470667
                     },
                     "20": {
-                        "kWh": -0.814
+                        "kWh": -0.8141235514517278
                     },
                     "21": {
-                        "kWh": -0.686
+                        "kWh": -0.6862522244629806
                     },
                     "22": {
-                        "kWh": -0.591
+                        "kWh": -0.5906788538857473
                     },
                     "23": {
-                        "kWh": -0.506
+                        "kWh": -0.5055950393487056
                     },
                     "24": {
-                        "kWh": -0.411
+                        "kWh": -0.41088268386437776
                     }
                 }
             }
@@ -4253,152 +4253,152 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 1.132
+                        "kWh": 1.1315626715508307
                     },
                     "2": {
-                        "kWh": 1.233
+                        "kWh": 1.2332415666167138
                     },
                     "3": {
-                        "kWh": 1.33
+                        "kWh": 1.3297261645263307
                     },
                     "4": {
-                        "kWh": 1.428
+                        "kWh": 1.4277116666192335
                     },
                     "5": {
-                        "kWh": 1.5
+                        "kWh": 1.500438504588761
                     },
                     "6": {
-                        "kWh": 1.565
+                        "kWh": 1.5653249984194444
                     },
                     "7": {
-                        "kWh": 1.624
+                        "kWh": 1.6239190126925722
                     },
                     "8": {
-                        "kWh": 1.43
+                        "kWh": 1.429577514330175
                     },
                     "9": {
-                        "kWh": 0.875
+                        "kWh": 0.8746892095174861
                     },
                     "10": {
-                        "kWh": 0.349
+                        "kWh": 0.3491493501199139
                     },
                     "11": {
-                        "kWh": -0.254
+                        "kWh": -0.2536274296158458
                     },
                     "12": {
-                        "kWh": -0.936
+                        "kWh": -0.9363127652300306
                     },
                     "13": {
-                        "kWh": -1.648
+                        "kWh": -1.6478375931439724
                     },
                     "14": {
-                        "kWh": -2.038
+                        "kWh": -2.0379337674544082
                     },
                     "15": {
-                        "kWh": -2.082
+                        "kWh": -2.0819603037710834
                     },
                     "16": {
-                        "kWh": -1.901
+                        "kWh": -1.9005079163757557
                     },
                     "17": {
-                        "kWh": -1.398
+                        "kWh": -1.3981179164343442
                     },
                     "18": {
-                        "kWh": -0.632
+                        "kWh": -0.6321633712201666
                     },
                     "19": {
-                        "kWh": -0.186
+                        "kWh": -0.18634328167845501
                     },
                     "20": {
-                        "kWh": 0.101
+                        "kWh": 0.10059566332556605
                     },
                     "21": {
-                        "kWh": 0.336
+                        "kWh": 0.3363542435005167
                     },
                     "22": {
-                        "kWh": 0.564
+                        "kWh": 0.5638022075850083
                     },
                     "23": {
-                        "kWh": 0.758
+                        "kWh": 0.7578428699737806
                     },
                     "24": {
-                        "kWh": 0.891
+                        "kWh": 0.8906512680729666
                     }
                 }
             },
             "july_14": {
                 "hour": {
                     "1": {
-                        "kWh": -0.711
+                        "kWh": -0.7107479020220528
                     },
                     "2": {
-                        "kWh": -0.623
+                        "kWh": -0.6234751164942278
                     },
                     "3": {
-                        "kWh": -0.527
+                        "kWh": -0.5273500207239306
                     },
                     "4": {
-                        "kWh": -0.422
+                        "kWh": -0.42150955711942784
                     },
                     "5": {
-                        "kWh": -0.328
+                        "kWh": -0.327719561719525
                     },
                     "6": {
-                        "kWh": -0.333
+                        "kWh": -0.33273529233248056
                     },
                     "7": {
-                        "kWh": -0.441
+                        "kWh": -0.44088444330325
                     },
                     "8": {
-                        "kWh": -0.598
+                        "kWh": -0.5982084940740418
                     },
                     "9": {
-                        "kWh": -0.798
+                        "kWh": -0.7983796702647779
                     },
                     "10": {
-                        "kWh": -1.109
+                        "kWh": -1.1090986564752277
                     },
                     "11": {
-                        "kWh": -1.497
+                        "kWh": -1.4971346399039889
                     },
                     "12": {
-                        "kWh": -1.862
+                        "kWh": -1.8618460881651748
                     },
                     "13": {
-                        "kWh": -2.101
+                        "kWh": -2.1008854939273416
                     },
                     "14": {
-                        "kWh": -2.235
+                        "kWh": -2.235350309681286
                     },
                     "15": {
-                        "kWh": -2.232
+                        "kWh": -2.231938107850889
                     },
                     "16": {
-                        "kWh": -2.129
+                        "kWh": -2.12919552743103
                     },
                     "17": {
-                        "kWh": -2.006
+                        "kWh": -2.0064106525163248
                     },
                     "18": {
-                        "kWh": -1.864
+                        "kWh": -1.8638915196808834
                     },
                     "19": {
-                        "kWh": -1.693
+                        "kWh": -1.692515116792825
                     },
                     "20": {
-                        "kWh": -1.502
+                        "kWh": -1.5015243303995667
                     },
                     "21": {
-                        "kWh": -1.339
+                        "kWh": -1.3387419677251529
                     },
                     "22": {
-                        "kWh": -1.214
+                        "kWh": -1.2139437391102441
                     },
                     "23": {
-                        "kWh": -1.099
+                        "kWh": -1.0991311936741777
                     },
                     "24": {
-                        "kWh": -0.973
+                        "kWh": -0.9731843853998473
                     }
                 }
             }
@@ -4407,152 +4407,152 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "kWh": 0.509
+                        "kWh": 0.5087592922977056
                     },
                     "2": {
-                        "kWh": 0.597
+                        "kWh": 0.5972942374217334
                     },
                     "3": {
-                        "kWh": 0.674
+                        "kWh": 0.67434081210525
                     },
                     "4": {
-                        "kWh": 0.746
+                        "kWh": 0.745889230673286
                     },
                     "5": {
-                        "kWh": 0.786
+                        "kWh": 0.786041904695039
                     },
                     "6": {
-                        "kWh": 0.817
+                        "kWh": 0.8168063851629417
                     },
                     "7": {
-                        "kWh": 0.841
+                        "kWh": 0.8414004621246584
                     },
                     "8": {
-                        "kWh": 0.687
+                        "kWh": 0.6867340627300668
                     },
                     "9": {
-                        "kWh": 0.246
+                        "kWh": 0.24591788665018138
                     },
                     "10": {
-                        "kWh": -0.363
+                        "kWh": -0.36330283556897774
                     },
                     "11": {
-                        "kWh": -1.054
+                        "kWh": -1.0539288544348666
                     },
                     "12": {
-                        "kWh": -1.799
+                        "kWh": -1.7987481159115972
                     },
                     "13": {
-                        "kWh": -2.516
+                        "kWh": -2.515852868421683
                     },
                     "14": {
-                        "kWh": -2.88
+                        "kWh": -2.8801439661575556
                     },
                     "15": {
-                        "kWh": -2.93
+                        "kWh": -2.9302731714639725
                     },
                     "16": {
-                        "kWh": -2.743
+                        "kWh": -2.7431443568003306
                     },
                     "17": {
-                        "kWh": -2.218
+                        "kWh": -2.2176124713842054
                     },
                     "18": {
-                        "kWh": -1.402
+                        "kWh": -1.402300548121539
                     },
                     "19": {
-                        "kWh": -0.925
+                        "kWh": -0.9249967254076861
                     },
                     "20": {
-                        "kWh": -0.61
+                        "kWh": -0.6095521960390694
                     },
                     "21": {
-                        "kWh": -0.359
+                        "kWh": -0.3594409651529834
                     },
                     "22": {
-                        "kWh": -0.136
+                        "kWh": -0.13628303746457887
                     },
                     "23": {
-                        "kWh": 0.056
+                        "kWh": 0.05638422596289023
                     },
                     "24": {
-                        "kWh": 0.195
+                        "kWh": 0.19470926892039497
                     }
                 }
             },
             "july_14": {
                 "hour": {
                     "1": {
-                        "kWh": -0.641
+                        "kWh": -0.6407949210490693
                     },
                     "2": {
-                        "kWh": -0.576
+                        "kWh": -0.5755166492814529
                     },
                     "3": {
-                        "kWh": -0.503
+                        "kWh": -0.5032959577998334
                     },
                     "4": {
-                        "kWh": -0.428
+                        "kWh": -0.42780698651373056
                     },
                     "5": {
-                        "kWh": -0.354
+                        "kWh": -0.3543857173866611
                     },
                     "6": {
-                        "kWh": -0.372
+                        "kWh": -0.3724657138472028
                     },
                     "7": {
-                        "kWh": -0.465
+                        "kWh": -0.4654774414925139
                     },
                     "8": {
-                        "kWh": -0.579
+                        "kWh": -0.5786095477449584
                     },
                     "9": {
-                        "kWh": -0.731
+                        "kWh": -0.7308094872841556
                     },
                     "10": {
-                        "kWh": -0.986
+                        "kWh": -0.9858894121834306
                     },
                     "11": {
-                        "kWh": -1.304
+                        "kWh": -1.303510326343086
                     },
                     "12": {
-                        "kWh": -1.591
+                        "kWh": -1.5914560093202332
                     },
                     "13": {
-                        "kWh": -1.818
+                        "kWh": -1.8175825348652168
                     },
                     "14": {
-                        "kWh": -1.942
+                        "kWh": -1.9424740503697333
                     },
                     "15": {
-                        "kWh": -1.93
+                        "kWh": -1.9296853320675584
                     },
                     "16": {
-                        "kWh": -1.81
+                        "kWh": -1.809719534305308
                     },
                     "17": {
-                        "kWh": -1.697
+                        "kWh": -1.697486068985986
                     },
                     "18": {
-                        "kWh": -1.576
+                        "kWh": -1.5763315889647584
                     },
                     "19": {
-                        "kWh": -1.424
+                        "kWh": -1.424313067593225
                     },
                     "20": {
-                        "kWh": -1.255
+                        "kWh": -1.2552917657909695
                     },
                     "21": {
-                        "kWh": -1.116
+                        "kWh": -1.1160372482979333
                     },
                     "22": {
-                        "kWh": -1.014
+                        "kWh": -1.014441049880961
                     },
                     "23": {
-                        "kWh": -0.923
+                        "kWh": -0.9233564204040834
                     },
                     "24": {
-                        "kWh": -0.823
+                        "kWh": -0.8230576764743083
                     }
                 }
             }
@@ -4563,76 +4563,76 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "C": 5.44
+                        "C": 5.44296162856589
                     },
                     "2": {
-                        "C": 3.81
+                        "C": 3.80715816911327
                     },
                     "3": {
-                        "C": 2.37
+                        "C": 2.37416436729521
                     },
                     "4": {
-                        "C": 1.09
+                        "C": 1.08568413460267
                     },
                     "5": {
-                        "C": -0.01
+                        "C": -0.00515343668916028
                     },
                     "6": {
-                        "C": -0.9
+                        "C": -0.89643469698952
                     },
                     "7": {
-                        "C": -1.71
+                        "C": -1.71035281698994
                     },
                     "8": {
-                        "C": -1.48
+                        "C": -1.47585494865572
                     },
                     "9": {
-                        "C": 2.71
+                        "C": 2.70764571647381
                     },
                     "10": {
-                        "C": 9.93
+                        "C": 9.92875052268157
                     },
                     "11": {
-                        "C": 18.73
+                        "C": 18.7292708983399
                     },
                     "12": {
-                        "C": 28.01
+                        "C": 28.0100319121752
                     },
                     "13": {
-                        "C": 36.57
+                        "C": 36.570467322705
                     },
                     "14": {
-                        "C": 43.39
+                        "C": 43.3941607775022
                     },
                     "15": {
-                        "C": 46.98
+                        "C": 46.9797826694679
                     },
                     "16": {
-                        "C": 47.59
+                        "C": 47.5927413315406
                     },
                     "17": {
-                        "C": 44.88
+                        "C": 44.8818377458566
                     },
                     "18": {
-                        "C": 38.7
+                        "C": 38.7014921674183
                     },
                     "19": {
-                        "C": 32.16
+                        "C": 32.1639203105119
                     },
                     "20": {
-                        "C": 26.3
+                        "C": 26.2950674674424
                     },
                     "21": {
-                        "C": 21.53
+                        "C": 21.5268450125994
                     },
                     "22": {
-                        "C": 17.03
+                        "C": 17.031430200515
                     },
                     "23": {
-                        "C": 13.28
+                        "C": 13.2781074052451
                     },
                     "24": {
-                        "C": 10.21
+                        "C": 10.2079387076712
                     }
                 }
             }
@@ -4641,76 +4641,76 @@
             "july_14": {
                 "hour": {
                     "1": {
-                        "C": 19.87
+                        "C": 19.8711099243765
                     },
                     "2": {
-                        "C": 19.06
+                        "C": 19.0626504639202
                     },
                     "3": {
-                        "C": 18.14
+                        "C": 18.1400140447312
                     },
                     "4": {
-                        "C": 17.02
+                        "C": 17.0158269844606
                     },
                     "5": {
-                        "C": 15.88
+                        "C": 15.8835561409769
                     },
                     "6": {
-                        "C": 16.39
+                        "C": 16.3874729223914
                     },
                     "7": {
-                        "C": 18.76
+                        "C": 18.7611183895814
                     },
                     "8": {
-                        "C": 20.89
+                        "C": 20.8898095020809
                     },
                     "9": {
-                        "C": 23.3
+                        "C": 23.2970990589823
                     },
                     "10": {
-                        "C": 26.43
+                        "C": 26.4259639257217
                     },
                     "11": {
-                        "C": 30.62
+                        "C": 30.6202219967657
                     },
                     "12": {
-                        "C": 35.22
+                        "C": 35.219248459685
                     },
                     "13": {
-                        "C": 39.19
+                        "C": 39.1875583826321
                     },
                     "14": {
-                        "C": 42.1
+                        "C": 42.1006041677596
                     },
                     "15": {
-                        "C": 44.21
+                        "C": 44.208547684478
                     },
                     "16": {
-                        "C": 44.89
+                        "C": 44.8860337278721
                     },
                     "17": {
-                        "C": 44.6
+                        "C": 44.6041692563633
                     },
                     "18": {
-                        "C": 43.74
+                        "C": 43.7421395780379
                     },
                     "19": {
-                        "C": 34.48
+                        "C": 34.4834053197825
                     },
                     "20": {
-                        "C": 30.86
+                        "C": 30.8553610529815
                     },
                     "21": {
-                        "C": 27.96
+                        "C": 27.9575556327359
                     },
                     "22": {
-                        "C": 25.99
+                        "C": 25.991606679779
                     },
                     "23": {
-                        "C": 24.55
+                        "C": 24.5462292779869
                     },
                     "24": {
-                        "C": 22.98
+                        "C": 22.9824682923659
                     }
                 }
             }
@@ -4719,76 +4719,76 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "C": 15.35
+                        "C": 15.3460720386151
                     },
                     "2": {
-                        "C": 13.48
+                        "C": 13.4846414229516
                     },
                     "3": {
-                        "C": 11.78
+                        "C": 11.7774033421194
                     },
                     "4": {
-                        "C": 10.19
+                        "C": 10.1946053356365
                     },
                     "5": {
-                        "C": 8.78
+                        "C": 8.77503325684423
                     },
                     "6": {
-                        "C": 7.51
+                        "C": 7.50632693518382
                     },
                     "7": {
-                        "C": 6.35
+                        "C": 6.34749482322015
                     },
                     "8": {
-                        "C": 6.29
+                        "C": 6.28780684789588
                     },
                     "9": {
-                        "C": 10.04
+                        "C": 10.0372846145336
                     },
                     "10": {
-                        "C": 16.59
+                        "C": 16.5873499950861
                     },
                     "11": {
-                        "C": 24.7
+                        "C": 24.6969810819683
                     },
                     "12": {
-                        "C": 33.65
+                        "C": 33.6544145928331
                     },
                     "13": {
-                        "C": 42.51
+                        "C": 42.5122226785545
                     },
                     "14": {
-                        "C": 49.77
+                        "C": 49.7745662573094
                     },
                     "15": {
-                        "C": 54.39
+                        "C": 54.3914371390822
                     },
                     "16": {
-                        "C": 56.31
+                        "C": 56.3144010665166
                     },
                     "17": {
-                        "C": 54.98
+                        "C": 54.9811440347746
                     },
                     "18": {
-                        "C": 50.21
+                        "C": 50.2113748102187
                     },
                     "19": {
-                        "C": 44.93
+                        "C": 44.9264974418831
                     },
                     "20": {
-                        "C": 39.97
+                        "C": 39.970470175778
                     },
                     "21": {
-                        "C": 35.6
+                        "C": 35.6029384300446
                     },
                     "22": {
-                        "C": 31.65
+                        "C": 31.649341680983
                     },
                     "23": {
-                        "C": 28.03
+                        "C": 28.0340063275602
                     },
                     "24": {
-                        "C": 24.84
+                        "C": 24.8424603957022
                     }
                 }
             }
@@ -4797,76 +4797,76 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "C": 12.94
+                        "C": 12.9380110284042
                     },
                     "2": {
-                        "C": 12.43
+                        "C": 12.4251136515402
                     },
                     "3": {
-                        "C": 11.93
+                        "C": 11.9297948248961
                     },
                     "4": {
-                        "C": 11.43
+                        "C": 11.4320390704469
                     },
                     "5": {
-                        "C": 10.99
+                        "C": 10.9913034168608
                     },
                     "6": {
-                        "C": 10.58
+                        "C": 10.5803621383831
                     },
                     "7": {
-                        "C": 10.17
+                        "C": 10.1741182946773
                     },
                     "8": {
-                        "C": 10.32
+                        "C": 10.3241021411091
                     },
                     "9": {
-                        "C": 11.75
+                        "C": 11.7504077268257
                     },
                     "10": {
-                        "C": 13.81
+                        "C": 13.8082726522783
                     },
                     "11": {
-                        "C": 15.96
+                        "C": 15.9577368740623
                     },
                     "12": {
-                        "C": 18.21
+                        "C": 18.2069016394554
                     },
                     "13": {
-                        "C": 20.44
+                        "C": 20.4419488470202
                     },
                     "14": {
-                        "C": 22.01
+                        "C": 22.0116450535512
                     },
                     "15": {
-                        "C": 22.72
+                        "C": 22.7239496190866
                     },
                     "16": {
-                        "C": 22.82
+                        "C": 22.819462294865
                     },
                     "17": {
-                        "C": 22.1
+                        "C": 22.1020131983836
                     },
                     "18": {
-                        "C": 20.49
+                        "C": 20.4887077556107
                     },
                     "19": {
-                        "C": 19.22
+                        "C": 19.2192115161308
                     },
                     "20": {
-                        "C": 18.32
+                        "C": 18.3239833234285
                     },
                     "21": {
-                        "C": 17.54
+                        "C": 17.5351144858238
                     },
                     "22": {
-                        "C": 16.76
+                        "C": 16.7568664189083
                     },
                     "23": {
-                        "C": 15.99
+                        "C": 15.9944159629806
                     },
                     "24": {
-                        "C": 15.36
+                        "C": 15.361168845736
                     }
                 }
             }
@@ -4875,76 +4875,76 @@
             "july_14": {
                 "hour": {
                     "1": {
-                        "C": 21.23
+                        "C": 21.2302596974706
                     },
                     "2": {
-                        "C": 20.72
+                        "C": 20.715458208124
                     },
                     "3": {
-                        "C": 20.03
+                        "C": 20.0299240702654
                     },
                     "4": {
-                        "C": 19.16
+                        "C": 19.1593386439975
                     },
                     "5": {
-                        "C": 18.25
+                        "C": 18.2534664897307
                     },
                     "6": {
-                        "C": 18.63
+                        "C": 18.6317119829076
                     },
                     "7": {
-                        "C": 20.27
+                        "C": 20.2686449122949
                     },
                     "8": {
-                        "C": 22.87
+                        "C": 22.8727231466617
                     },
                     "9": {
-                        "C": 24.4
+                        "C": 24.4046456020451
                     },
                     "10": {
-                        "C": 25.57
+                        "C": 25.5689621501274
                     },
                     "11": {
-                        "C": 26.91
+                        "C": 26.914099548317
                     },
                     "12": {
-                        "C": 28.18
+                        "C": 28.1777773284384
                     },
                     "13": {
-                        "C": 29.13
+                        "C": 29.1271506445871
                     },
                     "14": {
-                        "C": 29.86
+                        "C": 29.8597589817179
                     },
                     "15": {
-                        "C": 30.29
+                        "C": 30.2901620079067
                     },
                     "16": {
-                        "C": 30.43
+                        "C": 30.4308632953021
                     },
                     "17": {
-                        "C": 30.43
+                        "C": 30.4338339075745
                     },
                     "18": {
-                        "C": 30.35
+                        "C": 30.3524473398896
                     },
                     "19": {
-                        "C": 29.03
+                        "C": 29.0272621102462
                     },
                     "20": {
-                        "C": 27.65
+                        "C": 27.6462962602716
                     },
                     "21": {
-                        "C": 26.34
+                        "C": 26.3384003883049
                     },
                     "22": {
-                        "C": 25.53
+                        "C": 25.533915056225
                     },
                     "23": {
-                        "C": 24.86
+                        "C": 24.8642470135497
                     },
                     "24": {
-                        "C": 23.89
+                        "C": 23.8851935210021
                     }
                 }
             }
@@ -4953,76 +4953,76 @@
             "feb_1": {
                 "hour": {
                     "1": {
-                        "C": 22.75
+                        "C": 22.7451288709939
                     },
                     "2": {
-                        "C": 22.24
+                        "C": 22.2437967169862
                     },
                     "3": {
-                        "C": 21.76
+                        "C": 21.7632127768552
                     },
                     "4": {
-                        "C": 21.28
+                        "C": 21.2815869234351
                     },
                     "5": {
-                        "C": 20.86
+                        "C": 20.8555288118227
                     },
                     "6": {
-                        "C": 20.46
+                        "C": 20.4589921476483
                     },
                     "7": {
-                        "C": 20.08
+                        "C": 20.0788013316642
                     },
                     "8": {
-                        "C": 20.25
+                        "C": 20.2516443757798
                     },
                     "9": {
-                        "C": 21.66
+                        "C": 21.6585045237249
                     },
                     "10": {
-                        "C": 23.55
+                        "C": 23.5491695021334
                     },
                     "11": {
-                        "C": 25.59
+                        "C": 25.585725902273
                     },
                     "12": {
-                        "C": 27.79
+                        "C": 27.7874531892807
                     },
                     "13": {
-                        "C": 29.97
+                        "C": 29.9725973357076
                     },
                     "14": {
-                        "C": 31.47
+                        "C": 31.4704847730376
                     },
                     "15": {
-                        "C": 32.08
+                        "C": 32.0838399415584
                     },
                     "16": {
-                        "C": 32.2
+                        "C": 32.1996236824992
                     },
                     "17": {
-                        "C": 31.46
+                        "C": 31.4583050869521
                     },
                     "18": {
-                        "C": 29.83
+                        "C": 29.832151314457
                     },
                     "19": {
-                        "C": 28.67
+                        "C": 28.6661911604367
                     },
                     "20": {
-                        "C": 27.86
+                        "C": 27.8592801509743
                     },
                     "21": {
-                        "C": 27.16
+                        "C": 27.1608270661259
                     },
                     "22": {
-                        "C": 26.49
+                        "C": 26.4922325434723
                     },
                     "23": {
-                        "C": 25.82
+                        "C": 25.8182865766644
                     },
                     "24": {
-                        "C": 25.25
+                        "C": 25.2512009566215
                     }
                 }
             }

@@ -595,14 +595,30 @@ class GraphicsRenderer(Logger):
                 ]))
         with open(md_name, 'w') as md:
             md.write('# ' + caption + '\n')
-            for indx, row in enumerate(table):
+            # first find the maximum width for each column
+            column_widths = [0] * len(table[0])
+            for row in table:
+                for column_index, cell in enumerate(row):
+                    cell_width = len(cell)
+                    if cell_width > column_widths[column_index]:
+                        column_widths[column_index] = cell_width
+            column_format_strings = []
+            separator_row = '| '
+            for column_index, width in enumerate(column_widths):
+                if column_index == 0:
+                    column_format_strings.append('{:<' + str(width) + '}')
+                else:
+                    column_format_strings.append('{:>' + str(width) + '}')
+                separator_row += '-' * width + ' |'
+            for row_index, row in enumerate(table):
                 md_string = "| "
-                for value in row:
-                    md_string += str(value) + " |"
+                for column_index, cell in enumerate(row):
+                    string_cell = str(cell)
+                    md_string += column_format_strings[column_index].format(string_cell) + " |"
                 md.write(md_string + '\n')
                 # header row
-                if indx == 0:
-                    md.write("|-----|" + "-----:|" * (len(row) - 1) + '\n')
+                if row_index == 0:
+                    md.write(separator_row + '\n')
             md.write('\n')
             for footnote in footnotes:
                 md.write(footnote + '\n\n')
