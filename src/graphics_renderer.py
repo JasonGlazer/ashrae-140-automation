@@ -603,18 +603,22 @@ class GraphicsRenderer(Logger):
                     if cell_width > column_widths[column_index]:
                         column_widths[column_index] = cell_width
             column_format_strings = []
-            separator_row = '| '
+            separator_row = '|'
             for column_index, width in enumerate(column_widths):
+                min_width = max(width, 3)
                 if column_index == 0:
-                    column_format_strings.append('{:<' + str(width) + '}')
+                    column_format_strings.append('{:<' + str(min_width) + '}')
+                    separator_row += ':' + '-' * min_width + ' | '
                 else:
-                    column_format_strings.append('{:>' + str(width) + '}')
-                separator_row += '-' * width + ' |'
+                    column_format_strings.append('{:>' + str(min_width) + '}')
+                    separator_row += '-' * min_width + ':| '
             for row_index, row in enumerate(table):
                 md_string = "| "
                 for column_index, cell in enumerate(row):
                     string_cell = str(cell)
-                    md_string += column_format_strings[column_index].format(string_cell) + " |"
+                    if string_cell == 'nan':
+                        string_cell = ''
+                    md_string += column_format_strings[column_index].format(string_cell) + " | "
                 md.write(md_string + '\n')
                 # header row
                 if row_index == 0:
