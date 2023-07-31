@@ -6243,11 +6243,6 @@ class GraphicsRenderer(Logger):
                 month = case_json['peak_cooling_month']
                 day = self._int_0_if_nan(case_json['peak_cooling_day'])
                 hour = self._int_0_if_nan(case_json['peak_cooling_hour'])
-#                if isinstance(month, float):
-#                    if math.isnan(month):
-#                        month = ''
-#                        day = ''
-#                        hour = ''
                 time_stamp_row.append(f'{month} {day}-{hour}')
             data_table.append(row)
             time_stamp_table.append(time_stamp_row)
@@ -6377,12 +6372,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6412,12 +6406,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6446,12 +6439,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6481,12 +6473,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6515,12 +6506,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6550,12 +6540,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6584,12 +6573,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6619,12 +6607,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6658,12 +6645,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6697,12 +6683,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6736,12 +6721,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6775,12 +6759,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6811,12 +6794,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6847,12 +6829,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6883,12 +6864,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6919,12 +6899,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6954,12 +6933,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -6990,12 +6968,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -7025,12 +7002,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -7061,12 +7037,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
-                if math.isnan(case_a_value):
-                    case_a_value = 0
                 case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
-                if math.isnan(case_b_value):
-                    case_b_value = 0
-                row.append(float(case_a_value) - float(case_b_value))
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -7490,12 +7465,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 value_600 = float(json_obj['monthly_conditioned_zone_loads']['600'][month]['peak_heating_kw'])
-                if math.isnan(value_600):
-                    value_600 = 0
                 value_900 = float(json_obj['monthly_conditioned_zone_loads']['900'][month]['peak_heating_kw'])
-                if math.isnan(value_900):
-                    value_900 = 0
-                row.append(value_600 - value_900)
+                if math.isnan(value_600) or math.isnan(value_900):
+                    row.append(math.nan)
+                else:
+                    row.append(value_600 - value_900)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, 3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
@@ -7516,12 +7490,11 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 value_600 = float(json_obj['monthly_conditioned_zone_loads']['600'][month]['peak_cooling_kw'])
-                if math.isnan(value_600):
-                    value_600 = 0
                 value_900 = float(json_obj['monthly_conditioned_zone_loads']['900'][month]['peak_cooling_kw'])
-                if math.isnan(value_900):
-                    value_900 = 0
-                row.append(value_600 - value_900)
+                if math.isnan(value_600) or math.isnan(value_900):
+                    row.append(math.nan)
+                else:
+                    row.append(value_600 - value_900)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, 3)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
