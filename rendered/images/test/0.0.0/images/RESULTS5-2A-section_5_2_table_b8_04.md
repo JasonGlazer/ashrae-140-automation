@@ -72,7 +72,7 @@
 | 930 E&W Windows + Overhang + Fins                  | Jun 26-18 | Jun 26-18 | Jun 26-17 |  Jun 26-18 |  Jun 26-18 | Jun 26-18 |     |       |       |       |          |     |     Jun 26-18 | 
 | 940 Case 900 with Htg Temp. Setback                |  Oct 1-15 |  Oct 1-14 | Sep 11-14 |   Oct 1-14 |  Oct 12-15 |  Oct 1-14 |     |       |       |       |          |     |      Oct 1-14 | 
 | 950 Case 900 with Night Ventilation                | Sep 10-15 |  Sep 4-15 | Sep 11-14 |  Sep 11-15 |  Sep 10-15 | Sep 11-15 |     |       |       |       |          |     |     Sep 11-15 | 
-| 960 Sunspace                                       |   nan 0-0 | Jun 26-17 | Jun 26-16 |  Jun 26-17 |  Jun 26-17 | Jun 26-17 |     |       |       |       |          |     |     Jun 26-17 | 
+| 960 Sunspace                                       |           | Jun 26-17 | Jun 26-16 |  Jun 26-17 |  Jun 26-17 | Jun 26-17 |     |       |       |       |          |     |     Jun 26-17 | 
 | 980 Case 900 with Increased Insulation             | Oct 18-14 |  Oct 2-14 | Oct 18-14 |  Oct 18-15 |  Oct 12-15 | Oct 12-14 |     |       |       |       |          |     |     Oct 18-15 | 
 | 985 Case 900 with "20/20" Thermostat               | Oct 18-14 |  Oct 1-14 | Oct 11-14 |  Oct 18-15 |  Oct 12-15 |  Oct 1-14 |     |       |       |       |          |     |     Oct 18-15 | 
 | 995 Case 985 with Increased Insulation             | Jan 22-14 | Jan 22-15 | Jan 22-14 |  Jan 22-15 |  Jan 22-15 | Jan 22-15 |     |       |       |       |          |     |     Jan 22-15 | 
@@ -85,25 +85,25 @@
 | 230 Infiltration                                   | Jun 26-17 | Jun 26-17 | Jun 26-16 |  Jun 26-17 |  Jun 26-17 | Jun 26-17 |     |       |       |       |          |     |     Jun 26-17 | 
 | 240 Internal Gains                                 | Jun 26-18 | Jun 13-15 | Jun 26-16 |  Jun 26-18 |  Jun 14-15 | Jun 26-18 |     |       |       |       |          |     |     Jun 26-18 | 
 | 250 Exterior Shortwave Absoptance                  | Sep 12-14 | Sep 12-14 |  Sep 3-14 |  Sep 12-14 | Sept 12-14 | Sep 12-14 |     |       |       |       |          |     |     Sep 12-14 | 
-| 270 South Solar Windows                            |   nan 0-0 | Jan 22-14 | Jan 22-14 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
-| 280 Cavity Albedo                                  |   nan 0-0 | Jan 22-14 |  Dec 1-13 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
-| 290 South Shading                                  |   nan 0-0 | Jan 22-14 | Jan 22-14 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
-| 300 East/West Window                               |   nan 0-0 | Jun 26-17 | Jun 26-17 |  Jun 26-17 |  Jun 26-17 | Jun 26-17 |     |       |       |       |          |     |     Jun 26-17 | 
-| 310 East/West Shading                              |   nan 0-0 | Jun 26-18 | Jun 26-17 |  Jun 26-18 |  Jun 26-18 | Jun 26-18 |     |       |       |       |          |     |     Jun 26-18 | 
-| 320 Thermostat                                     |   nan 0-0 | Jan 22-14 | Jan 22-14 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
+| 270 South Solar Windows                            |           | Jan 22-14 | Jan 22-14 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
+| 280 Cavity Albedo                                  |           | Jan 22-14 |  Dec 1-13 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
+| 290 South Shading                                  |           | Jan 22-14 | Jan 22-14 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
+| 300 East/West Window                               |           | Jun 26-17 | Jun 26-17 |  Jun 26-17 |  Jun 26-17 | Jun 26-17 |     |       |       |       |          |     |     Jun 26-17 | 
+| 310 East/West Shading                              |           | Jun 26-18 | Jun 26-17 |  Jun 26-18 |  Jun 26-18 | Jun 26-18 |     |       |       |       |          |     |     Jun 26-18 | 
+| 320 Thermostat                                     |           | Jan 22-14 | Jan 22-14 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
 |                                                    | 
 | 395 Low Mass Solid Conduction                      | Jun 26-18 | Jun 14-18 | Jun 14-16 |  Jun 26-19 |   Aug 5-18 | Jun 14-18 |     |       |       |       |          |     |     Jun 26-19 | 
 | 400 Low Mass High Cond. Wall Elements              | Jun 26-18 | Jun 14-15 | Jun 26-17 |  Jun 26-18 |   Aug 5-17 | Jun 14-17 |     |       |       |       |          |     |     Jun 26-18 | 
 | 410 Low Mass Infiltration                          | Jun 26-17 | Jun 26-18 | Jun 26-16 |  Jun 26-18 |  Jun 26-18 | Jun 26-18 |     |       |       |       |          |     |     Jun 26-18 | 
 | 420 Low Mass Internal Gains                        | Jun 26-17 | Jun 26-18 | Jun 26-16 |  Jun 26-18 |  Jun 26-17 | Jun 26-18 |     |       |       |       |          |     |     Jun 26-18 | 
 | 430 Low Mass Ext. Shortwave Absoptance             | Jun 26-16 | Jun 26-15 | Jun 26-15 |  Jun 26-16 |  Jul 17-14 | Jun 26-15 |     |       |       |       |          |     |     Jun 26-16 | 
-| 440 Low Mass Cavity Albedo                         |   nan 0-0 |  Oct 1-13 | Oct 11-13 |  Oct 18-14 |  Oct 18-14 | Oct 18-14 |     |       |       |       |          |     |     Oct 18-14 | 
+| 440 Low Mass Cavity Albedo                         |           |  Oct 1-13 | Oct 11-13 |  Oct 18-14 |  Oct 18-14 | Oct 18-14 |     |       |       |       |          |     |     Oct 18-14 | 
 | 450 Constant Interior and Exterior Surf Coeffs     | Jan 22-15 | Jan 22-14 | Jan 22-13 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
 | 460 Constant Interior Surface Coefficients         | Jan 22-15 | Jan 22-14 | Jan 22-13 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
 | 470 Constant Exterior Surface Coefficients         | Jan 22-15 | Jan 22-14 | Jan 22-14 |  Jan 22-14 |  Jan 22-14 | Jan 22-14 |     |       |       |       |          |     |     Jan 22-14 | 
 |                                                    | 
 | 800 High Mass Hig Cond. Wall Elements              | Jun 26-16 |  Aug 5-15 |  Aug 5-14 |  Jun 26-16 |   Aug 5-15 |  Aug 5-15 |     |       |       |       |          |     |     Jun 26-16 | 
-| 810 HIgh Mass Cavity Albedo                        |   nan 0-0 |  Sep 4-15 | Sep 11-14 |  Sep 11-15 |   Sep 4-15 | Sep 11-15 |     |       |       |       |          |     |     Sep 11-15 | 
+| 810 HIgh Mass Cavity Albedo                        |           |  Sep 4-15 | Sep 11-14 |  Sep 11-15 |   Sep 4-15 | Sep 11-15 |     |       |       |       |          |     |     Sep 11-15 | 
 
 $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 

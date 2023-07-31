@@ -678,7 +678,7 @@ class GraphicsRenderer(Logger):
             for row_index, time_row in enumerate(time_stamps):
                 row = [row_headings[row_index], ]  # first add the heading for the row
                 if time_row:  # for blank rows just skip
-                    row.extend(time_row[:-1])
+                    row.extend(self._scrub_timestamp_list(time_row[:-1]))
                     row.extend(['' for x in range(6)])
                     row.append(time_row[-1])
                 text_table_with_stats.append(row)
@@ -706,12 +706,27 @@ class GraphicsRenderer(Logger):
         """
         list_out = []
         for item in list_in:
-            if type(item) is int or type(item) is float:
+            if isinstance(item, (int, float)):
                 if not math.isnan(item):
                     list_out.append(item)
             elif type(item) == str:
                 if item.isnumeric():
                     list_out.append(float(item))
+        return list_out
+
+    def _scrub_timestamp_list(self, list_in):
+        """
+        Remove NAN and non-number in a list of timestamps
+
+        :param list_in: a list containing numeric values
+        :return: the input list but without non-numbers or NAN
+        """
+        list_out = []
+        for item in list_in:
+            if item != 'nan 0-0':
+                list_out.append(item)
+            else:
+                list_out.append('')
         return list_out
 
     def render_section_5_2a_figure_b8_1(self):
@@ -6228,6 +6243,11 @@ class GraphicsRenderer(Logger):
                 month = case_json['peak_cooling_month']
                 day = self._int_0_if_nan(case_json['peak_cooling_day'])
                 hour = self._int_0_if_nan(case_json['peak_cooling_hour'])
+#                if isinstance(month, float):
+#                    if math.isnan(month):
+#                        month = ''
+#                        day = ''
+#                        hour = ''
                 time_stamp_row.append(f'{month} {day}-{hour}')
             data_table.append(row)
             time_stamp_table.append(time_stamp_row)

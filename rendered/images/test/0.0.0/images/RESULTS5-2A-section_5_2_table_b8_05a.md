@@ -17,7 +17,7 @@
 | 950FF - Case 900FF with Night Ventilation     |  Oct 1-17 | Sep 11-15 | Sep 11-15 |  Sep 11-16 |  Aug 5-16 | Sep 11-16 |     |      |      |      |          |     |     Sep 11-16 | 
 | 680FF - Case 600FF with More Insulation       | Jan 22-17 | Jan 22-16 | Oct 12-15 |  Jan 22-16 | Oct 12-16 | Jan 22-16 |     |      |      |      |          |     |     Jan 22-16 | 
 | 980FF - Case 900FF with More Insulation       |  Oct 1-17 | Sep 12-15 | Oct 21-14 |  Sep 12-16 | Sep 12-15 | Sep 12-15 |     |      |      |      |          |     |     Sep 12-16 | 
-| 960 - Sunspace                                |   nan 0-0 |  Oct 2-16 | Oct 20-14 |  Oct 12-15 | Oct 12-15 | Oct 12-15 |     |      |      |      |          |     |     Oct 12-15 | 
+| 960 - Sunspace                                |           |  Oct 2-16 | Oct 20-14 |  Oct 12-15 | Oct 12-15 | Oct 12-15 |     |      |      |      |          |     |     Oct 12-15 | 
 
 $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 

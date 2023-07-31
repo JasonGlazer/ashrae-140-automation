@@ -59,7 +59,7 @@
 | 620 East & West Windows                            | Dec 31-24 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 630 E&W Windows + Overhang & Fins                  | Dec 31-24 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 640 Case 600 with Htg Temp. Setback                |   Feb 8-9 | Nov 26-8 | Nov 26-7 |   Nov 26-8 |  Nov 26-8 | Nov 26-8 |     |       |       |       |          |     |      Nov 26-8 | 
-| 650 Case 600 with Night Ventilation                |   nan 0-0 |  Jan 1-1 |  Jan 1-1 |    Jan 1-1 |   Jan 1-1 | Dec 31-0 |     |       |       |       |          |     |       Jan 1-1 | 
+| 650 Case 600 with Night Ventilation                |           |  Jan 1-1 |  Jan 1-1 |    Jan 1-1 |   Jan 1-1 | Dec 31-0 |     |       |       |       |          |     |       Jan 1-1 | 
 | 660 Low-E Windows                                  |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 670 Single-Pane Windows                            |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |   Nov 26-7 |  Nov 26-7 | Nov 26-8 |     |       |       |       |          |     |      Nov 26-7 | 
 | 680 Case 600 with Increased Insulation             |  Nov 26-8 |  Feb 9-6 |  Jan 1-1 |   Nov 26-7 |   Feb 9-7 | Nov 26-8 |     |       |       |       |          |     |      Nov 26-7 | 
@@ -71,8 +71,8 @@
 | 920 East & West Windows                            |  Nov 26-8 |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-7 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
 | 930 E&W Windows + Overhang + Fins                  | Dec 31-24 |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-6 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
 | 940 Case 900 with Htg Temp. Setback                |   Feb 8-9 |  Jan 1-9 |  Feb 9-7 |   Dec 31-9 |   Feb 9-9 |  Jan 1-9 |     |       |       |       |          |     |      Dec 31-9 | 
-| 950 Case 900 with Night Ventilation                |   nan 0-0 |  Jan 1-1 |  Jan 1-1 |    Jan 1-1 |   Jan 1-1 | Dec 31-0 |     |       |       |       |          |     |       Jan 1-1 | 
-| 960 Sunspace                                       |   nan 0-0 |  Feb 9-6 |  Jan 1-0 |    Feb 9-6 |   Feb 9-6 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
+| 950 Case 900 with Night Ventilation                |           |  Jan 1-1 |  Jan 1-1 |    Jan 1-1 |   Jan 1-1 | Dec 31-0 |     |       |       |       |          |     |       Jan 1-1 | 
+| 960 Sunspace                                       |           |  Feb 9-6 |  Jan 1-0 |    Feb 9-6 |   Feb 9-6 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
 | 980 Case 900 with Increased Insulation             |  Feb 8-24 |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-7 |  Feb 9-7 |     |       |       |       |          |     |       Feb 9-6 | 
 | 985 Case 900 with "20/20" Thermostat               |  Feb 8-24 |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-7 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
 | 995 Case 985 with Increased Insulation             |  Nov 26-8 |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-7 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
@@ -85,25 +85,25 @@
 | 230 Infiltration                                   | Dec 31-24 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 240 Internal Gains                                 |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 250 Exterior Shortwave Absoptance                  |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
-| 270 South Solar Windows                            |   nan 0-0 |  Jan 1-2 |  Jan 1-1 |  Dec 31-24 |   Jan 1-1 |  Jan 1-2 |     |       |       |       |          |     |     Dec 31-24 | 
-| 280 Cavity Albedo                                  |   nan 0-0 |  Jan 1-2 |  Jan 1-1 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
-| 290 South Shading                                  |   nan 0-0 |  Jan 1-2 |  Jan 1-1 |  Dec 31-24 |   Jan 1-1 |  Jan 1-2 |     |       |       |       |          |     |     Dec 31-24 | 
-| 300 East/West Window                               |   nan 0-0 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
-| 310 East/West Shading                              |   nan 0-0 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
-| 320 Thermostat                                     |   nan 0-0 |  Jan 1-1 |  Jan 1-1 |  Dec 31-24 |   Jan 1-2 |  Jan 1-2 |     |       |       |       |          |     |     Dec 31-24 | 
+| 270 South Solar Windows                            |           |  Jan 1-2 |  Jan 1-1 |  Dec 31-24 |   Jan 1-1 |  Jan 1-2 |     |       |       |       |          |     |     Dec 31-24 | 
+| 280 Cavity Albedo                                  |           |  Jan 1-2 |  Jan 1-1 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
+| 290 South Shading                                  |           |  Jan 1-2 |  Jan 1-1 |  Dec 31-24 |   Jan 1-1 |  Jan 1-2 |     |       |       |       |          |     |     Dec 31-24 | 
+| 300 East/West Window                               |           |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
+| 310 East/West Shading                              |           |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
+| 320 Thermostat                                     |           |  Jan 1-1 |  Jan 1-1 |  Dec 31-24 |   Jan 1-2 |  Jan 1-2 |     |       |       |       |          |     |     Dec 31-24 | 
 |                                                    | 
 | 395 Low Mass Solid Conduction                      | Dec 31-24 |  Jan 1-2 |  Jan 1-1 |  Dec 31-24 |   Jan 1-2 |  Jan 1-2 |     |       |       |       |          |     |     Dec 31-24 | 
 | 400 Low Mass High Cond. Wall Elements              |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 410 Low Mass Infiltration                          | Dec 31-24 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 420 Low Mass Internal Gains                        | Dec 31-24 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 430 Low Mass Ext. Shortwave Absoptance             | Dec 31-24 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
-| 440 Low Mass Cavity Albedo                         |   nan 0-0 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
+| 440 Low Mass Cavity Albedo                         |           |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 450 Constant Interior and Exterior Surf Coeffs     |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 460 Constant Interior Surface Coefficients         |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 | 470 Constant Exterior Surface Coefficients         |  Nov 26-8 |  Jan 1-1 |  Jan 1-0 |  Dec 31-24 |   Jan 1-1 |  Jan 1-1 |     |       |       |       |          |     |     Dec 31-24 | 
 |                                                    | 
 | 800 High Mass Hig Cond. Wall Elements              | Dec 31-24 |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-7 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
-| 810 HIgh Mass Cavity Albedo                        |   nan 0-0 |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-7 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
+| 810 HIgh Mass Cavity Albedo                        |           |  Feb 9-6 |  Feb 9-5 |    Feb 9-6 |   Feb 9-7 |  Feb 9-6 |     |       |       |       |          |     |       Feb 9-6 | 
 
 $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 

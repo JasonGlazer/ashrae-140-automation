@@ -8,8 +8,8 @@
 | Time Stamps                      | 
 | Month                            |   Day-Hr |    Day-Hr |    Day-Hr |     Day-Hr |    Day-Hr |    Day-Hr |       Day-Hr |     |       |       |       |          |     |        Day-Hr | 
 | Annual Hourly Integrated Average |          |           |           |            |           |           |              |     |       |       |       |          |     |               | 
-| Annual Hourly Integrated Minimum |  nan 0-0 | Dec 31-24 | Dec 31-23 |  Dec 31-24 | Dec 31-23 | Dec 31-24 |              |     |       |       |       |          |     |     Dec 31-24 | 
-| Annual Hourly Integrated Maximum |  nan 0-0 | Jun 13-15 |  Aug 4-15 |   Aug 4-16 |  Aug 4-15 | Jun 13-18 |              |     |       |       |       |          |     |      Aug 4-16 | 
+| Annual Hourly Integrated Minimum |          | Dec 31-24 | Dec 31-23 |  Dec 31-24 | Dec 31-23 | Dec 31-24 |              |     |       |       |       |          |     |     Dec 31-24 | 
+| Annual Hourly Integrated Maximum |          | Jun 13-15 |  Aug 4-15 |   Aug 4-16 |  Aug 4-15 | Jun 13-18 |              |     |       |       |       |          |     |      Aug 4-16 | 
 
 $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
