@@ -706,7 +706,7 @@ class GraphicsRenderer(Logger):
         """
         list_out = []
         for item in list_in:
-            if type(item) == int or type(item) == float:
+            if type(item) is int or type(item) is float:
                 if not math.isnan(item):
                     list_out.append(item)
             elif type(item) == str:
