@@ -6130,7 +6130,11 @@ class GraphicsRenderer(Logger):
         table = top_table
         table.append(['', ])  # add blank row
         table.extend(bottom_table)
-        self._make_markdown_from_table(figure_name, caption, table, footnotes)
+        # convert entire table to strings
+        string_table = []
+        for row in table:
+            string_table.append([str(item) for item in row])
+        self._make_markdown_from_table(figure_name, caption, string_table, footnotes)
         return
 
     def render_section_5_2a_table_b8_1(self):
