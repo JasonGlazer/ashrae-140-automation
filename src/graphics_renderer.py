@@ -709,7 +709,7 @@ class GraphicsRenderer(Logger):
             if isinstance(item, (int, float)):
                 if not math.isnan(item):
                     list_out.append(item)
-            elif type(item) == str:
+            elif isinstance(item, str):
                 if item.isnumeric():
                     list_out.append(float(item))
         return list_out
