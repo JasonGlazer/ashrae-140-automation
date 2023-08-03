@@ -1,9 +1,9 @@
 # ashrae-140-automation
 Automation of ASHRAE 140 Testing Verification
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Unit%20Tests)](https://github.com/john-grando/ashrae-140-automation/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/JasonGlazer/ashrae-140-automation/unit_tests.yml?branch=main)](https://github.com/JasonGlazer/ashrae-140-automation/actions)
 [![Coverage Status](https://coveralls.io/repos/github/JasonGlazer/ashrae-140-automation/badge.svg?branch=main)](https://coveralls.io/github/JasonGlazer/ashrae-140-automation?branch=main)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/john-grando/ashrae-140-automation/Flake8?label=pep8)](https://github.com/john-grando/ashrae-140-automation/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/JasonGlazer/ashrae-140-automation/flake8.yml?branch=main)](https://github.com/JasonGlazer/ashrae-140-automation/actions)
 
 ### Processing Steps  
 1. Read in tables from RESULTS-2A.xlsx
