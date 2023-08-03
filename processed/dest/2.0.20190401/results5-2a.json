@@ -1343,11 +1343,13 @@
             },
             "Maximum": {
                 "C": 24.62,
+                "Day": 4,
                 "Hour": 15,
                 "Month": "Aug"
             },
             "Minimum": {
                 "C": -46.85,
+                "Day": 31,
                 "Hour": 23,
                 "Month": "Dec"
             }

@@ -111,17 +111,24 @@ def create_images(input_file, args, logger_name):
 
 def create_markdown(input_file):
     # get markdown file directory
-    folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])
-    destination_directory = root_directory.joinpath('rendered', 'images', folder_name)
+    input_file_path_parts = input_file.parts
+    folder_parts = input_file_path_parts[-3:-1]
+    # folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])
+    # destination_directory = root_directory.joinpath('rendered', 'images', folder_name)
+    # img_file_directory = destination_directory.joinpath('images')
+    destination_directory = root_directory.joinpath('rendered', 'images', folder_parts[0], folder_parts[1])
     img_file_directory = destination_directory.joinpath('images')
 
     if img_file_directory.exists():
         if img_file_directory.is_dir():
             img_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.png']
+            md_table_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.md']
         else:
             img_files = []
+            md_table_files = []
     else:
         img_files = []
+        md_table_files = []
 
     img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
 
@@ -144,16 +151,21 @@ def create_markdown(input_file):
     md_file = open(pathlib.Path.joinpath(destination_directory, 'section_5_2a.md'), 'w')
     md_file.write('# Section 5-2A  \n')
 
+    # append each mark down file to the end
+    md_table_files.sort()
+    md_file.write('\n')
+    for md_table_file in md_table_files:
+        with open(pathlib.Path.joinpath(destination_directory, 'images', md_table_file), 'r') as f:
+            md_file.write(f.read())
+
     for png in sorted_files:
         idx = png.split('_')[-1].split('.png')[0]
-        if 'table' in png:
-            line = '![table ' + str(idx) + '](images/' + png + ')'
-            md_file.write(line + '\n')
         if 'figure' in png:
             line = '![figure ' + str(idx) + '](images/' + png + ')'
             md_file.write(line + '\n')
 
     md_file.close()
+    return md_file.name
 
 
 def main(args=None):

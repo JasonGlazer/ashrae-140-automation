@@ -6,7 +6,6 @@ import numpy as np
 import math
 from textwrap import wrap
 import matplotlib.pyplot as plt
-import textwrap as twp
 
 from logger import Logger
 
@@ -17,6 +16,7 @@ class SectionType:
     """
     Identify Section Type based on input file name
     """
+
     def __get__(self, obj, owner):
         section_type = obj._section_type
         return section_type
@@ -176,6 +176,55 @@ class GraphicsRenderer(Logger):
         self.colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'black', 'orange']
         self.markers = ['o', '^', 'h', 'x', 'D', '*', '>']
         self._get_data()
+
+        self.case_map = {
+            '600': '600 Base Case, South Windows',
+            '610': '610 S. Windows + Overhang',
+            '620': '620 East & West Windows',
+            '630': '630 E&W Windows + Overhang & Fins',
+            '640': '640 Case 600 with Htg Temp. Setback',
+            '650': '650 Case 600 with Night Ventilation',
+            '660': '660 Low-E Windows',
+            '670': '670 Single-Pane Windows',
+            '680': '680 Case 600 with Increased Insulation',
+            '685': '685 Case 600 with "20/20" Thermostat',
+            '695': '695 Case 685 with Increased Insulation',
+            '900': '900 South Windows',
+            '910': '910 S. Windows + Overhang',
+            '920': '920 East & West Windows',
+            '930': '930 E&W Windows + Overhang + Fins',
+            '940': '940 Case 900 with Htg Temp. Setback',
+            '950': '950 Case 900 with Night Ventilation',
+            '960': '960 Sunspace',
+            '980': '980 Case 900 with Increased Insulation',
+            '985': '985 Case 900 with "20/20" Thermostat',
+            '995': '995 Case 985 with Increased Insulation',
+            '195': '195 Solid Conduction',
+            '200': '200 Surface Convection (Int & Ext IR="off")',
+            '210': '210 Infrared Radiation (Int IR="off", Ext IR="on")',
+            '215': '215 Infrared Radiation (Int IR="on", Ext IR="off")',
+            '220': '220 In-Depth Base Case',
+            '230': '230 Infiltration',
+            '240': '240 Internal Gains',
+            '250': '250 Exterior Shortwave Absoptance',
+            '270': '270 South Solar Windows',
+            '280': '280 Cavity Albedo',
+            '290': '290 South Shading',
+            '300': '300 East/West Window',
+            '310': '310 East/West Shading',
+            '320': '320 Thermostat',
+            '395': '395 Low Mass Solid Conduction',
+            '400': '400 Low Mass High Cond. Wall Elements',
+            '410': '410 Low Mass Infiltration',
+            '420': '420 Low Mass Internal Gains',
+            '430': '430 Low Mass Ext. Shortwave Absoptance',
+            '440': '440 Low Mass Cavity Albedo',
+            '450': '450 Constant Interior and Exterior Surf Coeffs',
+            '460': '460 Constant Interior Surface Coefficients',
+            '470': '470 Constant Exterior Surface Coefficients',
+            '800': '800 High Mass Hig Cond. Wall Elements',
+            '810': '810 HIgh Mass Cavity Albedo'}
+
         return
 
     def _get_data(self):
@@ -516,1486 +565,169 @@ class GraphicsRenderer(Logger):
         plt.savefig(img_name, bbox_inches='tight', facecolor='white')
         return
 
-    @staticmethod
-    def _make_table_from_df(df, ax, case_col_width=2):
+    def _make_markdown_from_table(self, figure_name, caption, table, footnotes=[],
+                                  destination_directory=root_directory.joinpath('rendered', 'images')):
         """
-        Create a matplotlib table from dataframe
+        make a markdown .md file from table (list of lists) save it to a directory
 
-        :param df: Pandas DataFrame object
-        :param ax: matplotlib axis to insert table
-        :return: matplotlib table object
+        :param figure_name: name of figure to append to file name
+        :param caption: the title of the figure appearing above the table
+        :param table: a list of lists where the outer list contains rows and each row list contains column values
+        :param footnotes: a list of footnotes that appear below the table
+        :param destination_directory: list of directories leading to the output directory
         """
-        tab = ax.table(
-            cellText=df.values,
-            colLabels=df.columns,
-            zorder=1,
-            bbox=[0, 0, 1, 1],
-            edges='LR')
-        ax.axis('tight')
-        ax.axis('off')
-        # set font
-        tab.auto_set_font_size(False)
-        tab.set_fontsize(12)
-        # set cell properties individually
-        cell_dict = tab.get_celld()
-        for i in range(len(df.columns)):
-            cell_dict[(0, i)].set_height(1)
-            cell_dict[(0, i)].set_fontsize(16)
-            cell_dict[(0, 0)].set_width(case_col_width)
-            cell_dict[(0, i)].set_width(0.5)
-            cell_dict[(0, i)].visible_edges = 'closed'
-            cell_dict[(0, i)].set_facecolor('#EAEEED')
-            for j in range(1, df.shape[0] + 1):
-                cell_dict[(j, 0)].set_width(case_col_width)
-                cell_dict[(j, 0)].set_text_props(ha="left")
-                cell_dict[(j, 0)].PAD = 0.02
-                cell_dict[(j, i)].set_width(0.5)
-                cell_dict[(j, i)].set_height(0.25)
-                if j % 2 == 0:
-                    cell_dict[(j, i)].visible_edges = 'closed'
-                    cell_dict[(j, i)].set_facecolor('#D2F6ED')
-        ax.axis([0, 1, 1, 0])
-        # set outer borders
-        ax.axhline(y=0, color='black', linewidth=4, zorder=3)
-        ax.axhline(y=1, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=0, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=1, color='black', linewidth=4, zorder=3)
-        return tab
-
-    def render_section_5_2a_table_b8_1(
-            self,
-            output_value='annual_heating_MWh',
-            figure_name='section_5_2_a_table_b8_1',
-            caption='Table B8-1. Annual Heating Loads (MWh)'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-1
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        # get and format dataframe into required shape
-        df = self.df_data['conditioned_zone_loads_non_free_float']\
-            .loc[
-                :,
-                self.df_data['conditioned_zone_loads_non_free_float']
-                    .columns.get_level_values(1) == output_value]
-        df.columns = df.columns.droplevel(level=1)
-        # round values
-        df = df.round(3)
-        df_formatted_table = df.unstack()\
-            .reset_index()\
-            .rename(columns={0: 'val'})\
-            .pivot(index=['level_0'], columns=['program_name', ], values=['val', ])\
-            .reset_index()
-        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
-        df_formatted_table_column_names = [i for i in df_formatted_table.columns]
-        df_formatted_table_column_names[0] = 'cases'
-        df_formatted_table.columns = df_formatted_table_column_names
-        # Create calculated columns df and append them to the base table.
-        df_formatted_table['col_min'] = df_formatted_table[self.baseline_model_names].min(axis=1).round(3)
-        df_formatted_table['col_max'] = df_formatted_table[self.baseline_model_names].max(axis=1).round(3)
-        df_formatted_table['col_mean'] = df_formatted_table[self.baseline_model_names].mean(axis=1).round(3)
-        df_formatted_table['(max - min) / mean %'] = df_formatted_table.apply(
-            lambda x: '' if x.col_mean == 0 else '{:.2%}'.format(abs((x.col_max - x.col_min) / x.col_mean)), axis=1)
-        # rename cases by joining the detailed description table and re-order them
-        df_formatted_table = df_formatted_table\
-            .merge(
-                self.case_detailed_df,
-                how='left',
-                left_on=['cases', ],
-                right_index=True)\
-            .sort_values(['case_order'])\
-            .drop(['cases', 'case_order'], axis=1)\
-            .rename(columns={
-                'case_name': 'Case',
-                'col_min': 'min',
-                'col_max': 'max',
-                'col_mean': 'mean'})
-        # reorder dataframe columns
-        column_list = ['Case', ] + \
-                      [i for i in df_formatted_table.columns if i != 'Case' and i != self.model_name] + \
-                      [self.model_name, ]
-        df_formatted_table = df_formatted_table[column_list]
-        # Rename model columns to cleansed names
-        df_formatted_table.columns = [
-            self.cleansed_model_names[i] if i in self.cleansed_model_names.keys()
-            else i
-            for i in df_formatted_table.columns]
-        df_formatted_table.columns = ['\n'.join(wrap(i, 8)) for i in df_formatted_table.columns]
-        # set fig size
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(22, 20))
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax)
-        # set inner borders
-        ax.axvline(x=5 / 7.5, color='black', linewidth=2, zorder=3)
-        ax.axvline(x=7 / 7.5, color='black', linewidth=3, zorder=3)
-        ax.axvline(x=5 / 7.5, color='black', linewidth=2, zorder=3)
-        ax.axhline(y=15 / 50, color='black', linewidth=2, zorder=3)
-        ax.axhline(y=25 / 50, color='black', linewidth=2, zorder=3)
-        ax.axhline(y=39 / 50, color='black', linewidth=2, zorder=3)
-        ax.axhline(y=48 / 50, color='black', linewidth=2, zorder=3)
-        # Set annotations
-        header = [tab.add_cell(-1, h, width=0.5, height=0.35) for h in range(7, 11)]
-        header[0].get_text().set_text('Statistics for Example Results')
-        header[0].PAD = 0.5
-        header[0].set_fontsize(16)
-        header[0].set_text_props(ha="left")
-        header[0].visible_edges = "open"
-        header[1].visible_edges = "open"
-        header[2].visible_edges = "open"
-        header[3].visible_edges = "open"
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return fig, ax
-
-    def render_section_5_2a_table_b8_2(self):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-2
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        fig, ax = self.render_section_5_2a_table_b8_1(
-            output_value='annual_cooling_MWh',
-            figure_name='section_5_2_a_table_b8_2',
-            caption='Table B8.2 Annual Sensible Cooling Loads (MWh)'
-        )
-        return fig, ax
-
-    def render_section_5_2a_table_b8_3(
-            self,
-            output_values=('peak_heating_kW', 'peak_heating_month', 'peak_heating_day', 'peak_heating_hour'),
-            figure_name='section_5_2_a_table_b8_3',
-            caption='Table B8-3. Annual Hourly Integrated Peak Heating Loads'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-3
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        # get and format dataframe into required shape
-        df = self.df_data['conditioned_zone_loads_non_free_float'] \
-            .loc[
-                :,
+        program_name = self.model_results_file.parts[-3].lower()
+        version = self.model_results_file.parts[-2].lower()
+        img_directory = destination_directory.joinpath(
+            program_name,
+            version,
+            'images')
+        pathlib.Path(img_directory).mkdir(parents=True, exist_ok=True)
+        md_name = img_directory.joinpath(
+            '.'.join(
                 [
-                    i in output_values for i in self.df_data['conditioned_zone_loads_non_free_float']
-                    .columns.get_level_values(1)]]
-        df_formatted_table = df.unstack() \
-            .reset_index() \
-            .rename(columns={0: 'val', 'level_0': 'case'}) \
-            .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
-            .unstack() \
-            .reset_index()
-        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
-        kw_cols = [i for i in df_formatted_table.columns if 'kw' in i[1].lower()]
-        df_formatted_table[kw_cols] = df_formatted_table[kw_cols].apply(
-            lambda x: pd.to_numeric(x, errors='ignore').round(2), axis=0)
-        df_stats = pd.DataFrame()
-        base_kw_cols = [i for i in kw_cols if i[0] in self.baseline_model_names]
-        df_stats['min'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
-        df_stats['max'] = df_formatted_table[base_kw_cols].max(axis=1).round(2)
-        df_stats['mean'] = df_formatted_table[base_kw_cols].mean(axis=1).round(2)
-        df_stats['(max - min)\n/ mean %'] = df_formatted_table[base_kw_cols].min(axis=1).round(2)
-        int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
-        df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
-        df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
-        df_formatted_table = df_formatted_table.fillna('')
-        column_formatting_names = {
-            'peak_heating_kW': 'kW',
-            'peak_heating_month': 'Mo',
-            'peak_heating_day': 'Day',
-            'peak_heating_hour': 'Hr',
-            'peak_cooling_kW': 'kW',
-            'peak_cooling_month': 'Mo',
-            'peak_cooling_day': 'Day',
-            'peak_cooling_hour': 'Hr'
-        }
-        # reorder columns so test program is last
-        column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
-            i for i in df_formatted_table.columns if i[0] == self.model_name]
-        df_formatted_table = df_formatted_table[column_names]
-        column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
-                        for i in list(df_formatted_table.columns)]
-        column_names[0] = 'cases'
-        # make list of program names
-        program_list = sorted(
-            set(
-                [i[0] for i in df_formatted_table.columns if i[0]]),
-            key=[i[0] for i in df_formatted_table.columns].index)
-        program_rgx = re.compile(r'(^[a-zA-Z]+)')
-        program_list_short = []
-        for p in program_list:
-            result = program_rgx.search(p)
-            if result:
-                program_list_short.append(result.group(1))
-        df_formatted_table.columns = column_names
-        df_formatted_name_table = df_formatted_table[['cases']] \
-            .merge(
-                self.case_detailed_df,
-                how='left',
-                left_on=['cases', ],
-                right_index=True) \
-            .sort_values(['case_order']) \
-            .drop(['cases', 'case_order'], axis=1) \
-            .rename(columns={
-                'case_name': 'Case'})
-        # set fig size
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(30, 20))
-        df_formatted_table = pd.concat(
-            [
-                df_formatted_name_table,
-                df_formatted_table.drop(columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - 5)],
-                df_stats,
-                df_formatted_table.drop(columns=['cases', ]).iloc[
-                    :,
-                    range(len(df_formatted_table.columns) - 5, len(df_formatted_table.columns) - 1)]],
-            axis=1)
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=5)
-        cell_dict = tab.get_celld()
-        for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
-            for j in range(df_formatted_table.shape[0] + 1):
-                cell_dict[(j, i)].set_width(w)
-                cell_dict[(j, i)].set_text_props(ha="center")
-        # Set annotations
-        for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
-            header = [tab.add_cell(-1, idx, width=0.5, height=0.35), ]
-            header[0].get_text().set_text(hdr.upper())
-            header[0].PAD = 0.1
-            header[0].set_fontsize(16)
-            header[0].set_text_props(ha="left")
-            header[0].visible_edges = "open"
-            if idx != 29:
-                ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
+                    '-'.join(
+                        [
+                            self.model_results_file.stem,
+                            figure_name,
+                        ]),
+                    'md'
+                ]))
+        with open(md_name, 'w') as md:
+            md.write('# ' + caption + '\n')
+            # first find the maximum width for each column
+            column_widths = [0] * len(table[0])
+            for row in table:
+                for column_index, cell in enumerate(row):
+                    cell_width = len(cell)
+                    if cell_width > column_widths[column_index]:
+                        column_widths[column_index] = cell_width
+            column_format_strings = []
+            separator_row = '|'
+            for column_index, width in enumerate(column_widths):
+                min_width = max(width, 3)
+                if column_index == 0:
+                    column_format_strings.append('{:<' + str(min_width) + '}')
+                    separator_row += ':' + '-' * min_width + ' | '
+                else:
+                    column_format_strings.append('{:>' + str(min_width) + '}')
+                    separator_row += '-' * min_width + ':| '
+            for row_index, row in enumerate(table):
+                md_string = "| "
+                for column_index, cell in enumerate(row):
+                    string_cell = str(cell)
+                    if string_cell == 'nan':
+                        string_cell = ''
+                    md_string += column_format_strings[column_index].format(string_cell) + " | "
+                md.write(md_string + '\n')
+                # header row
+                if row_index == 0:
+                    md.write(separator_row + '\n')
+            md.write('\n')
+            for footnote in footnotes:
+                md.write(footnote + '\n\n')
+            md.write('\n')
+        return
+
+    def _add_stats_to_table(self, row_headings, column_headings, data_table, digits=1, time_stamps=[]):
+        """
+        Add statistics to a table as well as merging the headings and time stamps
+
+        :param row_headings: a list of headings for each row of the table
+        :param column_headings: a list of headings for each column of the table including the top left
+        :param data_table: a list of lists where the outer list contains rows and each row list contains values
+        :param digits: the number of digits shown to the right of the decimal point
+        :param time_stamps: a list of lists where the outer list contains rows and each row list contains time stamps
+        :return: merged table (list of lists) containing text for every column and row formatted and merged
+        """
+        formatting_string = '{:.' + str(digits) + 'f}'
+        final_column_headings = column_headings[:-1]
+        final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
+        final_column_headings.append(column_headings[-1])
+        text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
+        for row_index, data_row in enumerate(data_table):
+            row = [row_headings[row_index], ]  # first add the heading for the row
+            if data_row:  # for blank rows just skip
+                for item in data_row[:-1]:
+                    row.append(formatting_string.format(item))
+                reference_data_row = self._scrub_number_list(data_row[:-1])  # remove the last item which is the tested software
+                row.append('')
+                row_min = min(reference_data_row)
+                row.append(formatting_string.format(row_min))
+                row_max = max(reference_data_row)
+                row.append(formatting_string.format(row_max))
+                row_mean = sum(reference_data_row) / len(reference_data_row)
+                row.append(formatting_string.format(row_mean))
+                if row_mean != 0:
+                    row_dev = abs((row_max - row_min) / row_mean) * 100
+                    row.append('{:.1f}'.format(row_dev))
+                else:
+                    row.append('-')
+                row.append('')
+                row.append(formatting_string.format(data_row[-1]))  # now add the last column back
+            text_table_with_stats.append(row)
+        # now add the rows with time stamps
+        if time_stamps:
+            text_table_with_stats.append(['', ])  # add blank line
+            text_table_with_stats.append(['Time Stamps', ])  # add blank line
+            mid_header = ['Month', ]
+            mid_header.extend(['Day-Hr' for x in column_headings[:-2]])
+            mid_header.extend(['' for x in range(6)])
+            mid_header.append('Day-Hr')
+            text_table_with_stats.append(mid_header)
+            for row_index, time_row in enumerate(time_stamps):
+                row = [row_headings[row_index], ]  # first add the heading for the row
+                if time_row:  # for blank rows just skip
+                    row.extend(self._scrub_timestamp_list(time_row[:-1]))
+                    row.extend(['' for x in range(6)])
+                    row.append(time_row[-1])
+                text_table_with_stats.append(row)
+        return text_table_with_stats
+
+    def _int_0_if_nan(self, value_in):
+        """
+        Protected int() and returns zero if not-a-number (NAN)
+
+        :param value_in: a numeric value
+        :return: int() of value_in or 0 if value_in is NAN
+        """
+        if not math.isnan(value_in):
+            value_out = int(value_in)
+        else:
+            value_out = 0
+        return value_out
+
+    def _scrub_number_list(self, list_in):
+        """
+        Remove NAN and non-number in a list of number
+
+        :param list_in: a list containing numeric values
+        :return: the input list but without non-numbers or NAN
+        """
+        list_out = []
+        for item in list_in:
+            if isinstance(item, (int, float)):
+                if not math.isnan(item):
+                    list_out.append(item)
+            elif isinstance(item, str):
+                if item.isnumeric():
+                    list_out.append(float(item))
+        return list_out
+
+    def _scrub_timestamp_list(self, list_in):
+        """
+        Remove NAN and non-number in a list of timestamps
+
+        :param list_in: a list containing numeric values
+        :return: the input list but without non-numbers or NAN
+        """
+        list_out = []
+        for item in list_in:
+            if item != 'nan 0-0':
+                list_out.append(item)
             else:
-                ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
-        ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return fig, ax
-
-    def render_section_5_2a_table_b8_4(self):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-4
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        fig, ax = self.render_section_5_2a_table_b8_3(
-            output_values=('peak_cooling_kW', 'peak_cooling_month', 'peak_cooling_day', 'peak_cooling_hour'),
-            figure_name='section_5_2_a_table_b8_4',
-            caption='Table B8-4. Annual Hourly Integrated Peak Cooling Loads'
-        )
-        return fig, ax
-
-    def _make_table_b8_5_df(
-            self,
-            output_values,
-            split_column=5):
-        """
-
-        :param output_values:
-        :return:
-        """
-        # get and format dataframe into required shape
-        df = self.df_data['free_float_case_zone_temperatures'] \
-            .loc[
-                :,
-                [
-                    i in output_values for i in self.df_data['free_float_case_zone_temperatures']
-                    .columns.get_level_values(1)]]
-        df_formatted_table = df.unstack() \
-            .reset_index() \
-            .rename(columns={0: 'val', 'level_0': 'case'}) \
-            .pivot(index=['case', 'level_1'], columns=['program_name', ], values=['val', ]) \
-            .unstack() \
-            .reset_index()
-        df_formatted_table.columns = df_formatted_table.columns.droplevel(level=0)
-        temperature_cols = [i for i in df_formatted_table.columns if 'temperature' in i[1].lower()]
-        df_formatted_table[temperature_cols] = df_formatted_table[temperature_cols].apply(
-            lambda x: pd.to_numeric(x, errors='ignore').round(1), axis=0)
-        df_stats = pd.DataFrame()
-        base_temperature_cols = [i for i in temperature_cols if i[0] in self.baseline_model_names]
-        df_stats['min'] = df_formatted_table[base_temperature_cols].min(axis=1).round(2)
-        df_stats['max'] = df_formatted_table[base_temperature_cols].max(axis=1).round(2)
-        df_stats['mean'] = df_formatted_table[base_temperature_cols].mean(axis=1).round(2)
-        df_stats['(max - min)\n/ mean %'] = df_formatted_table[base_temperature_cols].min(axis=1).round(2)
-        int_cols = [i for i in df_formatted_table.columns if any(j for j in ['day', 'hour'] if j in i[1].lower())]
-        df_formatted_table[int_cols] = df_formatted_table[int_cols].fillna(0).astype(int)
-        df_formatted_table = df_formatted_table.reindex(columns=['', *output_values], level=1)
-        df_formatted_table = df_formatted_table.fillna('')
-        column_formatting_names = {
-            'maximum_temperature': 'C',
-            'maximum_month': 'Mo',
-            'maximum_day': 'Day',
-            'maximum_hour': 'Hr',
-            'minimum_temperature': 'C',
-            'minimum_month': 'Mo',
-            'minimum_day': 'Day',
-            'minimum_hour': 'Hr',
-            'average_temperature': 'C'
-        }
-        # reorder columns so test program is last
-        column_names = [i for i in df_formatted_table.columns if i[0] != self.model_name] + [
-            i for i in df_formatted_table.columns if i[0] == self.model_name]
-        df_formatted_table = df_formatted_table[column_names]
-        column_names = [column_formatting_names[i[1]] if i[1] in column_formatting_names.keys() else i[1]
-                        for i in list(df_formatted_table.columns)]
-        column_names[0] = 'cases'
-        # make list of program names
-        program_list = sorted(
-            set(
-                [i[0] for i in df_formatted_table.columns if i[0]]),
-            key=[i[0] for i in df_formatted_table.columns].index)
-        program_rgx = re.compile(r'(^[a-zA-Z]+)')
-        program_list_short = []
-        for p in program_list:
-            result = program_rgx.search(p)
-            if result:
-                program_list_short.append(result.group(1))
-        df_formatted_table.columns = column_names
-        df_formatted_name_table = df_formatted_table[['cases']] \
-            .merge(
-            self.case_detailed_df,
-            how='left',
-            left_on=['cases', ],
-            right_index=True) \
-            .sort_values(['case_order']) \
-            .drop(['cases', 'case_order'], axis=1) \
-            .rename(columns={
-                'case_name': 'Case'})
-        df_formatted_table = pd.concat(
-            [
-                df_formatted_name_table,
-                df_formatted_table.drop(
-                    columns=['cases', ]).iloc[:, range(len(df_formatted_table.columns) - split_column)],
-                df_stats,
-                df_formatted_table.drop(columns=['cases', ]).iloc[
-                    :,
-                    range(len(df_formatted_table.columns) - split_column, len(df_formatted_table.columns) - 1)]],
-            axis=1)
-        return df_formatted_table, program_list_short
-
-    def render_section_5_2a_table_b8_5(
-            self,
-            figure_name='section_5_2_a_table_b8_5',
-            caption='Table B8-5. Free Float Temperature Output'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-4
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        df_list = []
-        program_list = []
-        df, programs = self._make_table_b8_5_df(
-            output_values=('maximum_temperature', 'maximum_month', 'maximum_day', 'maximum_hour')
-        )
-        df_list.append(df)
-        program_list.append(programs)
-        df, programs = self._make_table_b8_5_df(
-            output_values=('minimum_temperature', 'minimum_month', 'minimum_day', 'maximum_hour')
-        )
-        df_list.append(df)
-        program_list.append(programs)
-        df, programs = self._make_table_b8_5_df(
-            output_values=('average_temperature', ),
-            split_column=2,
-        )
-        df_list.append(df)
-        program_list.append(programs)
-        # set fig size
-        fig, axs = plt.subplots(
-            nrows=3,
-            ncols=1,
-            figsize=(30, 12))
-        for tidx, (
-                ax,
-                df_formatted_table,
-                program_list_short,
-                title,
-                case_col_width) in \
-                enumerate(zip(
-                    axs,
-                    df_list,
-                    program_list,
-                    ['MAXIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE',
-                     'MINIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE',
-                     'AVERAGE ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE'],
-                    [5, 5, 2])):
-            tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=case_col_width)
-            cell_dict = tab.get_celld()
-            # Set title
-            header_title = tab.add_cell(-2, 0, width=1, height=0.2)
-            header_title.get_text().set_text(title)
-            header_title.PAD = 0.0
-            header_title.set_fontsize(16)
-            header_title.set_text_props(ha="left")
-            header_title.visible_edges = "open"
-            if tidx != 2:
-                for w, i in zip([0.6, 0.6, 0.6, 1.5], [25, 26, 27, 28]):
-                    for j in range(df_formatted_table.shape[0] + 1):
-                        cell_dict[(j, i)].set_width(w)
-                        cell_dict[(j, i)].set_text_props(ha="center")
-                # Set annotations
-                for idx, hdr in zip([1, 5, 9, 13, 17, 21, 29], program_list_short):
-                    header = [tab.add_cell(-1, idx, width=0.5, height=0.2), ]
-                    header[0].get_text().set_text(hdr.upper())
-                    header[0].PAD = 0.1
-                    header[0].set_fontsize(16)
-                    header[0].set_text_props(ha="left")
-                    header[0].visible_edges = "open"
-                    if idx != 29:
-                        ax.axvline(x=(4.5 + idx / 2) / 22.3, color='black', linewidth=4, zorder=3)
-                    else:
-                        ax.axvline(x=20 / 22, color='black', linewidth=4, zorder=3)
-                    ax.axvline(x=(4.5 + 25 / 2) / 22.3, color='black', linewidth=4, zorder=3)
-            else:
-                for w, i, hdr in zip([0.95, ] * 7, [1, 2, 3, 4, 5, 6, 11], program_list_short):
-                    for j in range(df_formatted_table.shape[0] + 1):
-                        cell_dict[(j, i)].set_width(w)
-                        cell_dict[(j, i)].set_text_props(ha="left")
-                        cell_dict[(j, 0)].set_width(2.35)
-                        header = [tab.add_cell(-1, i, width=0.5, height=0.2), ]
-                        header[0].get_text().set_text(hdr.upper())
-                        header[0].PAD = 0.1
-                        header[0].set_fontsize(16)
-                        header[0].set_text_props(ha="left")
-                        header[0].visible_edges = "open"
-                for w, i in zip([0.27, 0.27, 0.27, 0.72], [7, 8, 9, 10]):
-                    for j in range(df_formatted_table.shape[0] + 1):
-                        cell_dict[(j, i)].set_width(w)
-                        cell_dict[(j, i)].set_text_props(ha="center")
-                for idx in range(7):
-                    ax.axvline(
-                        x=(2.35 + 0.95 * idx) / (2.35 + 0.95 * 7 + 0.27 * 3 + 0.72),
-                        color='black',
-                        linewidth=4,
-                        zorder=3)
-                ax.axvline(
-                    x=(2.35 + 0.95 * 7 + 0.27 * 3 + 0.65) / (2.35 + 0.95 * 7 + 0.27 * 3 + 0.72 + 0.95),
-                    color='black',
-                    linewidth=4,
-                    zorder=3)
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return fig, axs
-
-    def render_section_5_2a_table_b8_6(
-            self,
-            figure_name='section_5_2_a_table_b8_6',
-            caption='Table B8-6. Low Mass Basic Sensitivity Tests'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-6
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        table_dfs = [None, ] * 4
-        for measurement_type, table_idx in zip(
-                ['annual_heating_MWh', 'peak_heating_kW'],
-                [0, 2]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['610 - 600 Heat, S. Shade'] = (df['610'] - df['600']).round(3)
-            df_formatted['620 - 600 Heat, E&W Orient'] = (df['620'] - df['600']).round(3)
-            df_formatted['630 - 620 Heat, E&W Shade'] = (df['630'] - df['620']).round(3)
-            df_formatted['640 - 600 Heat, Htg. Setback'] = (df['640'] - df['600']).round(3)
-            df_formatted['660 - 600 Heat, Low-E Win.'] = (df['660'] - df['600']).round(3)
-            df_formatted['670 - 600 Heat, 1-Pane Win.'] = (df['670'] - df['600']).round(3)
-            df_formatted['680 - 600 Heat, > Ins. 20/27'] = (df['680'] - df['600']).round(3)
-            df_formatted['685 - 600 Heat, 20/20 tstat'] = (df['685'] - df['600']).round(3)
-            df_formatted['695 - 685 Heat, > Ins. 20/20'] = (df['640'] - df['600']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        for measurement_type, table_idx in zip(
-                ['annual_cooling_MWh', 'peak_cooling_kW'],
-                [1, 3]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'].loc[
-                :,
-                [
-                    i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                    .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['610 - 600 Cool, S. Shade'] = (df['610'] - df['600']).round(3)
-            df_formatted['620 - 600 Cool, E&W Orient'] = (df['620'] - df['600']).round(3)
-            df_formatted['630 - 620 Cool, E&W Shade'] = (df['630'] - df['620']).round(3)
-            df_formatted['640 - 600 Cool, Htg. Setback'] = (df['640'] - df['600']).round(3)
-            df_formatted['650 - 600 Cool, Night Vent'] = (df['650'] - df['600']).round(3)
-            df_formatted['660 - 600 Heat, Low-E Win.'] = (df['660'] - df['600']).round(3)
-            df_formatted['670 - 600 Heat, 1-Pane Win.'] = (df['670'] - df['600']).round(3)
-            df_formatted['680 - 600 Heat, > Ins. 20/27'] = (df['680'] - df['600']).round(3)
-            df_formatted['685 - 600 Heat, 20/20 tstat'] = (df['685'] - df['600']).round(3)
-            df_formatted['695 - 685 Heat, > Ins. 20/20'] = (df['640'] - df['600']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        fig, axs = plt.subplots(
-            nrows=4,
-            ncols=1,
-            figsize=(24, 16))
-        for ax, df_t, title in zip(
-                axs,
-                table_dfs,
-                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
-                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
-            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
-            # Set title
-            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
-            header_title.get_text().set_text(title)
-            header_title.PAD = 0.0
-            header_title.set_fontsize(16)
-            header_title.set_text_props(ha="left")
-            header_title.visible_edges = "open"
-            cell_dict = tab.get_celld()
-            for w, i in zip([0.75, 0.75], [4, 11]):
-                for j in range(df_t.shape[0] + 1):
-                    cell_dict[(j, i)].set_width(w)
-                    cell_dict[(j, i)].set_text_props(ha="center")
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return
-
-    def render_section_5_2a_table_b8_7(
-            self,
-            figure_name='section_5_2_a_table_b8_7',
-            caption='Table B8-7. High Mass Basic Sensitivity Tests'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-7
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        table_dfs = [None, ] * 4
-        for measurement_type, table_idx in zip(
-                ['annual_heating_MWh', 'peak_heating_kW'],
-                [0, 2]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['900 - 600 Mass, Heat'] = (df['900'] - df['600']).round(3)
-            df_formatted['910 - 900 Heat, S.Shade'] = (df['910'] - df['900']).round(3)
-            df_formatted['920 - 900 Heat, E&W Orient.'] = (df['920'] - df['900']).round(3)
-            df_formatted['930 - 920 Heat, E&W Shade'] = (df['930'] - df['920']).round(3)
-            df_formatted['940 - 900 Heat, Htg. Setback'] = (df['940'] - df['900']).round(3)
-            df_formatted['960 - 900 Heat, Sunspace'] = (df['960'] - df['900']).round(3)
-            df_formatted['980 - 900 Heat, > Ins. 20/27'] = (df['980'] - df['900']).round(3)
-            df_formatted['985 - 900 Heat, > 20/20 tstat'] = (df['985'] - df['900']).round(3)
-            df_formatted['995 - 985 Heat, > Ins. 20/20'] = (df['995'] - df['985']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        for measurement_type, table_idx in zip(
-                ['annual_cooling_MWh', 'peak_cooling_kW'],
-                [1, 3]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['900 - 600 Mass, Cool'] = (df['610'] - df['600']).round(3)
-            df_formatted['910 - 900 Cool, S.Shade'] = (df['910'] - df['900']).round(3)
-            df_formatted['920 - 900 Cool, E&W Orient.'] = (df['920'] - df['900']).round(3)
-            df_formatted['930 - 920 Cool, E&W Shade'] = (df['930'] - df['920']).round(3)
-            df_formatted['940 - 900 Cool, Htg. Setback'] = (df['940'] - df['900']).round(3)
-            df_formatted['950 - 900 Cool, Night Vent'] = (df['950'] - df['900']).round(3)
-            df_formatted['960 - 900 Cool, Sunspace'] = (df['960'] - df['900']).round(3)
-            df_formatted['980 - 900 Heat, > Ins. 20/27'] = (df['980'] - df['900']).round(3)
-            df_formatted['985 - 900 Heat, > 20/20 tstat'] = (df['985'] - df['900']).round(3)
-            df_formatted['995 - 985 Heat, > Ins. 20/20'] = (df['995'] - df['985']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        fig, axs = plt.subplots(
-            nrows=4,
-            ncols=1,
-            figsize=(24, 16))
-        for ax, df_t, title in zip(
-                axs,
-                table_dfs,
-                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
-                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
-            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
-            # Set title
-            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
-            header_title.get_text().set_text(title)
-            header_title.PAD = 0.0
-            header_title.set_fontsize(16)
-            header_title.set_text_props(ha="left")
-            header_title.visible_edges = "open"
-            cell_dict = tab.get_celld()
-            for w, i in zip([0.75, 0.75], [4, 11]):
-                for j in range(df_t.shape[0] + 1):
-                    cell_dict[(j, i)].set_width(w)
-                    cell_dict[(j, i)].set_text_props(ha="center")
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return
-
-    def render_section_5_2a_table_b8_8(
-            self,
-            figure_name='section_5_2_a_table_b8_8',
-            caption='Table B8-8. Low Mass In-Depth (Cases 195 Thru 320) Sensitivity Tests'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-8
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        table_dfs = [None, ] * 4
-        for measurement_type, table_idx in zip(
-                ['annual_heating_MWh', 'peak_heating_kW', 'annual_cooling_MWh', 'peak_cooling_kW'],
-                [0, 1, 2, 3]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['200-195 Surface Convection'] = (df['200'] - df['195']).round(3)
-            df_formatted['210-200 Ext IR (Int IR "off")'] = (df['210'] - df['200']).round(3)
-            df_formatted['220-215 Ext IR (Int IR "on")'] = (df['220'] - df['215']).round(3)
-            df_formatted['215-200 Int IR (Ext IR "off")'] = (df['215'] - df['200']).round(3)
-            df_formatted['220-210 Int IR (Ext IR "on")'] = (df['220'] - df['210']).round(3)
-            df_formatted['230-220 Infiltration'] = (df['230'] - df['220']).round(3)
-            df_formatted['240-220 Internal Gains'] = (df['240'] - df['220']).round(3)
-            df_formatted['250-220 Ext Solar Abs.'] = (df['250'] - df['220']).round(3)
-            df_formatted['270-220 South Windows'] = (df['270'] - df['220']).round(3)
-            df_formatted['280-270 Cavity Albedo'] = (df['280'] - df['270']).round(3)
-            df_formatted['320-270 Thermostat'] = (df['320'] - df['270']).round(3)
-            df_formatted['290-270 South Shading'] = (df['290'] - df['270']).round(3)
-            df_formatted['300-270 E&W Windows'] = (df['300'] - df['270']).round(3)
-            df_formatted['310-300 E&W Shading'] = (df['310'] - df['300']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        fig, axs = plt.subplots(
-            nrows=4,
-            ncols=1,
-            figsize=(24, 16))
-        for ax, df_t, title in zip(
-                axs,
-                table_dfs,
-                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
-                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
-            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
-            # Set title
-            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
-            header_title.get_text().set_text(title)
-            header_title.PAD = 0.0
-            header_title.set_fontsize(16)
-            header_title.set_text_props(ha="left")
-            header_title.visible_edges = "open"
-            cell_dict = tab.get_celld()
-            for w, i in zip([0.75, 0.75], [4, 11]):
-                for j in range(df_t.shape[0] + 1):
-                    cell_dict[(j, i)].set_width(w)
-                    cell_dict[(j, i)].set_text_props(ha="center")
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return
-
-    def render_section_5_2a_table_b8_9(
-            self,
-            figure_name='section_5_2_a_table_b8_9',
-            caption='Table B8-9. Low Mass In-Depth (Cases 395 Thru 440) Sensitivity Tests'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-9
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        table_dfs = [None, ] * 4
-        for measurement_type, table_idx in zip(
-                ['annual_heating_MWh', 'peak_heating_kW', 'annual_cooling_MWh', 'peak_cooling_kW'],
-                [0, 1, 2, 3]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['400-395 Surf. Conv. & IR'] = (df['400'] - df['395']).round(3)
-            df_formatted['410-400 Infiltration'] = (df['410'] - df['400']).round(3)
-            df_formatted['420-410 Internal Gains'] = (df['420'] - df['410']).round(3)
-            df_formatted['430-420 Ext Solar Abs.'] = (df['430'] - df['420']).round(3)
-            df_formatted['600-430 South Windows'] = (df['600'] - df['430']).round(3)
-            df_formatted['440-600 Cavity Albedo'] = (df['440'] - df['600']).round(3)
-            df_formatted['450-600 Const Int&Ext Surf Coefs'] = (df['450'] - df['600']).round(3)
-            df_formatted['460-600 Const Int Surf Coefs'] = (df['460'] - df['600']).round(3)
-            df_formatted['460-450 Auto Ext Surf Heat Transf'] = (df['460'] - df['450']).round(3)
-            df_formatted['470-600 Const Ext Surf Coefs'] = (df['470'] - df['600']).round(3)
-            df_formatted['470-450 Auto Int Surf Heat Transf'] = (df['470'] - df['450']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        fig, axs = plt.subplots(
-            nrows=4,
-            ncols=1,
-            figsize=(24, 16))
-        for ax, df_t, title in zip(
-                axs,
-                table_dfs,
-                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
-                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
-            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
-            # Set title
-            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
-            header_title.get_text().set_text(title)
-            header_title.PAD = 0.0
-            header_title.set_fontsize(16)
-            header_title.set_text_props(ha="left")
-            header_title.visible_edges = "open"
-            cell_dict = tab.get_celld()
-            for w, i in zip([0.75, 0.75], [4, 11]):
-                for j in range(df_t.shape[0] + 1):
-                    cell_dict[(j, i)].set_width(w)
-                    cell_dict[(j, i)].set_text_props(ha="center")
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return
-
-    def render_section_5_2a_table_b8_10(
-            self,
-            figure_name='section_5_2_a_table_b8_10',
-            caption='Table B8-10. High Mass Basic In-Depth Sensitivity Tests'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-10
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        table_dfs = [None, ] * 4
-        for measurement_type, table_idx in zip(
-                ['annual_heating_MWh', 'peak_heating_kW'],
-                [0, 2]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
-            df_formatted['900-800 Himass, S. Win.'] = (df['900'] - df['800']).round(3)
-            df_formatted['900-810 Himass, Int. Solar Abs.'] = (df['900'] - df['810']).round(3)
-            df_formatted['910-610 Mass, w/ S. Shade'] = (df['910'] - df['610']).round(3)
-            df_formatted['920-620 Mass, w/ E&W Win.'] = (df['920'] - df['620']).round(3)
-            df_formatted['930-630 Mass, w/ E&W Shade'] = (df['930'] - df['630']).round(3)
-            df_formatted['940-640 Mass, w/ Htg. Setback'] = (df['940'] - df['640']).round(3)
-            df_formatted['980-680 Mass, w/ Insulation 20/27'] = (df['980'] - df['680']).round(3)
-            df_formatted['985-685 Mass, w/ 20/20 Tstat'] = (df['985'] - df['685']).round(3)
-            df_formatted['995-695 Mass, w/ Insulation 20/20'] = (df['995'] - df['695']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        for measurement_type, table_idx in zip(
-                ['annual_cooling_MWh', 'peak_cooling_kW'],
-                [1, 3]):
-            # get and format dataframe into required shape
-            df = self.df_data['conditioned_zone_loads_non_free_float'] \
-                .loc[
-                    :,
-                    [
-                        i == measurement_type for i in self.df_data['conditioned_zone_loads_non_free_float']
-                        .columns.get_level_values(1)]]
-            df.columns = df.columns.droplevel(level=1)
-            df_formatted = pd.DataFrame()
-            df_formatted['800-430 Mass, w/ High Cond. Wall'] = (df['800'] - df['430']).round(3)
-            df_formatted['900-800 Himass, S. Win.'] = (df['900'] - df['800']).round(3)
-            df_formatted['900-810 Himass, Int. Solar Abs.'] = (df['900'] - df['810']).round(3)
-            df_formatted['910-610 Mass, w/ S. Shade'] = (df['910'] - df['610']).round(3)
-            df_formatted['920-620 Mass, w/ E&W Win.'] = (df['920'] - df['620']).round(3)
-            df_formatted['930-630 Mass, w/ E&W Shade'] = (df['930'] - df['630']).round(3)
-            df_formatted['940-640 Mass, w/ Htg. Setback'] = (df['940'] - df['640']).round(3)
-            df_formatted['950-650 Mass, w/ Night Vent'] = (df['950'] - df['650']).round(3)
-            df_formatted['980-680 Mass, w/ Insulation 20/27'] = (df['980'] - df['680']).round(3)
-            df_formatted['985-685 Mass, w/ 20/20 Tstat'] = (df['985'] - df['685']).round(3)
-            df_formatted['995-695 Mass, w/ Insulation 20/20'] = (df['995'] - df['695']).round(3)
-            df_formatted = df_formatted.transpose()
-            df_stats = pd.DataFrame()
-            stat_cols = [i for i in df_formatted.columns if i in self.baseline_model_names]
-            df_stats['min'] = df_formatted[stat_cols].min(axis=1).round(3)
-            df_stats['max'] = df_formatted[stat_cols].max(axis=1).round(2)
-            df_stats['mean'] = df_formatted[stat_cols].mean(axis=1).round(2)
-            df_stats['(max - min)\n/ mean %'] = \
-                abs(
-                    (
-                        df_formatted[stat_cols].max(axis=1) - df_formatted[stat_cols].min(axis=1)) / (
-                        df_formatted[stat_cols].mean(axis=1)) * 100).round(2)
-            df_formatted = pd.concat(
-                [
-                    df_formatted.iloc[:, range(len(df_formatted.columns))],
-                    df_stats,
-                    df_formatted.iloc[:, range(len(df_formatted.columns) - 1, len(df_formatted.columns))]
-                ],
-                axis=1)
-            program_rgx = re.compile(r'(^[a-zA-Z]+)')
-            df_formatted.columns = [
-                program_rgx.search(i).group(1) if program_rgx.search(i) else i for i in df_formatted.columns]
-            df_formatted['(max - min)\n/ mean %'] = df_formatted['(max - min)\n/ mean %'].apply(
-                lambda x: '{0:.1f}%'.format(x))
-            df_formatted = df_formatted.reset_index().rename(columns={'index': 'Case'})
-            table_dfs[table_idx] = df_formatted
-        fig, axs = plt.subplots(
-            nrows=4,
-            ncols=1,
-            figsize=(24, 16))
-        for ax, df_t, title in zip(
-                axs,
-                table_dfs,
-                ['ANNUAL HEATING [MWh]', 'ANNUAL SENSIBLE COOLING [MWh]',
-                 'PEAK HEATING [kW]', 'PEAK SENSIBLE COOLING [kW]']):
-            tab = self._make_table_from_df(df=df_t, ax=ax, case_col_width=1.3)
-            # Set title
-            header_title = tab.add_cell(-1, 0, width=1, height=0.3)
-            header_title.get_text().set_text(title)
-            header_title.PAD = 0.0
-            header_title.set_fontsize(16)
-            header_title.set_text_props(ha="left")
-            header_title.visible_edges = "open"
-            cell_dict = tab.get_celld()
-            for w, i in zip([0.75, 0.75], [4, 11]):
-                for j in range(df_t.shape[0] + 1):
-                    cell_dict[(j, i)].set_width(w)
-                    cell_dict[(j, i)].set_text_props(ha="center")
-        # save the result
-        plt.suptitle(caption, fontsize=30)
-        self._make_image_from_plt(figure_name)
-        plt.subplots_adjust(top=0.92)
-        return
-
-    def render_section_5_2a_table_b8_11(
-            self,
-            figure_name='section_5_2_a_table_b8_11',
-            caption='Table B8-11. Annual Transmissivity Coefficient of Windows'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-11
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-
-        df_table_b8_13 = pd.DataFrame()
-        df_table_b8_14 = pd.DataFrame()
-        software_array = []
-        # get data
-        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            df_obj_table_b8_13 = pd.DataFrame.from_dict(json_obj['solar_radiation_annual_incident']['600']['Surface'])
-            df_obj_table_b8_13['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df_table_b8_13 = pd.concat([df_table_b8_13, df_obj_table_b8_13], axis=0)
-
-            df_obj_table_b8_14 = pd.DataFrame.from_dict(json_obj['solar_radiation_unshaded_annual_transmitted'])
-            df_obj_table_b8_14['software'] = json_obj['identifying_information']['software_name']
-            df_table_b8_14 = pd.concat([df_table_b8_14, df_obj_table_b8_14], axis=0)
-
-        df_table_b8_13 = df_table_b8_13.set_index('software')
-        df_table_b8_13 = df_table_b8_13.transpose()
-        df_table_b8_14 = df_table_b8_14.set_index('software')
-        df_table_b8_14 = df_table_b8_14.transpose()
-
-        for row in range(len(df_table_b8_14)):
-            for col in range(len(df_table_b8_14.columns)):
-                temp_dict = df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]]
-                for k, v in temp_dict.items():
-                    new_val = v['kWh/m2']
-                try:
-                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = new_val
-                except (KeyError, ValueError):
-                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = float('NaN')
-
-        index_dict = {
-            '600 South': ['600', 'SOUTH'],
-            '620 West': ['620', 'WEST'],
-            '660 South, Low-E': ['660', 'SOUTH'],
-            '670 South, Single Pane': ['670', 'SOUTH']
-        }
-        df_table_b8_11 = pd.DataFrame()
-        df_table_b8_11 = pd.DataFrame(columns=df_table_b8_14.columns)
-        for key in index_dict:
-            df_table_b8_11.loc[key] = df_table_b8_14.loc[index_dict[key][0]].div(df_table_b8_13.loc[index_dict[key][1]])\
-                .where(df_table_b8_13.loc[index_dict[key][1]] != 0, np.nan)
-
-        # calculate stats
-        df_stats = pd.DataFrame()
-        df_stats['min'] = df_table_b8_11.iloc[:, 0:-1].min(axis=1)
-        df_stats['max'] = df_table_b8_11.iloc[:, 0:-1].max(axis=1)
-        df_stats['mean'] = df_table_b8_11.iloc[:, 0:-1].mean(axis=1)
-        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
-            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-
-        # merge dataframes
-        df_merged = pd.concat(
-            [
-                df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1)],
-                df_stats,
-                df_table_b8_11.iloc[:, range(len(df_table_b8_11.columns) - 1, len(df_table_b8_11.columns))]
-            ],
-            axis=1)
-
-        # format dataframe
-        df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
-        df_formatted_table.fillna('', inplace=True)
-        for col in df_formatted_table:
-            if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 3) if x != '' else x)
-
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 3) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 3) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 3) if x != '' else x)
-        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
-
-        # wrap text in table
-        wrapped_col = {}
-        for col in df_formatted_table:
-            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
-        df_formatted_table.rename(columns=wrapped_col, inplace=True)
-
-        # save results
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(24, 6))
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
-
-        # Set annotations
-        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
-        header_stats[0].get_text().set_text('Statistics for Example Results')
-        header_stats[0].PAD = 0.5
-        header_stats[0].set_fontsize(16)
-        header_stats[0].set_text_props(ha="left")
-        header_stats[0].visible_edges = "open"
-        header_stats[1].visible_edges = "open"
-        header_stats[2].visible_edges = "open"
-        header_stats[3].visible_edges = "open"
-        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-
-        plt.suptitle(caption, fontsize=30, y=1.05)
-        self._make_image_from_plt(figure_name)
-
-        return fig, ax
-
-    def render_section_5_2a_table_b8_12(
-            self,
-            figure_name='section_5_2_a_table_b8_12',
-            caption='Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-12
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-
-        df_table_b8_14 = pd.DataFrame()
-        df_table_b8_15 = pd.DataFrame()
-        software_array = []
-
-        # get data
-        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            df_obj_table_b8_14 = pd.DataFrame.from_dict(json_obj['solar_radiation_unshaded_annual_transmitted'])
-            df_obj_table_b8_14['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df_table_b8_14 = pd.concat([df_table_b8_14, df_obj_table_b8_14], axis=0)
-
-            df_obj_table_b8_15 = pd.DataFrame.from_dict(json_obj['solar_radiation_shaded_annual_transmitted'])
-            df_obj_table_b8_15['software'] = json_obj['identifying_information']['software_name']
-            df_table_b8_15 = pd.concat([df_table_b8_15, df_obj_table_b8_15], axis=0)
-
-        df_table_b8_14 = df_table_b8_14.set_index('software')
-        df_table_b8_14 = df_table_b8_14.transpose()
-        df_table_b8_15 = df_table_b8_15.set_index('software')
-        df_table_b8_15 = df_table_b8_15.transpose()
-
-        for row in range(len(df_table_b8_14)):
-            for col in range(len(df_table_b8_14.columns)):
-                temp_dict = df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]]
-                for k, v in temp_dict.items():
-                    new_val = v['kWh/m2']
-                try:
-                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = new_val
-                except (KeyError, ValueError):
-                    df_table_b8_14.at[df_table_b8_14.index[row], df_table_b8_14.columns[col]] = float('NaN')
-
-        for row in range(len(df_table_b8_15)):
-            for col in range(len(df_table_b8_15.columns)):
-                temp_dict = df_table_b8_15.at[df_table_b8_15.index[row], df_table_b8_15.columns[col]]
-                for k, v in temp_dict.items():
-                    new_val = v['kWh/m2']
-                try:
-                    df_table_b8_15.at[df_table_b8_15.index[row], df_table_b8_15.columns[col]] = new_val
-                except (KeyError, ValueError):
-                    df_table_b8_15.at[df_table_b8_15.index[row], df_table_b8_15.columns[col]] = float('NaN')
-
-        index_dict = {
-            '610/600 South': ['610', '600'],
-            '630/620 West': ['630', '620']
-        }
-        df_table_b8_12 = pd.DataFrame()
-        df_table_b8_12 = pd.DataFrame(columns=df_table_b8_14.columns)
-
-        for key in index_dict:
-            df_table_b8_12.loc[key] = 1 - df_table_b8_15.loc[index_dict[key][0]].div(df_table_b8_14.loc[index_dict[key][1]])\
-                .where(df_table_b8_14.loc[index_dict[key][1]] != 0, np.nan)
-
-        # calculate stats
-        df_stats = pd.DataFrame()
-        df_stats['min'] = df_table_b8_12.iloc[:, 0:-1].min(axis=1)
-        df_stats['max'] = df_table_b8_12.iloc[:, 0:-1].max(axis=1)
-        df_stats['mean'] = df_table_b8_12.iloc[:, 0:-1].mean(axis=1)
-        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
-            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-
-        # merge dataframes
-        df_merged = pd.concat(
-            [
-                df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1)],
-                df_stats,
-                df_table_b8_12.iloc[:, range(len(df_table_b8_12.columns) - 1, len(df_table_b8_12.columns))]
-            ],
-            axis=1)
-
-        # format dataframe
-        df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
-        df_formatted_table.fillna('', inplace=True)
-        for col in df_formatted_table:
-            if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 3) if x != '' else x)
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 3) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 3) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 3) if x != '' else x)
-        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
-
-        # wrap text in table
-        wrapped_col = {}
-        for col in df_formatted_table:
-            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
-        df_formatted_table.rename(columns=wrapped_col, inplace=True)
-
-        # save results
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(24, 6))
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
-
-        # Set annotations
-        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
-        header_stats[0].get_text().set_text('Statistics for Example Results')
-        header_stats[0].PAD = 0.5
-        header_stats[0].set_fontsize(16)
-        header_stats[0].set_text_props(ha="left")
-        header_stats[0].visible_edges = "open"
-        header_stats[1].visible_edges = "open"
-        header_stats[2].visible_edges = "open"
-        header_stats[3].visible_edges = "open"
-        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-
-        plt.suptitle(caption, fontsize=30, y=1.05)
-        self._make_image_from_plt(figure_name)
-
-        return fig, ax
-
-    def render_section_5_2a_table_b8_13(
-            self,
-            figure_name='section_5_2_a_table_b8_13',
-            caption='Table B8-13. Case 600 Annual Incident Solar Radiation ($kWh/m^{2}$)'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-13
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-
-        df = pd.DataFrame()
-        software_array = []
-        # get data
-        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            df_obj = pd.DataFrame.from_dict(json_obj['solar_radiation_annual_incident']['600']['Surface'])
-            df_obj['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df = pd.concat([df, df_obj], axis=0)
-        df = df.set_index('software')
-        df = df.transpose()
-
-        for row in range(len(df)):
-            for col in range(len(df.columns)):
-                try:
-                    df.at[df.index[row], df.columns[col]]
-                except (KeyError, ValueError):
-                    df.at[df.index[row], df.columns[col]] = float('NaN')
-
-        # calculate stats
-        df_stats = pd.DataFrame()
-        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
-        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
-        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
-        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
-            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-
-        # merge dataframes
-        df_merged = pd.concat(
-            [
-                df.iloc[:, range(len(df.columns) - 1)],
-                df_stats,
-                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
-            ],
-            axis=1)
-
-        index_dict = {
-            'HORZ.': 'Horizontal',
-            'NORTH': 'North',
-            'EAST': 'East',
-            'SOUTH': 'South',
-            'WEST': 'West',
-        }
-        df_formatted_table = df_merged.rename(index=index_dict)
-        df_formatted_table = df_formatted_table.reindex(['Horizontal', 'North', 'East', 'South', 'West'])
-        df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
-        df_formatted_table.fillna('', inplace=True)
-
-        for col in df_formatted_table:
-            if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
-
-        # wrap text in table
-        wrapped_col = {}
-        for col in df_formatted_table:
-            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
-        df_formatted_table.rename(columns=wrapped_col, inplace=True)
-
-        # save results
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(24, 6))
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
-
-        # Set annotations
-        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
-        header_stats[0].get_text().set_text('Statistics for Example Results')
-        header_stats[0].PAD = 0.5
-        header_stats[0].set_fontsize(16)
-        header_stats[0].set_text_props(ha="left")
-        header_stats[0].visible_edges = "open"
-        header_stats[1].visible_edges = "open"
-        header_stats[2].visible_edges = "open"
-        header_stats[3].visible_edges = "open"
-        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-
-        plt.suptitle(caption, fontsize=30, y=1.05)
-        self._make_image_from_plt(figure_name)
-
-        return fig, ax
-
-    def render_section_5_2a_table_b8_14(
-            self,
-            output_value='solar_radiation_unshaded_annual_transmitted',
-            figure_name='section_5_2_a_table_b8_14',
-            caption='Table B8-14. Annual Transmitted Solar Radiation - Unshaded ($kWh/m^{2}$)'):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-14
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-
-        df = pd.DataFrame()
-        software_array = []
-        # get data
-        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            df_obj = pd.DataFrame.from_dict(json_obj[output_value])
-            df_obj['software'] = json_obj['identifying_information']['software_name']
-            software_array.append(json_obj['identifying_information']['software_name'])
-            df = pd.concat([df, df_obj], axis=0)
-        df = df.set_index('software')
-        df = df.transpose()
-
-        for row in range(len(df)):
-            for col in range(len(df.columns)):
-                temp_dict = df.at[df.index[row], df.columns[col]]
-                for k, v in temp_dict.items():
-                    new_val = v['kWh/m2']
-                try:
-                    df.at[df.index[row], df.columns[col]] = new_val
-                except (KeyError, ValueError):
-                    df.at[df.index[row], df.columns[col]] = float('NaN')
-
-        # calculate stats
-        df_stats = pd.DataFrame()
-        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
-        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
-        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
-        df_stats['(max-min)\n/mean*(%)'] = abs(df_stats['max'] - df_stats['min']).div(
-            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-
-        # merge dataframes
-        df_merged = pd.concat(
-            [
-                df.iloc[:, range(len(df.columns) - 1)],
-                df_stats,
-                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
-            ],
-            axis=1)
-
-        index_dict = {
-            '600': '600 South',
-            '610': '610 South',
-            '620': '620 West',
-            '630': '630 West',
-            '660': '660 South',
-            '670': '670 South',
-        }
-        df_formatted_table = df_merged.rename(index=index_dict)
-        df_formatted_table = df_formatted_table.reset_index(drop=False).rename(columns={'index': 'Cases'})
-
-        df_formatted_table.fillna('', inplace=True)
-
-        for col in df_formatted_table:
-            if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: int(round(x)) if x != '' else x)
-        df_formatted_table['(max-min)\n/mean*(%)'] = df_formatted_table['(max-min)\n/mean*(%)'].apply(
-            lambda x: '{0:.1f}%'.format(round(x * 100, 3)))
-
-        # wrap text in table
-        wrapped_col = {}
-        for col in df_formatted_table:
-            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
-        df_formatted_table.rename(columns=wrapped_col, inplace=True)
-
-        # save results
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(24, 6))
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
-
-        # Set annotations
-        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(7, 11)]
-        header_stats[0].get_text().set_text('Statistics for Example Results')
-        header_stats[0].PAD = 0.5
-        header_stats[0].set_fontsize(16)
-        header_stats[0].set_text_props(ha="left")
-        header_stats[0].visible_edges = "open"
-        header_stats[1].visible_edges = "open"
-        header_stats[2].visible_edges = "open"
-        header_stats[3].visible_edges = "open"
-        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Simulation Results)", ha="left", fontsize=12)
-
-        plt.suptitle(caption, fontsize=30, y=1.05)
-        self._make_image_from_plt(figure_name)
-
-        return fig, ax
-
-    def render_section_5_2a_table_b8_15(self):
-        """
-        Create dataframe from class dataframe object for table 5-2A B8-15
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        fig, ax = self.render_section_5_2a_table_b8_14(
-            output_value='solar_radiation_shaded_annual_transmitted',
-            figure_name='section_5_2_a_table_b8_15',
-            caption='Table B8.15 Annual Transmitted Solar Radiation - Shaded ($kWh/m^{2}$)'
-        )
-
-        return fig, ax
+                list_out.append('')
+        return list_out
 
     def render_section_5_2a_figure_b8_1(self):
         """
@@ -2133,21 +865,15 @@ class GraphicsRenderer(Logger):
         for idx, (tst, json_obj) in enumerate(self.json_data.items()):
             tmp_data = []
             try:
-                tmp_data.append(
-                    1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']
-                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['600']['Surface']['South']
-                        ['kWh/m2']
-                    ))
+                tmp_data.append(1 - (json_obj['solar_radiation_shaded_annual_transmitted']['610']['Surface']['South']
+                                     ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['600']
+                                     ['Surface']['South']['kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             try:
-                tmp_data.append(
-                    1 - (
-                        json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']
-                        ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['620']['Surface']
-                        ['West']['kWh/m2']
-                    ))
+                tmp_data.append(1 - (json_obj['solar_radiation_shaded_annual_transmitted']['630']['Surface']['West']
+                                     ['kWh/m2'] / json_obj['solar_radiation_unshaded_annual_transmitted']['620']
+                                     ['Surface']['West']['kWh/m2']))
             except (KeyError, ValueError):
                 tmp_data.append(float('NaN'))
             data.insert(idx, tmp_data)
@@ -7261,133 +5987,12 @@ class GraphicsRenderer(Logger):
     #     df = self.df_data['steady_state_cases']
     #     return df
 
-    def render_section_5_4_table_b16_6_5(
-            self,
-            output_value='mean_zone_temperature',
-            figure_name='section_5_4_table_b16_6_5',
-            caption=r'Table B16.6-5. Mean Zone Temperature ($^\circ$C)'):
-        """
-        Create dataframe from class dataframe object for table 5-4 B16.6-5
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-
-        df = pd.DataFrame()
-        software_array = []
-        index_dict = {
-            'CASE HE210': 'HE210: Realistic Weather',
-            'CASE HE220': 'HE220: Setback Thermostat',
-            'CASE HE230': 'HE230: Undersized Furnace'}
-        # get data
-        for idx, (tst, json_obj) in enumerate(self.json_data.items()):
-            df_obj = pd.DataFrame.from_dict(json_obj[output_value])
-            df_obj['software'] = json_obj['identifying_information']['program_name_and_version'] + '\n' + json_obj['identifying_information']['program_organization']
-            software_array.append(json_obj['identifying_information']['program_name_and_version'])
-            df = pd.concat([df, df_obj], axis=0)
-        df = df.set_index('software')
-        df = df.rename(index_dict, axis=1)
-        df = df.groupby(level=0, axis=1).sum()
-        df = df.transpose()
-
-        for row in range(len(df)):
-            for col in range(len(df.columns)):
-                try:
-                    df.at[df.index[row], df.columns[col]]
-                except (KeyError, ValueError):
-                    df.at[df.index[row], df.columns[col]] = float('NaN')
-
-        # calculate stats
-        df_stats = pd.DataFrame()
-        df_stats['min'] = df.iloc[:, 0:-1].min(axis=1)
-        df_stats['max'] = df.iloc[:, 0:-1].max(axis=1)
-        df_stats['mean'] = df.iloc[:, 0:-1].mean(axis=1)
-        df_stats['(max-min)\n/mean*'] = abs(df_stats['max'] - df_stats['min']).div(
-            df_stats['mean'].where(df_stats['mean'] != 0, np.nan))
-
-        # merge dataframes
-        df_merged = pd.concat(
-            [
-                df.iloc[:, range(len(df.columns) - 1)],
-                df_stats,
-                df.iloc[:, range(len(df.columns) - 1, len(df.columns))]
-            ],
-            axis=1)
-
-        df_formatted_table = df_merged.reset_index(drop=False).rename(columns={'index': 'Cases'})
-        df_formatted_table.fillna('', inplace=True)
-
-        for col in df_formatted_table:
-            if col in software_array:
-                df_formatted_table[col] = df_formatted_table[col].apply(lambda x: round(x, 2) if x != '' else x)
-
-        df_formatted_table['min'] = df_formatted_table['min'].apply(lambda x: round(x, 2) if x != '' else x)
-        df_formatted_table['max'] = df_formatted_table['max'].apply(lambda x: round(x, 2) if x != '' else x)
-        df_formatted_table['mean'] = df_formatted_table['mean'].apply(lambda x: round(x, 2) if x != '' else x)
-        df_formatted_table['(max-min)\n/mean*'] = df_formatted_table['(max-min)\n/mean*'].apply(
-            lambda x: '{0:.1f}%'.format(math.floor(x * 1000) / 10) if x * 1000 - math.floor(x * 1000) < 0.5 else '{0:.1f}%'.format(math.ceil(x * 1000) / 10))  # check all rounds, 1.5 is round to 1 currently
-
-        wrapped_col = {}
-        for col in df_formatted_table:
-            wrapped_col[col] = twp.fill(col, break_long_words=False, width=5)
-        df_formatted_table.rename(columns=wrapped_col, inplace=True)
-
-        # save results
-        fig, ax = plt.subplots(
-            nrows=1,
-            ncols=1,
-            figsize=(24, 6))
-        tab = self._make_table_from_df(df=df_formatted_table, ax=ax, case_col_width=1.2)
-
-        # Set annotations
-        header_stats = [tab.add_cell(-1, h, width=0.5, height=0.20) for h in range(4, 9)]
-        header_stats[0].get_text().set_text('Statistics, All Results')
-        header_stats[0].PAD = 0.5
-        header_stats[0].set_fontsize(16)
-        header_stats[0].set_text_props(ha="left")
-        header_stats[0].visible_edges = "open"
-        header_stats[1].visible_edges = "open"
-        header_stats[2].visible_edges = "open"
-        header_stats[3].visible_edges = "open"
-        header_stats[4].visible_edges = "open"
-
-        plt.figtext(0.15, 0.08, "*ABS[(Max-Min)/(Mean of Example Results)", ha="left", fontsize=12)
-
-        plt.suptitle(caption, fontsize=30, y=1.05)
-        self._make_image_from_plt(figure_name)
-
-        return fig, ax
-
-    def render_section_5_4_table_b16_6_6(self):
-        """
-        Create dataframe from class dataframe object for table 5-4 B16.6-6
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        fig, ax = self.render_section_5_4_table_b16_6_5(
-            output_value='maximum_zone_temperature',
-            figure_name='section_5_4_table_b16_6_6',
-            caption=r'Table B16.6-6. Maximum Zone Temperature ($^\circ$C)')
-
-        return fig, ax
-
-    def render_section_5_4_table_b16_6_7(self):
-        """
-        Create dataframe from class dataframe object for table 5-4 B16.6-7
-
-        :return: pandas dataframe and output msg for general navigation.
-        """
-        fig, ax = self.render_section_5_4_table_b16_6_5(
-            output_value='minimum_zone_temperature',
-            figure_name='section_5_4_table_b16_6_7',
-            caption=r'Table B16.6-7. Minimum Zone Temperature ($^\circ$C)')
-
-        return fig, ax
-
     def render_section_5_4_figure_b16_6_5(
             self,
             output_value='mean_zone_temperature',
             figure_name='section_5_4_figure_b16_6_5',
-            caption='Figure B16.6-5. Comparison of the Mean Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases'):
+            caption='Figure B16.6-5. Comparison of the Mean Zone Temperature \n'
+                    'for the Fuel-Fired Furnace Comparative Test Cases'):
         """
         Render Section 5-4 Figure B16.6-5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -7425,7 +6030,8 @@ class GraphicsRenderer(Logger):
         fig, ax = self.render_section_5_4_figure_b16_6_5(
             output_value='maximum_zone_temperature',
             figure_name='section_5_4_figure_b16_6_6',
-            caption='Figure B16.6-6.  Comparison of the Max Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases')
+            caption='Figure B16.6-6.  Comparison of the Max Zone Temperature \n'
+                    'for the Fuel-Fired Furnace Comparative Test Cases')
 
         return fig, ax
 
@@ -7437,6 +6043,1459 @@ class GraphicsRenderer(Logger):
         fig, ax = self.render_section_5_4_figure_b16_6_5(
             output_value='minimum_zone_temperature',
             figure_name='section_5_4_figure_b16_6_7',
-            caption='Figure B16.6-7.  Comparison of the Min Zone Temperature \nfor the Fuel-Fired Furnace Comparative Test Cases')
+            caption='Figure B16.6-7.  Comparison of the Min Zone Temperature \n'
+                    'for the Fuel-Fired Furnace Comparative Test Cases')
 
         return fig, ax
+
+    def render_section_5_2a_table_b8_16_alt(self):
+        figure_name = 'section_5_2_table_b8_16_alt'
+        caption = 'Table B8-16. Sky Temperatures Output, Case 600'
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+
+        top_table = []
+        bottom_table = []
+        averages = []
+        minimums = []
+        maximums = []
+
+        header_row = ['Case', 'Parameter', 'Annual Hourly<br>Integrated Average', 'Annual Hourly<br>Integrated Minimum',
+                      'Annual Hourly<br>Integrated Maximum']
+        top_table.append(header_row)
+        for index, (tst, json_obj) in enumerate(self.json_data.items()):
+            sky_600 = json_obj['sky_temperature_output']['600']
+            data_row = [json_obj['identifying_information']['software_name'], 'T(C)']
+            if not math.isnan(sky_600['Average']['C']):
+                average = sky_600['Average']['C']
+                averages.append(average)
+                data_row.append(round(average, 1))
+
+                minimum = sky_600['Minimum']['C']
+                minimums.append(minimum)
+                data_row.append(round(minimum, 1))
+
+                maximum = sky_600['Maximum']['C']
+                maximums.append(maximum)
+                data_row.append(round(maximum, 1))
+
+            # now work on the timestamp rows
+            timestamp_row = [json_obj['identifying_information']['software_name'], 'Mo Day Hr',
+                             '']  # include extra space for average column that doesn't have timestamp
+            if not math.isnan(sky_600['Average']['C']):
+                timestamp_row.append(sky_600['Minimum']['Month'] + ' ' + str(sky_600['Minimum']['Day']) + ' ' + str(
+                    sky_600['Minimum']['Hour']))
+                timestamp_row.append(sky_600['Maximum']['Month'] + ' ' + str(sky_600['Maximum']['Day']) + ' ' + str(
+                    sky_600['Maximum']['Hour']))
+
+            # if it is not the tested program, add it to the table
+            if index < (len(self.json_data) - 1):
+                top_table.append(data_row)
+                bottom_table.append(timestamp_row)
+            else:
+                tested_program_data_row = data_row
+                tested_program_timestamp_row = timestamp_row
+
+        # remove last item since it is the tested program
+        minimums.pop()
+        maximums.pop()
+        averages.pop()
+
+        # add test spec alt
+        row = ['TestSpec-Alt', 'T(C)', -5.9, -46.9, 24.6]
+        averages.append(-5.9)
+        minimums.append(-46.9)
+        maximums.append(24.6)
+        top_table.append(row)
+        top_table.append(['', ])  # add blank row
+
+        bottom_table.append(['', 'Mo Day Hr'])
+
+        # now do the statistic rows
+        minimum_of_averages = min(averages)
+        minimum_of_minimums = min(minimums)
+        minimum_of_maximums = min(maximums)
+        row = ['Min', 'T(C)', round(minimum_of_averages, 1), round(minimum_of_minimums, 1),
+               round(minimum_of_maximums, 1)]
+        top_table.append(row)
+
+        maximum_of_averages = max(averages)
+        maximum_of_minimums = max(minimums)
+        maximum_of_maximums = max(maximums)
+        row = ['Max', 'T(C)', round(maximum_of_averages, 1), round(maximum_of_minimums, 1),
+               round(maximum_of_maximums, 1)]
+        top_table.append(row)
+
+        mean_of_averages = sum(averages) / len(averages)
+        mean_of_minimums = sum(minimums) / len(minimums)
+        mean_of_maximums = sum(maximums) / len(maximums)
+        row = ['Mean', 'T(C)', round(mean_of_averages, 1), round(mean_of_minimums, 1),
+               round(mean_of_maximums, 1)]
+        top_table.append(row)
+        row = ['(Max-Min)/Mean [^1]', ' % ',
+               round(100 * abs((maximum_of_averages - minimum_of_averages) / mean_of_averages), 1),
+               round(100 * abs((maximum_of_minimums - minimum_of_minimums) / mean_of_minimums), 1),
+               round(100 * abs((maximum_of_maximums - minimum_of_maximums) / mean_of_maximums), 1)]
+        top_table.append(row)
+        # now put in the tested program rows
+        top_table.append(['', ])  # add blank row
+        top_table.append(tested_program_data_row)
+        bottom_table.append(['', ])  # add blank row
+        bottom_table.append(tested_program_timestamp_row)
+
+        table = top_table
+        table.append(['', ])  # add blank row
+        table.extend(bottom_table)
+        # convert entire table to strings
+        string_table = []
+        for row in table:
+            string_table.append([str(item) for item in row])
+        self._make_markdown_from_table(figure_name, caption, string_table, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_1(self):
+        figure_name = 'section_5_2_table_b8_01'
+        caption = 'Table B8-1. Annual Heating Loads (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['conditioned_zone_loads_non_free_float'][case]['annual_heating_MWh'])
+            data_table.append(row)
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
+            row_headings.insert(blank_row, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_2(self):
+        figure_name = 'section_5_2_table_b8_02'
+        caption = 'Table B8-2. Annual Sensible Cooling Loads (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['conditioned_zone_loads_non_free_float'][case]['annual_cooling_MWh'])
+            data_table.append(row)
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
+            row_headings.insert(blank_row, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_3(self):
+        figure_name = 'section_5_2_table_b8_03'
+        caption = 'Table B8-3. Annual Hourly Integrated Peak Heating Loads (kWh)'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['conditioned_zone_loads_non_free_float'][case]
+                row.append(case_json['peak_heating_kW'])
+                month = case_json['peak_heating_month']
+                day = self._int_0_if_nan(case_json['peak_heating_day'])
+                hour = self._int_0_if_nan(case_json['peak_heating_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
+            time_stamp_table.insert(blank_row, [])
+            row_headings.insert(blank_row, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_4(self):
+        figure_name = 'section_5_2_table_b8_04'
+        caption = 'Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['conditioned_zone_loads_non_free_float'][case]
+                row.append(case_json['peak_cooling_kW'])
+                month = case_json['peak_cooling_month']
+                day = self._int_0_if_nan(case_json['peak_cooling_day'])
+                hour = self._int_0_if_nan(case_json['peak_cooling_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        for blank_row in [44, 35, 21, 11]:
+            data_table.insert(blank_row, [])  # add blank line as separator
+            time_stamp_table.insert(blank_row, [])
+            row_headings.insert(blank_row, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_5a(self):
+        figure_name = 'section_5_2_table_b8_05a'
+        caption = 'Table B8-5a. Free-Float Temperature Output Maximum Annual Hourly Integrated Zone Temperature (C)'
+        free_float_cases = {
+            '600FF': '600FF - Low Mass Building with South Windows',
+            '900FF': '900FF - High Mass Building with South Windows',
+            '650FF': '650FF - Case 600FF with Night Ventilation',
+            '950FF': '950FF - Case 900FF with Night Ventilation',
+            '680FF': '680FF - Case 600FF with More Insulation',
+            '980FF': '980FF - Case 900FF with More Insulation',
+            '960': '960 - Sunspace'}
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(free_float_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in free_float_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['free_float_case_zone_temperatures'][case]
+                row.append(case_json['maximum_temperature'])
+                month = case_json['maximum_month']
+                day = self._int_0_if_nan(case_json['maximum_day'])
+                hour = self._int_0_if_nan(case_json['maximum_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_5b(self):
+        figure_name = 'section_5_2_table_b8_05b'
+        caption = 'Table B8-5b. Free-Float Temperature Output Minimum Annual Hourly Integrated Zone Temperature (C)'
+        free_float_cases = {
+            '600FF': '600FF - Low Mass Building with South Windows',
+            '900FF': '900FF - High Mass Building with South Windows',
+            '650FF': '650FF - Case 600FF with Night Ventilation',
+            '950FF': '950FF - Case 900FF with Night Ventilation',
+            '680FF': '680FF - Case 600FF with More Insulation',
+            '980FF': '980FF - Case 900FF with More Insulation',
+            '960': '960 - Sunspace'}
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(free_float_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in free_float_cases.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['free_float_case_zone_temperatures'][case]
+                row.append(case_json['minimum_temperature'])
+                month = case_json['minimum_month']
+                day = self._int_0_if_nan(case_json['minimum_day'])
+                hour = self._int_0_if_nan(case_json['minimum_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_5c(self):
+        figure_name = 'section_5_2_table_b8_05c'
+        caption = 'Table B8-5c. Free-Float Temperature Output Average Annual Hourly Integrated Zone Temperature (C)'
+        free_float_cases = {
+            '600FF': '600FF - Low Mass Building with South Windows',
+            '900FF': '900FF - High Mass Building with South Windows',
+            '650FF': '650FF - Case 600FF with Night Ventilation',
+            '950FF': '950FF - Case 900FF with Night Ventilation',
+            '680FF': '680FF - Case 600FF with More Insulation',
+            '980FF': '980FF - Case 900FF with More Insulation',
+            '960': '960 - Sunspace'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(free_float_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in free_float_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj['free_float_case_zone_temperatures'][case]
+                row.append(case_json['average_temperature'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_6a(self):
+        figure_name = 'section_5_2_table_b8_06a'
+        caption = 'Table B8-6a. Low Mass Basic Sensitivity Tests - Annual Heating (MWh)'
+        sensitivity_cases = {
+            ('610', '600'): '610 - 600 Heat, S. Shade',
+            ('620', '600'): '620 - 600 Heat, E&W Orient',
+            ('630', '620'): '630 - 620 Heat, E&W Shade',
+            ('640', '600'): '640 - 600 Heat, Htg. Setback',
+            ('660', '600'): '660 - 600 Heat, Low-E Win.',
+            ('670', '600'): '670 - 600 Heat, 1-Pane Win.',
+            ('680', '600'): '680 - 600 Heat, > Ins. 20/27',
+            ('685', '600'): '685 - 600 Heat, 20/20 tstat',
+            ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_6b(self):
+        figure_name = 'section_5_2_table_b8_06b'
+        caption = 'Table B8-6b. Low Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
+        sensitivity_cases = {
+            ('610', '600'): '610 - 600 Cool, S. Shade',
+            ('620', '600'): '620 - 600 Cool, E&W Orient',
+            ('630', '620'): '630 - 620 Cool, E&W Shade',
+            ('640', '600'): '640 - 600 Cool, Htg. Setback',
+            ('650', '600'): '650 - 600 Cool, Night Vent',
+            ('660', '600'): '660 - 600 Heat, Low-E Win.',
+            ('670', '600'): '670 - 600 Heat, 1-Pane Win.',
+            ('680', '600'): '680 - 600 Heat, > Ins. 20/27',
+            ('685', '600'): '685 - 600 Heat, 20/20 tstat',
+            ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_6c(self):
+        figure_name = 'section_5_2_table_b8_06c'
+        caption = 'Table B8-6c. Low Mass Basic Sensitivity Tests - Peak Heating (kW)'
+        sensitivity_cases = {
+            ('610', '600'): '610 - 600 Heat, S. Shade',
+            ('620', '600'): '620 - 600 Heat, E&W Orient',
+            ('630', '620'): '630 - 620 Heat, E&W Shade',
+            ('640', '600'): '640 - 600 Heat, Htg. Setback',
+            ('660', '600'): '660 - 600 Heat, Low-E Win.',
+            ('670', '600'): '670 - 600 Heat, 1-Pane Win.',
+            ('680', '600'): '680 - 600 Heat, > Ins. 20/27',
+            ('685', '600'): '685 - 600 Heat, 20/20 tstat',
+            ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_6d(self):
+        figure_name = 'section_5_2_table_b8_06d'
+        caption = 'Table B8-6d. Low Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
+        sensitivity_cases = {
+            ('610', '600'): '610 - 600 Cool, S. Shade',
+            ('620', '600'): '620 - 600 Cool, E&W Orient',
+            ('630', '620'): '630 - 620 Cool, E&W Shade',
+            ('640', '600'): '640 - 600 Cool, Htg. Setback',
+            ('650', '600'): '650 - 600 Cool, Night Vent',
+            ('660', '600'): '660 - 600 Heat, Low-E Win.',
+            ('670', '600'): '670 - 600 Heat, 1-Pane Win.',
+            ('680', '600'): '680 - 600 Heat, > Ins. 20/27',
+            ('685', '600'): '685 - 600 Heat, 20/20 tstat',
+            ('695', '685'): '695 - 685 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_7a(self):
+        figure_name = 'section_5_2_table_b8_07a'
+        caption = 'Table B8-7a. High Mass Basic Sensitivity Tests - Annual Heating (MWh)'
+        sensitivity_cases = {
+            ('900', '600'): '900 - 600 Mass, Heat',
+            ('910', '900'): '910 - 900 Heat, S.Shade',
+            ('920', '900'): '920 - 900 Heat, E&W Orient.',
+            ('930', '920'): '930 - 920 Heat, E&W Shade',
+            ('940', '900'): '940 - 900 Heat, Htg. Setback',
+            ('960', '900'): '960 - 900 Heat, Sunspace',
+            ('980', '900'): '980 - 900 Heat, > Ins. 20/27',
+            ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
+            ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_7b(self):
+        figure_name = 'section_5_2_table_b8_07b'
+        caption = 'Table B8-7b. High Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
+        sensitivity_cases = {
+            ('900', '600'): '900 - 600 Mass, Cool',
+            ('910', '900'): '910 - 900 Cool, S.Shade',
+            ('920', '900'): '920 - 900 Cool, E&W Orient.',
+            ('930', '920'): '930 - 920 Cool, E&W Shade',
+            ('940', '900'): '940 - 900 Cool, Htg. Setback',
+            ('950', '900'): '950 - 900 Cool, Night Vent',
+            ('960', '900'): '960 - 900 Cool, Sunspace',
+            ('980', '900'): '980 - 900 Heat, > Ins. 20/27',
+            ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
+            ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_7c(self):
+        figure_name = 'section_5_2_table_b8_07c'
+        caption = 'Table B8-7c. High Mass Basic Sensitivity Tests - Peak Heating (kW)'
+        sensitivity_cases = {
+            ('900', '600'): '900 - 600 Mass, Heat',
+            ('910', '900'): '910 - 900 Heat, S.Shade',
+            ('920', '900'): '920 - 900 Heat, E&W Orient.',
+            ('930', '920'): '930 - 920 Heat, E&W Shade',
+            ('940', '900'): '940 - 900 Heat, Htg. Setback',
+            ('960', '900'): '960 - 900 Heat, Sunspace',
+            ('980', '900'): '980 - 900 Heat, > Ins. 20/27',
+            ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
+            ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_7d(self):
+        figure_name = 'section_5_2_table_b8_07d'
+        caption = 'Table B8-7d. High Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
+        sensitivity_cases = {
+            ('900', '600'): '900 - 600 Mass, Cool',
+            ('910', '900'): '910 - 900 Cool, S.Shade',
+            ('920', '900'): '920 - 900 Cool, E&W Orient.',
+            ('930', '920'): '930 - 920 Cool, E&W Shade',
+            ('940', '900'): '940 - 900 Cool, Htg. Setback',
+            ('950', '900'): '950 - 900 Cool, Night Vent',
+            ('960', '900'): '960 - 900 Cool, Sunspace',
+            ('980', '900'): '980 - 900 Heat, > Ins. 20/27',
+            ('985', '900'): '985 - 900 Heat, > 20/20 tstat',
+            ('995', '985'): '995 - 985 Heat, > Ins. 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_8a(self):
+        figure_name = 'section_5_2_table_b8_08a'
+        caption = 'Table B8-8a. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Heating (MWh)'
+        sensitivity_cases = {
+            ('200', '195'): '200-195 Surface Convection',
+            ('210', '200'): '210-200 Ext IR (Int IR "off")',
+            ('220', '215'): '220-215 Ext IR (Int IR "on")',
+            ('215', '200'): '215-200 Int IR (Ext IR "off")',
+            ('220', '210'): '220-210 Int IR (Ext IR "on")',
+            ('230', '220'): '230-220 Infiltration',
+            ('240', '220'): '240-220 Internal Gains',
+            ('250', '220'): '250-220 Ext Solar Abs.',
+            ('270', '220'): '270-220 South Windows',
+            ('280', '270'): '280-270 Cavity Albedo',
+            ('320', '270'): '320-270 Thermostat',
+            ('290', '270'): '290-270 South Shading',
+            ('300', '270'): '300-270 E&W Windows',
+            ('310', '300'): '310-300 E&W Shading'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_8b(self):
+        figure_name = 'section_5_2_table_b8_08b'
+        caption = 'Table B8-8b. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Sensible Cooling (MWh)'
+        sensitivity_cases = {
+            ('200', '195'): '200-195 Surface Convection',
+            ('210', '200'): '210-200 Ext IR (Int IR "off")',
+            ('220', '215'): '220-215 Ext IR (Int IR "on")',
+            ('215', '200'): '215-200 Int IR (Ext IR "off")',
+            ('220', '210'): '220-210 Int IR (Ext IR "on")',
+            ('230', '220'): '230-220 Infiltration',
+            ('240', '220'): '240-220 Internal Gains',
+            ('250', '220'): '250-220 Ext Solar Abs.',
+            ('270', '220'): '270-220 South Windows',
+            ('280', '270'): '280-270 Cavity Albedo',
+            ('320', '270'): '320-270 Thermostat',
+            ('290', '270'): '290-270 South Shading',
+            ('300', '270'): '300-270 E&W Windows',
+            ('310', '300'): '310-300 E&W Shading'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_8c(self):
+        figure_name = 'section_5_2_table_b8_08c'
+        caption = 'Table B8-8c. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Heating (kW)'
+        sensitivity_cases = {
+            ('200', '195'): '200-195 Surface Convection',
+            ('210', '200'): '210-200 Ext IR (Int IR "off")',
+            ('220', '215'): '220-215 Ext IR (Int IR "on")',
+            ('215', '200'): '215-200 Int IR (Ext IR "off")',
+            ('220', '210'): '220-210 Int IR (Ext IR "on")',
+            ('230', '220'): '230-220 Infiltration',
+            ('240', '220'): '240-220 Internal Gains',
+            ('250', '220'): '250-220 Ext Solar Abs.',
+            ('270', '220'): '270-220 South Windows',
+            ('280', '270'): '280-270 Cavity Albedo',
+            ('320', '270'): '320-270 Thermostat',
+            ('290', '270'): '290-270 South Shading',
+            ('300', '270'): '300-270 E&W Windows',
+            ('310', '300'): '310-300 E&W Shading'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_8d(self):
+        figure_name = 'section_5_2_table_b8_08d'
+        caption = 'Table B8-8d. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Sensible Cooling (kW)'
+        sensitivity_cases = {
+            ('200', '195'): '200-195 Surface Convection',
+            ('210', '200'): '210-200 Ext IR (Int IR "off")',
+            ('220', '215'): '220-215 Ext IR (Int IR "on")',
+            ('215', '200'): '215-200 Int IR (Ext IR "off")',
+            ('220', '210'): '220-210 Int IR (Ext IR "on")',
+            ('230', '220'): '230-220 Infiltration',
+            ('240', '220'): '240-220 Internal Gains',
+            ('250', '220'): '250-220 Ext Solar Abs.',
+            ('270', '220'): '270-220 South Windows',
+            ('280', '270'): '280-270 Cavity Albedo',
+            ('320', '270'): '320-270 Thermostat',
+            ('290', '270'): '290-270 South Shading',
+            ('300', '270'): '300-270 E&W Windows',
+            ('310', '300'): '310-300 E&W Shading'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9a(self):
+        figure_name = 'section_5_2_table_b8_09a'
+        caption = 'Table B8-9a. Low Mass In-Depth (Cases 395 thru 440) sensitivity Tests - Annual Heating (MWh)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9b(self):
+        figure_name = 'section_5_2_table_b8_09b'
+        caption = 'Table B8-9b. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Annual Sensible Cooling (MWh)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9c(self):
+        figure_name = 'section_5_2_table_b8_09c'
+        caption = 'Table B8-9c. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Heating (kW)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_9d(self):
+        figure_name = 'section_5_2_table_b8_09d'
+        caption = 'Table B8-9d. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Sensible Cooling (kW)'
+        sensitivity_cases = {
+            ('400', '395'): '400-395 Surf. Conv. & IR',
+            ('410', '400'): '410-400 Infiltration',
+            ('420', '410'): '420-410 Internal Gains',
+            ('430', '420'): '430-420 Ext Solar Abs.',
+            ('600', '430'): '600-430 South Windows',
+            ('440', '600'): '440-600 Cavity Albedo',
+            ('450', '600'): '450-600 Const Int&Ext Surf Coefs',
+            ('460', '600'): '460-600 Const Int Surf Coefs',
+            ('460', '450'): '460-450 Auto Ext Surf Heat Transf',
+            ('470', '600'): '470-600 Const Ext Surf Coefs',
+            ('470', '450'): '470-450 Auto Int Surf Heat Transf'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_10a(self):
+        figure_name = 'section_5_2_table_b8_10a'
+        caption = 'Table B8-10a. High Mass Basic and In-Depth Sensitivity Tests - Annual Heating (MWh)'
+        sensitivity_cases = {
+            ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
+            ('900', '800'): '900-800 Himass, S. Win.',
+            ('900', '810'): '900-810 Himass, Int. Solar Abs.',
+            ('910', '610'): '910-610 Mass, w/ S. Shade',
+            ('920', '620'): '920-620 Mass, w/ E&W Win.',
+            ('930', '630'): '930-630 Mass, w/ E&W Shade',
+            ('940', '640'): '940-640 Mass, w/ Htg. Setback',
+            ('980', '680'): '980-680 Mass, w/ Insulation 20/27',
+            ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
+            ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_heating_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_heating_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_10b(self):
+        figure_name = 'section_5_2_table_b8_10b'
+        caption = 'Table B8-10b. High Mass Basic and In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)'
+        sensitivity_cases = {
+            ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
+            ('900', '800'): '900-800 Himass, S. Win.',
+            ('900', '810'): '900-810 Himass, Int. Solar Abs.',
+            ('910', '610'): '910-610 Mass, w/ S. Shade',
+            ('920', '620'): '920-620 Mass, w/ E&W Win.',
+            ('930', '630'): '930-630 Mass, w/ E&W Shade',
+            ('940', '640'): '940-640 Mass, w/ Htg. Setback',
+            ('950', '650'): '940-640 Mass, w/ Night Vent',
+            ('980', '680'): '980-680 Mass, w/ Insulation 20/27',
+            ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
+            ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['annual_cooling_MWh']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['annual_cooling_MWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_10c(self):
+        figure_name = 'section_5_2_table_b8_10c'
+        caption = 'Table B8-10c. High Mass Basic and In-Depth Sensitivity Tests - Peak Heating (kW)'
+        sensitivity_cases = {
+            ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
+            ('900', '800'): '900-800 Himass, S. Win.',
+            ('900', '810'): '900-810 Himass, Int. Solar Abs.',
+            ('910', '610'): '910-610 Mass, w/ S. Shade',
+            ('920', '620'): '920-620 Mass, w/ E&W Win.',
+            ('930', '630'): '930-630 Mass, w/ E&W Shade',
+            ('940', '640'): '940-640 Mass, w/ Htg. Setback',
+            ('980', '680'): '980-680 Mass, w/ Insulation 20/27',
+            ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
+            ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_heating_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_heating_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_10d(self):
+        figure_name = 'section_5_2_table_b8_10d'
+        caption = 'Table B8-10d. High Mass Basic and In-Depth Sensitivity Tests - Peak Sensible Cooling (kW)'
+        sensitivity_cases = {
+            ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
+            ('900', '800'): '900-800 Himass, S. Win.',
+            ('900', '810'): '900-810 Himass, Int. Solar Abs.',
+            ('910', '610'): '910-610 Mass, w/ S. Shade',
+            ('920', '620'): '920-620 Mass, w/ E&W Win.',
+            ('930', '630'): '930-630 Mass, w/ E&W Shade',
+            ('940', '640'): '940-640 Mass, w/ Htg. Setback',
+            ('950', '650'): '940-640 Mass, w/ Night Vent',
+            ('980', '680'): '980-680 Mass, w/ Insulation 20/27',
+            ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
+            ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(sensitivity_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_a, case_b) in sensitivity_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['conditioned_zone_loads_non_free_float'][case_a]['peak_cooling_kW']
+                case_b_value = json_obj['conditioned_zone_loads_non_free_float'][case_b]['peak_cooling_kW']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_11(self):
+        figure_name = 'section_5_2_table_b8_11'
+        caption = 'Table B8-11. Annual Transmissivity Coefficient of Windows'
+        transmitted_cases = {
+            '600 South': ('600', 'South'),
+            '620 West': ('620', 'West'),
+            '660 South, Low-E': ('660', 'South'),
+            '670 South, Single Pane': ('670', 'South')
+        }
+        data_table = []
+        footnotes = ['Annual Unshaded Transmitted Solar Radiation/Annual Unshaded Incident Solar Radiation',
+                     '$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]']
+        row_headings = list(transmitted_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_num, case_direction) in transmitted_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                incident_600 = json_obj['solar_radiation_annual_incident']['600']['Surface'][case_direction.upper()]['kWh/m2']
+                transmitted_value = json_obj['solar_radiation_unshaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2']
+                if incident_600 != 0:
+                    row.append(float(transmitted_value) / float(incident_600))
+                else:
+                    row.append('')
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_12(self):
+        figure_name = 'section_5_2_table_b8_12'
+        caption = 'Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'
+        coefficient_cases = {
+            '610/600 South': ('610', '600', 'South'),
+            '630/620 West': ('630', '620', 'West')}
+        data_table = []
+        footnotes = ['(1-(Annual Shaded Transmitted Solar Radiation)/(Annual Unshaded Transmitted Solar Radiation))'
+                     '$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]']
+        row_headings = list(coefficient_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_shaded, case_unshaded, case_direction) in coefficient_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                shaded = json_obj['solar_radiation_shaded_annual_transmitted'][case_shaded]['Surface'][case_direction]['kWh/m2']
+                unshaded = json_obj['solar_radiation_unshaded_annual_transmitted'][case_unshaded]['Surface'][case_direction]['kWh/m2']
+                if unshaded != 0:
+                    row.append(1 - (float(shaded) / float(unshaded)))
+                else:
+                    row.append('')
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_13(self):
+        figure_name = 'section_5_2_table_b8_13'
+        caption = 'Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)'
+        directions = {
+            'HORZ.': 'Horizontal',
+            'NORTH': 'North',
+            'EAST': 'East',
+            'SOUTH': 'South',
+            'WEST': 'West',
+        }
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(directions.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case_direction in directions.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['solar_radiation_annual_incident']['600']['Surface'][case_direction]['kWh/m2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_14(self):
+        figure_name = 'section_5_2_table_b8_14'
+        caption = 'Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)'
+        transmitted_cases = {
+            '600 South': ('600', 'South'),
+            '620 West': ('620', 'West'),
+            '660 South': ('660', 'South'),
+            '670 South': ('670', 'South')
+        }
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(transmitted_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_num, case_direction) in transmitted_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['solar_radiation_unshaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_15(self):
+        figure_name = 'section_5_2_table_b8_15'
+        caption = 'Table B8-15. Annual Transmitted Solar Radiation - Shaded (kWh/m2)'
+        transmitted_cases = {
+            '610 South': ('610', 'South'),
+            '630 West': ('630', 'West'),
+        }
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(transmitted_cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for (case_num, case_direction) in transmitted_cases.values():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['solar_radiation_shaded_annual_transmitted'][case_num]['Surface'][case_direction]['kWh/m2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_16(self):
+        figure_name = 'section_5_2_table_b8_16'
+        caption = 'Table B8-16. Sky Temperatures Output, Case 600'
+        cases = {
+            'Annual Hourly Integrated Average': 'Average',
+            'Annual Hourly Integrated Minimum': 'Minimum',
+            'Annual Hourly Integrated Maximum': 'Maximum'
+        }
+        test_spec_alt = {
+            'Average': -5.9,
+            'Minimum': -46.9,
+            'Maximum': 24.6
+        }
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(cases.keys())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        column_headings.insert(len(column_headings) - 1, 'TestSpec-Alt')
+        for case in cases.values():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                sky_600 = json_obj['sky_temperature_output']['600'][case]
+                row.append(sky_600['C'])
+                if case != 'Average':
+                    month = sky_600['Month']
+                    day = self._int_0_if_nan(sky_600['Day'])
+                    hour = self._int_0_if_nan(sky_600['Hour'])
+                    time_stamp_row.append(f'{month} {day}-{hour}')
+                else:
+                    time_stamp_row.append('')
+            # add the test spec column
+            row.insert(len(row) - 1, test_spec_alt[case])
+            time_stamp_row.insert(len(time_stamp_row) - 1, '')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m1a(self):  # case 600
+        figure_name = 'section_5_2_table_b8_m1a'
+        caption = 'Table B8-M1a. Monthly Heating Loads (kWh), Case 600'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['monthly_conditioned_zone_loads']['600'][month]['total_heating_kwh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m1b(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m1b'
+        caption = 'Table B8-M1b. Monthly Heating Loads (kWh), Case 900'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['monthly_conditioned_zone_loads']['900'][month]['total_heating_kwh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m2a(self):  # case 600
+        figure_name = 'section_5_2_table_b8_m2a'
+        caption = 'Table B8-M2a. Monthly Sensible Cooling Loads (kWh), Case 600'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['monthly_conditioned_zone_loads']['600'][month]['total_cooling_kwh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m2b(self):
+        figure_name = 'section_5_2_table_b8_m2b'
+        caption = 'Table B8-M2b. Monthly Sensible Cooling Loads (kWh), Case 900'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['monthly_conditioned_zone_loads']['900'][month]['total_cooling_kwh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m3a(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m3a'
+        caption = 'Table B8-M3a. Monthly Hourly Integrated Peak Heating Loads (kW), Case 600'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['600'][month]
+                data_row.append(monthly_results['peak_heating_kw'])
+                day = int(monthly_results['peak_heating_day'])
+                hour = int(monthly_results['peak_heating_hour'])
+                time_stamp_row.append(f'{day}-{hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m3b(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m3b'
+        caption = 'Table B8-M3b. Monthly Hourly Integrated Peak Heating Loads (kW), Case 900'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['900'][month]
+                data_row.append(monthly_results['peak_heating_kw'])
+                day = self._int_0_if_nan(monthly_results['peak_heating_day'])
+                hour = self._int_0_if_nan(monthly_results['peak_heating_hour'])
+                time_stamp_row.append(f'{day}-{hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m4a(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m4a'
+        caption = 'Table B8-M4a. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 600'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['600'][month]
+                data_row.append(monthly_results['peak_cooling_kw'])
+                day = int(monthly_results['peak_cooling_day'])
+                hour = int(monthly_results['peak_cooling_hour'])
+                time_stamp_row.append(f'{day}-{hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m4b(self):  # case 900
+        figure_name = 'section_5_2_table_b8_m4b'
+        caption = 'Table B8-M4b. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 900'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            data_row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                monthly_results = json_obj['monthly_conditioned_zone_loads']['900'][month]
+                data_row.append(monthly_results['peak_cooling_kw'])
+                day = self._int_0_if_nan(monthly_results['peak_cooling_day'])
+                hour = self._int_0_if_nan(monthly_results['peak_cooling_hour'])
+                time_stamp_row.append(f'{day}-{hour}')
+            data_table.append(data_row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3, time_stamps=time_stamp_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m5a(self):  # case 600
+        figure_name = 'section_5_2_table_b8_m5a'
+        caption = 'Table B8-M5a. Monthly Load 600-900 Sensitivity Tests - Annual Heating (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['monthly_conditioned_zone_loads']['600'][month][
+                    'total_heating_kwh'] - json_obj['monthly_conditioned_zone_loads'][
+                    '900'][month]['total_heating_kwh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m5b(self):
+        figure_name = 'section_5_2_table_b8_m5b'
+        caption = 'Table B8-M5b. Monthly Load 600-900 Sensitivity Tests - Annual Sensible Cooling (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['monthly_conditioned_zone_loads']['600'][month][
+                    'total_cooling_kwh'] - json_obj['monthly_conditioned_zone_loads'][
+                    '900'][month]['total_cooling_kwh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m5c(self):
+        figure_name = 'section_5_2_table_b8_m5c'
+        caption = 'Table B8-M5c. Monthly Load 600-900 Sensitivity Tests - Peak Heating (kW)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                value_600 = float(json_obj['monthly_conditioned_zone_loads']['600'][month]['peak_heating_kw'])
+                value_900 = float(json_obj['monthly_conditioned_zone_loads']['900'][month]['peak_heating_kw'])
+                if math.isnan(value_600) or math.isnan(value_900):
+                    row.append(math.nan)
+                else:
+                    row.append(value_600 - value_900)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, 3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_5_2a_table_b8_m5d(self):
+        figure_name = 'section_5_2_table_b8_m5d'
+        caption = 'Table B8-M5d. Monthly Load 600-900 Sensitivity Tests - Peak Sensible Cooling (kW)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        column_headings = ['Month']
+        # create column headings
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        # create table of values
+        for month in row_headings:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                value_600 = float(json_obj['monthly_conditioned_zone_loads']['600'][month]['peak_cooling_kw'])
+                value_900 = float(json_obj['monthly_conditioned_zone_loads']['900'][month]['peak_cooling_kw'])
+                if math.isnan(value_600) or math.isnan(value_900):
+                    row.append(math.nan)
+                else:
+                    row.append(value_600 - value_900)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, 3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return

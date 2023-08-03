@@ -7,13 +7,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-18.04
-            python: python3
-            pip_arg: ""
           - os: ubuntu-20.04
             python: python3
             pip_arg: ""
-          - os: macos-10.15
+          - os: macos-11
             python: python3
             pip_arg: ""
           - os: windows-2019
@@ -24,10 +21,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.7
+    - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: 3.8
     - name: Install Pip Dependencies
       shell: bash
       run: pip install ${{ matrix.pip_arg }} -r requirements.txt

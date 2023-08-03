@@ -1343,11 +1343,13 @@
             },
             "Maximum": {
                 "C": NaN,
+                "Day": NaN,
                 "Hour": NaN,
                 "Month": NaN
             },
             "Minimum": {
                 "C": NaN,
+                "Day": NaN,
                 "Hour": NaN,
                 "Month": NaN
             }
