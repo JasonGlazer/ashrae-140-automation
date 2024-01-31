@@ -77,7 +77,7 @@ jobs:
       - name: List all modified files
         env: 
           ALL_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_modified_files }}
-         run: |
+        run: |
           for file in "$ALL_MODIFIED_FILES"; do
             echo "$file was modified"
           done
