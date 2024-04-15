@@ -6,7 +6,7 @@ from src.descriptors import VerifyInputFile
 
 root_directory = pathlib.Path(__file__).parent.parent.resolve()
 program_file_names = [
-    'test-0.0.0-std14_tf_results.json',
+    'test-0.0.0-std14_tf_output.json',
 ]
 
 

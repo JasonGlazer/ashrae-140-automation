@@ -127,23 +127,23 @@ class GraphicsRenderer(Logger):
         if not base_model_list:
             if self.section_type == 'TF':
                 self.baseline_model_list = [
-                    root_directory.joinpath('processed', 'bsimac', '9.9.0.7.4', 'std140_tf_results.json'),
-                    root_directory.joinpath('processed', 'cse', '0.861.1', 'std140_tf_results.json'),
-                    root_directory.joinpath('processed', 'dest', '2.0.20190401', 'std140_tf_results.json'),
-                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'std140_tf_results.json'),
-                    root_directory.joinpath('processed', 'esp-r', '13.3', 'std140_tf_results.json'),
-                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'std140_tf_results.json')]
+                    root_directory.joinpath('processed', 'bsimac', '9.9.0.7.4', 'std140_tf_output.json'),
+                    root_directory.joinpath('processed', 'cse', '0.861.1', 'std140_tf_output.json'),
+                    root_directory.joinpath('processed', 'dest', '2.0.20190401', 'std140_tf_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'std140_tf_output.json'),
+                    root_directory.joinpath('processed', 'esp-r', '13.3', 'std140_tf_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'std140_tf_output.json')]
             elif self.section_type == 'GC':
                 self.baseline_model_list = [
-                    root_directory.joinpath('processed', 'basecalc', 'v1.0e', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'esp-r', '13.3', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'fluent', '6.1', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'ght', '2.02', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'matlab', '7.0.4.365-r14-sp2', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'sunrel-gc', '1.14.02', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'std140_gc_results.json'),
-                    root_directory.joinpath('processed', 'va114', '2.20', 'std140_gc_results.json')
+                    root_directory.joinpath('processed', 'basecalc', 'v1.0e', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'esp-r', '13.3', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'fluent', '6.1', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'ght', '2.02', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'matlab', '7.0.4.365-r14-sp2', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'sunrel-gc', '1.14.02', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'std140_gc_output.json'),
+                    root_directory.joinpath('processed', 'va114', '2.20', 'std140_gc_output.json')
                 ]
         else:
             self.baseline_model_list = base_model_list
@@ -729,7 +729,7 @@ class GraphicsRenderer(Logger):
                 list_out.append('')
         return list_out
 
-    def render_section_5_2a_figure_b8_1(self):
+    def render_section_tf_figure_b8_1(self):
         """
         Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -756,7 +756,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_1')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_2(self):
+    def render_section_tf_figure_b8_2(self):
         """
         Render Section 5 2A Figure B8-2 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -788,7 +788,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_2')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_3(self):
+    def render_section_tf_figure_b8_3(self):
         """
         Render Section 5 2A Figure B8-3 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -820,7 +820,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_3')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_4(self):
+    def render_section_tf_figure_b8_4(self):
         """
         Render Section 5 2A Figure B8-4 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -855,7 +855,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_4')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_5(self):
+    def render_section_tf_figure_b8_5(self):
         """
         Render Section 5 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -889,7 +889,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_5')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_6(self):
+    def render_section_tf_figure_b8_6(self):
         """
         Render Section 6 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -923,7 +923,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_6')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_7(self):
+    def render_section_tf_figure_b8_7(self):
         """
         Render Section 5 2A Figure B8-7 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -952,7 +952,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_7')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_8(self):
+    def render_section_tf_figure_b8_8(self):
         """
         Render Section 5 2A Figure B8-8 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -980,7 +980,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_8')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_9(self):
+    def render_section_tf_figure_b8_9(self):
         """
         Render Section 5 2A Figure B8-9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1008,7 +1008,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_9')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_10(self):
+    def render_section_tf_figure_b8_10(self):
         """
         Render Section 5 2A Figure B8-10 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1036,7 +1036,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_10')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_11(self):
+    def render_section_tf_figure_b8_11(self):
         """
         Render Section 5 2A Figure B8-11 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1064,7 +1064,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_11')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_12(self):
+    def render_section_tf_figure_b8_12(self):
         """
         Render Section 5 2A Figure B8-12 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1092,7 +1092,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_12')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_13(self):
+    def render_section_tf_figure_b8_13(self):
         """
         Render Section 5 2A Figure B8-13 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1120,7 +1120,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_13')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_14(self):
+    def render_section_tf_figure_b8_14(self):
         """
         Render Section 5 2A Figure B8-14 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1148,7 +1148,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_14')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_15(self):
+    def render_section_tf_figure_b8_15(self):
         """
         Render Section 5 2A Figure B8-15 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1196,7 +1196,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_15')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_16(self):
+    def render_section_tf_figure_b8_16(self):
         """
         Render Section 5 2A Figure B8-16 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1245,7 +1245,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_16')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_17(self):
+    def render_section_tf_figure_b8_17(self):
         """
         Render Section 5 2A Figure B8-17 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1382,7 +1382,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_17')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_18(self):
+    def render_section_tf_figure_b8_18(self):
         """
         Render Section 5 2A Figure B8-18 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1520,7 +1520,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_18')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_19(self):
+    def render_section_tf_figure_b8_19(self):
         """
         Render Section 5 2A Figure B8-19 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1610,7 +1610,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_19')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_20(self):
+    def render_section_tf_figure_b8_20(self):
         """
         Render Section 5 2A Figure B8-20 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1699,7 +1699,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_20')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_21(self):
+    def render_section_tf_figure_b8_21(self):
         """
         Render Section 5 2A Figure B8-21 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1769,7 +1769,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_21')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_22(self):
+    def render_section_tf_figure_b8_22(self):
         """
         Render Section 5 2A Figure B8-22 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1839,7 +1839,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_22')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_23(self):
+    def render_section_tf_figure_b8_23(self):
         """
         Render Section 5 2A Figure B8-23 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -1922,7 +1922,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_23')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_24(self):
+    def render_section_tf_figure_b8_24(self):
         """
         Render Section 5 2A Figure B8-24 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2005,7 +2005,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_24')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_25(self):
+    def render_section_tf_figure_b8_25(self):
         """
         Render Section 5 2A Figure B8-25 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2088,7 +2088,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_25')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_26(self):
+    def render_section_tf_figure_b8_26(self):
         """
         Render Section 5 2A Figure B8-26 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2171,7 +2171,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_26')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_27(self):
+    def render_section_tf_figure_b8_27(self):
         """
         Render Section 5 2A Figure B8-27 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2236,7 +2236,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_27')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_28(self):
+    def render_section_tf_figure_b8_28(self):
         """
         Render Section 5 2A Figure B8-28 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2301,7 +2301,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_28')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_29(self):
+    def render_section_tf_figure_b8_29(self):
         """
         Render Section 5 2A Figure B8-29 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2432,7 +2432,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_29')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_30(self):
+    def render_section_tf_figure_b8_30(self):
         """
         Render Section 5 2A Figure B8-30 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2564,7 +2564,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_30')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_31(self):
+    def render_section_tf_figure_b8_31(self):
         """
         Render Section 5 2A Figure B8-31 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2635,7 +2635,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_31')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_32(self):
+    def render_section_tf_figure_b8_32(self):
         """
         Render Section 5 2A Figure B8-32 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2705,7 +2705,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_32')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_33(self):
+    def render_section_tf_figure_b8_33(self):
         """
         Render Section 5 2A Figure B8-33 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2732,7 +2732,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_33')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_34(self):
+    def render_section_tf_figure_b8_34(self):
         """
         Render Section 5 2A Figure B8-34 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2759,7 +2759,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_34')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_35(self):
+    def render_section_tf_figure_b8_35(self):
         """
         Render Section 5 2A Figure B8-35 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2786,7 +2786,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_35')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_36(self):
+    def render_section_tf_figure_b8_36(self):
         """
         Render Section 5 2A Figure B8-36 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2815,7 +2815,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_36')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_37(self):
+    def render_section_tf_figure_b8_37(self):
         """
         Render Section 5 2A Figure B8-37 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2844,7 +2844,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_37')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_38(self):
+    def render_section_tf_figure_b8_38(self):
         """
         Render Section 5 2A Figure B8-38 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2873,7 +2873,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_38')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_39(self):
+    def render_section_tf_figure_b8_39(self):
         """
         Render Section 5 2A Figure B8-39 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2902,7 +2902,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_39')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_40(self):
+    def render_section_tf_figure_b8_40(self):
         """
         Render Section 5 2A Figure B8-40 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2931,7 +2931,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_40')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_41(self):
+    def render_section_tf_figure_b8_41(self):
         """
         Render Section 5 2A Figure B8-41 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2960,7 +2960,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_41')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_42(self):
+    def render_section_tf_figure_b8_42(self):
         """
         Render Section 5 2A Figure B8-42 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -2989,7 +2989,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_42')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_43(self):
+    def render_section_tf_figure_b8_43(self):
         """
         Render Section 5 2A Figure B8-43 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3018,7 +3018,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_43')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_44(self):
+    def render_section_tf_figure_b8_44(self):
         """
         Render Section 5 2A Figure B8-44 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3096,7 +3096,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_44')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_45(self):
+    def render_section_tf_figure_b8_45(self):
         """
         Render Section 5 2A Figure B8-45 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3175,7 +3175,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_45')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_46(self):
+    def render_section_tf_figure_b8_46(self):
         """
         Render Section 5 2A Figure B8-46 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3254,7 +3254,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_46')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_47(self):
+    def render_section_tf_figure_b8_47(self):
         """
         Render Section 5 2A Figure B8-47 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3319,7 +3319,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_47')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_48(self):
+    def render_section_tf_figure_b8_48(self):
         """
         Render Section 5 2A Figure B8-48 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3391,7 +3391,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_48')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_49(self):
+    def render_section_tf_figure_b8_49(self):
         """
         Render Section 5 2A Figure B8-49 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3447,7 +3447,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_49')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_50(self):
+    def render_section_tf_figure_b8_50(self):
         """
         Render Section 5 2A Figure B8-50 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3476,7 +3476,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_50')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_51(self):
+    def render_section_tf_figure_b8_51(self):
         """
         Render Section 5 2A Figure B8-51 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3505,7 +3505,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_51')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_52(self):
+    def render_section_tf_figure_b8_52(self):
         """
         Render Section 5 2A Figure B8-52 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3534,7 +3534,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_52')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_53(self):
+    def render_section_tf_figure_b8_53(self):
         """
         Render Section 5 2A Figure B8-53 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3563,7 +3563,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_53')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_54(self):
+    def render_section_tf_figure_b8_54(self):
         """
         Render Section 5 2A Figure B8-54 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3663,7 +3663,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_54')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_55(self):
+    def render_section_tf_figure_b8_55(self):
         """
         Render Section 5 2A Figure B8-55 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3756,7 +3756,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_55')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_56(self):
+    def render_section_tf_figure_b8_56(self):
         """
         Render Section 5 2A Figure B8-56 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3802,7 +3802,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_56')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_57(self):
+    def render_section_tf_figure_b8_57(self):
         """
         Render Section 5 2A Figure B8-57 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3848,7 +3848,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_57')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_58(self):
+    def render_section_tf_figure_b8_58(self):
         """
         Render Section 5 2A Figure B8-58 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -3942,7 +3942,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_58')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_59(self):
+    def render_section_tf_figure_b8_59(self):
         """
         Render Section 5 2A Figure B8-59 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4036,7 +4036,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_59')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m1(self):
+    def render_section_tf_figure_b8_m1(self):
         """
         Render Section 5 2A Figure B8-M1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4066,7 +4066,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m1')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m2(self):
+    def render_section_tf_figure_b8_m2(self):
         """
         Render Section 5 2A Figure B8-M2 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4096,7 +4096,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m2')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m3(self):
+    def render_section_tf_figure_b8_m3(self):
         """
         Render Section 5 2A Figure B8-M3 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4126,7 +4126,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m3')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m4(self):
+    def render_section_tf_figure_b8_m4(self):
         """
         Render Section 5 2A Figure B8-M4 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4156,7 +4156,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m4')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m5(self):
+    def render_section_tf_figure_b8_m5(self):
         """
         Render Section 5 2A Figure B8-M5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4186,7 +4186,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m5')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m6(self):
+    def render_section_tf_figure_b8_m6(self):
         """
         Render Section 5 2A Figure B8-M6 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4216,7 +4216,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m6')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m7(self):
+    def render_section_tf_figure_b8_m7(self):
         """
         Render Section 5 2A Figure B8-M7 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4246,7 +4246,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m7')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m8(self):
+    def render_section_tf_figure_b8_m8(self):
         """
         Render Section 5 2A Figure B8-M8 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4276,7 +4276,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m8')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m9(self):
+    def render_section_tf_figure_b8_m9(self):
         """
         Render Section 5 2A Figure B8-M9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4308,7 +4308,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m9')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m10(self):
+    def render_section_tf_figure_b8_m10(self):
         """
         Render Section 5 2A Figure B8-M10 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4340,7 +4340,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m10')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m11(self):
+    def render_section_tf_figure_b8_m11(self):
         """
         Render Section 5 2A Figure B8-M11 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4372,7 +4372,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m11')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_m12(self):
+    def render_section_tf_figure_b8_m12(self):
         """
         Render Section 5 2A Figure B8-M12 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4404,7 +4404,7 @@ class GraphicsRenderer(Logger):
             image_name='section_5_2_a_figure_b8_m12')
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h1(self):
+    def render_section_tf_figure_b8_h1(self):
         """
         Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4444,7 +4444,7 @@ class GraphicsRenderer(Logger):
         ax.annotate(r'Hourly Occurrences for Each 1 $^\circ$C Bin', (0, 450), fontsize=12)
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h2(self):
+    def render_section_tf_figure_b8_h2(self):
         """
         Render Section 5 2A Figure B8-H2 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4489,7 +4489,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h3(self):
+    def render_section_tf_figure_b8_h3(self):
         """
         Render Section 5 2A Figure B8-H3 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4534,7 +4534,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h4(self):
+    def render_section_tf_figure_b8_h4(self):
         """
         Render Section 5 2A Figure B8-H4 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4579,7 +4579,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h5(self):
+    def render_section_tf_figure_b8_h5(self):
         """
         Render Section 5 2A Figure B8-H5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4630,7 +4630,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h6(self):
+    def render_section_tf_figure_b8_h6(self):
         """
         Render Section 5 2A Figure B8-H6 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4671,7 +4671,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h7(self):
+    def render_section_tf_figure_b8_h7(self):
         """
         Render Section 5 2A Figure B8-H7 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4718,7 +4718,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h8(self):
+    def render_section_tf_figure_b8_h8(self):
         """
         Render Section 5 2A Figure B8-H8 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4759,7 +4759,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h9(self):
+    def render_section_tf_figure_b8_h9(self):
         """
         Render Section 5 2A Figure B8-H9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4806,7 +4806,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h10(self):
+    def render_section_tf_figure_b8_h10(self):
         """
         Render Section 5 2A Figure B8-H10 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4851,7 +4851,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h11(self):
+    def render_section_tf_figure_b8_h11(self):
         """
         Render Section 5 2A Figure B8-H11 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4896,7 +4896,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h12(self):
+    def render_section_tf_figure_b8_h12(self):
         """
         Render Section 5 2A Figure B8-H12 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4941,7 +4941,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h13(self):
+    def render_section_tf_figure_b8_h13(self):
         """
         Render Section 5 2A Figure B8-H13 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -4986,7 +4986,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h14(self):
+    def render_section_tf_figure_b8_h14(self):
         """
         Render Section 5 2A Figure B8-H14 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5031,7 +5031,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h15(self):
+    def render_section_tf_figure_b8_h15(self):
         """
         Render Section 5 2A Figure B8-H15 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5070,7 +5070,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h16(self):
+    def render_section_tf_figure_b8_h16(self):
         """
         Render Section 5 2A Figure B8-H16 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5109,7 +5109,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h17(self):
+    def render_section_tf_figure_b8_h17(self):
         """
         Render Section 5 2A Figure B8-H17 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5152,7 +5152,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 16}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h18(self):
+    def render_section_tf_figure_b8_h18(self):
         """
         Render Section 5 2A Figure B8-H18 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5191,7 +5191,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h19(self):
+    def render_section_tf_figure_b8_h19(self):
         """
         Render Section 5 2A Figure B8-H19 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5234,7 +5234,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 16}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h20(self):
+    def render_section_tf_figure_b8_h20(self):
         """
         Render Section 5 2A Figure B8-H20 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5273,7 +5273,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h21(self):
+    def render_section_tf_figure_b8_h21(self):
         """
         Render Section 5 2A Figure B8-H21 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5312,7 +5312,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h22(self):
+    def render_section_tf_figure_b8_h22(self):
         """
         Render Section 5 2A Figure B8-H22 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5351,7 +5351,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h23(self):
+    def render_section_tf_figure_b8_h23(self):
         """
         Render Section 5 2A Figure B8-H23 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5390,7 +5390,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h24(self):
+    def render_section_tf_figure_b8_h24(self):
         """
         Render Section 5 2A Figure B8-H24 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5429,7 +5429,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h25(self):
+    def render_section_tf_figure_b8_h25(self):
         """
         Render Section 5 2A Figure B8-H25 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5468,7 +5468,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h26(self):
+    def render_section_tf_figure_b8_h26(self):
         """
         Render Section 5 2A Figure B8-H26 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5507,7 +5507,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h27(self):
+    def render_section_tf_figure_b8_h27(self):
         """
         Render Section 5 2A Figure B8-H27 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5546,7 +5546,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h28(self):
+    def render_section_tf_figure_b8_h28(self):
         """
         Render Section 5 2A Figure B8-H28 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5585,7 +5585,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h29(self):
+    def render_section_tf_figure_b8_h29(self):
         """
         Render Section 5 2A Figure B8-H29 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5624,7 +5624,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h30(self):
+    def render_section_tf_figure_b8_h30(self):
         """
         Render Section 5 2A Figure B8-H30 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5663,7 +5663,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h31(self):
+    def render_section_tf_figure_b8_h31(self):
         """
         Render Section 5 2A Figure B8-H31 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5702,7 +5702,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h32(self):
+    def render_section_tf_figure_b8_h32(self):
         """
         Render Section 5 2A Figure B8-H32 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5741,7 +5741,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h33(self):
+    def render_section_tf_figure_b8_h33(self):
         """
         Render Section 5 2A Figure B8-H33 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5780,7 +5780,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h34(self):
+    def render_section_tf_figure_b8_h34(self):
         """
         Render Section 5 2A Figure B8-H34 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5819,7 +5819,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h35(self):
+    def render_section_tf_figure_b8_h35(self):
         """
         Render Section 5 2A Figure B8-H35 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5858,7 +5858,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h36(self):
+    def render_section_tf_figure_b8_h36(self):
         """
         Render Section 5 2A Figure B8-H36 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5897,7 +5897,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h37(self):
+    def render_section_tf_figure_b8_h37(self):
         """
         Render Section 5 2A Figure B8-H37 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -5936,7 +5936,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    def render_section_5_2a_figure_b8_h38(self):
+    def render_section_tf_figure_b8_h38(self):
         """
         Render Section 5 2A Figure B8-H38 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
@@ -6048,7 +6048,7 @@ class GraphicsRenderer(Logger):
 
         return fig, ax
 
-    def render_section_5_2a_table_b8_16_alt(self):
+    def render_section_tf_table_b8_16_alt(self):
         figure_name = 'section_5_2_table_b8_16_alt'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -6152,7 +6152,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, string_table, footnotes)
         return
 
-    def render_section_5_2a_table_b8_1(self):
+    def render_section_tf_table_b8_1(self):
         figure_name = 'section_5_2_table_b8_01'
         caption = 'Table B8-1. Annual Heating Loads (kWh)'
         data_table = []
@@ -6173,7 +6173,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_2(self):
+    def render_section_tf_table_b8_2(self):
         figure_name = 'section_5_2_table_b8_02'
         caption = 'Table B8-2. Annual Sensible Cooling Loads (kWh)'
         data_table = []
@@ -6194,7 +6194,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_3(self):
+    def render_section_tf_table_b8_3(self):
         figure_name = 'section_5_2_table_b8_03'
         caption = 'Table B8-3. Annual Hourly Integrated Peak Heating Loads (kWh)'
         data_table = []
@@ -6224,7 +6224,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_4(self):
+    def render_section_tf_table_b8_4(self):
         figure_name = 'section_5_2_table_b8_04'
         caption = 'Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)'
         data_table = []
@@ -6254,7 +6254,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_5a(self):
+    def render_section_tf_table_b8_5a(self):
         figure_name = 'section_5_2_table_b8_05a'
         caption = 'Table B8-5a. Free-Float Temperature Output Maximum Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
@@ -6288,7 +6288,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_5b(self):
+    def render_section_tf_table_b8_5b(self):
         figure_name = 'section_5_2_table_b8_05b'
         caption = 'Table B8-5b. Free-Float Temperature Output Minimum Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
@@ -6322,7 +6322,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_5c(self):
+    def render_section_tf_table_b8_5c(self):
         figure_name = 'section_5_2_table_b8_05c'
         caption = 'Table B8-5c. Free-Float Temperature Output Average Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
@@ -6349,7 +6349,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_6a(self):
+    def render_section_tf_table_b8_6a(self):
         figure_name = 'section_5_2_table_b8_06a'
         caption = 'Table B8-6a. Low Mass Basic Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
@@ -6382,7 +6382,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_6b(self):
+    def render_section_tf_table_b8_6b(self):
         figure_name = 'section_5_2_table_b8_06b'
         caption = 'Table B8-6b. Low Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
@@ -6416,7 +6416,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_6c(self):
+    def render_section_tf_table_b8_6c(self):
         figure_name = 'section_5_2_table_b8_06c'
         caption = 'Table B8-6c. Low Mass Basic Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
@@ -6449,7 +6449,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_6d(self):
+    def render_section_tf_table_b8_6d(self):
         figure_name = 'section_5_2_table_b8_06d'
         caption = 'Table B8-6d. Low Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
@@ -6483,7 +6483,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_7a(self):
+    def render_section_tf_table_b8_7a(self):
         figure_name = 'section_5_2_table_b8_07a'
         caption = 'Table B8-7a. High Mass Basic Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
@@ -6516,7 +6516,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_7b(self):
+    def render_section_tf_table_b8_7b(self):
         figure_name = 'section_5_2_table_b8_07b'
         caption = 'Table B8-7b. High Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
@@ -6550,7 +6550,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_7c(self):
+    def render_section_tf_table_b8_7c(self):
         figure_name = 'section_5_2_table_b8_07c'
         caption = 'Table B8-7c. High Mass Basic Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
@@ -6583,7 +6583,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_7d(self):
+    def render_section_tf_table_b8_7d(self):
         figure_name = 'section_5_2_table_b8_07d'
         caption = 'Table B8-7d. High Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
@@ -6617,7 +6617,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_8a(self):
+    def render_section_tf_table_b8_8a(self):
         figure_name = 'section_5_2_table_b8_08a'
         caption = 'Table B8-8a. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
@@ -6655,7 +6655,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_8b(self):
+    def render_section_tf_table_b8_8b(self):
         figure_name = 'section_5_2_table_b8_08b'
         caption = 'Table B8-8b. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
@@ -6693,7 +6693,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_8c(self):
+    def render_section_tf_table_b8_8c(self):
         figure_name = 'section_5_2_table_b8_08c'
         caption = 'Table B8-8c. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
@@ -6731,7 +6731,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_8d(self):
+    def render_section_tf_table_b8_8d(self):
         figure_name = 'section_5_2_table_b8_08d'
         caption = 'Table B8-8d. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
@@ -6769,7 +6769,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_9a(self):
+    def render_section_tf_table_b8_9a(self):
         figure_name = 'section_5_2_table_b8_09a'
         caption = 'Table B8-9a. Low Mass In-Depth (Cases 395 thru 440) sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
@@ -6804,7 +6804,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_9b(self):
+    def render_section_tf_table_b8_9b(self):
         figure_name = 'section_5_2_table_b8_09b'
         caption = 'Table B8-9b. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
@@ -6839,7 +6839,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_9c(self):
+    def render_section_tf_table_b8_9c(self):
         figure_name = 'section_5_2_table_b8_09c'
         caption = 'Table B8-9c. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
@@ -6874,7 +6874,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_9d(self):
+    def render_section_tf_table_b8_9d(self):
         figure_name = 'section_5_2_table_b8_09d'
         caption = 'Table B8-9d. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
@@ -6909,7 +6909,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_10a(self):
+    def render_section_tf_table_b8_10a(self):
         figure_name = 'section_5_2_table_b8_10a'
         caption = 'Table B8-10a. High Mass Basic and In-Depth Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
@@ -6943,7 +6943,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_10b(self):
+    def render_section_tf_table_b8_10b(self):
         figure_name = 'section_5_2_table_b8_10b'
         caption = 'Table B8-10b. High Mass Basic and In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
@@ -6978,7 +6978,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_10c(self):
+    def render_section_tf_table_b8_10c(self):
         figure_name = 'section_5_2_table_b8_10c'
         caption = 'Table B8-10c. High Mass Basic and In-Depth Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
@@ -7012,7 +7012,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_10d(self):
+    def render_section_tf_table_b8_10d(self):
         figure_name = 'section_5_2_table_b8_10d'
         caption = 'Table B8-10d. High Mass Basic and In-Depth Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
@@ -7047,7 +7047,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_11(self):
+    def render_section_tf_table_b8_11(self):
         figure_name = 'section_5_2_table_b8_11'
         caption = 'Table B8-11. Annual Transmissivity Coefficient of Windows'
         transmitted_cases = {
@@ -7077,7 +7077,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_12(self):
+    def render_section_tf_table_b8_12(self):
         figure_name = 'section_5_2_table_b8_12'
         caption = 'Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'
         coefficient_cases = {
@@ -7104,7 +7104,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_13(self):
+    def render_section_tf_table_b8_13(self):
         figure_name = 'section_5_2_table_b8_13'
         caption = 'Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)'
         directions = {
@@ -7129,7 +7129,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_14(self):
+    def render_section_tf_table_b8_14(self):
         figure_name = 'section_5_2_table_b8_14'
         caption = 'Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)'
         transmitted_cases = {
@@ -7153,7 +7153,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_15(self):
+    def render_section_tf_table_b8_15(self):
         figure_name = 'section_5_2_table_b8_15'
         caption = 'Table B8-15. Annual Transmitted Solar Radiation - Shaded (kWh/m2)'
         transmitted_cases = {
@@ -7175,7 +7175,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_16(self):
+    def render_section_tf_table_b8_16(self):
         figure_name = 'section_5_2_table_b8_16'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
         cases = {
@@ -7218,7 +7218,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m1a(self):  # case 600
+    def render_section_tf_table_b8_m1a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m1a'
         caption = 'Table B8-M1a. Monthly Heating Loads (kWh), Case 600'
         data_table = []
@@ -7238,7 +7238,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m1b(self):  # case 900
+    def render_section_tf_table_b8_m1b(self):  # case 900
         figure_name = 'section_5_2_table_b8_m1b'
         caption = 'Table B8-M1b. Monthly Heating Loads (kWh), Case 900'
         data_table = []
@@ -7258,7 +7258,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m2a(self):  # case 600
+    def render_section_tf_table_b8_m2a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m2a'
         caption = 'Table B8-M2a. Monthly Sensible Cooling Loads (kWh), Case 600'
         data_table = []
@@ -7278,7 +7278,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m2b(self):
+    def render_section_tf_table_b8_m2b(self):
         figure_name = 'section_5_2_table_b8_m2b'
         caption = 'Table B8-M2b. Monthly Sensible Cooling Loads (kWh), Case 900'
         data_table = []
@@ -7298,7 +7298,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m3a(self):  # case 900
+    def render_section_tf_table_b8_m3a(self):  # case 900
         figure_name = 'section_5_2_table_b8_m3a'
         caption = 'Table B8-M3a. Monthly Hourly Integrated Peak Heating Loads (kW), Case 600'
         data_table = []
@@ -7325,7 +7325,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m3b(self):  # case 900
+    def render_section_tf_table_b8_m3b(self):  # case 900
         figure_name = 'section_5_2_table_b8_m3b'
         caption = 'Table B8-M3b. Monthly Hourly Integrated Peak Heating Loads (kW), Case 900'
         data_table = []
@@ -7352,7 +7352,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m4a(self):  # case 900
+    def render_section_tf_table_b8_m4a(self):  # case 900
         figure_name = 'section_5_2_table_b8_m4a'
         caption = 'Table B8-M4a. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 600'
         data_table = []
@@ -7379,7 +7379,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m4b(self):  # case 900
+    def render_section_tf_table_b8_m4b(self):  # case 900
         figure_name = 'section_5_2_table_b8_m4b'
         caption = 'Table B8-M4b. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 900'
         data_table = []
@@ -7406,7 +7406,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m5a(self):  # case 600
+    def render_section_tf_table_b8_m5a(self):  # case 600
         figure_name = 'section_5_2_table_b8_m5a'
         caption = 'Table B8-M5a. Monthly Load 600-900 Sensitivity Tests - Annual Heating (kWh)'
         data_table = []
@@ -7428,7 +7428,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m5b(self):
+    def render_section_tf_table_b8_m5b(self):
         figure_name = 'section_5_2_table_b8_m5b'
         caption = 'Table B8-M5b. Monthly Load 600-900 Sensitivity Tests - Annual Sensible Cooling (kWh)'
         data_table = []
@@ -7450,7 +7450,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m5c(self):
+    def render_section_tf_table_b8_m5c(self):
         figure_name = 'section_5_2_table_b8_m5c'
         caption = 'Table B8-M5c. Monthly Load 600-900 Sensitivity Tests - Peak Heating (kW)'
         data_table = []
@@ -7475,7 +7475,7 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
-    def render_section_5_2a_table_b8_m5d(self):
+    def render_section_tf_table_b8_m5d(self):
         figure_name = 'section_5_2_table_b8_m5d'
         caption = 'Table B8-M5d. Monthly Load 600-900 Sensitivity Tests - Peak Sensible Cooling (kW)'
         data_table = []
