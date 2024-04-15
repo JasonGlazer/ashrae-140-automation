@@ -731,7 +731,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_1(self):
         """
-        Render Section 5 2A Figure B8-1 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -758,7 +758,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_2(self):
         """
-        Render Section 5 2A Figure B8-2 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-2 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -790,7 +790,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_3(self):
         """
-        Render Section 5 2A Figure B8-3 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-3 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -822,7 +822,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_4(self):
         """
-        Render Section 5 2A Figure B8-4 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-4 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -857,7 +857,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_5(self):
         """
-        Render Section 5 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -891,7 +891,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_6(self):
         """
-        Render Section 6 2A Figure B8-5 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -925,7 +925,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_7(self):
         """
-        Render Section 5 2A Figure B8-7 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-7 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['395', '430', '600', '610', '620', '630', '640', '650']
@@ -954,7 +954,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_8(self):
         """
-        Render Section 5 2A Figure B8-8 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-8 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['395', '430', '600', '610', '620', '630', '640', '650']
@@ -982,7 +982,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_9(self):
         """
-        Render Section 5 2A Figure B8-9 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['395', '430', '600', '610', '620', '630', '640', '650']
@@ -1010,7 +1010,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_10(self):
         """
-        Render Section 5 2A Figure B8-10 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-10 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['395', '430', '600', '610', '620', '630', '640', '650']
@@ -1038,7 +1038,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_11(self):
         """
-        Render Section 5 2A Figure B8-11 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-11 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['800', '900', '910', '920', '930', '940', '950', '960']
@@ -1066,7 +1066,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_12(self):
         """
-        Render Section 5 2A Figure B8-12 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-12 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['800', '900', '910', '920', '930', '940', '950', '960']
@@ -1094,7 +1094,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_13(self):
         """
-        Render Section 5 2A Figure B8-13 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-13 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['800', '900', '910', '920', '930', '940', '950', '960']
@@ -1122,7 +1122,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_14(self):
         """
-        Render Section 5 2A Figure B8-14 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-14 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['800', '900', '910', '920', '930', '940', '950', '960']
@@ -1150,7 +1150,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_15(self):
         """
-        Render Section 5 2A Figure B8-15 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-15 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -1198,7 +1198,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_16(self):
         """
-        Render Section 5 2A Figure B8-16 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-16 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -1247,7 +1247,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_17(self):
         """
-        Render Section 5 2A Figure B8-17 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-17 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(3)]
@@ -1384,7 +1384,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_18(self):
         """
-        Render Section 5 2A Figure B8-18 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-18 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(3)]
@@ -1522,7 +1522,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_19(self):
         """
-        Render Section 5 2A Figure B8-19 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-19 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(3)]
@@ -1612,7 +1612,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_20(self):
         """
-        Render Section 5 2A Figure B8-20 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-20 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(3)]
@@ -1701,7 +1701,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_21(self):
         """
-        Render Section 5 2A Figure B8-21 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-21 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -1771,7 +1771,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_22(self):
         """
-        Render Section 5 2A Figure B8-22 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-22 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -1841,7 +1841,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_23(self):
         """
-        Render Section 5 2A Figure B8-23 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-23 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['600', '660', '670', '680', '685', '695', '900', '980', '985', '995']
@@ -1924,7 +1924,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_24(self):
         """
-        Render Section 5 2A Figure B8-24 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-24 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['600', '660', '670', '680', '685', '695', '900', '980', '985', '995']
@@ -2007,7 +2007,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_25(self):
         """
-        Render Section 5 2A Figure B8-25 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-25 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['600', '660', '670', '680', '685', '695', '900', '980', '985', '995']
@@ -2090,7 +2090,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_26(self):
         """
-        Render Section 5 2A Figure B8-26 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-26 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['600', '660', '670', '680', '685', '695', '900', '980', '985', '995']
@@ -2173,7 +2173,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_27(self):
         """
-        Render Section 5 2A Figure B8-27 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-27 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(2)]
@@ -2238,7 +2238,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_28(self):
         """
-        Render Section 5 2A Figure B8-28 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-28 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(2)]
@@ -2303,7 +2303,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_29(self):
         """
-        Render Section 5 2A Figure B8-29 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-29 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(2)]
@@ -2434,7 +2434,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_30(self):
         """
-        Render Section 5 2A Figure B8-30 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-30 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_lists = [[] for _ in range(2)]
@@ -2566,7 +2566,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_31(self):
         """
-        Render Section 5 2A Figure B8-31 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-31 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -2637,7 +2637,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_32(self):
         """
-        Render Section 5 2A Figure B8-32 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-32 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -2707,7 +2707,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_33(self):
         """
-        Render Section 5 2A Figure B8-33 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-33 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -2734,7 +2734,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_34(self):
         """
-        Render Section 5 2A Figure B8-34 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-34 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -2761,7 +2761,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_35(self):
         """
-        Render Section 5 2A Figure B8-35 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-35 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -2788,7 +2788,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_36(self):
         """
-        Render Section 5 2A Figure B8-36 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-36 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['195', '200', '210', '215', '220', '230', '240', '250']
@@ -2817,7 +2817,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_37(self):
         """
-        Render Section 5 2A Figure B8-37 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-37 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['195', '200', '210', '215', '220', '230', '240', '250']
@@ -2846,7 +2846,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_38(self):
         """
-        Render Section 5 2A Figure B8-38 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-38 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['195', '200', '210', '215', '220', '230', '240', '250']
@@ -2875,7 +2875,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_39(self):
         """
-        Render Section 5 2A Figure B8-39 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-39 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['195', '200', '210', '215', '220', '230', '240', '250']
@@ -2904,7 +2904,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_40(self):
         """
-        Render Section 5 2A Figure B8-40 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-40 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['270', '280', '290', '300', '310', '320']
@@ -2933,7 +2933,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_41(self):
         """
-        Render Section 5 2A Figure B8-41 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-41 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['270', '280', '290', '300', '310', '320']
@@ -2962,7 +2962,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_42(self):
         """
-        Render Section 5 2A Figure B8-42 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-42 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['270', '280', '290', '300', '310', '320']
@@ -2991,7 +2991,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_43(self):
         """
-        Render Section 5 2A Figure B8-43 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-43 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['270', '280', '290', '300', '310', '320']
@@ -3020,7 +3020,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_44(self):
         """
-        Render Section 5 2A Figure B8-44 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-44 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3098,7 +3098,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_45(self):
         """
-        Render Section 5 2A Figure B8-45 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-45 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3177,7 +3177,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_46(self):
         """
-        Render Section 5 2A Figure B8-46 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-46 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3256,7 +3256,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_47(self):
         """
-        Render Section 5 2A Figure B8-47 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-47 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3321,7 +3321,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_48(self):
         """
-        Render Section 5 2A Figure B8-48 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-48 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3393,7 +3393,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_49(self):
         """
-        Render Section 5 2A Figure B8-49 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-49 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3449,7 +3449,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_50(self):
         """
-        Render Section 5 2A Figure B8-50 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-50 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3478,7 +3478,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_51(self):
         """
-        Render Section 5 2A Figure B8-51 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-51 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3507,7 +3507,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_52(self):
         """
-        Render Section 5 2A Figure B8-52 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-52 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3536,7 +3536,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_53(self):
         """
-        Render Section 5 2A Figure B8-53 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-53 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3565,7 +3565,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_54(self):
         """
-        Render Section 5 2A Figure B8-54 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-54 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3665,7 +3665,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_55(self):
         """
-        Render Section 5 2A Figure B8-55 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-55 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3758,7 +3758,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_56(self):
         """
-        Render Section 5 2A Figure B8-56 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-56 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['600', '450', '460', '470']
@@ -3804,7 +3804,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_57(self):
         """
-        Render Section 5 2A Figure B8-57 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-57 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         cases = ['600', '450', '460', '470']
@@ -3850,7 +3850,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_58(self):
         """
-        Render Section 5 2A Figure B8-58 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-58 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -3944,7 +3944,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_59(self):
         """
-        Render Section 5 2A Figure B8-59 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-59 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4038,7 +4038,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m1(self):
         """
-        Render Section 5 2A Figure B8-M1 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4068,7 +4068,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m2(self):
         """
-        Render Section 5 2A Figure B8-M2 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M2 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4098,7 +4098,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m3(self):
         """
-        Render Section 5 2A Figure B8-M3 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M3 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4128,7 +4128,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m4(self):
         """
-        Render Section 5 2A Figure B8-M4 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M4 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4158,7 +4158,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m5(self):
         """
-        Render Section 5 2A Figure B8-M5 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4188,7 +4188,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m6(self):
         """
-        Render Section 5 2A Figure B8-M6 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M6 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4218,7 +4218,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m7(self):
         """
-        Render Section 5 2A Figure B8-M7 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M7 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4248,7 +4248,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m8(self):
         """
-        Render Section 5 2A Figure B8-M8 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M8 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4278,7 +4278,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m9(self):
         """
-        Render Section 5 2A Figure B8-M9 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4310,7 +4310,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m10(self):
         """
-        Render Section 5 2A Figure B8-M10 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M10 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4342,7 +4342,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m11(self):
         """
-        Render Section 5 2A Figure B8-M11 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M11 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4374,7 +4374,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_m12(self):
         """
-        Render Section 5 2A Figure B8-M12 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-M12 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data = []
@@ -4406,7 +4406,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h1(self):
         """
-        Render Section 5 2A Figure B8-H1 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H1 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4446,7 +4446,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h2(self):
         """
-        Render Section 5 2A Figure B8-H2 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H2 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4491,7 +4491,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h3(self):
         """
-        Render Section 5 2A Figure B8-H3 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H3 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4536,7 +4536,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h4(self):
         """
-        Render Section 5 2A Figure B8-H4 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H4 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4581,7 +4581,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h5(self):
         """
-        Render Section 5 2A Figure B8-H5 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H5 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4632,7 +4632,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h6(self):
         """
-        Render Section 5 2A Figure B8-H6 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H6 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4673,7 +4673,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h7(self):
         """
-        Render Section 5 2A Figure B8-H7 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H7 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4720,7 +4720,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h8(self):
         """
-        Render Section 5 2A Figure B8-H8 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H8 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4761,7 +4761,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h9(self):
         """
-        Render Section 5 2A Figure B8-H9 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H9 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4808,7 +4808,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h10(self):
         """
-        Render Section 5 2A Figure B8-H10 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H10 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4853,7 +4853,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h11(self):
         """
-        Render Section 5 2A Figure B8-H11 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H11 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4898,7 +4898,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h12(self):
         """
-        Render Section 5 2A Figure B8-H12 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H12 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4943,7 +4943,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h13(self):
         """
-        Render Section 5 2A Figure B8-H13 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H13 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -4988,7 +4988,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h14(self):
         """
-        Render Section 5 2A Figure B8-H14 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H14 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5033,7 +5033,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h15(self):
         """
-        Render Section 5 2A Figure B8-H15 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H15 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5072,7 +5072,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h16(self):
         """
-        Render Section 5 2A Figure B8-H16 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H16 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5111,7 +5111,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h17(self):
         """
-        Render Section 5 2A Figure B8-H17 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H17 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5154,7 +5154,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h18(self):
         """
-        Render Section 5 2A Figure B8-H18 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H18 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5193,7 +5193,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h19(self):
         """
-        Render Section 5 2A Figure B8-H19 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H19 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5236,7 +5236,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h20(self):
         """
-        Render Section 5 2A Figure B8-H20 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H20 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5275,7 +5275,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h21(self):
         """
-        Render Section 5 2A Figure B8-H21 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H21 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5314,7 +5314,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h22(self):
         """
-        Render Section 5 2A Figure B8-H22 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H22 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5353,7 +5353,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h23(self):
         """
-        Render Section 5 2A Figure B8-H23 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H23 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5392,7 +5392,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h24(self):
         """
-        Render Section 5 2A Figure B8-H24 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H24 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5431,7 +5431,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h25(self):
         """
-        Render Section 5 2A Figure B8-H25 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H25 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5470,7 +5470,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h26(self):
         """
-        Render Section 5 2A Figure B8-H26 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H26 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5509,7 +5509,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h27(self):
         """
-        Render Section 5 2A Figure B8-H27 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H27 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5548,7 +5548,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h28(self):
         """
-        Render Section 5 2A Figure B8-H28 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H28 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5587,7 +5587,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h29(self):
         """
-        Render Section 5 2A Figure B8-H29 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H29 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5626,7 +5626,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h30(self):
         """
-        Render Section 5 2A Figure B8-H30 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H30 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5665,7 +5665,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h31(self):
         """
-        Render Section 5 2A Figure B8-H31 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H31 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5704,7 +5704,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h32(self):
         """
-        Render Section 5 2A Figure B8-H32 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H32 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5743,7 +5743,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h33(self):
         """
-        Render Section 5 2A Figure B8-H33 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H33 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5782,7 +5782,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h34(self):
         """
-        Render Section 5 2A Figure B8-H34 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H34 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5821,7 +5821,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h35(self):
         """
-        Render Section 5 2A Figure B8-H35 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H35 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5860,7 +5860,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h36(self):
         """
-        Render Section 5 2A Figure B8-H36 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H36 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5899,7 +5899,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h37(self):
         """
-        Render Section 5 2A Figure B8-H37 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H37 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
@@ -5938,7 +5938,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_tf_figure_b8_h38(self):
         """
-        Render Section 5 2A Figure B8-H38 by modifying fig an ax inputs from matplotlib
+        Render Section Thermal Fabric Figure B8-H38 by modifying fig an ax inputs from matplotlib
         :return: modified fig and ax objects from matplotlib.subplots()
         """
         data_x = []
