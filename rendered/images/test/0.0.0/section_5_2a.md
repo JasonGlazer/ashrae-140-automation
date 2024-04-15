@@ -1,4 +1,4 @@
-# Section 5-2A  
+# Section Thermal Fabric
 
 # Table B8-1. Annual Heating Loads (kWh)
 | Case                                               | BSIMAC 9 |   CSE |   DeST | EnergyPlus | ESP-r | TRNSYS |     |   Min |    Max |   Mean | Dev % $$ |     | TestSoftware1 | 

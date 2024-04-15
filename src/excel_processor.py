@@ -15,10 +15,10 @@ class SectionType:
         return section_type
 
     def __set__(self, obj, value):
-        if re.match(r'.*results5-2a.*', str(value.name), re.IGNORECASE):
-            obj._section_type = '5-2A'
-        elif re.match(r'.*results5-2b.*', str(value.name), re.IGNORECASE):
-            obj._section_type = '5-2B'
+        if re.match(r'.*Std140_TF_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'TF'
+        elif re.match(r'.*Std140_GC_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'GC'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -46,7 +46,7 @@ class SetDataSources:
         if isinstance(value, dict) and value:
             obj._data_sources = value
         else:
-            if obj.section_type == '5-2A':
+            if obj.section_type == 'TF':
                 obj._data_sources = {
                     'identifying_information': ('YourData', 60, 'B:C', 3, {'header': None}),
                     'conditioned_zone_loads_non_free_float': ('YourData', 68, 'B:L', 46),
@@ -61,7 +61,7 @@ class SetDataSources:
                     'specific_day_hourly_output_free_float_zone_temperatures': ('YourData', 292, 'B:H', 24),
                     'specific_day_hourly_output_free_float_zone_loads': ('YourData', 260, 'B:Z', 24)
                 }
-            elif obj.section_type == '5-2B':
+            elif obj.section_type == 'GC':
                 obj._data_sources = {
                     'identifying_information': ('YourData', 4, 'E:I', 4, {'header': None}),
                     'steady_state_cases': ('YourData', 57, 'D:H', 6, {'header': None})
@@ -80,9 +80,9 @@ class SetProcessingFunctions:
         return processing_functions
 
     def __set__(self, obj, value):
-        if value == '5-2A':
+        if value == 'TF':
             obj._processing_functions = {
-                'identifying_information': obj._extract_identifying_information_2a(),
+                'identifying_information': obj._extract_identifying_information_tf(),
                 'conditioned_zone_loads_non_free_float': obj._extract_conditioned_zone_loads_non_free_float(),
                 'solar_radiation_annual_incident': obj._extract_solar_radiation_annual_incident(),
                 'solar_radiation_unshaded_annual_transmitted': obj._extract_solar_radiation_unshaded_annual_transmitted(),
@@ -96,9 +96,9 @@ class SetProcessingFunctions:
                     obj._extract_specific_day_hourly_output_free_float_zone_temperatures(),
                 'specific_day_hourly_output_free_float_zone_loads':
                     obj._extract_specific_day_hourly_output_free_float_zone_loads()}
-        elif value == '5-2B':
+        elif value == 'GC':
             obj._processing_functions = {
-                'identifying_information': obj._extract_identifying_information_2b(),
+                'identifying_information': obj._extract_identifying_information_gc(),
                 'steady_state_cases': obj._extract_steady_state_cases()}
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
@@ -164,10 +164,10 @@ class ExcelProcessor(Logger):
         # todo_140: Write simple verifications that data loaded
         return df
 
-    # Section 5-2A data
-    def _extract_identifying_information_2a(self):
+    # Section Thermal Fabric TF (was 5-2A) data
+    def _extract_identifying_information_tf(self):
         """
-        Retrieve information data from section 2A submittal and store it as class attributes.
+        Retrieve information data from section Thermal Fabric submittal and store it as class attributes.
 
         :return: Class attributes identifying software program.
         """
@@ -323,7 +323,7 @@ class ExcelProcessor(Logger):
 
     def _extract_free_float_case_zone_temperatures(self):
         """
-        Retrieve and format data from the Free Float Case Zone Temperature Table (5-2A)
+        Retrieve and format data from the Free Float Case Zone Temperature Table (TF)
         :return:  dictionary to be merged into main testing output dictionary
         """
         df = self._get_data('free_float_case_zone_temperatures')
@@ -537,10 +537,10 @@ class ExcelProcessor(Logger):
                 data_d[col_name]['feb_1']['hour'][row['hour']]['C'] = row[col_name]
         return data_d
 
-    # Section 5-2B data
-    def _extract_identifying_information_2b(self):
+    # Section Ground Coupled GC data
+    def _extract_identifying_information_gc(self):
         """
-        Retrieve information data from section 2A submittal and store it as class attributes.
+        Retrieve information data from section Thermal Fabric submittal and store it as class attributes.
 
         :return: Class attributes identifying software program.
         """
@@ -557,7 +557,7 @@ class ExcelProcessor(Logger):
 
     def _extract_steady_state_cases(self):
         """
-        Retrieve and format data from the Steady State table (5-2B)
+        Retrieve and format data from the Steady State table (GC)
 
         :return: dictionary to be merged into main testing output dictionary
         """

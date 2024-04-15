@@ -22,10 +22,10 @@ class SectionType:
         return section_type
 
     def __set__(self, obj, value):
-        if re.match(r'.*results5-2a\..*$', str(value), re.IGNORECASE):
-            obj._section_type = '5-2A'
-        elif re.match(r'.*results5-2b\..*$', str(value), re.IGNORECASE):
-            obj._section_type = '5-2B'
+        if re.match(r'.*Std140_TF_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'TF'
+        elif re.match(r'.*Std140_GC_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'GC'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -62,7 +62,7 @@ class GraphicsRenderer(Logger):
                 }
             }
         }
-        if self.section_type == '5-2A':
+        if self.section_type == 'TF':
             self.case_detailed_df = pd.DataFrame.from_dict(
                 {
                     '600': ['600 Base Case, South Windows', 1],
@@ -125,25 +125,25 @@ class GraphicsRenderer(Logger):
         else:
             self.processed_file_directory = processed_file_directory
         if not base_model_list:
-            if self.section_type == '5-2A':
+            if self.section_type == 'TF':
                 self.baseline_model_list = [
-                    root_directory.joinpath('processed', 'bsimac', '9.9.0.7.4', 'results5-2a.json'),
-                    root_directory.joinpath('processed', 'cse', '0.861.1', 'results5-2a.json'),
-                    root_directory.joinpath('processed', 'dest', '2.0.20190401', 'results5-2a.json'),
-                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'results5-2a.json'),
-                    root_directory.joinpath('processed', 'esp-r', '13.3', 'results5-2a.json'),
-                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'results5-2a.json')]
-            elif self.section_type == '5-2B':
+                    root_directory.joinpath('processed', 'bsimac', '9.9.0.7.4', 'std140_tf_results.json'),
+                    root_directory.joinpath('processed', 'cse', '0.861.1', 'std140_tf_results.json'),
+                    root_directory.joinpath('processed', 'dest', '2.0.20190401', 'std140_tf_results.json'),
+                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'std140_tf_results.json'),
+                    root_directory.joinpath('processed', 'esp-r', '13.3', 'std140_tf_results.json'),
+                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'std140_tf_results.json')]
+            elif self.section_type == 'GC':
                 self.baseline_model_list = [
-                    root_directory.joinpath('processed', 'basecalc', 'v1.0e', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'esp-r', '13.3', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'fluent', '6.1', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'ght', '2.02', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'matlab', '7.0.4.365-r14-sp2', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'sunrel-gc', '1.14.02', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'results5-2b.json'),
-                    root_directory.joinpath('processed', 'va114', '2.20', 'results5-2b.json')
+                    root_directory.joinpath('processed', 'basecalc', 'v1.0e', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'energyplus', '9.0.1', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'esp-r', '13.3', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'fluent', '6.1', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'ght', '2.02', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'matlab', '7.0.4.365-r14-sp2', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'sunrel-gc', '1.14.02', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'std140_gc_results.json'),
+                    root_directory.joinpath('processed', 'va114', '2.20', 'std140_gc_results.json')
                 ]
         else:
             self.baseline_model_list = base_model_list
@@ -157,12 +157,12 @@ class GraphicsRenderer(Logger):
         # create an object that keeps the information needed to make the row index for each table object.
         # 0 - json key name
         # 1 - list to make row index
-        if self.section_type == '5-2A':
+        if self.section_type == 'TF':
             self.table_lookup = [
                 ('conditioned_zone_loads_non_free_float', ['program_name', ]),
                 ('free_float_case_zone_temperatures', ['program_name', ])
             ]
-        elif self.section_type == '5-2B':
+        elif self.section_type == 'GC':
             self.table_lookup = [
                 ('steady_state_cases', ['program_name', ])
             ]

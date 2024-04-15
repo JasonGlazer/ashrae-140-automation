@@ -14,9 +14,10 @@ class DataCleanser(Logger):
         super().__init__(logger_level=logger_level, logger_name=logger_name)
         self.input_df = df
         self.df = df
-        self.reference_files = [
-            'inputs/RESULTS5-2A-EnergyPlus-9.0.1.xlsx',
-            'inputs/RESULTS5-2A-BSIMAC-9-9.0.74.xlsx']
+        # these following three lines do not seem to be geting used.
+        # self.reference_files = [
+        #    'inputs/RESULTS5-2A-EnergyPlus-9.0.1.xlsx',
+        #    'inputs/RESULTS5-2A-BSIMAC-9-9.0.74.xlsx']
         self.valid_cases = {
             '600', '610', '620', '630', '640', '650', '660', '670', '680', '685', '695', '900', '910', '920',
             '930', '940', '950', '960', '980', '985', '995', '195', '200', '210', '215', '220', '230', '240',
