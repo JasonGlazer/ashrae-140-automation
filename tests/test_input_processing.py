@@ -1,3 +1,4 @@
+import os.path
 import unittest
 import tempfile
 import pathlib
@@ -35,10 +36,12 @@ class TestInputProcessor(unittest.TestCase):
         return
 
     def test_valid_file_location_is_validated(self):
-        ip = InputProcessor(input_file_location='./input/EnergyPlus/9.0.1/Std140_TF_Output.xlsx')
-        self.assertRegex(
-            str(ip.input_file_location),
-            r'.*(/|\\)input(/|\\)EnergyPlus(/|\\)9\.0\.1(/|\\)Std140_TF_Output.xlsx$')
+        cwd_path = os.getcwd()
+        root_path, _ = os.path.split(cwd_path)
+        file_location = os.path.normpath(os.path.join(root_path, 'input/EnergyPlus/9.0.1/Std140_TF_Output.xlsx'))
+        ip = InputProcessor(input_file_location=file_location)
+        self.assertEqual(
+            str(ip.input_file_location), file_location)
         self.assertEqual(
             ip.processing_pipeline,
             'excel')
