@@ -50,11 +50,11 @@ class TestInputProcessor(unittest.TestCase):
     #     return
 
     def test_valid_file_location_is_validated(self):
-        ip = InputProcessor(input_file_location='input/EnergyPlus/9.0.1/Std140_TF_Output.xlsx')
+        ip = InputProcessor(input_file_location='input/EnergyPlus/9.0.1/Std140_TF_output.xlsx')
         print(ip.input_file_location)
         self.assertRegex(
             str(ip.input_file_location),
-            r'.*(/|\\)input(/|\\)EnergyPlus(/|\\)9\.0\.1(/|\\)Std140_TF_Output.xlsx$')
+            r'.*(/|\\)input(/|\\)EnergyPlus(/|\\)9\.0\.1(/|\\)Std140_TF_output.xlsx$')
         self.assertEqual(
             ip.processing_pipeline,
             'excel')
