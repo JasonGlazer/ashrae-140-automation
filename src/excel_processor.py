@@ -19,6 +19,8 @@ class SectionType:
             obj._section_type = 'TF'
         elif re.match(r'.*Std140_GC_Output.*', str(value.name), re.IGNORECASE):
             obj._section_type = 'GC'
+        elif re.match(r'.*Std140_HE_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'HE'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -99,6 +101,10 @@ class SetProcessingFunctions:
         elif value == 'GC':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_gc(),
+                'steady_state_cases': obj._extract_steady_state_cases()}
+        elif value == 'HE':
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information_he(),
                 'steady_state_cases': obj._extract_steady_state_cases()}
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
