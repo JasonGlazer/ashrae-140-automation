@@ -753,7 +753,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-1.  Annual Incident Solar Radiation',
             xticklabels=['600 ' + i for i in surfaces],
             ylabel='Diffuse + Direct ($kWh/m^2$)',
-            image_name='section_5_2_a_figure_b8_1')
+            image_name='section_7_figure_b8_1')
         return fig, ax
 
     def render_section_tf_figure_b8_2(self):
@@ -785,7 +785,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'],
             ylabel='Diffuse + Direct ($kWh/m^2$)',
-            image_name='section_5_2_a_figure_b8_2')
+            image_name='section_7_figure_b8_2')
         return fig, ax
 
     def render_section_tf_figure_b8_3(self):
@@ -817,7 +817,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 '610 SOUTH', '630 WEST'],
             ylabel='Diffuse + Direct ($kWh/m^2$)',
-            image_name='section_5_2_a_figure_b8_3')
+            image_name='section_7_figure_b8_3')
         return fig, ax
 
     def render_section_tf_figure_b8_4(self):
@@ -852,7 +852,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 '600 SOUTH', '620 WEST', '660 SOUTH, Low-E', '670 SOUTH, Single Pane'],
             ylabel='Transmissivity Coefficient',
-            image_name='section_5_2_a_figure_b8_4')
+            image_name='section_7_figure_b8_4')
         return fig, ax
 
     def render_section_tf_figure_b8_5(self):
@@ -886,7 +886,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 '(1 - Case610 / Case600) SOUTH', '(1 - Case630 / Case620) WEST'],
             ylabel='Shading Coefficient',
-            image_name='section_5_2_a_figure_b8_5')
+            image_name='section_7_figure_b8_5')
         return fig, ax
 
     def render_section_tf_figure_b8_6(self):
@@ -920,7 +920,7 @@ class GraphicsRenderer(Logger):
                 'Average', 'Minimum', 'Maximum'],
             ylabel='Shading Coefficient',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_6')
+            image_name='section_7_figure_b8_6')
         return fig, ax
 
     def render_section_tf_figure_b8_7(self):
@@ -949,7 +949,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Annual Heating Load (MWh)',
-            image_name='section_5_2_a_figure_b8_7')
+            image_name='section_7_figure_b8_7')
         return fig, ax
 
     def render_section_tf_figure_b8_8(self):
@@ -977,7 +977,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel='Annual Heating Load (MWh)',
-            image_name='section_5_2_a_figure_b8_8')
+            image_name='section_7_figure_b8_8')
         return fig, ax
 
     def render_section_tf_figure_b8_9(self):
@@ -1005,7 +1005,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel='Peak Heating Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_9')
+            image_name='section_7_figure_b8_9')
         return fig, ax
 
     def render_section_tf_figure_b8_10(self):
@@ -1033,7 +1033,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel='Peak Cooling Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_10')
+            image_name='section_7_figure_b8_10')
         return fig, ax
 
     def render_section_tf_figure_b8_11(self):
@@ -1061,7 +1061,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel='Annual Heating Load (MWh)',
-            image_name='section_5_2_a_figure_b8_11')
+            image_name='section_7_figure_b8_11')
         return fig, ax
 
     def render_section_tf_figure_b8_12(self):
@@ -1089,7 +1089,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel='Annual Cooling Load (MWh)',
-            image_name='section_5_2_a_figure_b8_12')
+            image_name='section_7_figure_b8_12')
         return fig, ax
 
     def render_section_tf_figure_b8_13(self):
@@ -1117,7 +1117,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel='Peak Heating Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_13')
+            image_name='section_7_figure_b8_13')
         return fig, ax
 
     def render_section_tf_figure_b8_14(self):
@@ -1145,7 +1145,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[
                 self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel='Peak Cooling Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_14')
+            image_name='section_7_figure_b8_14')
         return fig, ax
 
     def render_section_tf_figure_b8_15(self):
@@ -1193,7 +1193,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_15')
+            image_name='section_7_figure_b8_15')
         return fig, ax
 
     def render_section_tf_figure_b8_16(self):
@@ -1242,7 +1242,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (kWh/h)',
             y_plot_pad=0.3,
             y_min=-1,
-            image_name='section_5_2_a_figure_b8_16')
+            image_name='section_7_figure_b8_16')
         return fig, ax
 
     def render_section_tf_figure_b8_17(self):
@@ -1379,7 +1379,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_17')
+            image_name='section_7_figure_b8_17')
         return fig, ax
 
     def render_section_tf_figure_b8_18(self):
@@ -1517,7 +1517,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
             y_max=1.0,
-            image_name='section_5_2_a_figure_b8_18')
+            image_name='section_7_figure_b8_18')
         return fig, ax
 
     def render_section_tf_figure_b8_19(self):
@@ -1607,7 +1607,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
             y_max=1.5,
-            image_name='section_5_2_a_figure_b8_19')
+            image_name='section_7_figure_b8_19')
         return fig, ax
 
     def render_section_tf_figure_b8_20(self):
@@ -1696,7 +1696,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_20')
+            image_name='section_7_figure_b8_20')
         return fig, ax
 
     def render_section_tf_figure_b8_21(self):
@@ -1766,7 +1766,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_21')
+            image_name='section_7_figure_b8_21')
         return fig, ax
 
     def render_section_tf_figure_b8_22(self):
@@ -1836,7 +1836,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (KWh/h)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_22')
+            image_name='section_7_figure_b8_22')
         return fig, ax
 
     def render_section_tf_figure_b8_23(self):
@@ -1919,7 +1919,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Annual Heating Load (MWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_23')
+            image_name='section_7_figure_b8_23')
         return fig, ax
 
     def render_section_tf_figure_b8_24(self):
@@ -2002,7 +2002,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Annual Heating Load (MWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_24')
+            image_name='section_7_figure_b8_24')
         return fig, ax
 
     def render_section_tf_figure_b8_25(self):
@@ -2085,7 +2085,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Peak Heating Load (kWh/h)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_25')
+            image_name='section_7_figure_b8_25')
         return fig, ax
 
     def render_section_tf_figure_b8_26(self):
@@ -2168,7 +2168,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Peak Cooling Load (kWh/h)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_26')
+            image_name='section_7_figure_b8_26')
         return fig, ax
 
     def render_section_tf_figure_b8_27(self):
@@ -2233,7 +2233,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
             y_max=2.0,
-            image_name='section_5_2_a_figure_b8_27')
+            image_name='section_7_figure_b8_27')
         return fig, ax
 
     def render_section_tf_figure_b8_28(self):
@@ -2298,7 +2298,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (kWh/h)',
             y_plot_pad=0.3,
             y_max=2.0,
-            image_name='section_5_2_a_figure_b8_28')
+            image_name='section_7_figure_b8_28')
         return fig, ax
 
     def render_section_tf_figure_b8_29(self):
@@ -2429,7 +2429,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
             y_min=-3.0,
-            image_name='section_5_2_a_figure_b8_29')
+            image_name='section_7_figure_b8_29')
         return fig, ax
 
     def render_section_tf_figure_b8_30(self):
@@ -2561,7 +2561,7 @@ class GraphicsRenderer(Logger):
             y_plot_pad=0.3,
             y_max=1.25,
             y_min=-1.5,
-            image_name='section_5_2_a_figure_b8_30')
+            image_name='section_7_figure_b8_30')
         return fig, ax
 
     def render_section_tf_figure_b8_31(self):
@@ -2632,7 +2632,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.1,
-            image_name='section_5_2_a_figure_b8_31')
+            image_name='section_7_figure_b8_31')
         return fig, ax
 
     def render_section_tf_figure_b8_32(self):
@@ -2702,7 +2702,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.1,
-            image_name='section_5_2_a_figure_b8_32')
+            image_name='section_7_figure_b8_32')
         return fig, ax
 
     def render_section_tf_figure_b8_33(self):
@@ -2729,7 +2729,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel=r'Average Temperature ($^\circ$C)',
             y_plot_pad=0.1,
-            image_name='section_5_2_a_figure_b8_33')
+            image_name='section_7_figure_b8_33')
         return fig, ax
 
     def render_section_tf_figure_b8_34(self):
@@ -2756,7 +2756,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel=r'Maximum Temperature ($^\circ$C)',
             y_plot_pad=0.1,
-            image_name='section_5_2_a_figure_b8_34')
+            image_name='section_7_figure_b8_34')
         return fig, ax
 
     def render_section_tf_figure_b8_35(self):
@@ -2783,7 +2783,7 @@ class GraphicsRenderer(Logger):
             xticklabels=[self.case_detailed_df.loc[i, 'case_name'] for i in cases],
             ylabel=r'Minimum Temperature ($^\circ$C)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_35')
+            image_name='section_7_figure_b8_35')
         return fig, ax
 
     def render_section_tf_figure_b8_36(self):
@@ -2812,7 +2812,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Annual Heating Load (MWh)',
-            image_name='section_5_2_a_figure_b8_36')
+            image_name='section_7_figure_b8_36')
         return fig, ax
 
     def render_section_tf_figure_b8_37(self):
@@ -2841,7 +2841,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Annual Cooling Load (MWh)',
-            image_name='section_5_2_a_figure_b8_37')
+            image_name='section_7_figure_b8_37')
         return fig, ax
 
     def render_section_tf_figure_b8_38(self):
@@ -2870,7 +2870,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Peak Heating Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_38')
+            image_name='section_7_figure_b8_38')
         return fig, ax
 
     def render_section_tf_figure_b8_39(self):
@@ -2899,7 +2899,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Peak Cooling Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_39')
+            image_name='section_7_figure_b8_39')
         return fig, ax
 
     def render_section_tf_figure_b8_40(self):
@@ -2928,7 +2928,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Annual Heating Load (MWh)',
-            image_name='section_5_2_a_figure_b8_40')
+            image_name='section_7_figure_b8_40')
         return fig, ax
 
     def render_section_tf_figure_b8_41(self):
@@ -2957,7 +2957,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Annual Cooling Load (MWh)',
-            image_name='section_5_2_a_figure_b8_41')
+            image_name='section_7_figure_b8_41')
         return fig, ax
 
     def render_section_tf_figure_b8_42(self):
@@ -2986,7 +2986,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Peak Heating Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_42')
+            image_name='section_7_figure_b8_42')
         return fig, ax
 
     def render_section_tf_figure_b8_43(self):
@@ -3015,7 +3015,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Peak Cooling Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_43')
+            image_name='section_7_figure_b8_43')
         return fig, ax
 
     def render_section_tf_figure_b8_44(self):
@@ -3093,7 +3093,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_min=-0.5,
-            image_name='section_5_2_a_figure_b8_44')
+            image_name='section_7_figure_b8_44')
         return fig, ax
 
     def render_section_tf_figure_b8_45(self):
@@ -3172,7 +3172,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (kWh/h)',
             y_plot_pad=0.3,
             y_min=-0.5,
-            image_name='section_5_2_a_figure_b8_45')
+            image_name='section_7_figure_b8_45')
         return fig, ax
 
     def render_section_tf_figure_b8_46(self):
@@ -3251,7 +3251,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
             y_min=-0.5,
-            image_name='section_5_2_a_figure_b8_46')
+            image_name='section_7_figure_b8_46')
         return fig, ax
 
     def render_section_tf_figure_b8_47(self):
@@ -3316,7 +3316,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (kWh/h)',
             y_plot_pad=0.3,
             y_min=-1.0,
-            image_name='section_5_2_a_figure_b8_47')
+            image_name='section_7_figure_b8_47')
         return fig, ax
 
     def render_section_tf_figure_b8_48(self):
@@ -3388,7 +3388,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
             y_max=1.0,
-            image_name='section_5_2_a_figure_b8_48')
+            image_name='section_7_figure_b8_48')
         return fig, ax
 
     def render_section_tf_figure_b8_49(self):
@@ -3444,7 +3444,7 @@ class GraphicsRenderer(Logger):
                 '310-300\nE&W Shading'
             ],
             ylabel='Load Difference (kWh/h)',
-            image_name='section_5_2_a_figure_b8_49')
+            image_name='section_7_figure_b8_49')
         return fig, ax
 
     def render_section_tf_figure_b8_50(self):
@@ -3473,7 +3473,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Load Difference (MWh)',
-            image_name='section_5_2_a_figure_b8_50')
+            image_name='section_7_figure_b8_50')
         return fig, ax
 
     def render_section_tf_figure_b8_51(self):
@@ -3502,7 +3502,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Load Difference (MWh)',
-            image_name='section_5_2_a_figure_b8_51')
+            image_name='section_7_figure_b8_51')
         return fig, ax
 
     def render_section_tf_figure_b8_52(self):
@@ -3531,7 +3531,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Load Difference (kWh/h)',
-            image_name='section_5_2_a_figure_b8_52')
+            image_name='section_7_figure_b8_52')
         return fig, ax
 
     def render_section_tf_figure_b8_53(self):
@@ -3560,7 +3560,7 @@ class GraphicsRenderer(Logger):
                 self.case_detailed_df.loc[i, 'case_name']
                 for i in cases],
             ylabel='Load Difference (kWh/h)',
-            image_name='section_5_2_a_figure_b8_53')
+            image_name='section_7_figure_b8_53')
         return fig, ax
 
     def render_section_tf_figure_b8_54(self):
@@ -3660,7 +3660,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
             y_min=-2.5,
-            image_name='section_5_2_a_figure_b8_54')
+            image_name='section_7_figure_b8_54')
         return fig, ax
 
     def render_section_tf_figure_b8_55(self):
@@ -3753,7 +3753,7 @@ class GraphicsRenderer(Logger):
             ylabel='Load Difference (kWh/h)',
             y_plot_pad=0.3,
             y_min=-2.5,
-            image_name='section_5_2_a_figure_b8_55')
+            image_name='section_7_figure_b8_55')
         return fig, ax
 
     def render_section_tf_figure_b8_56(self):
@@ -3799,7 +3799,7 @@ class GraphicsRenderer(Logger):
                 [self.case_detailed_df.loc[i, 'case_name'] for i in cases]
             ],
             ylabel='Annual Heating Load (MWh)',
-            image_name='section_5_2_a_figure_b8_56')
+            image_name='section_7_figure_b8_56')
         return fig, ax
 
     def render_section_tf_figure_b8_57(self):
@@ -3845,7 +3845,7 @@ class GraphicsRenderer(Logger):
                 [self.case_detailed_df.loc[i, 'case_name'] for i in cases]
             ],
             ylabel='Peak Heating Load (kWh/h)',
-            image_name='section_5_2_a_figure_b8_57')
+            image_name='section_7_figure_b8_57')
         return fig, ax
 
     def render_section_tf_figure_b8_58(self):
@@ -3939,7 +3939,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_58')
+            image_name='section_7_figure_b8_58')
         return fig, ax
 
     def render_section_tf_figure_b8_59(self):
@@ -4033,7 +4033,7 @@ class GraphicsRenderer(Logger):
             ],
             ylabel='Load Difference (kWh/h)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_59')
+            image_name='section_7_figure_b8_59')
         return fig, ax
 
     def render_section_tf_figure_b8_m1(self):
@@ -4063,7 +4063,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Heating Load (kWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m1')
+            image_name='section_7_figure_b8_m1')
         return fig, ax
 
     def render_section_tf_figure_b8_m2(self):
@@ -4093,7 +4093,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Cooling Load (kWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m2')
+            image_name='section_7_figure_b8_m2')
         return fig, ax
 
     def render_section_tf_figure_b8_m3(self):
@@ -4123,7 +4123,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Peak Heating Load (kW)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m3')
+            image_name='section_7_figure_b8_m3')
         return fig, ax
 
     def render_section_tf_figure_b8_m4(self):
@@ -4153,7 +4153,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Peak Cooling Load (kW)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m4')
+            image_name='section_7_figure_b8_m4')
         return fig, ax
 
     def render_section_tf_figure_b8_m5(self):
@@ -4183,7 +4183,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Heating Load (kWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m5')
+            image_name='section_7_figure_b8_m5')
         return fig, ax
 
     def render_section_tf_figure_b8_m6(self):
@@ -4213,7 +4213,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Cooling Load (kWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m6')
+            image_name='section_7_figure_b8_m6')
         return fig, ax
 
     def render_section_tf_figure_b8_m7(self):
@@ -4243,7 +4243,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Peak Heating Load (kW)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m7')
+            image_name='section_7_figure_b8_m7')
         return fig, ax
 
     def render_section_tf_figure_b8_m8(self):
@@ -4273,7 +4273,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Peak Cooling Load (kW)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m8')
+            image_name='section_7_figure_b8_m8')
         return fig, ax
 
     def render_section_tf_figure_b8_m9(self):
@@ -4305,7 +4305,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Heating Load (kWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m9')
+            image_name='section_7_figure_b8_m9')
         return fig, ax
 
     def render_section_tf_figure_b8_m10(self):
@@ -4337,7 +4337,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Cooling Load (kWh)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m10')
+            image_name='section_7_figure_b8_m10')
         return fig, ax
 
     def render_section_tf_figure_b8_m11(self):
@@ -4369,7 +4369,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Peak Heating Load (kW)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m11')
+            image_name='section_7_figure_b8_m11')
         return fig, ax
 
     def render_section_tf_figure_b8_m12(self):
@@ -4401,7 +4401,7 @@ class GraphicsRenderer(Logger):
             xticklabels=months,
             ylabel='Monthly Peak Cooling Load (kW)',
             y_plot_pad=0.3,
-            image_name='section_5_2_a_figure_b8_m12')
+            image_name='section_7_figure_b8_m12')
         return fig, ax
 
     def render_section_tf_figure_b8_h1(self):
@@ -4431,7 +4431,7 @@ class GraphicsRenderer(Logger):
             title='Figure B8-H1. Case 900FF Annual Hourly Zone Air Temperature Frequency',
             xlabel=r'Hour of Day',
             ylabel='Number of Occurrences',
-            image_name='section_5_2_a_figure_b8_h1',
+            image_name='section_7_figure_b8_h1',
             x_min=-5,
             x_max=55,
             x_tick_spacing=5,
@@ -4477,7 +4477,7 @@ class GraphicsRenderer(Logger):
                   'Horizontal (Upward) Facing Surface',
             xlabel=r'Hour of Day',
             ylabel='Incident Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h2',
+            image_name='section_7_figure_b8_h2',
             annotations=[
                 {
                     'text': r'Clear Day (July 14)',
@@ -4522,7 +4522,7 @@ class GraphicsRenderer(Logger):
                   'South Facing Surface',
             xlabel=r'Hour of Day',
             ylabel='Incident Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h3',
+            image_name='section_7_figure_b8_h3',
             annotations=[
                 {
                     'text': r'Clear Day (July 14)',
@@ -4567,7 +4567,7 @@ class GraphicsRenderer(Logger):
                   'West Facing Surface',
             xlabel=r'Hour of Day',
             ylabel='Incident Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h4',
+            image_name='section_7_figure_b8_h4',
             annotations=[
                 {
                     'text': r'Clear Day (July 14)',
@@ -4614,7 +4614,7 @@ class GraphicsRenderer(Logger):
                   'Double-Pane, Low-E, Single-Pane Windows',
             xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h5',
+            image_name='section_7_figure_b8_h5',
             annotations=[
                 {
                     'text': r'Low-E (Case 600)',
@@ -4663,7 +4663,7 @@ class GraphicsRenderer(Logger):
                   'Double-Pane Windows',
             xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h6',
+            image_name='section_7_figure_b8_h6',
             annotations=[
                 {
                     'text': 'Double-Pane\n(Case 600)',
@@ -4706,7 +4706,7 @@ class GraphicsRenderer(Logger):
                   'Low-E and Single-Pane Windows',
             xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h7',
+            image_name='section_7_figure_b8_h7',
             annotations=[
                 {
                     'text': 'Low-E (Case 660)',
@@ -4751,7 +4751,7 @@ class GraphicsRenderer(Logger):
                   'Double-Pane Windows',
             xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h8',
+            image_name='section_7_figure_b8_h8',
             annotations=[
                 {
                     'text': 'Double-Pane\n(Case 600)',
@@ -4794,7 +4794,7 @@ class GraphicsRenderer(Logger):
                   'Double-Pane Windows',
             xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
-            image_name='section_5_2_a_figure_b8_h9',
+            image_name='section_7_figure_b8_h9',
             annotations=[
                 {
                     'text': 'Single-Pane (Case 670)',
@@ -4839,7 +4839,7 @@ class GraphicsRenderer(Logger):
                   'Case 600: Clear/Cold, Cloudy Days',
             xlabel=r'Hour of Day',
             ylabel=r'Temperature ($^\circ$C)',
-            image_name='section_5_2_a_figure_b8_h10',
+            image_name='section_7_figure_b8_h10',
             annotations=[
                 {
                     'text': 'Cloudy (May 4)',
@@ -4884,7 +4884,7 @@ class GraphicsRenderer(Logger):
                   'Case 600: Clear/Cold, Clear/Hot Days',
             ylabel=r'Temperature ($^\circ$C)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h11',
+            image_name='section_7_figure_b8_h11',
             annotations=[
                 {
                     'text': 'Clear/Hot (July 14)',
@@ -4929,7 +4929,7 @@ class GraphicsRenderer(Logger):
                   'Clear Cold Day (Feb 1), Cases 600FF and 900FF',
             ylabel=r'Temperature ($^\circ$C)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h12',
+            image_name='section_7_figure_b8_h12',
             annotations=[
                 {
                     'text': 'Case 600FF',
@@ -4974,7 +4974,7 @@ class GraphicsRenderer(Logger):
                   'Clear Hot Day (Jul 14), Cases 650FF and 950FF',
             ylabel=r'Temperature ($^\circ$C)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h13',
+            image_name='section_7_figure_b8_h13',
             annotations=[
                 {
                     'text': 'Case 650FF',
@@ -5019,7 +5019,7 @@ class GraphicsRenderer(Logger):
                   'Clear Cold Day (Feb 1), Cases 680FF and 980FF',
             ylabel=r'Temperature ($^\circ$C)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h14',
+            image_name='section_7_figure_b8_h14',
             annotations=[
                 {
                     'text': 'Case 680FF',
@@ -5062,7 +5062,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h15',
+            image_name='section_7_figure_b8_h15',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5101,7 +5101,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h16',
+            image_name='section_7_figure_b8_h16',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5140,7 +5140,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h17',
+            image_name='section_7_figure_b8_h17',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5183,7 +5183,7 @@ class GraphicsRenderer(Logger):
                   'Clear Cold Day, Case 640',
             ylabel=r'Temperature ($^\circ$C)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h18',
+            image_name='section_7_figure_b8_h18',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5222,7 +5222,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h19',
+            image_name='section_7_figure_b8_h19',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5265,7 +5265,7 @@ class GraphicsRenderer(Logger):
                   'Clear Cold Day, Case 940',
             ylabel=r'Temperature ($^\circ$C)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h20',
+            image_name='section_7_figure_b8_h20',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5304,7 +5304,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h21',
+            image_name='section_7_figure_b8_h21',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5343,7 +5343,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h22',
+            image_name='section_7_figure_b8_h22',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5382,7 +5382,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h23',
+            image_name='section_7_figure_b8_h23',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5421,7 +5421,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h24',
+            image_name='section_7_figure_b8_h24',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5460,7 +5460,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h25',
+            image_name='section_7_figure_b8_h25',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5499,7 +5499,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h26',
+            image_name='section_7_figure_b8_h26',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5538,7 +5538,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h27',
+            image_name='section_7_figure_b8_h27',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5577,7 +5577,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h28',
+            image_name='section_7_figure_b8_h28',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5616,7 +5616,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h29',
+            image_name='section_7_figure_b8_h29',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 14)',
@@ -5655,7 +5655,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h30',
+            image_name='section_7_figure_b8_h30',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5694,7 +5694,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h31',
+            image_name='section_7_figure_b8_h31',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5733,7 +5733,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h32',
+            image_name='section_7_figure_b8_h32',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5772,7 +5772,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h33',
+            image_name='section_7_figure_b8_h33',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5811,7 +5811,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h34',
+            image_name='section_7_figure_b8_h34',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5850,7 +5850,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h35',
+            image_name='section_7_figure_b8_h35',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5889,7 +5889,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h36',
+            image_name='section_7_figure_b8_h36',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5928,7 +5928,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h37',
+            image_name='section_7_figure_b8_h37',
             annotations=[
                 {
                     'text': 'Cold Day (Feb 1)',
@@ -5967,7 +5967,7 @@ class GraphicsRenderer(Logger):
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
-            image_name='section_5_2_a_figure_b8_h38',
+            image_name='section_7_figure_b8_h38',
             annotations=[
                 {
                     'text': 'Hot Day (July 14)',
@@ -5975,7 +5975,7 @@ class GraphicsRenderer(Logger):
                     'fontsize': 18}])
         return fig, ax
 
-    # def render_section_5_2b_table_b8_2_1(
+    # def render_section_7b_table_b8_2_1(
     #         self,
     #         output_value='annual_heating_MWh',
     #         caption='Table B8.2-1 "a"-Series Case Summary, Numerical Model Verification'):
@@ -6049,7 +6049,7 @@ class GraphicsRenderer(Logger):
         return fig, ax
 
     def render_section_tf_table_b8_16_alt(self):
-        figure_name = 'section_5_2_table_b8_16_alt'
+        figure_name = 'section_7_table_b8_16_alt'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
 
@@ -6153,7 +6153,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_1(self):
-        figure_name = 'section_5_2_table_b8_01'
+        figure_name = 'section_7_table_b8_01'
         caption = 'Table B8-1. Annual Heating Loads (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -6174,7 +6174,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_2(self):
-        figure_name = 'section_5_2_table_b8_02'
+        figure_name = 'section_7_table_b8_02'
         caption = 'Table B8-2. Annual Sensible Cooling Loads (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -6195,7 +6195,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_3(self):
-        figure_name = 'section_5_2_table_b8_03'
+        figure_name = 'section_7_table_b8_03'
         caption = 'Table B8-3. Annual Hourly Integrated Peak Heating Loads (kWh)'
         data_table = []
         time_stamp_table = []
@@ -6225,7 +6225,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_4(self):
-        figure_name = 'section_5_2_table_b8_04'
+        figure_name = 'section_7_table_b8_04'
         caption = 'Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kWh)'
         data_table = []
         time_stamp_table = []
@@ -6255,7 +6255,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_5a(self):
-        figure_name = 'section_5_2_table_b8_05a'
+        figure_name = 'section_7_table_b8_05a'
         caption = 'Table B8-5a. Free-Float Temperature Output Maximum Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
             '600FF': '600FF - Low Mass Building with South Windows',
@@ -6289,7 +6289,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_5b(self):
-        figure_name = 'section_5_2_table_b8_05b'
+        figure_name = 'section_7_table_b8_05b'
         caption = 'Table B8-5b. Free-Float Temperature Output Minimum Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
             '600FF': '600FF - Low Mass Building with South Windows',
@@ -6323,7 +6323,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_5c(self):
-        figure_name = 'section_5_2_table_b8_05c'
+        figure_name = 'section_7_table_b8_05c'
         caption = 'Table B8-5c. Free-Float Temperature Output Average Annual Hourly Integrated Zone Temperature (C)'
         free_float_cases = {
             '600FF': '600FF - Low Mass Building with South Windows',
@@ -6350,7 +6350,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_6a(self):
-        figure_name = 'section_5_2_table_b8_06a'
+        figure_name = 'section_7_table_b8_06a'
         caption = 'Table B8-6a. Low Mass Basic Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Heat, S. Shade',
@@ -6383,7 +6383,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_6b(self):
-        figure_name = 'section_5_2_table_b8_06b'
+        figure_name = 'section_7_table_b8_06b'
         caption = 'Table B8-6b. Low Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Cool, S. Shade',
@@ -6417,7 +6417,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_6c(self):
-        figure_name = 'section_5_2_table_b8_06c'
+        figure_name = 'section_7_table_b8_06c'
         caption = 'Table B8-6c. Low Mass Basic Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Heat, S. Shade',
@@ -6450,7 +6450,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_6d(self):
-        figure_name = 'section_5_2_table_b8_06d'
+        figure_name = 'section_7_table_b8_06d'
         caption = 'Table B8-6d. Low Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('610', '600'): '610 - 600 Cool, S. Shade',
@@ -6484,7 +6484,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_7a(self):
-        figure_name = 'section_5_2_table_b8_07a'
+        figure_name = 'section_7_table_b8_07a'
         caption = 'Table B8-7a. High Mass Basic Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Heat',
@@ -6517,7 +6517,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_7b(self):
-        figure_name = 'section_5_2_table_b8_07b'
+        figure_name = 'section_7_table_b8_07b'
         caption = 'Table B8-7b. High Mass Basic Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Cool',
@@ -6551,7 +6551,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_7c(self):
-        figure_name = 'section_5_2_table_b8_07c'
+        figure_name = 'section_7_table_b8_07c'
         caption = 'Table B8-7c. High Mass Basic Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Heat',
@@ -6584,7 +6584,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_7d(self):
-        figure_name = 'section_5_2_table_b8_07d'
+        figure_name = 'section_7_table_b8_07d'
         caption = 'Table B8-7d. High Mass Basic Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('900', '600'): '900 - 600 Mass, Cool',
@@ -6618,7 +6618,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_8a(self):
-        figure_name = 'section_5_2_table_b8_08a'
+        figure_name = 'section_7_table_b8_08a'
         caption = 'Table B8-8a. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6656,7 +6656,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_8b(self):
-        figure_name = 'section_5_2_table_b8_08b'
+        figure_name = 'section_7_table_b8_08b'
         caption = 'Table B8-8b. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6694,7 +6694,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_8c(self):
-        figure_name = 'section_5_2_table_b8_08c'
+        figure_name = 'section_7_table_b8_08c'
         caption = 'Table B8-8c. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6732,7 +6732,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_8d(self):
-        figure_name = 'section_5_2_table_b8_08d'
+        figure_name = 'section_7_table_b8_08d'
         caption = 'Table B8-8d. Low Mass In-Depth (Cases 195 thru 320) Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('200', '195'): '200-195 Surface Convection',
@@ -6770,7 +6770,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_9a(self):
-        figure_name = 'section_5_2_table_b8_09a'
+        figure_name = 'section_7_table_b8_09a'
         caption = 'Table B8-9a. Low Mass In-Depth (Cases 395 thru 440) sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -6805,7 +6805,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_9b(self):
-        figure_name = 'section_5_2_table_b8_09b'
+        figure_name = 'section_7_table_b8_09b'
         caption = 'Table B8-9b. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -6840,7 +6840,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_9c(self):
-        figure_name = 'section_5_2_table_b8_09c'
+        figure_name = 'section_7_table_b8_09c'
         caption = 'Table B8-9c. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -6875,7 +6875,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_9d(self):
-        figure_name = 'section_5_2_table_b8_09d'
+        figure_name = 'section_7_table_b8_09d'
         caption = 'Table B8-9d. Low Mass In-Depth (Cases 395 thru 440) Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('400', '395'): '400-395 Surf. Conv. & IR',
@@ -6910,7 +6910,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_10a(self):
-        figure_name = 'section_5_2_table_b8_10a'
+        figure_name = 'section_7_table_b8_10a'
         caption = 'Table B8-10a. High Mass Basic and In-Depth Sensitivity Tests - Annual Heating (MWh)'
         sensitivity_cases = {
             ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
@@ -6944,7 +6944,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_10b(self):
-        figure_name = 'section_5_2_table_b8_10b'
+        figure_name = 'section_7_table_b8_10b'
         caption = 'Table B8-10b. High Mass Basic and In-Depth Sensitivity Tests - Annual Sensible Cooling (MWh)'
         sensitivity_cases = {
             ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
@@ -6979,7 +6979,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_10c(self):
-        figure_name = 'section_5_2_table_b8_10c'
+        figure_name = 'section_7_table_b8_10c'
         caption = 'Table B8-10c. High Mass Basic and In-Depth Sensitivity Tests - Peak Heating (kW)'
         sensitivity_cases = {
             ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
@@ -7013,7 +7013,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_10d(self):
-        figure_name = 'section_5_2_table_b8_10d'
+        figure_name = 'section_7_table_b8_10d'
         caption = 'Table B8-10d. High Mass Basic and In-Depth Sensitivity Tests - Peak Sensible Cooling (kW)'
         sensitivity_cases = {
             ('800', '430'): '800-430 Mass, w/ High Cond. Wall',
@@ -7048,7 +7048,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_11(self):
-        figure_name = 'section_5_2_table_b8_11'
+        figure_name = 'section_7_table_b8_11'
         caption = 'Table B8-11. Annual Transmissivity Coefficient of Windows'
         transmitted_cases = {
             '600 South': ('600', 'South'),
@@ -7078,7 +7078,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_12(self):
-        figure_name = 'section_5_2_table_b8_12'
+        figure_name = 'section_7_table_b8_12'
         caption = 'Table B8-12. Annual Shading Coefficient of Window Shading Devices: Overhangs & Fins'
         coefficient_cases = {
             '610/600 South': ('610', '600', 'South'),
@@ -7105,7 +7105,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_13(self):
-        figure_name = 'section_5_2_table_b8_13'
+        figure_name = 'section_7_table_b8_13'
         caption = 'Table B8-13. Case 600 Annual Incident Solar Radiation (kWh/m2)'
         directions = {
             'HORZ.': 'Horizontal',
@@ -7130,7 +7130,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_14(self):
-        figure_name = 'section_5_2_table_b8_14'
+        figure_name = 'section_7_table_b8_14'
         caption = 'Table B8-14. Annual Transmitted Solar Radiation - Unshaded (kWh/m2)'
         transmitted_cases = {
             '600 South': ('600', 'South'),
@@ -7154,7 +7154,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_15(self):
-        figure_name = 'section_5_2_table_b8_15'
+        figure_name = 'section_7_table_b8_15'
         caption = 'Table B8-15. Annual Transmitted Solar Radiation - Shaded (kWh/m2)'
         transmitted_cases = {
             '610 South': ('610', 'South'),
@@ -7176,7 +7176,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_16(self):
-        figure_name = 'section_5_2_table_b8_16'
+        figure_name = 'section_7_table_b8_16'
         caption = 'Table B8-16. Sky Temperatures Output, Case 600'
         cases = {
             'Annual Hourly Integrated Average': 'Average',
@@ -7219,7 +7219,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m1a(self):  # case 600
-        figure_name = 'section_5_2_table_b8_m1a'
+        figure_name = 'section_7_table_b8_m1a'
         caption = 'Table B8-M1a. Monthly Heating Loads (kWh), Case 600'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -7239,7 +7239,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m1b(self):  # case 900
-        figure_name = 'section_5_2_table_b8_m1b'
+        figure_name = 'section_7_table_b8_m1b'
         caption = 'Table B8-M1b. Monthly Heating Loads (kWh), Case 900'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -7259,7 +7259,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m2a(self):  # case 600
-        figure_name = 'section_5_2_table_b8_m2a'
+        figure_name = 'section_7_table_b8_m2a'
         caption = 'Table B8-M2a. Monthly Sensible Cooling Loads (kWh), Case 600'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -7279,7 +7279,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m2b(self):
-        figure_name = 'section_5_2_table_b8_m2b'
+        figure_name = 'section_7_table_b8_m2b'
         caption = 'Table B8-M2b. Monthly Sensible Cooling Loads (kWh), Case 900'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -7299,7 +7299,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m3a(self):  # case 900
-        figure_name = 'section_5_2_table_b8_m3a'
+        figure_name = 'section_7_table_b8_m3a'
         caption = 'Table B8-M3a. Monthly Hourly Integrated Peak Heating Loads (kW), Case 600'
         data_table = []
         time_stamp_table = []
@@ -7326,7 +7326,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m3b(self):  # case 900
-        figure_name = 'section_5_2_table_b8_m3b'
+        figure_name = 'section_7_table_b8_m3b'
         caption = 'Table B8-M3b. Monthly Hourly Integrated Peak Heating Loads (kW), Case 900'
         data_table = []
         time_stamp_table = []
@@ -7353,7 +7353,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m4a(self):  # case 900
-        figure_name = 'section_5_2_table_b8_m4a'
+        figure_name = 'section_7_table_b8_m4a'
         caption = 'Table B8-M4a. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 600'
         data_table = []
         time_stamp_table = []
@@ -7380,7 +7380,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m4b(self):  # case 900
-        figure_name = 'section_5_2_table_b8_m4b'
+        figure_name = 'section_7_table_b8_m4b'
         caption = 'Table B8-M4b. Monthly Hourly Integrated Peak Sensible Cooling Loads (kW), Case 900'
         data_table = []
         time_stamp_table = []
@@ -7407,7 +7407,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m5a(self):  # case 600
-        figure_name = 'section_5_2_table_b8_m5a'
+        figure_name = 'section_7_table_b8_m5a'
         caption = 'Table B8-M5a. Monthly Load 600-900 Sensitivity Tests - Annual Heating (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -7429,7 +7429,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m5b(self):
-        figure_name = 'section_5_2_table_b8_m5b'
+        figure_name = 'section_7_table_b8_m5b'
         caption = 'Table B8-M5b. Monthly Load 600-900 Sensitivity Tests - Annual Sensible Cooling (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -7451,7 +7451,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m5c(self):
-        figure_name = 'section_5_2_table_b8_m5c'
+        figure_name = 'section_7_table_b8_m5c'
         caption = 'Table B8-M5c. Monthly Load 600-900 Sensitivity Tests - Peak Heating (kW)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
@@ -7476,7 +7476,7 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_tf_table_b8_m5d(self):
-        figure_name = 'section_5_2_table_b8_m5d'
+        figure_name = 'section_7_table_b8_m5d'
         caption = 'Table B8-M5d. Monthly Load 600-900 Sensitivity Tests - Peak Sensible Cooling (kW)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
