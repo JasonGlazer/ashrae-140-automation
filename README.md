@@ -6,7 +6,7 @@ Automation of ASHRAE 140 Testing Verification
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/JasonGlazer/ashrae-140-automation/flake8.yml?branch=main)](https://github.com/JasonGlazer/ashrae-140-automation/actions)
 
 ### Processing Steps  
-1. Read in tables from RESULTS-2A.xlsx
+1. Read in tables from Std140_TF_Output.xlsx
 2. Format as JSON objects into a 'processed' JSON file
 3. Render graphics from processed file
 4. Visualize graphics in Rmd files.

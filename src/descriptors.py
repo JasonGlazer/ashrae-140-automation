@@ -13,6 +13,8 @@ class VerifyInputFile:
         return file_location
 
     def __set__(self, obj, value):
+        print('value', value)
+        print('root', root_directory)
         if root_directory.joinpath(value).is_file():
             obj._file_location = root_directory.joinpath(value)
         else:
