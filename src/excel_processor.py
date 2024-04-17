@@ -68,6 +68,17 @@ class SetDataSources:
                     'identifying_information': ('YourData', 4, 'E:I', 4, {'header': None}),
                     'steady_state_cases': ('YourData', 57, 'D:H', 6, {'header': None})
                 }
+            elif obj.section_type == 'HE':
+                obj._data_sources = {
+                    'identifying_information': ('Sheet1', 17, 'A:B', 2, {'header': None}),
+                    'total_furnace_load': ('Sheet1', 19, 'A:B', 11),
+                    'total_furnace_input': ('Sheet1', 35, 'A:B', 11),
+                    'fuel_consumption': ('Sheet1', 51, 'A:B', 11),
+                    'fan_energy_both_fan': ('Sheet1', 67, 'A:B', 6),
+                    'mean_zone_temperature': ('Sheet1', 78, 'A:B', 3),
+                    'maximum_zone_temperature': ('Sheet1', 86, 'A:B', 3),
+                    'min0imum_zone_temperature': ('Sheet1', 94, 'A:B', 3)
+                }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
