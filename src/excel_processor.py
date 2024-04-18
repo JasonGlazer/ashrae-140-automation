@@ -1,4 +1,6 @@
 import re
+import sys
+
 import pandas as pd
 from descriptors import VerifyInputFile
 from logger import Logger
@@ -70,14 +72,14 @@ class SetDataSources:
                 }
             elif obj.section_type == 'HE':
                 obj._data_sources = {
-                    'identifying_information': ('Sheet1', 17, 'A:B', 2, {'header': None}),
-                    'total_furnace_load': ('Sheet1', 19, 'A:B', 11),
+                    'identifying_information': ('Sheet1', 16, 'A:B', 2, {'header': None}),
+                    'total_furnace_load': ('Sheet1', 18, 'A:B', 11),
                     'total_furnace_input': ('Sheet1', 35, 'A:B', 11),
                     'fuel_consumption': ('Sheet1', 51, 'A:B', 11),
                     'fan_energy_both_fan': ('Sheet1', 67, 'A:B', 6),
                     'mean_zone_temperature': ('Sheet1', 78, 'A:B', 3),
                     'maximum_zone_temperature': ('Sheet1', 86, 'A:B', 3),
-                    'min0imum_zone_temperature': ('Sheet1', 94, 'A:B', 3)
+                    'minimum_zone_temperature': ('Sheet1', 94, 'A:B', 3)
                 }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
@@ -116,7 +118,7 @@ class SetProcessingFunctions:
         elif value == 'HE':
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_he(),
-                'steady_state_cases': obj._extract_steady_state_cases()}
+                'furnace_loads': obj._extract_he_furnace_load_he()}
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -588,6 +590,46 @@ class ExcelProcessor(Logger):
                 'Tzone': row['Tzone'],
                 'tsim': row['tsim']}
         return data_d
+
+    def _extract_identifying_information_he(self):
+        """
+        Retrieve information data from section Heating Equipment submittal and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        if not re.match(r'^CODENAME.*', df.iloc[0, 0]):
+            self.logger.error('Software name information not found')
+            self.software_name = None
+        else:
+            self.software_name = df.iloc[0, 1]
+        if not re.match(r'^COUNTRY.*', df.iloc[1, 0]):
+            self.logger.error('Testing organization (shown in COUNTRY) information not found')
+            self.testing_organization = None
+        else:
+            self.testing_organization = df.iloc[1, 1]
+        data_d = {
+            'software_name': self.software_name,
+            'testing_organization': self.testing_organization,
+        }
+        return data_d
+
+    def _extract_he_furnace_load_he(self) -> dict:
+        """
+        Retrieve and format data from the Solar Radiation ANNUAL INCIDENT (Total Direct-Beam and Diffuse) section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('total_furnace_load')
+        df.columns = ['case', 'GJ']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_furnace_load()
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name]= row['GJ']
+        return data_d
+
 
     def run(self):
         """
