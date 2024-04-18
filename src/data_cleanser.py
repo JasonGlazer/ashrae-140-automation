@@ -24,8 +24,8 @@ class DataCleanser(Logger):
             '250', '270', '280', '290', '300', '310', '320', '395', '400', '410', '420', '430', '440', '450',
             '460', '470', '800', '810', '600FF', '650FF', '680FF', '900FF', '950FF', '980FF'}
         self.valid_he_cases = {
-            'CASE HE100', 'CASE HE110', 'CASE HE120', 'CASE HE130', 'CASE HE140', 'CASE HE150', 'CASE HE160', 'CASE HE170',
-            'CASE HE210', 'CASE HE220', 'CASE HE230'}
+            'CASE HE100', 'CASE HE110', 'CASE HE120', 'CASE HE130', 'CASE HE140', 'CASE HE150', 'CASE HE160',
+            'CASE HE170', 'CASE HE210', 'CASE HE220', 'CASE HE230'}
         self.valid_months = {
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
         }
@@ -417,7 +417,7 @@ class DataCleanser(Logger):
             column_list=numeric_columns)
         return self.df
 
-    def cleanse_he_furnace_load(
+    def cleanse_he_furnace_energy(
             self,
             case_column: str = 'case',
             numeric_columns: list = (
@@ -430,13 +430,35 @@ class DataCleanser(Logger):
             1 - kwargs for numeric check function
         :return: Cleansed pandas DataFrame
         """
-        self.logger.info('Cleansing heating equipment furnace load')
+        self.logger.info('Cleansing heating equipment furnace energy related')
         if case_column:
             self._check_cases(case_column, 'HE')
         self._check_columns(
             column_check_function=self._check_numeric_with_limits,
             column_list=numeric_columns)
         return self.df
+
+    def cleanse_he_temperature(
+            self,
+            case_column: str = 'case',
+            numeric_columns: list = (
+                ('C', {'lower_limit': -40, 'upper_limit': 100}), )):
+        """
+        Perform operations to cleanse and verify data for the heating equipment furnace load
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing heating equipment furnace energy related')
+        if case_column:
+            self._check_cases(case_column, 'HE')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
 
 
     # todo_140: Make a set of verification test that ensure the data is good for a specific output graphic
