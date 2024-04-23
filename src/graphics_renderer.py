@@ -123,6 +123,23 @@ class GraphicsRenderer(Logger):
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
+        elif self.section_type == 'HE':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    'HE100': ['HE100 100% eff.', 1],
+                    'HE110': ['HE110 80% eff.', 2],
+                    'HE120': ['HE120 80% eff., PLR=0.4', 3],
+                    'HE130': ['HE130 No Load', 4],
+                    'HE140': ['HE140 Periodic PLR', 5],
+                    'HE150': ['HE150 Continuous Circ. Fan', 6],
+                    'HE160': ['HE160 Cycling Circ. Fan', 7],
+                    'HE170': ['HE170 Draft Fan', 8],
+                    'HE210': ['HE210 Realistic Weather', 9],
+                    'HE220': ['HE220 Setback Thermostat', 10],
+                    'HE230': ['HE230 Undersized Furnace', 11]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
         if not processed_file_directory:
             self.processed_file_directory = root_directory.joinpath('processed')
         else:
@@ -148,6 +165,13 @@ class GraphicsRenderer(Logger):
                     root_directory.joinpath('processed', 'trnsys', '18.00.0001', 'std140_gc_output.json'),
                     root_directory.joinpath('processed', 'va114', '2.20', 'std140_gc_output.json')
                 ]
+            elif self.section_type == 'HE':
+                self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'esp-r-hot3000', '1.7', 'std140_he_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.0.2', 'std140_he_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_he_output.json'),
+                    root_directory.joinpath('processed', 'analytical', '0', 'std140_he_output.json')
+                ]
         else:
             self.baseline_model_list = base_model_list
         if isinstance(model_results_file, str):
@@ -169,6 +193,10 @@ class GraphicsRenderer(Logger):
             self.table_lookup = [
                 ('steady_state_cases', ['program_name', ])
             ]
+        elif self.section_type == 'HE':
+            self.table_lookup = [
+                ('furnace_input', ['program_name', ])
+            ]
         # dictionary to map file names to clean model names.  This dictionary is filled on data loading.
         self.cleansed_model_names = {}
         # instantiate objects to store data as a dictionary of json objects, and a dictionary of pandas dataframes
@@ -180,54 +208,68 @@ class GraphicsRenderer(Logger):
         self.markers = ['o', '^', 'h', 'x', 'D', '*', '>']
         self._get_data()
 
-        self.case_map = {
-            '600': '600 Base Case, South Windows',
-            '610': '610 S. Windows + Overhang',
-            '620': '620 East & West Windows',
-            '630': '630 E&W Windows + Overhang & Fins',
-            '640': '640 Case 600 with Htg Temp. Setback',
-            '650': '650 Case 600 with Night Ventilation',
-            '660': '660 Low-E Windows',
-            '670': '670 Single-Pane Windows',
-            '680': '680 Case 600 with Increased Insulation',
-            '685': '685 Case 600 with "20/20" Thermostat',
-            '695': '695 Case 685 with Increased Insulation',
-            '900': '900 South Windows',
-            '910': '910 S. Windows + Overhang',
-            '920': '920 East & West Windows',
-            '930': '930 E&W Windows + Overhang + Fins',
-            '940': '940 Case 900 with Htg Temp. Setback',
-            '950': '950 Case 900 with Night Ventilation',
-            '960': '960 Sunspace',
-            '980': '980 Case 900 with Increased Insulation',
-            '985': '985 Case 900 with "20/20" Thermostat',
-            '995': '995 Case 985 with Increased Insulation',
-            '195': '195 Solid Conduction',
-            '200': '200 Surface Convection (Int & Ext IR="off")',
-            '210': '210 Infrared Radiation (Int IR="off", Ext IR="on")',
-            '215': '215 Infrared Radiation (Int IR="on", Ext IR="off")',
-            '220': '220 In-Depth Base Case',
-            '230': '230 Infiltration',
-            '240': '240 Internal Gains',
-            '250': '250 Exterior Shortwave Absoptance',
-            '270': '270 South Solar Windows',
-            '280': '280 Cavity Albedo',
-            '290': '290 South Shading',
-            '300': '300 East/West Window',
-            '310': '310 East/West Shading',
-            '320': '320 Thermostat',
-            '395': '395 Low Mass Solid Conduction',
-            '400': '400 Low Mass High Cond. Wall Elements',
-            '410': '410 Low Mass Infiltration',
-            '420': '420 Low Mass Internal Gains',
-            '430': '430 Low Mass Ext. Shortwave Absoptance',
-            '440': '440 Low Mass Cavity Albedo',
-            '450': '450 Constant Interior and Exterior Surf Coeffs',
-            '460': '460 Constant Interior Surface Coefficients',
-            '470': '470 Constant Exterior Surface Coefficients',
-            '800': '800 High Mass Hig Cond. Wall Elements',
-            '810': '810 HIgh Mass Cavity Albedo'}
-
+        if self.section_type == 'TF':
+            self.case_map = {
+                '600': '600 Base Case, South Windows',
+                '610': '610 S. Windows + Overhang',
+                '620': '620 East & West Windows',
+                '630': '630 E&W Windows + Overhang & Fins',
+                '640': '640 Case 600 with Htg Temp. Setback',
+                '650': '650 Case 600 with Night Ventilation',
+                '660': '660 Low-E Windows',
+                '670': '670 Single-Pane Windows',
+                '680': '680 Case 600 with Increased Insulation',
+                '685': '685 Case 600 with "20/20" Thermostat',
+                '695': '695 Case 685 with Increased Insulation',
+                '900': '900 South Windows',
+                '910': '910 S. Windows + Overhang',
+                '920': '920 East & West Windows',
+                '930': '930 E&W Windows + Overhang + Fins',
+                '940': '940 Case 900 with Htg Temp. Setback',
+                '950': '950 Case 900 with Night Ventilation',
+                '960': '960 Sunspace',
+                '980': '980 Case 900 with Increased Insulation',
+                '985': '985 Case 900 with "20/20" Thermostat',
+                '995': '995 Case 985 with Increased Insulation',
+                '195': '195 Solid Conduction',
+                '200': '200 Surface Convection (Int & Ext IR="off")',
+                '210': '210 Infrared Radiation (Int IR="off", Ext IR="on")',
+                '215': '215 Infrared Radiation (Int IR="on", Ext IR="off")',
+                '220': '220 In-Depth Base Case',
+                '230': '230 Infiltration',
+                '240': '240 Internal Gains',
+                '250': '250 Exterior Shortwave Absoptance',
+                '270': '270 South Solar Windows',
+                '280': '280 Cavity Albedo',
+                '290': '290 South Shading',
+                '300': '300 East/West Window',
+                '310': '310 East/West Shading',
+                '320': '320 Thermostat',
+                '395': '395 Low Mass Solid Conduction',
+                '400': '400 Low Mass High Cond. Wall Elements',
+                '410': '410 Low Mass Infiltration',
+                '420': '420 Low Mass Internal Gains',
+                '430': '430 Low Mass Ext. Shortwave Absoptance',
+                '440': '440 Low Mass Cavity Albedo',
+                '450': '450 Constant Interior and Exterior Surf Coeffs',
+                '460': '460 Constant Interior Surface Coefficients',
+                '470': '470 Constant Exterior Surface Coefficients',
+                '800': '800 High Mass Hig Cond. Wall Elements',
+                '810': '810 High Mass Cavity Albedo'}
+        elif self.section_type == 'HE':
+            self.case_map = {
+                'HE100': 'HE100 100% eff.',
+                'HE110': 'HE110 80% eff.',
+                'HE120': 'HE120 80% eff., PLR=0.4',
+                'HE130': 'HE130 No Load',
+                'HE140': 'HE140 Periodic PLR',
+                'HE150': 'HE150 Continuous Circ. Fan',
+                'HE160': 'HE160 Cycling Circ. Fan',
+                'HE170': 'HE170 Draft Fan',
+                'HE210': 'HE210 Realistic Weather',
+                'HE220': 'HE220 Setback Thermostat',
+                'HE230': 'HE230 Undersized Furnace'
+            }
         return
 
     def _get_data(self):
@@ -7500,5 +7542,162 @@ class GraphicsRenderer(Logger):
                     row.append(value_600 - value_900)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, 3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_he_table_b16_6_1(self):
+        figure_name = 'section_10_table_b16_6_01'
+        caption = 'Table B16.6-1. Total Furnace Load (GJ)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['furnace_loads'][case])
+            data_table.append(row)
+        data_table.insert(8, [])  # add blank line as separator
+        row_headings.insert(8, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_he_table_b16_6_2(self):
+        figure_name = 'section_10_table_b16_6_02'
+        caption = 'Table B16.6-2. Total Furnace Input (GJ)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['furnace_input'][case])
+            data_table.append(row)
+        data_table.insert(8, [])  # add blank line as separator
+        row_headings.insert(8, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_he_table_b16_6_3(self):
+        figure_name = 'section_10_table_b16_6_03'
+        caption = 'Table B16.6-3. Fuel Consumption (m3/2)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['fuel_consumption'][case])
+            data_table.append(row)
+        data_table.insert(8, [])  # add blank line as separator
+        row_headings.insert(8, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=6)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_he_table_b16_6_4(self):
+        figure_name = 'section_10_table_b16_6_04'
+        caption = 'Table B16.6-4. Fan Energy, both fans (kWh)'
+        fan_energy_cases = {
+            'HE150': 'HE150 Continuous Circ. Fan',
+            'HE160': 'HE160 Cycling Circ. Fan',
+            'HE170': 'HE170 Draft Fan',
+            'HE210': 'HE210 Realistic Weather',
+            'HE220': 'HE220 Setback Thermostat',
+            'HE230': 'HE230 Undersized Furnace'
+        }
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(fan_energy_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in fan_energy_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['fan_energy'][case])
+            data_table.append(row)
+        data_table.insert(3, [])  # add blank line as separator
+        row_headings.insert(3, '')
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_he_table_b16_6_5(self):
+        figure_name = 'section_10_table_b16_6_05'
+        caption = 'Table B16.6-5. Mean Zone Temperature (C)'
+        two_hundred_cases = {
+            'HE210': 'HE210 Realistic Weather',
+            'HE220': 'HE220 Setback Thermostat',
+            'HE230': 'HE230 Undersized Furnace'
+        }
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(two_hundred_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in two_hundred_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['mean_zone_temperature'][case])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_he_table_b16_6_6(self):
+        figure_name = 'section_10_table_b16_6_06'
+        caption = 'Table B16.6-6. Maximum Zone Temperature (C)'
+        two_hundred_cases = {
+            'HE210': 'HE210 Realistic Weather',
+            'HE220': 'HE220 Setback Thermostat',
+            'HE230': 'HE230 Undersized Furnace'
+        }
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(two_hundred_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in two_hundred_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['maximum_zone_temperature'][case])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_he_table_b16_6_7(self):
+        figure_name = 'section_10_table_b16_6_07'
+        caption = 'Table B16.6-7. Minimum Zone Temperature (C)'
+        two_hundred_cases = {
+            'HE210': 'HE210 Realistic Weather',
+            'HE220': 'HE220 Setback Thermostat',
+            'HE230': 'HE230 Undersized Furnace'
+        }
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(two_hundred_cases.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in two_hundred_cases.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['minimum_zone_temperature'][case])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
