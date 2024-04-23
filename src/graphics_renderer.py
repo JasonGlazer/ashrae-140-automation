@@ -713,7 +713,11 @@ class GraphicsRenderer(Logger):
                 row_max = max(reference_data_row)
                 row.append(formatting_string.format(row_max))
                 row_mean = sum(reference_data_row) / len(reference_data_row)
-                row.append(formatting_string.format(row_mean))
+                if self.section_type == 'HE' and 'HE1' in row_headings[row_index]:
+                    row_mean = data_row[-2] # substitute the analytical value for mean
+                    row.append('') # leave the "mean" column empty
+                else:
+                    row.append(formatting_string.format(row_mean))
                 if row_mean != 0:
                     row_dev = abs((row_max - row_min) / row_mean) * 100
                     row.append('{:.1f}'.format(row_dev))
@@ -7564,7 +7568,7 @@ class GraphicsRenderer(Logger):
         figure_name = 'section_10_table_b16_6_01'
         caption = 'Table B16.6-1. Total Furnace Load (GJ)'
         data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7703,7 +7707,7 @@ class GraphicsRenderer(Logger):
             'HE230': 'HE230 Undersized Furnace'
         }
         data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(two_hundred_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
