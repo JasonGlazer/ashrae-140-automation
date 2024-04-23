@@ -686,16 +686,27 @@ class GraphicsRenderer(Logger):
         :return: merged table (list of lists) containing text for every column and row formatted and merged
         """
         formatting_string = '{:.' + str(digits) + 'f}'
-        final_column_headings = column_headings[:-1]
-        final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
-        final_column_headings.append(column_headings[-1])
+        if self.section_type == 'TF':
+            final_column_headings = column_headings[:-1]
+            final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
+            final_column_headings.append(column_headings[-1])
+        elif self.section_type == 'HE':
+            final_column_headings = column_headings[:-2]
+            final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
+            final_column_headings.append(column_headings[-2])
+            final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
             row = [row_headings[row_index], ]  # first add the heading for the row
             if data_row:  # for blank rows just skip
-                for item in data_row[:-1]:
-                    row.append(formatting_string.format(item))
-                reference_data_row = self._scrub_number_list(data_row[:-1])  # remove the last item which is the tested software
+                if self.section_type == 'TF':
+                    for item in data_row[:-1]:
+                        row.append(formatting_string.format(item))
+                    reference_data_row = self._scrub_number_list(data_row[:-1])  # remove the last item which is the tested software
+                elif self.section_type == 'HE':
+                    for item in data_row[:-2]:
+                        row.append(formatting_string.format(item))
+                    reference_data_row = self._scrub_number_list(data_row[:-2])  # remove the last item which is the tested software
                 row.append('')
                 row_min = min(reference_data_row)
                 row.append(formatting_string.format(row_min))
@@ -709,7 +720,11 @@ class GraphicsRenderer(Logger):
                 else:
                     row.append('-')
                 row.append('')
-                row.append(formatting_string.format(data_row[-1]))  # now add the last column back
+                if self.section_type == 'TF':
+                    row.append(formatting_string.format(data_row[-1]))  # now add the last column back
+                elif self.section_type == 'HE':
+                    row.append(formatting_string.format(data_row[-2]))  # now add the last column back
+                    row.append(formatting_string.format(data_row[-1]))  # now add the last column back
             text_table_with_stats.append(row)
         # now add the rows with time stamps
         if time_stamps:
