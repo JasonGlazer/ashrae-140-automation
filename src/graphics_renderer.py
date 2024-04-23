@@ -6,6 +6,7 @@ import numpy as np
 import math
 from textwrap import wrap
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 from logger import Logger
 
@@ -26,6 +27,8 @@ class SectionType:
             obj._section_type = 'TF'
         elif re.match(r'.*Std140_GC_Output\..*$', str(value), re.IGNORECASE):
             obj._section_type = 'GC'
+        elif re.match(r'.*Std140_HE_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'HE'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
