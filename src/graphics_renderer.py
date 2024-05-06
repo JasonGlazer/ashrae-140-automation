@@ -832,8 +832,8 @@ class GraphicsRenderer(Logger):
         fig = px.bar(df, x="Case", y=column_headings[1:], text_auto='.2f')
         fig.update_layout(barmode='group', title=dict(text=caption, font=dict(size=25), xanchor='center', x=0.5),
                           yaxis_title=yaxis_title, xaxis_title="")
-        fig.show()
-        fig.write_html(file_name + '.html')
+        # fig.show() # for debugging purposes shows the figure in the browser
+        # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
 
 
@@ -7611,6 +7611,8 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_1(self):
         figure_name = 'section_10_table_b16_6_01'
         caption = 'Table B16.6-1. Total Furnace Load (GJ)'
+        figure_caption = 'Figure B16.6-1. Comparison of the Energy Delivered for the Fuel-Fired Furnace Test Cases'
+        yaxis_name = 'Total Furnace Load (GJ)'
         data_table = []
         footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
@@ -7626,11 +7628,14 @@ class GraphicsRenderer(Logger):
         row_headings.insert(8, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
 
     def render_section_he_table_b16_6_2(self):
         figure_name = 'section_10_table_b16_6_02'
         caption = 'Table B16.6-2. Total Furnace Input (GJ)'
+        figure_caption = 'Figure B16.6-1. Comparison of the Energy Consumed for the Fuel-Fired Furnace Test Cases'
+        yaxis_name = 'Total Furnace Input (GJ)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
@@ -7646,11 +7651,14 @@ class GraphicsRenderer(Logger):
         row_headings.insert(8, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
 
     def render_section_he_table_b16_6_3(self):
         figure_name = 'section_10_table_b16_6_03'
         caption = 'Table B16.6-3. Fuel Consumption (m3/2)'
+        figure_caption = 'Figure B16.6-3. Comparison of the Fuel Consumed for the Fuel-Fired Furnace Test Cases'
+        yaxis_name = 'Fuel Consumption (m3/s)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
@@ -7666,11 +7674,14 @@ class GraphicsRenderer(Logger):
         row_headings.insert(8, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=6)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
 
     def render_section_he_table_b16_6_4(self):
         figure_name = 'section_10_table_b16_6_04'
         caption = 'Table B16.6-4. Fan Energy, both fans (kWh)'
+        figure_caption = 'Figure B16.6-4. Comparison of the Fan Energy for the Fuel-Fired Furnace Test Cases'
+        yaxis_name = 'Fuel Consumption (m3/s)'
         fan_energy_cases = {
             'HE150': 'HE150 Continuous Circ. Fan',
             'HE160': 'HE160 Cycling Circ. Fan',
@@ -7694,6 +7705,7 @@ class GraphicsRenderer(Logger):
         row_headings.insert(3, '')
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
 
     def render_section_he_table_b16_6_5(self):
@@ -7701,13 +7713,13 @@ class GraphicsRenderer(Logger):
         caption = 'Table B16.6-5. Mean Zone Temperature (C)'
         figure_caption = ('Figure B16.6-5. Comparison of the Mean Zone Temperature for the Fuel-Fired Furnace ' 
                           'Comparative Test Cases')
+        yaxis_name = "Mean Zone Temperature (C)"
         two_hundred_cases = {
             'HE210': 'HE210 Realistic Weather',
             'HE220': 'HE220 Setback Thermostat',
             'HE230': 'HE230 Undersized Furnace'
         }
         data_table = []
-        data_graph = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(two_hundred_cases.values())
         column_headings = ['Case']
@@ -7715,22 +7727,12 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for case, case_description in two_hundred_cases.items():
             row = []
-            graph_row = [case_description, ]
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['mean_zone_temperature'][case])
-                # if tst != 'Analytical/Quasi-Analytical':
-                graph_row.append(json_obj['mean_zone_temperature'][case])
             data_table.append(row)
-            data_graph.append(graph_row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        df = pd.DataFrame(data_graph, columns=column_headings)
-        fig = px.bar(df, x="Case", y=column_headings[1:], text_auto='.2f')
-        fig.update_layout(barmode='group', title=dict(text=figure_caption, font=dict(size=25), xanchor='center', x=0.5),
-                          yaxis_title="Mean Zone Temperature (C)", xaxis_title="")
-        fig.show()
-        fig.write_html(figure_name + '.html')
-        fig.write_image(figure_name + '.png', engine='kaleido', width=1400, height=1000)
+        self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
 
     def render_section_he_table_b16_6_6(self):
