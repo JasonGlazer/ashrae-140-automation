@@ -7,6 +7,7 @@ import math
 from textwrap import wrap
 import matplotlib.pyplot as plt
 import plotly.express as px
+import kaleido
 
 from logger import Logger
 
@@ -7655,6 +7656,8 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_5(self):
         figure_name = 'section_10_table_b16_6_05'
         caption = 'Table B16.6-5. Mean Zone Temperature (C)'
+        figure_caption = ('Figure B16.6-5. Comparison of the Mean Zone Temperature for the Fuel-Fired Furnace '
+                          'Comparative Test Cases')
         two_hundred_cases = {
             'HE210': 'HE210 Realistic Weather',
             'HE220': 'HE220 Setback Thermostat',
@@ -7667,20 +7670,24 @@ class GraphicsRenderer(Logger):
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_name'])
-        for case in two_hundred_cases.keys():
+        for case, case_description in two_hundred_cases.items():
             row = []
-            graph_row = [case,]
+            graph_row = [case_description, ]
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['mean_zone_temperature'][case])
+                # if tst != 'Analytical/Quasi-Analytical':
                 graph_row.append(json_obj['mean_zone_temperature'][case])
             data_table.append(row)
             data_graph.append(graph_row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        df = pd.DataFrame(data_graph, columns = column_headings)
-        fig = px.bar(df, x="Case", y=column_headings[1:])
-        fig.update_layout(barmode='group')
+        df = pd.DataFrame(data_graph, columns=column_headings)
+        fig = px.bar(df, x="Case", y=column_headings[1:], text_auto='.2f')
+        fig.update_layout(barmode='group', title=dict(text=figure_caption, font=dict(size=25), xanchor='center', x=0.5),
+                          yaxis_title="Mean Zone Temperature (C)", xaxis_title="")
         fig.show()
+        fig.write_html(figure_name + '.html')
+        fig.write_image(figure_name + '.png', engine='kaleido', width=1400, height=1000)
         return
 
     def render_section_he_table_b16_6_6(self):

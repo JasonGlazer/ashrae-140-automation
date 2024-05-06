@@ -13,6 +13,7 @@ ipython~=8.1.0
 numpy~=1.22
 nbconvert~=6.5.1
 papermill~=2.3.3
+kaleido~=0.2.1
 
 # for local testing
 flake8~=5.0.4
