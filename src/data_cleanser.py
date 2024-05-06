@@ -459,6 +459,4 @@ class DataCleanser(Logger):
             column_list=numeric_columns)
         return self.df
 
-
-
     # todo_140: Make a set of verification test that ensure the data is good for a specific output graphic

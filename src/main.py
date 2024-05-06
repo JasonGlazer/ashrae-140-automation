@@ -151,7 +151,7 @@ def create_markdown(input_file):
             sorted_files.append(img)
 
     # write to markdown files
-    md_file = open(pathlib.Path.joinpath(destination_directory, 'section_' + section +'.md'), 'w')
+    md_file = open(pathlib.Path.joinpath(destination_directory, 'section_' + section + '.md'), 'w')
     md_file.write('# Section Thermal Fabric\n')
 
     # append each mark down file to the end

@@ -7,7 +7,7 @@ import math
 from textwrap import wrap
 import matplotlib.pyplot as plt
 import plotly.express as px
-import kaleido
+# import kaleido
 
 from logger import Logger
 
@@ -715,8 +715,8 @@ class GraphicsRenderer(Logger):
                 row.append(formatting_string.format(row_max))
                 row_mean = sum(reference_data_row) / len(reference_data_row)
                 if self.section_type == 'HE' and 'HE1' in row_headings[row_index]:
-                    row_mean = data_row[-2] # substitute the analytical value for mean
-                    row.append('') # leave the "mean" column empty
+                    row_mean = data_row[-2]  # substitute the analytical value for mean
+                    row.append('')  # leave the "mean" column empty
                 else:
                     row.append(formatting_string.format(row_mean))
                 if row_mean != 0:
@@ -825,7 +825,7 @@ class GraphicsRenderer(Logger):
                 ]))
         table_with_row_headings = []
         for count, row in enumerate(table):
-            row_with_heading = [row_headings[count],]
+            row_with_heading = [row_headings[count], ]
             row_with_heading.extend(row)
             table_with_row_headings.append(row_with_heading)
         df = pd.DataFrame(table_with_row_headings, columns=column_headings)
@@ -835,7 +835,6 @@ class GraphicsRenderer(Logger):
         # fig.show() # for debugging purposes shows the figure in the browser
         # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
-
 
     def render_section_tf_figure_b8_1(self):
         """
@@ -7711,7 +7710,7 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_5(self):
         figure_name = 'section_10_table_b16_6_05'
         caption = 'Table B16.6-5. Mean Zone Temperature (C)'
-        figure_caption = ('Figure B16.6-5. Comparison of the Mean Zone Temperature for the Fuel-Fired Furnace ' 
+        figure_caption = ('Figure B16.6-5. Comparison of the Mean Zone Temperature for the Fuel-Fired Furnace '
                           'Comparative Test Cases')
         yaxis_name = "Mean Zone Temperature (C)"
         two_hundred_cases = {
@@ -7738,7 +7737,7 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_6(self):
         figure_name = 'section_10_table_b16_6_06'
         caption = 'Table B16.6-6. Maximum Zone Temperature (C)'
-        figure_caption = ('Figure B16.6-6. Comparison of the Maximum Zone Temperature for the Fuel-Fired Furnace ' 
+        figure_caption = ('Figure B16.6-6. Comparison of the Maximum Zone Temperature for the Fuel-Fired Furnace '
                           'Comparative Test Cases')
         yaxis_name = "Maximum Zone Temperature (C)"
         two_hundred_cases = {
@@ -7765,7 +7764,7 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_7(self):
         figure_name = 'section_10_table_b16_6_07'
         caption = 'Table B16.6-7. Minimum Zone Temperature (C)'
-        figure_caption = ('Figure B16.6-7. Comparison of the Minimum Zone Temperature for the Fuel-Fired Furnace ' 
+        figure_caption = ('Figure B16.6-7. Comparison of the Minimum Zone Temperature for the Fuel-Fired Furnace '
                           'Comparative Test Cases')
         yaxis_name = "Minimum Zone Temperature (C)"
         two_hundred_cases = {

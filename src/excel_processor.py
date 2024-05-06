@@ -633,7 +633,7 @@ class ExcelProcessor(Logger):
         data_d = {}
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
-            data_d[row_name]= row['GJ']
+            data_d[row_name] = row['GJ']
         return data_d
 
     def _extract_he_furnace_input(self) -> dict:
@@ -649,7 +649,7 @@ class ExcelProcessor(Logger):
         data_d = {}
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
-            data_d[row_name]= row['GJ']
+            data_d[row_name] = row['GJ']
         return data_d
 
     def _extract_he_fuel_consumption(self) -> dict:
@@ -665,7 +665,7 @@ class ExcelProcessor(Logger):
         data_d = {}
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
-            data_d[row_name]= row['m3/2']
+            data_d[row_name] = row['m3/2']
         return data_d
 
     def _extract_he_fan_energy(self) -> dict:
@@ -681,7 +681,7 @@ class ExcelProcessor(Logger):
         data_d = {}
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
-            data_d[row_name]= row['kWh']
+            data_d[row_name] = row['kWh']
         return data_d
 
     def _extract_he_mean_zone_temperature(self) -> dict:
@@ -697,7 +697,7 @@ class ExcelProcessor(Logger):
         data_d = {}
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
-            data_d[row_name]= row['C']
+            data_d[row_name] = row['C']
         return data_d
 
     def _extract_he_maximum_zone_temperature(self) -> dict:
@@ -713,7 +713,7 @@ class ExcelProcessor(Logger):
         data_d = {}
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
-            data_d[row_name]= row['C']
+            data_d[row_name] = row['C']
         return data_d
 
     def _extract_he_minimum_zone_temperature(self) -> dict:
@@ -729,7 +729,7 @@ class ExcelProcessor(Logger):
         data_d = {}
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
-            data_d[row_name]= row['C']
+            data_d[row_name] = row['C']
         return data_d
 
     def run(self):
