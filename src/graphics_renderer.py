@@ -7661,6 +7661,7 @@ class GraphicsRenderer(Logger):
             'HE230': 'HE230 Undersized Furnace'
         }
         data_table = []
+        data_graph = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(two_hundred_cases.values())
         column_headings = ['Case']
@@ -7668,11 +7669,18 @@ class GraphicsRenderer(Logger):
             column_headings.append(json_obj['identifying_information']['software_name'])
         for case in two_hundred_cases.keys():
             row = []
+            graph_row = [case,]
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['mean_zone_temperature'][case])
+                graph_row.append(json_obj['mean_zone_temperature'][case])
             data_table.append(row)
+            data_graph.append(graph_row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        df = pd.DataFrame(data_graph, columns = column_headings)
+        fig = px.bar(df, x="Case", y=column_headings[1:])
+        fig.update_layout(barmode='group')
+        fig.show()
         return
 
     def render_section_he_table_b16_6_6(self):
