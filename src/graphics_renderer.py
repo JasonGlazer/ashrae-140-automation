@@ -794,6 +794,49 @@ class GraphicsRenderer(Logger):
                 list_out.append('')
         return list_out
 
+    def _create_plotly_bar(self, file_name, table, row_headings, column_headings, yaxis_title, caption):
+        """"
+        Create a plotly bar chart from a data table.
+
+        :param file_name: name of the figure to be used as a file name without any extension
+        :param table: a list of list data without headings
+        :param row_headings: a list of headings for each row of the table
+        :param column_headings: a list of headings for each colum of the table
+        :param yaxis_title: a string for the title of the y-axis
+        :param caption: the caption to be used as the title of the chart
+        """
+        program_name = self.model_results_file.parts[-3].lower()
+        version = self.model_results_file.parts[-2].lower()
+        destination_directory = root_directory.joinpath('rendered', 'images')
+        img_directory = destination_directory.joinpath(
+            program_name,
+            version,
+            'images')
+        pathlib.Path(img_directory).mkdir(parents=True, exist_ok=True)
+        img_name = img_directory.joinpath(
+            '.'.join(
+                [
+                    '-'.join(
+                        [
+                            self.model_results_file.stem,
+                            file_name,
+                        ]),
+                    'png'
+                ]))
+        table_with_row_headings = []
+        for count, row in enumerate(table):
+            row_with_heading = [row_headings[count],]
+            row_with_heading.extend(row)
+            table_with_row_headings.append(row_with_heading)
+        df = pd.DataFrame(table_with_row_headings, columns=column_headings)
+        fig = px.bar(df, x="Case", y=column_headings[1:], text_auto='.2f')
+        fig.update_layout(barmode='group', title=dict(text=caption, font=dict(size=25), xanchor='center', x=0.5),
+                          yaxis_title=yaxis_title, xaxis_title="")
+        fig.show()
+        fig.write_html(file_name + '.html')
+        fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
+
+
     def render_section_tf_figure_b8_1(self):
         """
         Render Section Thermal Fabric Figure B8-1 by modifying fig an ax inputs from matplotlib
@@ -7656,7 +7699,7 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_5(self):
         figure_name = 'section_10_table_b16_6_05'
         caption = 'Table B16.6-5. Mean Zone Temperature (C)'
-        figure_caption = ('Figure B16.6-5. Comparison of the Mean Zone Temperature for the Fuel-Fired Furnace '
+        figure_caption = ('Figure B16.6-5. Comparison of the Mean Zone Temperature for the Fuel-Fired Furnace ' 
                           'Comparative Test Cases')
         two_hundred_cases = {
             'HE210': 'HE210 Realistic Weather',
@@ -7693,6 +7736,9 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_6(self):
         figure_name = 'section_10_table_b16_6_06'
         caption = 'Table B16.6-6. Maximum Zone Temperature (C)'
+        figure_caption = ('Figure B16.6-6. Comparison of the Maximum Zone Temperature for the Fuel-Fired Furnace ' 
+                          'Comparative Test Cases')
+        yaxis_name = "Maximum Zone Temperature (C)"
         two_hundred_cases = {
             'HE210': 'HE210 Realistic Weather',
             'HE220': 'HE220 Setback Thermostat',
@@ -7711,11 +7757,15 @@ class GraphicsRenderer(Logger):
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
 
     def render_section_he_table_b16_6_7(self):
         figure_name = 'section_10_table_b16_6_07'
         caption = 'Table B16.6-7. Minimum Zone Temperature (C)'
+        figure_caption = ('Figure B16.6-7. Comparison of the Minimum Zone Temperature for the Fuel-Fired Furnace ' 
+                          'Comparative Test Cases')
+        yaxis_name = "Minimum Zone Temperature (C)"
         two_hundred_cases = {
             'HE210': 'HE210 Realistic Weather',
             'HE220': 'HE220 Setback Thermostat',
@@ -7734,4 +7784,5 @@ class GraphicsRenderer(Logger):
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
