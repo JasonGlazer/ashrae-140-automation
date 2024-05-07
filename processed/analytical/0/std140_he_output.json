@@ -1,0 +1,68 @@
+{
+    "fan_energy": {
+        "HE150": 432.0,
+        "HE160": 172.76,
+        "HE170": 473.18,
+        "HE210": NaN,
+        "HE220": NaN,
+        "HE230": NaN
+    },
+    "fuel_consumption": {
+        "HE100": 0.000263,
+        "HE110": 0.000329,
+        "HE120": 0.0001295,
+        "HE130": 0.0,
+        "HE140": 0.000132,
+        "HE150": 0.0001253,
+        "HE160": 0.0001289,
+        "HE170": 0.0001253,
+        "HE210": NaN,
+        "HE220": NaN,
+        "HE230": NaN
+    },
+    "furnace_input": {
+        "HE100": 77.713344,
+        "HE110": 97.21555199999999,
+        "HE120": 38.265696,
+        "HE130": 0.0,
+        "HE140": 39.004416000000006,
+        "HE150": 37.0246464,
+        "HE160": 38.088403199999995,
+        "HE170": 37.0246464,
+        "HE210": NaN,
+        "HE220": NaN,
+        "HE230": NaN
+    },
+    "furnace_loads": {
+        "HE100": 77.74,
+        "HE110": 77.74,
+        "HE120": 31.1,
+        "HE130": 0.0,
+        "HE140": 31.1,
+        "HE150": 29.65,
+        "HE160": 31.1,
+        "HE170": 29.65,
+        "HE210": NaN,
+        "HE220": NaN,
+        "HE230": NaN
+    },
+    "identifying_information": {
+        "software_name": "Analytical/Quasi-Analytical",
+        "testing_organization": NaN
+    },
+    "maximum_zone_temperature": {
+        "HE210": NaN,
+        "HE220": NaN,
+        "HE230": NaN
+    },
+    "mean_zone_temperature": {
+        "HE210": NaN,
+        "HE220": NaN,
+        "HE230": NaN
+    },
+    "minimum_zone_temperature": {
+        "HE210": NaN,
+        "HE220": NaN,
+        "HE230": NaN
+    }
+}

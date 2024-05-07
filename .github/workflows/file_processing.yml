@@ -28,10 +28,10 @@ jobs:
             echo "$file was modified"
           done
 
-      - name: Set up Python 3.8
+      - name: Set up Python 3.12
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.12
 
       - name: Install Pip Dependencies
         shell: bash
@@ -82,10 +82,10 @@ jobs:
             echo "$file was modified"
           done
 
-      - name: Set up Python 3.8
+      - name: Set up Python 3.12
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.12
 
       - name: Install Pip Dependencies
         shell: bash
