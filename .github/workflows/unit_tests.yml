@@ -30,7 +30,7 @@ jobs:
       run: pip install ${{ matrix.pip_arg }} -r requirements.txt
     - name: Run Tests
       shell: bash
-      run: ${{ matrix.python }} setup.py nosetests
+      run: ${{ matrix.python }} setup.py pynose
     - name: Upload Coverage Results
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
