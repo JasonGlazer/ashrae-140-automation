@@ -7613,7 +7613,7 @@ class GraphicsRenderer(Logger):
         figure_caption = 'Figure B16.6-1. Comparison of the Energy Delivered for the Fuel-Fired Furnace Test Cases'
         yaxis_name = 'Total Furnace Load (GJ)'
         data_table = []
-        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7633,10 +7633,10 @@ class GraphicsRenderer(Logger):
     def render_section_he_table_b16_6_2(self):
         figure_name = 'section_10_table_b16_6_02'
         caption = 'Table B16.6-2. Total Furnace Input (GJ)'
-        figure_caption = 'Figure B16.6-1. Comparison of the Energy Consumed for the Fuel-Fired Furnace Test Cases'
+        figure_caption = 'Figure B16.6-2. Comparison of the Energy Consumed for the Fuel-Fired Furnace Test Cases'
         yaxis_name = 'Total Furnace Input (GJ)'
         data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7659,7 +7659,7 @@ class GraphicsRenderer(Logger):
         figure_caption = 'Figure B16.6-3. Comparison of the Fuel Consumed for the Fuel-Fired Furnace Test Cases'
         yaxis_name = 'Fuel Consumption (m3/s)'
         data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7690,7 +7690,7 @@ class GraphicsRenderer(Logger):
             'HE230': 'HE230 Undersized Furnace'
         }
         data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(fan_energy_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -7773,7 +7773,7 @@ class GraphicsRenderer(Logger):
             'HE230': 'HE230 Undersized Furnace'
         }
         data_table = []
-        footnotes = ['$$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(two_hundred_cases.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
