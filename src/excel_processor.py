@@ -1,4 +1,5 @@
 import re
+
 import pandas as pd
 from descriptors import VerifyInputFile
 from logger import Logger
@@ -19,6 +20,8 @@ class SectionType:
             obj._section_type = 'TF'
         elif re.match(r'.*Std140_GC_Output.*', str(value.name), re.IGNORECASE):
             obj._section_type = 'GC'
+        elif re.match(r'.*Std140_HE_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'HE'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -66,6 +69,17 @@ class SetDataSources:
                     'identifying_information': ('YourData', 4, 'E:I', 4, {'header': None}),
                     'steady_state_cases': ('YourData', 57, 'D:H', 6, {'header': None})
                 }
+            elif obj.section_type == 'HE':
+                obj._data_sources = {
+                    'identifying_information': ('Sheet1', 16, 'A:B', 2, {'header': None}),
+                    'total_furnace_load': ('Sheet1', 18, 'A:B', 11),
+                    'total_furnace_input': ('Sheet1', 34, 'A:B', 11),
+                    'fuel_consumption': ('Sheet1', 50, 'A:B', 11),
+                    'fan_energy_both_fans': ('Sheet1', 66, 'A:B', 6),
+                    'mean_zone_temperature': ('Sheet1', 77, 'A:B', 3),
+                    'maximum_zone_temperature': ('Sheet1', 85, 'A:B', 3),
+                    'minimum_zone_temperature': ('Sheet1', 93, 'A:B', 3)
+                }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -100,6 +114,17 @@ class SetProcessingFunctions:
             obj._processing_functions = {
                 'identifying_information': obj._extract_identifying_information_gc(),
                 'steady_state_cases': obj._extract_steady_state_cases()}
+        elif value == 'HE':
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information_he(),
+                'furnace_loads': obj._extract_he_furnace_load(),
+                'furnace_input': obj._extract_he_furnace_input(),
+                'fuel_consumption': obj._extract_he_fuel_consumption(),
+                'fan_energy': obj._extract_he_fan_energy(),
+                'mean_zone_temperature': obj._extract_he_mean_zone_temperature(),
+                'maximum_zone_temperature': obj._extract_he_maximum_zone_temperature(),
+                'minimum_zone_temperature': obj._extract_he_minimum_zone_temperature()
+            }
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -570,6 +595,141 @@ class ExcelProcessor(Logger):
                 'qzone': row['qzone'],
                 'Tzone': row['Tzone'],
                 'tsim': row['tsim']}
+        return data_d
+
+    def _extract_identifying_information_he(self):
+        """
+        Retrieve information data from section Heating Equipment submittal and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        if not re.match(r'^CODENAME.*', df.iloc[0, 0]):
+            self.logger.error('Software name information not found')
+            self.software_name = None
+        else:
+            self.software_name = df.iloc[0, 1]
+        if not re.match(r'^COUNTRY.*', df.iloc[1, 0]):
+            self.logger.error('Testing organization (shown in COUNTRY) information not found')
+            self.testing_organization = None
+        else:
+            self.testing_organization = df.iloc[1, 1]
+        data_d = {
+            'software_name': self.software_name,
+            'testing_organization': self.testing_organization,
+        }
+        return data_d
+
+    def _extract_he_furnace_load(self) -> dict:
+        """
+        Retrieve and format data from the heating equipment furnace loads section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('total_furnace_load')
+        df.columns = ['case', 'GJ']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_furnace_energy()
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name] = row['GJ']
+        return data_d
+
+    def _extract_he_furnace_input(self) -> dict:
+        """
+        Retrieve and format data from the heating equipment furnace input section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('total_furnace_input')
+        df.columns = ['case', 'GJ']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_furnace_energy()
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name] = row['GJ']
+        return data_d
+
+    def _extract_he_fuel_consumption(self) -> dict:
+        """
+        Retrieve and format data from the heating equipment fuel consumption section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('fuel_consumption')
+        df.columns = ['case', 'm3/2']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_furnace_energy(numeric_columns=(('m3/2', {'lower_limit': 0}), ))
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name] = row['m3/2']
+        return data_d
+
+    def _extract_he_fan_energy(self) -> dict:
+        """
+        Retrieve and format data from the heating equipment fan energy section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('fan_energy_both_fans')
+        df.columns = ['case', 'kWh']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_furnace_energy(numeric_columns=(('kWh', {'lower_limit': 0}), ))
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name] = row['kWh']
+        return data_d
+
+    def _extract_he_mean_zone_temperature(self) -> dict:
+        """
+        Retrieve and format data from the heating equipment mean zone temperature section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('mean_zone_temperature')
+        df.columns = ['case', 'C']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_temperature()
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name] = row['C']
+        return data_d
+
+    def _extract_he_maximum_zone_temperature(self) -> dict:
+        """
+        Retrieve and format data from the heating equipment maximum zone temperature section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('maximum_zone_temperature')
+        df.columns = ['case', 'C']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_temperature()
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name] = row['C']
+        return data_d
+
+    def _extract_he_minimum_zone_temperature(self) -> dict:
+        """
+        Retrieve and format data from the heating equipment minimum zone temperature section
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('minimum_zone_temperature')
+        df.columns = ['case', 'C']
+        dc = DataCleanser(df)
+        df = dc.cleanse_he_temperature()
+        data_d = {}
+        for idx, row in df.iterrows():
+            row_name = str(row['case']).removeprefix('CASE ')
+            data_d[row_name] = row['C']
         return data_d
 
     def run(self):

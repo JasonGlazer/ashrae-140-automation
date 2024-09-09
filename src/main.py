@@ -113,6 +113,9 @@ def create_markdown(input_file):
     # get markdown file directory
     input_file_path_parts = input_file.parts
     folder_parts = input_file_path_parts[-3:-1]
+    section = input_file_path_parts[-1].split('_')[1]
+    section_string = '_' + section + '_'
+
     # folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])
     # destination_directory = root_directory.joinpath('rendered', 'images', folder_name)
     # img_file_directory = destination_directory.joinpath('images')
@@ -121,8 +124,8 @@ def create_markdown(input_file):
 
     if img_file_directory.exists():
         if img_file_directory.is_dir():
-            img_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.png']
-            md_table_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.md']
+            img_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.png' and section_string in i.name]
+            md_table_files = [i.name for i in img_file_directory.glob('*') if i.is_file() and i.suffix == '.md' and section_string in i.name]
         else:
             img_files = []
             md_table_files = []
@@ -148,7 +151,7 @@ def create_markdown(input_file):
             sorted_files.append(img)
 
     # write to markdown files
-    md_file = open(pathlib.Path.joinpath(destination_directory, 'section_tf.md'), 'w')
+    md_file = open(pathlib.Path.joinpath(destination_directory, 'section_' + section + '.md'), 'w')
     md_file.write('# Section Thermal Fabric\n')
 
     # append each mark down file to the end
