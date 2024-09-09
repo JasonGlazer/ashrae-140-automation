@@ -16,7 +16,7 @@
 | HE220 Setback Thermostat   |         39.41 |      39.87 |    39.76 |     | 39.41 | 39.87 | 39.68 |      1.2 |     |                             | 39.76 | 
 | HE230 Undersized Furnace   |         34.32 |      34.59 |    34.37 |     | 34.32 | 34.59 | 34.43 |      0.8 |     |                             | 34.37 | 
 
-$$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
 # Table B16.6-2. Total Furnace Input (GJ)
@@ -35,7 +35,7 @@ $$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases AB
 | HE220 Setback Thermostat   |         47.87 |      49.35 |    49.47 |     | 47.87 | 49.47 | 48.89 |      3.3 |     |                             | 49.47 | 
 | HE230 Undersized Furnace   |         41.37 |      42.55 |    43.22 |     | 41.37 | 43.22 | 42.38 |      4.4 |     |                             | 43.22 | 
 
-$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
 # Table B16.6-3. Fuel Consumption (m3/2)
@@ -54,7 +54,7 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 | HE220 Setback Thermostat   |      0.000162 |   0.000167 | 0.000167 |     | 0.000162 | 0.000167 | 0.000165 |      3.3 |     |                             | 0.000167 | 
 | HE230 Undersized Furnace   |      0.000140 |   0.000144 | 0.000146 |     | 0.000140 | 0.000146 | 0.000143 |      4.3 |     |                             | 0.000146 | 
 
-$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
 # Table B16.6-4. Fan Energy, both fans (kWh)
@@ -68,7 +68,7 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 | HE220 Setback Thermostat   |         268.3 |      276.1 |    281.2 |     | 268.3 | 281.2 | 275.2 |      4.7 |     |                             | 281.2 | 
 | HE230 Undersized Furnace   |         458.3 |      431.4 |    478.4 |     | 431.4 | 478.4 | 456.0 |     10.3 |     |                             | 478.4 | 
 
-$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
 # Table B16.6-5. Mean Zone Temperature (C)
@@ -98,6 +98,6 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 | HE220 Setback Thermostat |         15.00 |      15.00 |    14.94 |     | 14.94 | 15.00 | 14.98 |      0.4 |     |                             | 14.94 | 
 | HE230 Undersized Furnace |          1.45 |       4.48 |     3.22 |     |  1.45 |  4.48 |  3.05 |     99.3 |     |                             |  3.22 | 
 
-$$ For HE1xx cases ABS[ (Max-Min) / (Analytics Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 

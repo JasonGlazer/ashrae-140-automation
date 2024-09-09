@@ -14,6 +14,6 @@
 | HE220 Setback Thermostat   |      0.000162 |   0.000167 | 0.000167 |     | 0.000162 | 0.000167 | 0.000165 |      3.3 |     |                             | 0.000167 | 
 | HE230 Undersized Furnace   |      0.000140 |   0.000144 | 0.000146 |     | 0.000140 | 0.000146 | 0.000143 |      4.3 |     |                             | 0.000146 | 
 
-$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
+$$ For HE1xx cases ABS[ (Max-Min) / (Analytic Solution)] and for HE2xx cases ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
