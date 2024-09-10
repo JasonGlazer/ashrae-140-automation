@@ -22,6 +22,10 @@ class SectionType:
             obj._section_type = 'GC'
         elif re.match(r'.*Std140_HE_Output.*', str(value.name), re.IGNORECASE):
             obj._section_type = 'HE'
+        elif re.match(r'.*Std140_CE_a_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'CE_a'
+        elif re.match(r'.*Std140_CE_b_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'CE_b'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -79,6 +83,20 @@ class SetDataSources:
                     'mean_zone_temperature': ('Sheet1', 77, 'A:B', 3),
                     'maximum_zone_temperature': ('Sheet1', 85, 'A:B', 3),
                     'minimum_zone_temperature': ('Sheet1', 93, 'A:B', 3)
+                }
+            elif obj.section_type == 'CE_a':
+                obj._data_sources = {
+                    'identifying_information': ('A', 2, 'F:J', 7, {'header': None}),
+                    'february_results': ('A', 23, 'A:T', 16)
+                }
+            elif obj.section_type == 'CE_b':
+                obj._data_sources = {
+                    'annual_sums_means': ('A', 60, 'A:N', 22),
+                    'annual_load_maxima': ('A', 60, 'P:AH', 21),
+                    'june28_hourly': ('A', 87, 'A:L', 25),
+                    'annual_cop_zone': ('A', 87, 'P:AN', 21),
+                    'ce500_avg_daily':('A', 118, 'A:L', 4),
+                    'ce530_avg_daily': ('A', 127, 'A:L', 4)
                 }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
