@@ -86,7 +86,7 @@ class SetDataSources:
                 }
             elif obj.section_type == 'CE_a':
                 obj._data_sources = {
-                    'identifying_information': ('A', 2, 'F:J', 7, {'header': None}),
+                    'identifying_information': ('A', 0, 'F:J', 8, {'header': None}),
                     'february_results': ('A', 23, 'A:T', 16)
                 }
             elif obj.section_type == 'CE_b':
@@ -143,6 +143,13 @@ class SetProcessingFunctions:
                 'maximum_zone_temperature': obj._extract_he_maximum_zone_temperature(),
                 'minimum_zone_temperature': obj._extract_he_minimum_zone_temperature()
             }
+        elif value == 'CE_a':
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information_ce_a(),
+                'main_table': obj._extract_main_table_ce_a(),
+            }
+        elif value == 'CE_b':
+            obj._processing_functions = {}
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -748,6 +755,70 @@ class ExcelProcessor(Logger):
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
             data_d[row_name] = row['C']
+        return data_d
+
+    def _extract_identifying_information_ce_a(self):
+        """
+        Retrieve information data from section Cooling Equipment Part A submittal and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        if df.iloc[0, 0] != 'Program Name and Version (with full build detail):':
+            self.logger.error('Software name information not found')
+            self.software_name = None
+        else:
+            self.software_name = df.iloc[1, 4]
+        if df.iloc[2, 0] != 'Program Version Release Date:':
+            self.logger.error('Version release date information not found')
+            self.software_release_date = None
+        else:
+            self.software_release_date = df.iloc[2, 4]
+        if df.iloc[3, 0] !='Program Name for Tables and Charts:':
+            self.logger.error('Program short name not found')
+            self.program_name_short = None
+        else:
+            self.program_name_short = df.iloc[3, 4]
+        if df.iloc[4, 0] !='Results Submission Date:':
+            self.logger.error('Result submission date not found')
+            self.results_submittal_date = None
+        else:
+            self.results_submittal_date = df.iloc[4, 4]
+        data_d = {
+            'software_name': self.software_name,
+            'software_release_date': self.software_release_date,
+            'program_name_short': self.program_name_short,
+            'results_submittal_date': self.results_submittal_date
+        }
+        return data_d
+
+    def _extract_main_table_ce_a(self) -> dict:
+        """
+        Retrieve and format data from the
+        Main February table
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('february_results')
+        # format and verify dataframe
+        df.columns = ['case',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'supply_fan_kWh', 'condenser_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'envelope_load_total_kWh', 'envelope_load_sensible_kWh', 'envelope_load_latent_kWh',
+                      'feb_mean_cop', 'feb_mean_idb_c', 'feb_mean_hum_ratio_kg_kg',
+                      'feb_max_cop', 'feb_max_idb_c', 'feb_max_hum_ratio_kg_kg',
+                      'feb_min_cop', 'feb_min_idb_c', 'feb_min_hum_ratio_kg_kg']
+        df['case'] = df['case'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_a_main_february_table()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
         return data_d
 
     def run(self):
