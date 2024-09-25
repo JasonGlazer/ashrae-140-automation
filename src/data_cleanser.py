@@ -28,7 +28,10 @@ class DataCleanser(Logger):
             'CASE HE170', 'CASE HE210', 'CASE HE220', 'CASE HE230'}
         self.valid_ce_a_cases = {
             'CE100', 'CE110', 'CE120', 'CE130', 'CE140', 'CE150', 'CE160', 'CE165', 'CE170', 'CE180', 'CE185',
-            'CE190', 'CE150', 'CE200'}
+            'CE190', 'CE195', 'CE200'}
+        self.valid_ce_b_cases = {
+            'CE300', 'CE310', 'CE320', 'CE330', 'CE340', 'CE350', 'CE360', 'CE400', 'CE410', 'CE420', 'CE430',
+            'CE440', 'CE500', 'CE500', 'CE510', 'CE520', 'CE522', 'CE525', 'CE530', 'CE540', 'CE545'}
         self.valid_months = {
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
         }
@@ -57,6 +60,8 @@ class DataCleanser(Logger):
                 failed_cases = ~self.df[check_column].astype(str).isin(self.valid_he_cases)
             elif test_suite == 'CE_a':
                 failed_cases = ~self.df[check_column].astype(str).isin(self.valid_ce_a_cases)
+            elif test_suite == 'CE_b':
+                failed_cases = ~self.df[check_column].astype(str).isin(self.valid_ce_b_cases)
             if failed_cases.any():
                 self.logger.error('Error: Invalid Case referenced.  These cases will be removed: {}'
                                   .format(self.df['case'][failed_cases]))
@@ -504,5 +509,35 @@ class DataCleanser(Logger):
             column_list=numeric_columns)
         return self.df
 
+    def cleanse_ce_b_annual_sums_means(
+            self,
+            case_column: str = 'cases',
+            numeric_columns: list = (
+                ('cooling_energy_total_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('cooling_energy_compressor_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('condenser_fan_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('indoor_fan_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_load_total_kWh', {'lower_limit': 0, 'upper_limit': 200000}),
+                ('evaporator_load_sensible_kWh', {'lower_limit': 0, 'upper_limit': 200000}),
+                ('evaporator_load_latent_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('cop2', {'lower_limit': 0, 'upper_limit': 10}),
+                ('indoor_dry_bulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('zone_relative_humidity_perc', {'lower_limit': 0, 'upper_limit': 100}),
+            ), ):
+        """
+        Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
+
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing annual sums and means table from ce_b')
+        self._check_cases(case_column, 'CE_b')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
 
     # todo_140: Make a set of verification test that ensure the data is good for a specific output graphic

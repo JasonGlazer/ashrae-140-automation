@@ -91,11 +91,13 @@ class SetDataSources:
                 }
             elif obj.section_type == 'CE_b':
                 obj._data_sources = {
-                    'annual_sums_means': ('A', 60, 'A:N', 22),
+                    'identifying_information': ('A', 2, 'A:A', 1, {'header': None}),
+                    'annual_sums_means': ('A', 60, 'A:L', 22),
+                    'annual_means_ce300': ('A', 60, 'M:N', 2),
                     'annual_load_maxima': ('A', 60, 'P:AH', 21),
                     'june28_hourly': ('A', 87, 'A:L', 25),
                     'annual_cop_zone': ('A', 87, 'P:AN', 21),
-                    'ce500_avg_daily':('A', 118, 'A:L', 4),
+                    'ce500_avg_daily': ('A', 118, 'A:L', 4),
                     'ce530_avg_daily': ('A', 127, 'A:L', 4)
                 }
             else:
@@ -149,7 +151,16 @@ class SetProcessingFunctions:
                 'main_table': obj._extract_main_table_ce_a(),
             }
         elif value == 'CE_b':
-            obj._processing_functions = {}
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information_ce_b(),
+                'annual_sums_means': obj._extract_annual_sums_means_ce_b(),
+                'annual_means_ce300': obj._extract_annual_means_ce300_ce_b(),
+                'annual_load_maxima': obj._extract_annual_loads_maxima_ce_b(),
+                'june28_hourly': obj._extract_june28_hourly_ce_b(),
+                'annual_cop_zone': obj._extract_annual_cop_zone_ce_b(),
+                'ce500_avg_daily': obj._extract_ce500_avg_daily_ce_b(),
+                'ce530_avg_daily': obj._extract_ce530_avg_daily_ce_b()
+            }
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -774,12 +785,12 @@ class ExcelProcessor(Logger):
             self.software_release_date = None
         else:
             self.software_release_date = df.iloc[2, 4]
-        if df.iloc[3, 0] !='Program Name for Tables and Charts:':
+        if df.iloc[3, 0] != 'Program Name for Tables and Charts:':
             self.logger.error('Program short name not found')
             self.program_name_short = None
         else:
             self.program_name_short = df.iloc[3, 4]
-        if df.iloc[4, 0] !='Results Submission Date:':
+        if df.iloc[4, 0] != 'Results Submission Date:':
             self.logger.error('Result submission date not found')
             self.results_submittal_date = None
         else:
@@ -819,6 +830,58 @@ class ExcelProcessor(Logger):
             row_obj = df.iloc[idx, 1:].to_dict()
             data_d.update({
                 str(case_number): row_obj})
+        return data_d
+
+    def _extract_identifying_information_ce_b(self):
+        """
+        Retrieve information data from section Cooling Equipment Part B submittal and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        self.software_name = df.iloc[0, 0]
+        data_d = {
+            'software_name': self.software_name,
+        }
+        return data_d
+
+    def _extract_annual_sums_means_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual sums and annual means and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_sums_means')
+        # format and verify dataframe
+        df.columns = ['case',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'condenser_fan_kWh', 'indoor_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'cop2', 'indoor_dry_bulb_c', 'zone_humidity_ratio_kg_kg', 'zone_relative_humidity_perc']
+        df['case'] = df['case'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_annual_sums_means()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_annual_means_ce300_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual means got CE300 and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_means_ce300')
+        # format and verify dataframe
+        data_d = {
+            'outdoor_drybulb_c': df.iloc[0, 0],
+            'outdoor_humidity_ratio_kg_kg': df.iloc[0, 1],
+        }
         return data_d
 
     def run(self):
