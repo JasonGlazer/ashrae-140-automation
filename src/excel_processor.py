@@ -94,7 +94,8 @@ class SetDataSources:
                     'identifying_information': ('A', 2, 'A:A', 1, {'header': None}),
                     'annual_sums_means': ('A', 60, 'A:L', 22),
                     'annual_means_ce300': ('A', 60, 'M:N', 2),
-                    'annual_load_maxima': ('A', 60, 'P:AH', 21),
+                    'annual_load_maxima': ('A', 60, 'P:AB', 20),
+                    'annual_weather_data_ce300': ('A', 60, 'AC:AH', 2),
                     'june28_hourly': ('A', 87, 'A:L', 25),
                     'annual_cop_zone': ('A', 87, 'P:AN', 21),
                     'ce500_avg_daily': ('A', 118, 'A:L', 4),
@@ -156,6 +157,7 @@ class SetProcessingFunctions:
                 'annual_sums_means': obj._extract_annual_sums_means_ce_b(),
                 'annual_means_ce300': obj._extract_annual_means_ce300_ce_b(),
                 'annual_load_maxima': obj._extract_annual_loads_maxima_ce_b(),
+                'annual_weather_data_ce300': obj._extract_weather_data_ce300_ce_b(),
                 'june28_hourly': obj._extract_june28_hourly_ce_b(),
                 'annual_cop_zone': obj._extract_annual_cop_zone_ce_b(),
                 'ce500_avg_daily': obj._extract_ce500_avg_daily_ce_b(),
@@ -882,6 +884,75 @@ class ExcelProcessor(Logger):
             'outdoor_drybulb_c': df.iloc[0, 0],
             'outdoor_humidity_ratio_kg_kg': df.iloc[0, 1],
         }
+        return data_d
+
+    def _extract_annual_loads_maxima_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual hourly maxima and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_load_maxima')
+        # format and verify dataframe
+        df.columns = ['case',
+                      'compressors_plus_fans_Wh', 'compressors_plus_fans_date', 'compressors_plus_fans_hour',
+                      'evaporator_sensible_Wh', 'evaporator_sensible_date', 'evaporator_sensible_hour',
+                      'evaporator_latent_Wh', 'evaporator_latent_date', 'evaporator_latent_hour',
+                      'evaporator_total_Wh', 'evaporator_total_date', 'evaporator_total_hour']
+        df['case'] = df['case'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_annual_loads_maxima()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_weather_data_ce300_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for average weather data checks and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_weather_data_ce300')
+        # format and verify dataframe
+        data_d = {
+            'outdoor_drybulb_max_c': df.iloc[0, 0],
+            'outdoor_drybulb_max_date': df.iloc[0, 1],
+            'outdoor_drybulb_max_hour': df.iloc[0, 2],
+            'outdoor_humidity_ratio_max_kg_kg': df.iloc[0, 3],
+            'outdoor_humidity_ratio_max_date': df.iloc[0, 4],
+            'outdoor_humidity_ratio_max_hour': df.iloc[0, 5],
+        }
+        return data_d
+
+    def _extract_june28_hourly_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual hourly maxima and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('june28_hourly')
+        # format and verify dataframe
+        df.columns = ['hour',
+                      'compressor_Wh', 'condenser_fans_Wh',
+                      'evaporator_total_Wh', 'evaporator_sensible_Wh', 'evaporator_latent_Wh',
+                      'zone_humidity_ratio_kg_kg', 'cop2',
+                      'outdoor_drybulb_c', 'entering_drybulb_c', 'entering_wetbulb_c',
+                      'outdoor_humidity_ratio_kg_kg']
+        df['hour'] = df['hour'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_june28()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
         return data_d
 
     def run(self):

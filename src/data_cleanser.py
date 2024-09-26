@@ -540,4 +540,41 @@ class DataCleanser(Logger):
             column_list=numeric_columns)
         return self.df
 
+    def cleanse_ce_b_annual_loads_maxima(
+            self,
+            case_column: str = 'cases',
+            numeric_columns: list = (
+                ('compressors_plus_fans_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_sensible_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_latent_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_total_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+            ), ):
+        self.logger.info('Cleansing annual sums and means table from ce_b')
+        self._check_cases(case_column, 'CE_b')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_ce_b_june28(
+            self,
+            numeric_columns: list = (
+                ('compressor_Wh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('condenser_fans_Wh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('evaporator_total_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_sensible_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_latent_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('zone_humidity_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1}),
+                ('cop2', {'lower_limit': 0, 'upper_limit': 10}),
+                ('outdoor_drybulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('entering_drybulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('entering_wetbulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('outdoor_humidity_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1})
+            ), ):
+        self.logger.info('Cleansing june 28 table from ce_b')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
     # todo_140: Make a set of verification test that ensure the data is good for a specific output graphic
