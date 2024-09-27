@@ -1,6 +1,7 @@
 import re
 
 import pandas as pd
+import datetime
 from descriptors import VerifyInputFile
 from logger import Logger
 from custom_exceptions import ASHRAE140ProcessingError
@@ -900,6 +901,8 @@ class ExcelProcessor(Logger):
                       'evaporator_latent_Wh', 'evaporator_latent_date', 'evaporator_latent_hour',
                       'evaporator_total_Wh', 'evaporator_total_date', 'evaporator_total_hour']
         df['cases'] = df['cases'].astype(str)
+#        df['compressors_plus_fans_date'] = df['compressors_plus_fans_date'].astype(str)
+#        df['compressors_plus_fans_date'] = df['compressors_plus_fans_date'].strftime('%m-%d')
         dc = DataCleanser(df)
         df = dc.cleanse_ce_b_annual_loads_maxima()
         # format cleansed dataframe into dictionary
