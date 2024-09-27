@@ -97,7 +97,7 @@ class SetDataSources:
                     'annual_load_maxima': ('A', 60, 'P:AB', 20),
                     'annual_weather_data_ce300': ('A', 60, 'AC:AH', 2),
                     'june28_hourly': ('A', 87, 'A:L', 25),
-                    'annual_cop_zone': ('A', 87, 'P:AN', 21),
+                    'annual_cop_zone': ('A', 87, 'P:AN', 20),
                     'ce500_avg_daily': ('A', 118, 'A:L', 4),
                     'ce530_avg_daily': ('A', 127, 'A:L', 4)
                 }
@@ -855,12 +855,12 @@ class ExcelProcessor(Logger):
         """
         df = self._get_data('annual_sums_means')
         # format and verify dataframe
-        df.columns = ['case',
+        df.columns = ['cases',
                       'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
                       'condenser_fan_kWh', 'indoor_fan_kWh',
                       'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
                       'cop2', 'indoor_dry_bulb_c', 'zone_humidity_ratio_kg_kg', 'zone_relative_humidity_perc']
-        df['case'] = df['case'].astype(str)
+        df['cases'] = df['cases'].astype(str)
         dc = DataCleanser(df)
         df = dc.cleanse_ce_b_annual_sums_means()
         # format cleansed dataframe into dictionary
@@ -894,12 +894,12 @@ class ExcelProcessor(Logger):
         """
         df = self._get_data('annual_load_maxima')
         # format and verify dataframe
-        df.columns = ['case',
+        df.columns = ['cases',
                       'compressors_plus_fans_Wh', 'compressors_plus_fans_date', 'compressors_plus_fans_hour',
                       'evaporator_sensible_Wh', 'evaporator_sensible_date', 'evaporator_sensible_hour',
                       'evaporator_latent_Wh', 'evaporator_latent_date', 'evaporator_latent_hour',
                       'evaporator_total_Wh', 'evaporator_total_date', 'evaporator_total_hour']
-        df['case'] = df['case'].astype(str)
+        df['cases'] = df['cases'].astype(str)
         dc = DataCleanser(df)
         df = dc.cleanse_ce_b_annual_loads_maxima()
         # format cleansed dataframe into dictionary
@@ -946,6 +946,87 @@ class ExcelProcessor(Logger):
         df['hour'] = df['hour'].astype(str)
         dc = DataCleanser(df)
         df = dc.cleanse_ce_b_june28()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_annual_cop_zone_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual COP and zone maxima and minima and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_cop_zone')
+        # format and verify dataframe
+        df.columns = ['cases',
+                      'cop2_max_value', 'cop2_max_date', 'cop2_max_hour',
+                      'cop2_min_value', 'cop2_min_date', 'cop2_min_hour',
+                      'indoor_db_max_c', 'indoor_db_max_date', 'indoor_db_max_hour',
+                      'indoor_db_min_c', 'indoor_db_min_date', 'indoor_db_min_hour',
+                      'indoor_hum_rat_max_kg_kg', 'indoor_hum_rat_max_date', 'indoor_hum_rat_max_hour',
+                      'indoor_hum_rat_min_kg_kg', 'indoor_hum_rat_min_date', 'indoor_hum_rat_min_hour',
+                      'indoor_rel_hum_max_perc', 'indoor_rel_hum_max_date', 'indoor_rel_hum_max_hour',
+                      'indoor_rel_hum_min_perc', 'indoor_rel_hum_min_date', 'indoor_rel_hum_min_hour']
+        df['cases'] = df['cases'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_annual_cop_zone()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_ce500_avg_daily_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for average daily output CE500 and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('ce500_avg_daily')
+        # format and verify dataframe
+        df.columns = ['day',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'condenser_fan_kWh', 'indoor_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'zone_humidity_ratio_kg_kg', 'cop2',
+                      'outdoor_drybulb_c', 'entering_drybulb_c']
+        df['day'] = df['day'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_average_daily()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_ce530_avg_daily_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for average daily output CE530 and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('ce530_avg_daily')
+        # format and verify dataframe
+        df.columns = ['day',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'condenser_fan_kWh', 'indoor_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'zone_humidity_ratio_kg_kg', 'cop2',
+                      'outdoor_drybulb_c', 'entering_drybulb_c']
+        df['day'] = df['day'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_average_daily()
         # format cleansed dataframe into dictionary
         data_d = {}
         for idx, row in df.iterrows():
