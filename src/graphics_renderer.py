@@ -141,6 +141,26 @@ class GraphicsRenderer(Logger):
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
+        elif self.section_type == 'CE_a':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    'CE100': ['CE100 dry lo IDB hi ODB', 1],
+                    'CE110': ['CE110 as 100 lo ODB', 2],
+                    'CE120': ['CE120 as 100 hi IDB', 3],
+                    'CE130': ['CE130 as 100 lo PLR', 4],
+                    'CE140': ['CE140 as 130 lo ODB', 5],
+                    'CE150': ['CE150 as 110 hi SHR', 6],
+                    'CE160': ['CE160 as 150 hi IDB', 7],
+                    'CE165': ['CE165 as 150 m IDB m ODB', 8],
+                    'CE170': ['CE170 as 150 m SHR m PLR', 9],
+                    'CE180': ['CE180 as 150 lo SHR', 10],
+                    'CE185': ['CE185 lo SHR hi ODB', 11],
+                    'CE190': ['CE190 as 180 lo PLR', 12],
+                    'CE195': ['CE195 as 185 lo PLR', 13],
+                    'CE200': ['CE200 ARI  PLR=1 hi SHR', 14]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
         if not processed_file_directory:
             self.processed_file_directory = root_directory.joinpath('processed')
         else:

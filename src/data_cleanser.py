@@ -26,6 +26,13 @@ class DataCleanser(Logger):
         self.valid_he_cases = {
             'CASE HE100', 'CASE HE110', 'CASE HE120', 'CASE HE130', 'CASE HE140', 'CASE HE150', 'CASE HE160',
             'CASE HE170', 'CASE HE210', 'CASE HE220', 'CASE HE230'}
+        self.valid_ce_a_cases = {
+            'CE100', 'CE110', 'CE120', 'CE130', 'CE140', 'CE150', 'CE160', 'CE165', 'CE170', 'CE180', 'CE185',
+            'CE190', 'CE195', 'CE200'}
+        self.valid_ce_b_cases = {
+            'E300', 'E310', 'E320', 'E330', 'E340', 'E350', 'E360',
+            'E400', 'E410', 'E420', 'E430', 'E440',
+            'E500', 'E500 May-Sep', 'E510', 'E510 May-Sep', 'E520', 'E522', 'E525', 'E530', 'E540', 'E545'}
         self.valid_months = {
             'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
         }
@@ -52,6 +59,10 @@ class DataCleanser(Logger):
                 failed_cases = ~self.df[check_column].astype(str).isin(self.valid_tf_cases)
             elif test_suite == 'HE':
                 failed_cases = ~self.df[check_column].astype(str).isin(self.valid_he_cases)
+            elif test_suite == 'CE_a':
+                failed_cases = ~self.df[check_column].astype(str).isin(self.valid_ce_a_cases)
+            elif test_suite == 'CE_b':
+                failed_cases = ~self.df[check_column].astype(str).isin(self.valid_ce_b_cases)
             if failed_cases.any():
                 self.logger.error('Error: Invalid Case referenced.  These cases will be removed: {}'
                                   .format(self.df['case'][failed_cases]))
@@ -454,6 +465,164 @@ class DataCleanser(Logger):
         self.logger.info('Cleansing heating equipment furnace energy related')
         if case_column:
             self._check_cases(case_column, 'HE')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_ce_a_main_february_table(
+            self,
+            case_column: str = 'Cases',
+            numeric_columns: list = (
+                ('cooling_energy_total_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('cooling_energy_compressor_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('supply_fan_kWh', {'lower_limit': 0, 'upper_limit': 1000}),
+                ('condenser_fan_kWh', {'lower_limit': 0, 'upper_limit': 1000}),
+                ('evaporator_load_total_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('evaporator_load_sensible_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('evaporator_load_latent_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('envelope_load_total_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('envelope_load_sensible_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('envelope_load_latent_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('feb_mean_cop', {'lower_limit': 0, 'upper_limit': 10}),
+                ('feb_mean_idb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('feb_mean_hum_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1.}),
+                ('feb_max_cop', {'lower_limit': 0, 'upper_limit': 10}),
+                ('feb_max_idb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('feb_max_hum_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1.}),
+                ('feb_min_cop', {'lower_limit': 0, 'upper_limit': 10}),
+                ('feb_min_idb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('feb_min_hum_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1.}),
+            ), ):
+        """
+        Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
+
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing main february table from ce_a')
+        self._check_cases(case_column, 'CE_a')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_ce_b_annual_sums_means(
+            self,
+            case_column: str = 'cases',
+            numeric_columns: list = (
+                ('cooling_energy_total_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('cooling_energy_compressor_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('condenser_fan_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('indoor_fan_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_load_total_kWh', {'lower_limit': 0, 'upper_limit': 200000}),
+                ('evaporator_load_sensible_kWh', {'lower_limit': 0, 'upper_limit': 200000}),
+                ('evaporator_load_latent_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('cop2', {'lower_limit': 0, 'upper_limit': 10}),
+                ('indoor_dry_bulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('zone_relative_humidity_perc', {'lower_limit': 0, 'upper_limit': 100}),
+            ), ):
+        """
+        Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
+
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing annual sums and means table from ce_b')
+        self._check_cases(case_column, 'CE_b')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_ce_b_annual_loads_maxima(
+            self,
+            case_column: str = 'cases',
+            numeric_columns: list = (
+                ('compressors_plus_fans_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_sensible_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_latent_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_total_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+            ), ):
+        self.logger.info('Cleansing annual maxima table from ce_b')
+        self._check_cases(case_column, 'CE_b')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_ce_b_june28(
+            self,
+            numeric_columns: list = (
+                ('compressor_Wh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('condenser_fans_Wh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('evaporator_total_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_sensible_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_latent_Wh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('zone_humidity_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1}),
+                ('cop2', {'lower_limit': 0, 'upper_limit': 10}),
+                ('outdoor_drybulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('entering_drybulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('entering_wetbulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('outdoor_humidity_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1})
+            ), ):
+        self.logger.info('Cleansing june 28 table from ce_b')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_ce_b_annual_cop_zone(
+            self,
+            case_column: str = 'cases',
+            numeric_columns: list = (
+                ('cop2_max_value', {'lower_limit': 0, 'upper_limit': 10}),
+                ('cop2_min_value', {'lower_limit': 0, 'upper_limit': 10}),
+                ('indoor_db_max_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('indoor_db_min_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('indoor_hum_rat_max_kg_kg', {'lower_limit': 0, 'upper_limit': 1}),
+                ('indoor_hum_rat_min_kg_kg', {'lower_limit': 0, 'upper_limit': 1}),
+                ('indoor_rel_hum_max_perc', {'lower_limit': 0, 'upper_limit': 100}),
+                ('indoor_rel_hum_min_perc', {'lower_limit': 0, 'upper_limit': 100}),
+            ), ):
+        self.logger.info('Cleansing annual cop and zone min and mx table from ce_b')
+        self._check_cases(case_column, 'CE_b')
+        self._check_columns(
+            column_check_function=self._check_numeric_with_limits,
+            column_list=numeric_columns)
+        return self.df
+
+    def cleanse_ce_b_average_daily(
+            self,
+            numeric_columns: list = (
+                ('cooling_energy_total_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('cooling_energy_compressor_kWh', {'lower_limit': 0, 'upper_limit': 10000}),
+                ('condenser_fan_kWh', {'lower_limit': 0, 'upper_limit': 1000}),
+                ('indoor_fan_kWh', {'lower_limit': 0, 'upper_limit': 1000}),
+                ('evaporator_load_total_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_load_sensible_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('evaporator_load_latent_kWh', {'lower_limit': 0, 'upper_limit': 100000}),
+                ('zone_humidity_ratio_kg_kg', {'lower_limit': 0, 'upper_limit': 1}),
+                ('cop2', {'lower_limit': 0, 'upper_limit': 10}),
+                ('outdoor_drybulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+                ('entering_drybulb_c', {'lower_limit': 0, 'upper_limit': 100}),
+            ), ):
+        """
+        Perform operations to cleanse and verify data for the Conditioned Zone Loads (Non-Free-Float Test Cases) table.
+
+        :param case_column: column containing test case identifiers
+        :param numeric_columns: tuple of tuple containing numeric check, where inner tuple is:
+            0 - column name
+            1 - kwargs for numeric check function
+        :return: Cleansed pandas DataFrame
+        """
+        self.logger.info('Cleansing annual daily average table from ce_b')
         self._check_columns(
             column_check_function=self._check_numeric_with_limits,
             column_list=numeric_columns)

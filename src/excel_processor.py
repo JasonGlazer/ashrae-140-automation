@@ -22,6 +22,10 @@ class SectionType:
             obj._section_type = 'GC'
         elif re.match(r'.*Std140_HE_Output.*', str(value.name), re.IGNORECASE):
             obj._section_type = 'HE'
+        elif re.match(r'.*Std140_CE_a_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'CE_a'
+        elif re.match(r'.*Std140_CE_b_Output.*', str(value.name), re.IGNORECASE):
+            obj._section_type = 'CE_b'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -80,6 +84,23 @@ class SetDataSources:
                     'maximum_zone_temperature': ('Sheet1', 85, 'A:B', 3),
                     'minimum_zone_temperature': ('Sheet1', 93, 'A:B', 3)
                 }
+            elif obj.section_type == 'CE_a':
+                obj._data_sources = {
+                    'identifying_information': ('A', 0, 'F:J', 8, {'header': None}),
+                    'february_results': ('A', 23, 'A:T', 16)
+                }
+            elif obj.section_type == 'CE_b':
+                obj._data_sources = {
+                    'identifying_information': ('A', 2, 'A:A', 1, {'header': None}),
+                    'annual_sums_means': ('A', 60, 'A:L', 22),
+                    'annual_means_ce300': ('A', 60, 'M:N', 2),
+                    'annual_load_maxima': ('A', 60, 'P:AB', 20),
+                    'annual_weather_data_ce300': ('A', 60, 'AC:AH', 2),
+                    'june28_hourly': ('A', 87, 'A:L', 25),
+                    'annual_cop_zone': ('A', 87, 'P:AN', 20),
+                    'ce500_avg_daily': ('A', 118, 'A:L', 4),
+                    'ce530_avg_daily': ('A', 127, 'A:L', 4)
+                }
             else:
                 obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
         return
@@ -124,6 +145,23 @@ class SetProcessingFunctions:
                 'mean_zone_temperature': obj._extract_he_mean_zone_temperature(),
                 'maximum_zone_temperature': obj._extract_he_maximum_zone_temperature(),
                 'minimum_zone_temperature': obj._extract_he_minimum_zone_temperature()
+            }
+        elif value == 'CE_a':
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information_ce_a(),
+                'main_table': obj._extract_main_table_ce_a(),
+            }
+        elif value == 'CE_b':
+            obj._processing_functions = {
+                'identifying_information': obj._extract_identifying_information_ce_b(),
+                'annual_sums_means': obj._extract_annual_sums_means_ce_b(),
+                'annual_means_ce300': obj._extract_annual_means_ce300_ce_b(),
+                'annual_load_maxima': obj._extract_annual_loads_maxima_ce_b(),
+                'annual_weather_data_ce300': obj._extract_weather_data_ce300_ce_b(),
+                'june28_hourly': obj._extract_june28_hourly_ce_b(),
+                'annual_cop_zone': obj._extract_annual_cop_zone_ce_b(),
+                'ce500_avg_daily': obj._extract_ce500_avg_daily_ce_b(),
+                'ce530_avg_daily': obj._extract_ce530_avg_daily_ce_b()
             }
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
@@ -730,6 +768,272 @@ class ExcelProcessor(Logger):
         for idx, row in df.iterrows():
             row_name = str(row['case']).removeprefix('CASE ')
             data_d[row_name] = row['C']
+        return data_d
+
+    def _extract_identifying_information_ce_a(self):
+        """
+        Retrieve information data from section Cooling Equipment Part A submittal and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        if df.iloc[0, 0] != 'Program Name and Version (with full build detail):':
+            self.logger.error('Software name information not found')
+            self.software_name = None
+        else:
+            self.software_name = df.iloc[1, 4]
+        if df.iloc[2, 0] != 'Program Version Release Date:':
+            self.logger.error('Version release date information not found')
+            self.software_release_date = None
+        else:
+            self.software_release_date = df.iloc[2, 4]
+        if df.iloc[3, 0] != 'Program Name for Tables and Charts:':
+            self.logger.error('Program short name not found')
+            self.program_name_short = None
+        else:
+            self.program_name_short = df.iloc[3, 4]
+        if df.iloc[4, 0] != 'Results Submission Date:':
+            self.logger.error('Result submission date not found')
+            self.results_submittal_date = None
+        else:
+            self.results_submittal_date = df.iloc[4, 4]
+        data_d = {
+            'software_name': self.software_name,
+            'software_release_date': self.software_release_date,
+            'program_name_short': self.program_name_short,
+            'results_submittal_date': self.results_submittal_date
+        }
+        return data_d
+
+    def _extract_main_table_ce_a(self) -> dict:
+        """
+        Retrieve and format data from the
+        Main February table
+
+        :return: dictionary to be merged into main testing output dictionary
+        """
+        df = self._get_data('february_results')
+        # format and verify dataframe
+        df.columns = ['case',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'supply_fan_kWh', 'condenser_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'envelope_load_total_kWh', 'envelope_load_sensible_kWh', 'envelope_load_latent_kWh',
+                      'feb_mean_cop', 'feb_mean_idb_c', 'feb_mean_hum_ratio_kg_kg',
+                      'feb_max_cop', 'feb_max_idb_c', 'feb_max_hum_ratio_kg_kg',
+                      'feb_min_cop', 'feb_min_idb_c', 'feb_min_hum_ratio_kg_kg']
+        df['case'] = df['case'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_a_main_february_table()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_identifying_information_ce_b(self):
+        """
+        Retrieve information data from section Cooling Equipment Part B submittal and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('identifying_information')
+        self.software_name = df.iloc[0, 0]
+        data_d = {
+            'software_name': self.software_name,
+        }
+        return data_d
+
+    def _extract_annual_sums_means_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual sums and annual means and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_sums_means')
+        # format and verify dataframe
+        df.columns = ['cases',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'condenser_fan_kWh', 'indoor_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'cop2', 'indoor_dry_bulb_c', 'zone_humidity_ratio_kg_kg', 'zone_relative_humidity_perc']
+        df['cases'] = df['cases'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_annual_sums_means()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_annual_means_ce300_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual means got CE300 and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_means_ce300')
+        # format and verify dataframe
+        data_d = {
+            'outdoor_drybulb_c': df.iloc[0, 0],
+            'outdoor_humidity_ratio_kg_kg': df.iloc[0, 1],
+        }
+        return data_d
+
+    def _extract_annual_loads_maxima_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual hourly maxima and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_load_maxima')
+        # format and verify dataframe
+        df.columns = ['cases',
+                      'compressors_plus_fans_Wh', 'compressors_plus_fans_date', 'compressors_plus_fans_hour',
+                      'evaporator_sensible_Wh', 'evaporator_sensible_date', 'evaporator_sensible_hour',
+                      'evaporator_latent_Wh', 'evaporator_latent_date', 'evaporator_latent_hour',
+                      'evaporator_total_Wh', 'evaporator_total_date', 'evaporator_total_hour']
+        df['cases'] = df['cases'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_annual_loads_maxima()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_weather_data_ce300_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for average weather data checks and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_weather_data_ce300')
+        # format and verify dataframe
+        data_d = {
+            'outdoor_drybulb_max_c': df.iloc[0, 0],
+            'outdoor_drybulb_max_date': df.iloc[0, 1],
+            'outdoor_drybulb_max_hour': df.iloc[0, 2],
+            'outdoor_humidity_ratio_max_kg_kg': df.iloc[0, 3],
+            'outdoor_humidity_ratio_max_date': df.iloc[0, 4],
+            'outdoor_humidity_ratio_max_hour': df.iloc[0, 5],
+        }
+        return data_d
+
+    def _extract_june28_hourly_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual hourly maxima and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('june28_hourly')
+        # format and verify dataframe
+        df.columns = ['hour',
+                      'compressor_Wh', 'condenser_fans_Wh',
+                      'evaporator_total_Wh', 'evaporator_sensible_Wh', 'evaporator_latent_Wh',
+                      'zone_humidity_ratio_kg_kg', 'cop2',
+                      'outdoor_drybulb_c', 'entering_drybulb_c', 'entering_wetbulb_c',
+                      'outdoor_humidity_ratio_kg_kg']
+        df['hour'] = df['hour'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_june28()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_annual_cop_zone_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for annual COP and zone maxima and minima and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('annual_cop_zone')
+        # format and verify dataframe
+        df.columns = ['cases',
+                      'cop2_max_value', 'cop2_max_date', 'cop2_max_hour',
+                      'cop2_min_value', 'cop2_min_date', 'cop2_min_hour',
+                      'indoor_db_max_c', 'indoor_db_max_date', 'indoor_db_max_hour',
+                      'indoor_db_min_c', 'indoor_db_min_date', 'indoor_db_min_hour',
+                      'indoor_hum_rat_max_kg_kg', 'indoor_hum_rat_max_date', 'indoor_hum_rat_max_hour',
+                      'indoor_hum_rat_min_kg_kg', 'indoor_hum_rat_min_date', 'indoor_hum_rat_min_hour',
+                      'indoor_rel_hum_max_perc', 'indoor_rel_hum_max_date', 'indoor_rel_hum_max_hour',
+                      'indoor_rel_hum_min_perc', 'indoor_rel_hum_min_date', 'indoor_rel_hum_min_hour']
+        df['cases'] = df['cases'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_annual_cop_zone()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_ce500_avg_daily_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for average daily output CE500 and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('ce500_avg_daily')
+        # format and verify dataframe
+        df.columns = ['day',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'condenser_fan_kWh', 'indoor_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'zone_humidity_ratio_kg_kg', 'cop2',
+                      'outdoor_drybulb_c', 'entering_drybulb_c']
+        df['day'] = df['day'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_average_daily()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
+        return data_d
+
+    def _extract_ce530_avg_daily_ce_b(self):
+        """
+        Retrieve data from section Cooling Equipment Part B for average daily output CE530 and store it as class attributes.
+
+        :return: Class attributes identifying software program.
+        """
+        df = self._get_data('ce530_avg_daily')
+        # format and verify dataframe
+        df.columns = ['day',
+                      'cooling_energy_total_kWh', 'cooling_energy_compressor_kWh',
+                      'condenser_fan_kWh', 'indoor_fan_kWh',
+                      'evaporator_load_total_kWh', 'evaporator_load_sensible_kWh', 'evaporator_load_latent_kWh',
+                      'zone_humidity_ratio_kg_kg', 'cop2',
+                      'outdoor_drybulb_c', 'entering_drybulb_c']
+        df['day'] = df['day'].astype(str)
+        dc = DataCleanser(df)
+        df = dc.cleanse_ce_b_average_daily()
+        # format cleansed dataframe into dictionary
+        data_d = {}
+        for idx, row in df.iterrows():
+            case_number = row[0]
+            row_obj = df.iloc[idx, 1:].to_dict()
+            data_d.update({
+                str(case_number): row_obj})
         return data_d
 
     def run(self):
