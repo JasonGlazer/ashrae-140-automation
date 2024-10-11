@@ -158,9 +158,9 @@ class SetProcessingFunctions:
                 'annual_sums_means': obj._extract_ce_b_annual_sums_means(),
                 'annual_means_ce300': obj._extract_ce_b_annual_means_ce300(),
                 'annual_load_maxima': obj._extract_ce_b_annual_loads_maxima(),
-                #'annual_weather_data_ce300': obj._extract_ce_b_weather_data_ce300(),
+                'annual_weather_data_ce300': obj._extract_ce_b_weather_data_ce300(),
                 'june28_hourly': obj._extract_ce_b_june28_hourly(),
-                #'annual_cop_zone': obj._extract_ce_b_annual_cop_zone(),
+                'annual_cop_zone': obj._extract_ce_b_annual_cop_zone(),
                 'ce500_avg_daily': obj._extract_ce_b_ce500_avg_daily(),
                 'ce530_avg_daily': obj._extract_ce_b_ce530_avg_daily()
             }
@@ -933,14 +933,20 @@ class ExcelProcessor(Logger):
         :return: Class attributes identifying software program.
         """
         df = self._get_data('annual_weather_data_ce300')
+        df.columns = ['outside_drybulb_c', 'outside_drybulb_date', 'outside_drybulb_hour',
+                      'outside_humid_ratio_kg_kg', 'outside_humid_ratio_date', 'outside_humid_ratio_hour']
+        df = self._convert_to_month_day(df, 'outside_drybulb_date')
+        df = self._convert_to_month_day(df, 'outside_humid_ratio_date')
         # format and verify dataframe
         data_d = {
-            'outdoor_drybulb_max_c': df.iloc[0, 0],
-            'outdoor_drybulb_max_date': df.iloc[0, 1],
-            'outdoor_drybulb_max_hour': df.iloc[0, 2],
-            'outdoor_humidity_ratio_max_kg_kg': df.iloc[0, 3],
-            'outdoor_humidity_ratio_max_date': df.iloc[0, 4],
-            'outdoor_humidity_ratio_max_hour': df.iloc[0, 5],
+            'outdoor_drybulb_max_c': df.at[0, 'outside_drybulb_c'],
+            'outdoor_drybulb_max_month': df.at[0, 'outside_drybulb_month'],
+            'outdoor_drybulb_max_day': df.at[0, 'outside_drybulb_day'],
+            'outdoor_drybulb_max_hour': df.at[0, 'outside_drybulb_hour'],
+            'outdoor_humidity_ratio_max_kg_kg': df.at[0, 'outside_humid_ratio_kg_kg'],
+            'outdoor_humidity_ratio_max_month': df.at[0, 'outside_humid_ratio_month'],
+            'outdoor_humidity_ratio_max_day': df.at[0, 'outside_humid_ratio_day'],
+            'outdoor_humidity_ratio_max_hour': df.at[0, 'outside_humid_ratio_hour'],
         }
         return data_d
 
@@ -988,6 +994,14 @@ class ExcelProcessor(Logger):
                       'indoor_rel_hum_max_perc', 'indoor_rel_hum_max_date', 'indoor_rel_hum_max_hour',
                       'indoor_rel_hum_min_perc', 'indoor_rel_hum_min_date', 'indoor_rel_hum_min_hour']
         df['cases'] = df['cases'].astype(str)
+        df = self._convert_to_month_day(df, 'cop2_max_date')
+        df = self._convert_to_month_day(df, 'cop2_min_date')
+        df = self._convert_to_month_day(df, 'indoor_db_max_date')
+        df = self._convert_to_month_day(df, 'indoor_db_min_date')
+        df = self._convert_to_month_day(df, 'indoor_hum_rat_max_date')
+        df = self._convert_to_month_day(df, 'indoor_hum_rat_min_date')
+        df = self._convert_to_month_day(df, 'indoor_rel_hum_max_date')
+        df = self._convert_to_month_day(df, 'indoor_rel_hum_min_date')
         dc = DataCleanser(df)
         df = dc.cleanse_ce_b_annual_cop_zone()
         # format cleansed dataframe into dictionary
