@@ -224,6 +224,7 @@ class ExcelProcessor(Logger):
             skiprows=skip_rows,
             usecols=excel_cols,
             nrows=n_rows,
+            parse_dates=True,
             **kwargs)
         # todo_140: Write simple verifications that data loaded
         return df
@@ -901,8 +902,10 @@ class ExcelProcessor(Logger):
                       'evaporator_latent_Wh', 'evaporator_latent_date', 'evaporator_latent_hour',
                       'evaporator_total_Wh', 'evaporator_total_date', 'evaporator_total_hour']
         df['cases'] = df['cases'].astype(str)
-#        df['compressors_plus_fans_date'] = df['compressors_plus_fans_date'].astype(str)
-#        df['compressors_plus_fans_date'] = df['compressors_plus_fans_date'].strftime('%m-%d')
+        df = self._convert_to_month_day(df, 'compressors_plus_fans_date')
+        df = self._convert_to_month_day(df, 'evaporator_sensible_date')
+        df = self._convert_to_month_day(df, 'evaporator_latent_date')
+        df = self._convert_to_month_day(df, 'evaporator_total_date')
         dc = DataCleanser(df)
         df = dc.cleanse_ce_b_annual_loads_maxima()
         # format cleansed dataframe into dictionary
@@ -913,6 +916,15 @@ class ExcelProcessor(Logger):
             data_d.update({
                 str(case_number): row_obj})
         return data_d
+
+    def _convert_to_month_day(self, dataframe, column_name):
+        if column_name.endswith('_date'):
+            if dataframe[column_name].dtype == 'datetime64[ns]':
+                column_name_root = column_name.removesuffix('_date')
+                dataframe[column_name_root + '_month'] = dataframe[column_name].dt.month
+                dataframe[column_name_root + '_day'] = dataframe[column_name].dt.day
+                dataframe = dataframe.drop(columns=[column_name, ])
+        return dataframe
 
     def _extract_weather_data_ce300_ce_b(self):
         """
