@@ -149,20 +149,20 @@ class SetProcessingFunctions:
             }
         elif value == 'CE_a':
             obj._processing_functions = {
-                'identifying_information': obj._extract_identifying_information_ce_a(),
-                'main_table': obj._extract_main_table_ce_a(),
+                'identifying_information': obj._extract_ce_a_identifying_information(),
+                'main_table': obj._ce_a_extract_main_table(),
             }
         elif value == 'CE_b':
             obj._processing_functions = {
-                'identifying_information': obj._extract_identifying_information_ce_b(),
-                'annual_sums_means': obj._extract_annual_sums_means_ce_b(),
-                'annual_means_ce300': obj._extract_annual_means_ce300_ce_b(),
-                'annual_load_maxima': obj._extract_annual_loads_maxima_ce_b(),
-                'annual_weather_data_ce300': obj._extract_weather_data_ce300_ce_b(),
-                'june28_hourly': obj._extract_june28_hourly_ce_b(),
-                'annual_cop_zone': obj._extract_annual_cop_zone_ce_b(),
-                'ce500_avg_daily': obj._extract_ce500_avg_daily_ce_b(),
-                'ce530_avg_daily': obj._extract_ce530_avg_daily_ce_b()
+                'identifying_information': obj._extract_ce_b_identifying_information(),
+                'annual_sums_means': obj._extract_ce_b_annual_sums_means(),
+                'annual_means_ce300': obj._extract_ce_b_annual_means_ce300(),
+                'annual_load_maxima': obj._extract_ce_b_annual_loads_maxima(),
+                #'annual_weather_data_ce300': obj._extract_ce_b_weather_data_ce300(),
+                'june28_hourly': obj._extract_ce_b_june28_hourly(),
+                #'annual_cop_zone': obj._extract_ce_b_annual_cop_zone(),
+                'ce500_avg_daily': obj._extract_ce_b_ce500_avg_daily(),
+                'ce530_avg_daily': obj._extract_ce_b_ce530_avg_daily()
             }
         else:
             obj.logger.error('Error: Section ({}) is not currently supported'.format(obj.section_type))
@@ -772,7 +772,7 @@ class ExcelProcessor(Logger):
             data_d[row_name] = row['C']
         return data_d
 
-    def _extract_identifying_information_ce_a(self):
+    def _extract_ce_a_identifying_information(self):
         """
         Retrieve information data from section Cooling Equipment Part A submittal and store it as class attributes.
 
@@ -807,7 +807,7 @@ class ExcelProcessor(Logger):
         }
         return data_d
 
-    def _extract_main_table_ce_a(self) -> dict:
+    def _extract_ce_a_main_table(self) -> dict:
         """
         Retrieve and format data from the
         Main February table
@@ -836,7 +836,7 @@ class ExcelProcessor(Logger):
                 str(case_number): row_obj})
         return data_d
 
-    def _extract_identifying_information_ce_b(self):
+    def _extract_ce_b_identifying_information(self):
         """
         Retrieve information data from section Cooling Equipment Part B submittal and store it as class attributes.
 
@@ -849,7 +849,7 @@ class ExcelProcessor(Logger):
         }
         return data_d
 
-    def _extract_annual_sums_means_ce_b(self):
+    def _extract_ce_b_annual_sums_means(self):
         """
         Retrieve data from section Cooling Equipment Part B for annual sums and annual means and store it as class attributes.
 
@@ -874,7 +874,7 @@ class ExcelProcessor(Logger):
                 str(case_number): row_obj})
         return data_d
 
-    def _extract_annual_means_ce300_ce_b(self):
+    def _extract_ce_b_annual_means_ce300(self):
         """
         Retrieve data from section Cooling Equipment Part B for annual means got CE300 and store it as class attributes.
 
@@ -888,7 +888,7 @@ class ExcelProcessor(Logger):
         }
         return data_d
 
-    def _extract_annual_loads_maxima_ce_b(self):
+    def _extract_ce_b_annual_loads_maxima(self):
         """
         Retrieve data from section Cooling Equipment Part B for annual hourly maxima and store it as class attributes.
 
@@ -926,7 +926,7 @@ class ExcelProcessor(Logger):
                 dataframe = dataframe.drop(columns=[column_name, ])
         return dataframe
 
-    def _extract_weather_data_ce300_ce_b(self):
+    def _extract_ce_b_weather_data_ce300(self):
         """
         Retrieve data from section Cooling Equipment Part B for average weather data checks and store it as class attributes.
 
@@ -944,7 +944,7 @@ class ExcelProcessor(Logger):
         }
         return data_d
 
-    def _extract_june28_hourly_ce_b(self):
+    def _extract_ce_b_june28_hourly(self):
         """
         Retrieve data from section Cooling Equipment Part B for annual hourly maxima and store it as class attributes.
 
@@ -970,7 +970,7 @@ class ExcelProcessor(Logger):
                 str(case_number): row_obj})
         return data_d
 
-    def _extract_annual_cop_zone_ce_b(self):
+    def _extract_ce_b_annual_cop_zone(self):
         """
         Retrieve data from section Cooling Equipment Part B for annual COP and zone maxima and minima and store it as class attributes.
 
@@ -999,7 +999,7 @@ class ExcelProcessor(Logger):
                 str(case_number): row_obj})
         return data_d
 
-    def _extract_ce500_avg_daily_ce_b(self):
+    def _extract_ce_b_ce500_avg_daily(self):
         """
         Retrieve data from section Cooling Equipment Part B for average daily output CE500 and store it as class attributes.
 
@@ -1025,7 +1025,7 @@ class ExcelProcessor(Logger):
                 str(case_number): row_obj})
         return data_d
 
-    def _extract_ce530_avg_daily_ce_b(self):
+    def _extract_ce_b_ce530_avg_daily(self):
         """
         Retrieve data from section Cooling Equipment Part B for average daily output CE530 and store it as class attributes.
 
