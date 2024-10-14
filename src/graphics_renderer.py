@@ -161,6 +161,33 @@ class GraphicsRenderer(Logger):
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
+        elif self.section_type == 'CE_b':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    'CE300': ['CE300 Base, 15% OA', 1],
+                    'CE310': ['CE310 High Latent', 2],
+                    'CE320': ['CE320 High Infiltration', 3],
+                    'CE330': ['CE330 100% OA', 4],
+                    'CE340': ['CE340 50% OA, 50% Infl', 5],
+                    'CE350': ['CE350 Tstat Set Up', 6],
+                    'CE360': ['CE360 Undersized System', 7],
+                    'CE400': ['CE400 Ec. Temp. Ctrl.', 8],
+                    'CE410': ['CE410 Ec. Comp. Lockout', 9],
+                    'CE420': ['CE420 Ec. ODB Limit', 10],
+                    'CE430': ['CE430 Ec. Enthalpy Ctrl.', 11],
+                    'CE440': ['CE440 Ec. Enthalpy Limit', 12],
+                    'CE500': ['CE500 Base w/ 0%OA', 13],
+                    'CE500': ['CE500 May-Sep', 14],
+                    'CE510': ['CE510 May-Sep, High PLR', 15],
+                    'CE520': ['CE520 EDB = 15°C', 16],
+                    'CE522': ['CE522 EDB = 20°C', 17],
+                    'CE525': ['CE525 EDB = 35°C', 18],
+                    'CE530': ['CE530 Dry Coil', 19],
+                    'CE540': ['CE540 Dry, EDB = 15°C', 20],
+                    'CE545': ['CE545 Dry, EDB = 35°C', 21]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
         if not processed_file_directory:
             self.processed_file_directory = root_directory.joinpath('processed')
         else:
@@ -193,6 +220,28 @@ class GraphicsRenderer(Logger):
                     root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_he_output.json'),
                     root_directory.joinpath('processed', 'analytical', '0', 'std140_he_output.json')
                 ]
+            elif self.section_type == 'CE_a':
+                self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'doe21e', '88', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '14.02.id', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '14.02.re', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'clim2000', '2.1.6', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'ca-sis', 'v1', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.0.0.023', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-tud', '0', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-htal1', '0', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-htal2', '0', 'std140_ce_a_output.json')
+                ]
+            elif self.section_type == 'CE_b':
+                self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'trnsys', '14.02.re', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'doe22', '42', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', '120', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.1.0.020', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'codyrun', '1', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'hot3000', '1', 'std140_ce_b_output.json')
+                ]
         else:
             self.baseline_model_list = base_model_list
         if isinstance(model_results_file, str):
@@ -217,6 +266,14 @@ class GraphicsRenderer(Logger):
         elif self.section_type == 'HE':
             self.table_lookup = [
                 ('furnace_input', ['program_name', ])
+            ]
+        elif self.section_type == 'CE_a':
+            self.table_lookup = [
+                ('february_results', ['program_name', ])
+            ]
+        elif self.section_type == 'CE_b':
+            self.table_lookup = [
+                ('annual_sums_means', ['program_name', ])
             ]
         # dictionary to map file names to clean model names.  This dictionary is filled on data loading.
         self.cleansed_model_names = {}
@@ -290,6 +347,47 @@ class GraphicsRenderer(Logger):
                 'HE210': 'HE210 Realistic Weather',
                 'HE220': 'HE220 Setback Thermostat',
                 'HE230': 'HE230 Undersized Furnace'
+            }
+        elif self.section_type == 'CE_a':
+            self.case_map = {
+                'CE100': 'CE100 dry lo IDB hi ODB',
+                'CE110': 'CE110 as 100 lo ODB',
+                'CE120': 'CE120 as 100 hi IDB',
+                'CE130': 'CE130 as 100 lo PLR',
+                'CE140': 'CE140 as 130 lo ODB',
+                'CE150': 'CE150 as 110 hi SHR',
+                'CE160': 'CE160 as 150 hi IDB',
+                'CE165': 'CE165 as 150 m IDB m ODB',
+                'CE170': 'CE170 as 150 m SHR m PLR',
+                'CE180': 'CE180 as 150 lo SHR',
+                'CE185': 'CE185 lo SHR hi ODB',
+                'CE190': 'CE190 as 180 lo PLR',
+                'CE195': 'CE195 as 185 lo PLR',
+                'CE200': 'CE200 ARI  PLR=1 hi SHR'
+            }
+        elif self.section_type == 'CE_b':
+            self.case_map = {
+                'CE300': 'CE300 Base, 15% OA',
+                'CE310': 'CE310 High Latent',
+                'CE320': 'CE320 High Infiltration',
+                'CE330': 'CE330 100% OA',
+                'CE340': 'CE340 50% OA, 50% Infl',
+                'CE350': 'CE350 Tstat Set Up',
+                'CE360': 'CE360 Undersized System',
+                'CE400': 'CE400 Ec. Temp. Ctrl.',
+                'CE410': 'CE410 Ec. Comp. Lockout',
+                'CE420': 'CE420 Ec. ODB Limit',
+                'CE430': 'CE430 Ec. Enthalpy Ctrl.',
+                'CE440': 'CE440 Ec. Enthalpy Limit',
+                'CE500': 'CE500 Base w/ 0%OA',
+                'CE500': 'CE500 May-Sep',
+                'CE510': 'CE510 May-Sep, High PLR',
+                'CE520': 'CE520 EDB = 15°C',
+                'CE522': 'CE522 EDB = 20°C',
+                'CE525': 'CE525 EDB = 35°C',
+                'CE530': 'CE530 Dry Coil',
+                'CE540': 'CE540 Dry, EDB = 15°C',
+                'CE545': 'CE545 Dry, EDB = 35°C',
             }
         return
 
