@@ -1,7 +1,6 @@
 import re
 
 import pandas as pd
-import datetime
 from descriptors import VerifyInputFile
 from logger import Logger
 from custom_exceptions import ASHRAE140ProcessingError
@@ -88,7 +87,7 @@ class SetDataSources:
             elif obj.section_type == 'CE_a':
                 obj._data_sources = {
                     'identifying_information': ('A', 0, 'F:J', 8, {'header': None}),
-                    'february_results': ('A', 23, 'A:T', 16)
+                    'february_results': ('A', 23, 'A:T', 14)
                 }
             elif obj.section_type == 'CE_b':
                 obj._data_sources = {
@@ -150,7 +149,7 @@ class SetProcessingFunctions:
         elif value == 'CE_a':
             obj._processing_functions = {
                 'identifying_information': obj._extract_ce_a_identifying_information(),
-                'main_table': obj._ce_a_extract_main_table(),
+                'main_table': obj._extract_ce_a_main_table(),
             }
         elif value == 'CE_b':
             obj._processing_functions = {
@@ -788,7 +787,7 @@ class ExcelProcessor(Logger):
             self.logger.error('Version release date information not found')
             self.software_release_date = None
         else:
-            self.software_release_date = df.iloc[2, 4]
+            self.software_release_date = str(df.iloc[2, 4])
         if df.iloc[3, 0] != 'Program Name for Tables and Charts:':
             self.logger.error('Program short name not found')
             self.program_name_short = None
@@ -798,7 +797,7 @@ class ExcelProcessor(Logger):
             self.logger.error('Result submission date not found')
             self.results_submittal_date = None
         else:
-            self.results_submittal_date = df.iloc[4, 4]
+            self.results_submittal_date = str(df.iloc[4, 4])
         data_d = {
             'software_name': self.software_name,
             'software_release_date': self.software_release_date,
