@@ -95,7 +95,7 @@ class SetDataSources:
                     'annual_sums_means': ('A', 60, 'A:L', 22),
                     'annual_means_ce300': ('A', 60, 'M:N', 2),
                     'annual_load_maxima': ('A', 60, 'P:AB', 20),
-                    'annual_weather_data_ce300': ('A', 60, 'AC:AH', 2),
+                    'annual_weather_data_ce300': ('A', 60, 'AC:AH', 1),
                     'june28_hourly': ('A', 87, 'A:L', 25),
                     'annual_cop_zone': ('A', 87, 'P:AN', 20),
                     'ce500_avg_daily': ('A', 118, 'A:L', 4),
@@ -918,11 +918,13 @@ class ExcelProcessor(Logger):
 
     def _convert_to_month_day(self, dataframe, column_name):
         if column_name.endswith('_date'):
-            if dataframe[column_name].dtype == 'datetime64[ns]':
-                column_name_root = column_name.removesuffix('_date')
-                dataframe[column_name_root + '_month'] = dataframe[column_name].dt.month
-                dataframe[column_name_root + '_day'] = dataframe[column_name].dt.day
-                dataframe = dataframe.drop(columns=[column_name, ])
+            if dataframe[column_name].dtype != 'datetime64[ns]':
+                dataframe[column_name] = pd.to_datetime(dataframe[column_name], format='%d-%b')
+            column_name_root = column_name.removesuffix('_date')
+            dataframe[column_name_root + '_month'] = dataframe[column_name].dt.month
+            dataframe[column_name_root + '_month'] = dataframe[column_name_root + '_month'].apply(pd.to_numeric, errors='coerce')
+            dataframe[column_name_root + '_day'] = dataframe[column_name].dt.day.apply(pd.to_numeric, errors='coerce')
+            dataframe = dataframe.drop(columns=[column_name, ])
         return dataframe
 
     def _extract_ce_b_weather_data_ce300(self):
@@ -938,14 +940,14 @@ class ExcelProcessor(Logger):
         df = self._convert_to_month_day(df, 'outside_humid_ratio_date')
         # format and verify dataframe
         data_d = {
-            'outdoor_drybulb_max_c': df.at[0, 'outside_drybulb_c'],
-            'outdoor_drybulb_max_month': df.at[0, 'outside_drybulb_month'],
-            'outdoor_drybulb_max_day': df.at[0, 'outside_drybulb_day'],
-            'outdoor_drybulb_max_hour': df.at[0, 'outside_drybulb_hour'],
-            'outdoor_humidity_ratio_max_kg_kg': df.at[0, 'outside_humid_ratio_kg_kg'],
-            'outdoor_humidity_ratio_max_month': df.at[0, 'outside_humid_ratio_month'],
-            'outdoor_humidity_ratio_max_day': df.at[0, 'outside_humid_ratio_day'],
-            'outdoor_humidity_ratio_max_hour': df.at[0, 'outside_humid_ratio_hour'],
+            'outdoor_drybulb_max_c': float(df.at[0, 'outside_drybulb_c']),
+            'outdoor_drybulb_max_month': int(df.at[0, 'outside_drybulb_month']),
+            'outdoor_drybulb_max_day': int(df.at[0, 'outside_drybulb_day']),
+            'outdoor_drybulb_max_hour': int(df.at[0, 'outside_drybulb_hour']),
+            'outdoor_humidity_ratio_max_kg_kg': float(df.at[0, 'outside_humid_ratio_kg_kg']),
+            'outdoor_humidity_ratio_max_month': int(df.at[0, 'outside_humid_ratio_month']),
+            'outdoor_humidity_ratio_max_day': int(df.at[0, 'outside_humid_ratio_day']),
+            'outdoor_humidity_ratio_max_hour': int(df.at[0, 'outside_humid_ratio_hour']),
         }
         return data_d
 
