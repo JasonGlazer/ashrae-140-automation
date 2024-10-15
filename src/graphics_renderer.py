@@ -30,6 +30,10 @@ class SectionType:
             obj._section_type = 'GC'
         elif re.match(r'.*Std140_HE_Output\..*$', str(value), re.IGNORECASE):
             obj._section_type = 'HE'
+        elif re.match(r'.*Std140_CE_a_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'CE_a'
+        elif re.match(r'.*Std140_CE_b_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'CE_b'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -141,6 +145,53 @@ class GraphicsRenderer(Logger):
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
+        elif self.section_type == 'CE_a':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    'CE100': ['CE100 dry lo IDB hi ODB', 1],
+                    'CE110': ['CE110 as 100 lo ODB', 2],
+                    'CE120': ['CE120 as 100 hi IDB', 3],
+                    'CE130': ['CE130 as 100 lo PLR', 4],
+                    'CE140': ['CE140 as 130 lo ODB', 5],
+                    'CE150': ['CE150 as 110 hi SHR', 6],
+                    'CE160': ['CE160 as 150 hi IDB', 7],
+                    'CE165': ['CE165 as 150 m IDB m ODB', 8],
+                    'CE170': ['CE170 as 150 m SHR m PLR', 9],
+                    'CE180': ['CE180 as 150 lo SHR', 10],
+                    'CE185': ['CE185 lo SHR hi ODB', 11],
+                    'CE190': ['CE190 as 180 lo PLR', 12],
+                    'CE195': ['CE195 as 185 lo PLR', 13],
+                    'CE200': ['CE200 ARI  PLR=1 hi SHR', 14]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
+        elif self.section_type == 'CE_b':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    'CE300': ['CE300 Base, 15% OA', 1],
+                    'CE310': ['CE310 High Latent', 2],
+                    'CE320': ['CE320 High Infiltration', 3],
+                    'CE330': ['CE330 100% OA', 4],
+                    'CE340': ['CE340 50% OA, 50% Infl', 5],
+                    'CE350': ['CE350 Tstat Set Up', 6],
+                    'CE360': ['CE360 Undersized System', 7],
+                    'CE400': ['CE400 Ec. Temp. Ctrl.', 8],
+                    'CE410': ['CE410 Ec. Comp. Lockout', 9],
+                    'CE420': ['CE420 Ec. ODB Limit', 10],
+                    'CE430': ['CE430 Ec. Enthalpy Ctrl.', 11],
+                    'CE440': ['CE440 Ec. Enthalpy Limit', 12],
+                    'CE500': ['CE500 Base w/ 0%OA', 13],
+                    'CE500 May-Sep': ['CE500 May-Sep', 14],
+                    'CE510': ['CE510 May-Sep, High PLR', 15],
+                    'CE520': ['CE520 EDB = 15°C', 16],
+                    'CE522': ['CE522 EDB = 20°C', 17],
+                    'CE525': ['CE525 EDB = 35°C', 18],
+                    'CE530': ['CE530 Dry Coil', 19],
+                    'CE540': ['CE540 Dry, EDB = 15°C', 20],
+                    'CE545': ['CE545 Dry, EDB = 35°C', 21]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
         if not processed_file_directory:
             self.processed_file_directory = root_directory.joinpath('processed')
         else:
@@ -173,6 +224,28 @@ class GraphicsRenderer(Logger):
                     root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_he_output.json'),
                     root_directory.joinpath('processed', 'analytical', '0', 'std140_he_output.json')
                 ]
+            elif self.section_type == 'CE_a':
+                self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'ca-sis', 'v1', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'clim2000', '2.1.6', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', '88', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.0.0.023', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '14.02.id', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '14.02.re', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-tud', '0', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-htal1', '0', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-htal2', '0', 'std140_ce_a_output.json')
+                ]
+            elif self.section_type == 'CE_b':
+                self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'trnsys', '14.02.re', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'doe22', '42', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', '120', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.1.0.020', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'codyrun', '1', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'hot3000', '1', 'std140_ce_b_output.json')
+                ]
         else:
             self.baseline_model_list = base_model_list
         if isinstance(model_results_file, str):
@@ -197,6 +270,14 @@ class GraphicsRenderer(Logger):
         elif self.section_type == 'HE':
             self.table_lookup = [
                 ('furnace_input', ['program_name', ])
+            ]
+        elif self.section_type == 'CE_a':
+            self.table_lookup = [
+                ('february_results', ['program_name', ])
+            ]
+        elif self.section_type == 'CE_b':
+            self.table_lookup = [
+                ('annual_sums_means', ['program_name', ])
             ]
         # dictionary to map file names to clean model names.  This dictionary is filled on data loading.
         self.cleansed_model_names = {}
@@ -271,6 +352,69 @@ class GraphicsRenderer(Logger):
                 'HE220': 'HE220 Setback Thermostat',
                 'HE230': 'HE230 Undersized Furnace'
             }
+        elif self.section_type == 'CE_a':
+            self.case_map = {
+                'CE100': 'CE100 dry lo IDB hi ODB',
+                'CE110': 'CE110 as 100 lo ODB',
+                'CE120': 'CE120 as 100 hi IDB',
+                'CE130': 'CE130 as 100 lo PLR',
+                'CE140': 'CE140 as 130 lo ODB',
+                'CE150': 'CE150 as 110 hi SHR',
+                'CE160': 'CE160 as 150 hi IDB',
+                'CE165': 'CE165 as 150 m IDB m ODB',
+                'CE170': 'CE170 as 150 m SHR m PLR',
+                'CE180': 'CE180 as 150 lo SHR',
+                'CE185': 'CE185 lo SHR hi ODB',
+                'CE190': 'CE190 as 180 lo PLR',
+                'CE195': 'CE195 as 185 lo PLR',
+                'CE200': 'CE200 ARI  PLR=1 hi SHR'
+            }
+        elif self.section_type == 'CE_b':
+            self.case_map = {
+                'CE300': 'CE300 Base, 15% OA',
+                'CE310': 'CE310 High Latent',
+                'CE320': 'CE320 High Infiltration',
+                'CE330': 'CE330 100% OA',
+                'CE340': 'CE340 50% OA, 50% Infl',
+                'CE350': 'CE350 Tstat Set Up',
+                'CE360': 'CE360 Undersized System',
+                'CE400': 'CE400 Ec. Temp. Ctrl.',
+                'CE410': 'CE410 Ec. Comp. Lockout',
+                'CE420': 'CE420 Ec. ODB Limit',
+                'CE430': 'CE430 Ec. Enthalpy Ctrl.',
+                'CE440': 'CE440 Ec. Enthalpy Limit',
+                'CE500': 'CE500 Base w/ 0%OA',
+                'CE500 May-Sep': 'CE500 May-Sep',
+                'CE510': 'CE510 May-Sep, High PLR',
+                'CE520': 'CE520 EDB = 15°C',
+                'CE522': 'CE522 EDB = 20°C',
+                'CE525': 'CE525 EDB = 35°C',
+                'CE530': 'CE530 Dry Coil',
+                'CE540': 'CE540 Dry, EDB = 15°C',
+                'CE545': 'CE545 Dry, EDB = 35°C',
+            }
+        # some test suites do not include the software names of the reference cases using the same term as the column headings
+        if self.section_type == 'CE_a':
+            software_column_name_map = {
+                'doe21e-88': 'DOE-2.1E/CIEMAT',
+                'doe21e-c133': 'DOE-2.1E/NREL',
+                'trnsys-14.02.id': 'TRNSYS-ideal/TUD',
+                'trnsys-14.02.re': 'TRNSYS-real/TUD',
+                'clim2000-2.1.6': 'clim2000/EDF',
+                'ca-sis-v1': 'CA-SIS/EDF',
+                'energyplus-1.0.0.023': 'EnergyPlus/GARD',
+                'analytical-tud-0': 'Analytical/TUD',
+                'analytical-htal1-0': 'Analytical/HTAL1',
+                'analytical-htal2-0': 'Analytical/HTAL2'
+            }
+            for name, json_obj in self.json_data.items():
+                id_info = json_obj['identifying_information']
+                if name in software_column_name_map:
+                    id_info['software_column_name'] = software_column_name_map[name]
+                elif id_info['software_name'] != 'None':
+                    id_info['software_column_name'] = id_info['software_name']
+                else:
+                    id_info['software_column_name'] = name
         return
 
     def _get_data(self):
@@ -696,6 +840,14 @@ class GraphicsRenderer(Logger):
             final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
             final_column_headings.append(column_headings[-2])
             final_column_headings.append(column_headings[-1])
+        elif self.section_type == 'CE_a':
+            final_column_headings = column_headings[:-4]
+            final_column_headings.extend(['', 'Min', 'Max', 'Dev % $$', ''])
+            final_column_headings.append(column_headings[-4])
+            final_column_headings.append(column_headings[-3])
+            final_column_headings.append(column_headings[-2])
+            final_column_headings.append('')
+            final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
             row = [row_headings[row_index], ]  # first add the heading for the row
@@ -708,6 +860,10 @@ class GraphicsRenderer(Logger):
                     for item in data_row[:-2]:
                         row.append(formatting_string.format(item))
                     reference_data_row = self._scrub_number_list(data_row[:-2])  # remove the last item which is the tested software
+                elif self.section_type == 'CE_a':
+                    for item in data_row[:-4]:
+                        row.append(formatting_string.format(item))
+                    reference_data_row = self._scrub_number_list(data_row[:-4])  # remove the last item which is the tested software
                 row.append('')
                 row_min = min(reference_data_row)
                 row.append(formatting_string.format(row_min))
@@ -717,6 +873,8 @@ class GraphicsRenderer(Logger):
                 if self.section_type == 'HE' and 'HE1' in row_headings[row_index]:
                     row_mean = data_row[-2]  # substitute the analytical value for mean
                     row.append('')  # leave the "mean" column empty
+                elif self.section_type == 'CE_a':
+                    row_mean = sum(data_row[-4:-1]) / 3  # use the average of the three analytical test results
                 else:
                     row.append(formatting_string.format(row_mean))
                 if row_mean != 0:
@@ -730,6 +888,12 @@ class GraphicsRenderer(Logger):
                 elif self.section_type == 'HE':
                     row.append(formatting_string.format(data_row[-2]))  # now add the last column back
                     row.append(formatting_string.format(data_row[-1]))  # now add the last column back
+                elif self.section_type == 'CE_a':
+                    row.append(formatting_string.format(data_row[-4]))
+                    row.append(formatting_string.format(data_row[-3]))
+                    row.append(formatting_string.format(data_row[-2]))
+                    row.append('')
+                    row.append(formatting_string.format(data_row[-1]))
             text_table_with_stats.append(row)
         # now add the rows with time stamps
         if time_stamps:
@@ -7786,4 +7950,314 @@ class GraphicsRenderer(Logger):
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01a(self):
+        figure_name = 'section_9_table_b16_5_1_01a'
+        caption = 'Table B16.5.1-1a. Space Cooling Energy Consumption - Total (kWh,e)'
+        figure_caption = 'Figure B16.5.1-4. Total Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['cooling_energy_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01b(self):
+        figure_name = 'section_9_table_b16_5_1_01b'
+        caption = 'Table B16.5.1-1b. Space Cooling Energy Consumption - Compressor (kWh,e)'
+        figure_caption = 'Figure B16.5.1-4. Compressor Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['cooling_energy_compressor_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01c(self):
+        figure_name = 'section_9_table_b16_5_1_01c'
+        caption = 'Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,e)'
+        figure_caption = 'Figure B16.5.1-4. Supply Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['supply_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01d(self):
+        figure_name = 'section_9_table_b16_5_1_01d'
+        caption = 'Table B16.5.1-1d. Space Cooling Energy Consumption - Condenser Fan (kWh,e)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['condenser_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_02a(self):
+        figure_name = 'section_9_table_b16_5_1_02a'
+        caption = 'Table B16.5.1-2a. COP Mean'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['feb_mean_cop'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_02b(self):
+        figure_name = 'section_9_table_b16_5_1_02b'
+        caption = 'Table B16.5.1-2b. COP (Max-Min)/Mean'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                min_value = json_obj['main_table'][case]['feb_min_cop']
+                max_value = json_obj['main_table'][case]['feb_max_cop']
+                mean_value = json_obj['main_table'][case]['feb_mean_cop']
+                if math.isnan(min_value) or math.isnan(max_value) or math.isnan(mean_value):
+                    row.append(math.nan)
+                else:
+                    row.append((max_value - min_value) / mean_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_03a(self):
+        figure_name = 'section_9_table_b16_5_1_03a'
+        caption = 'Table B16.5.1-3a. Coil Loads, Total (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['evaporator_load_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_03b(self):
+        figure_name = 'section_9_table_b16_5_1_03b'
+        caption = 'Table B16.5.1-3b. Coil Loads, Sensible (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['evaporator_load_sensible_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_03c(self):
+        figure_name = 'section_9_table_b16_5_1_03c'
+        caption = 'Table B16.5.1-3c. Coil Loads, Latent (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['evaporator_load_latent_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_04(self):
+        figure_name = 'section_9_table_b16_5_1_04'
+        caption = 'Table B16.5.1-4. Sensible Coil Load minus Zone Load (Fan Heat) (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                sensible_coil_value = json_obj['main_table'][case]['evaporator_load_sensible_kWh']
+                zone_load_value = json_obj['main_table'][case]['envelope_load_sensible_kWh']
+                if math.isnan(sensible_coil_value) or math.isnan(zone_load_value):
+                    row.append(math.nan)
+                else:
+                    row.append(sensible_coil_value - zone_load_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_05a(self):
+        figure_name = 'section_9_table_b16_5_1_05a'
+        caption = 'Table B16.5.1-5a. Zone Loads, Total (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['envelope_load_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_05b(self):
+        figure_name = 'section_9_table_b16_5_1_05b'
+        caption = 'Table B16.5.1-5b. Zone Loads, Sensible (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['envelope_load_sensible_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_05c(self):
+        figure_name = 'section_9_table_b16_5_1_05c'
+        caption = 'Table B16.5.1-5c. Zone Loads, Latent (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['envelope_load_latent_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_06(self):
+        figure_name = 'section_9_table_b16_5_1_06'
+        caption = 'Table B16.5.1-6. Latent Coil Load minus Zone Load (Should be 0) (kWh,thermal)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                latent_coil_value = json_obj['main_table'][case]['evaporator_load_latent_kWh']
+                zone_load_value = json_obj['main_table'][case]['envelope_load_latent_kWh']
+                if math.isnan(latent_coil_value) or math.isnan(zone_load_value):
+                    row.append(math.nan)
+                else:
+                    row.append(latent_coil_value - zone_load_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
