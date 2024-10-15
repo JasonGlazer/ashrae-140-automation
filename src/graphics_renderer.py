@@ -30,6 +30,10 @@ class SectionType:
             obj._section_type = 'GC'
         elif re.match(r'.*Std140_HE_Output\..*$', str(value), re.IGNORECASE):
             obj._section_type = 'HE'
+        elif re.match(r'.*Std140_CE_a_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'CE_a'
+        elif re.match(r'.*Std140_CE_b_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'CE_b'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -222,13 +226,13 @@ class GraphicsRenderer(Logger):
                 ]
             elif self.section_type == 'CE_a':
                 self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'ca-sis', 'v1', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'clim2000', '2.1.6', 'std140_ce_a_output.json'),
                     root_directory.joinpath('processed', 'doe21e', '88', 'std140_ce_a_output.json'),
                     root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.0.0.023', 'std140_ce_a_output.json'),
                     root_directory.joinpath('processed', 'trnsys', '14.02.id', 'std140_ce_a_output.json'),
                     root_directory.joinpath('processed', 'trnsys', '14.02.re', 'std140_ce_a_output.json'),
-                    root_directory.joinpath('processed', 'clim2000', '2.1.6', 'std140_ce_a_output.json'),
-                    root_directory.joinpath('processed', 'ca-sis', 'v1', 'std140_ce_a_output.json'),
-                    root_directory.joinpath('processed', 'energyplus', '1.0.0.023', 'std140_ce_a_output.json'),
                     root_directory.joinpath('processed', 'analytical-tud', '0', 'std140_ce_a_output.json'),
                     root_directory.joinpath('processed', 'analytical-htal1', '0', 'std140_ce_a_output.json'),
                     root_directory.joinpath('processed', 'analytical-htal2', '0', 'std140_ce_a_output.json')
@@ -389,6 +393,28 @@ class GraphicsRenderer(Logger):
                 'CE540': 'CE540 Dry, EDB = 15°C',
                 'CE545': 'CE545 Dry, EDB = 35°C',
             }
+        # some test suites do not include the software names of the reference cases using the same term as the column headings
+        if self.section_type == 'CE_a':
+            software_column_name_map = {
+                'doe21e-88': 'DOE-2.1E/CIEMAT',
+                'doe21e-c133': 'DOE-2.1E/NREL',
+                'trnsys-14.02.id': 'TRNSYS-ideal/TUD',
+                'trnsys-14.02.re': 'TRNSYS-real/TUD',
+                'clim2000-2.1.6': 'clim2000/EDF',
+                'ca-sis-v1': 'CA-SIS/EDF',
+                'energyplus-1.0.0.023': 'EnergyPlus/GARD',
+                'analytical-tud-0': 'Analytical/TUD',
+                'analytical-htal1-0': 'Analytical/HTAL1',
+                'analytical-htal2-0': 'Analytical/HTAL2'
+            }
+            for name, json_obj in self.json_data.items():
+                id_info = json_obj['identifying_information']
+                if name in software_column_name_map:
+                    id_info['software_column_name'] = software_column_name_map[name]
+                elif id_info['software_name'] != 'None':
+                    id_info['software_column_name'] = id_info['software_name']
+                else:
+                    id_info['software_column_name'] = name
         return
 
     def _get_data(self):
@@ -814,6 +840,14 @@ class GraphicsRenderer(Logger):
             final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
             final_column_headings.append(column_headings[-2])
             final_column_headings.append(column_headings[-1])
+        elif self.section_type == 'CE_a':
+            final_column_headings = column_headings[:-4]
+            final_column_headings.extend(['', 'Min', 'Max', 'Dev % $$', ''])
+            final_column_headings.append(column_headings[-4])
+            final_column_headings.append(column_headings[-3])
+            final_column_headings.append(column_headings[-2])
+            final_column_headings.append('')
+            final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
             row = [row_headings[row_index], ]  # first add the heading for the row
@@ -826,6 +860,10 @@ class GraphicsRenderer(Logger):
                     for item in data_row[:-2]:
                         row.append(formatting_string.format(item))
                     reference_data_row = self._scrub_number_list(data_row[:-2])  # remove the last item which is the tested software
+                elif self.section_type == 'CE_a':
+                    for item in data_row[:-4]:
+                        row.append(formatting_string.format(item))
+                    reference_data_row = self._scrub_number_list(data_row[:-4])  # remove the last item which is the tested software
                 row.append('')
                 row_min = min(reference_data_row)
                 row.append(formatting_string.format(row_min))
@@ -835,6 +873,8 @@ class GraphicsRenderer(Logger):
                 if self.section_type == 'HE' and 'HE1' in row_headings[row_index]:
                     row_mean = data_row[-2]  # substitute the analytical value for mean
                     row.append('')  # leave the "mean" column empty
+                elif self.section_type == 'CE_a':
+                    row_mean = sum(data_row[-4:-1]) / 3 # use the average of the three analytical test results
                 else:
                     row.append(formatting_string.format(row_mean))
                 if row_mean != 0:
@@ -848,6 +888,12 @@ class GraphicsRenderer(Logger):
                 elif self.section_type == 'HE':
                     row.append(formatting_string.format(data_row[-2]))  # now add the last column back
                     row.append(formatting_string.format(data_row[-1]))  # now add the last column back
+                elif self.section_type == 'CE_a':
+                    row.append(formatting_string.format(data_row[-4]))
+                    row.append(formatting_string.format(data_row[-3]))
+                    row.append(formatting_string.format(data_row[-2]))
+                    row.append('')
+                    row.append(formatting_string.format(data_row[-1]))
             text_table_with_stats.append(row)
         # now add the rows with time stamps
         if time_stamps:
@@ -7904,4 +7950,25 @@ class GraphicsRenderer(Logger):
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01a(self):
+        figure_name = 'section_9_table_b16_5_1_01a'
+        caption = 'Table B16.5.1-1a. Space Cooling Energy Consumption - Total (kWh,e)'
+        figure_caption = 'Figure B16.5.1-4. Total Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['cooling_energy_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        #self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return

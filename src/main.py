@@ -114,6 +114,8 @@ def create_markdown(input_file):
     input_file_path_parts = input_file.parts
     folder_parts = input_file_path_parts[-3:-1]
     section = input_file_path_parts[-1].split('_')[1]
+    if section == 'ce': # for the CE since there is CE_a and CE_b add back the a or b
+        section = section + '_' + input_file_path_parts[-1].split('_')[2]
     section_string = '_' + section + '_'
 
     # folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])

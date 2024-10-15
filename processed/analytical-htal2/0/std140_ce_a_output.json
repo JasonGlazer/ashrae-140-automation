@@ -6,7 +6,7 @@
         "software_release_date": "nan"
     },
     "main_table": {
-        "100": {
+        "CE100": {
             "condenser_fan_kWh": 67.6,
             "cooling_energy_compressor_kWh": 1318.9,
             "cooling_energy_total_kWh": 1530.6,
@@ -27,7 +27,7 @@
             "feb_min_idb_c": 22.197,
             "supply_fan_kWh": 144.0
         },
-        "110": {
+        "CE110": {
             "condenser_fan_kWh": 60.1,
             "cooling_energy_compressor_kWh": 889.4,
             "cooling_energy_total_kWh": 1077.4,
@@ -48,7 +48,7 @@
             "feb_min_idb_c": 22.193,
             "supply_fan_kWh": 127.9
         },
-        "120": {
+        "CE120": {
             "condenser_fan_kWh": 54.9,
             "cooling_energy_compressor_kWh": 839.2,
             "cooling_energy_total_kWh": 1011.0,
@@ -69,7 +69,7 @@
             "feb_min_idb_c": 26.689,
             "supply_fan_kWh": 116.9
         },
-        "130": {
+        "CE130": {
             "condenser_fan_kWh": 4.8,
             "cooling_energy_compressor_kWh": 94.3,
             "cooling_energy_total_kWh": 109.5,
@@ -90,7 +90,7 @@
             "feb_min_idb_c": 22.172,
             "supply_fan_kWh": 10.3
         },
-        "140": {
+        "CE140": {
             "condenser_fan_kWh": 3.8,
             "cooling_energy_compressor_kWh": 56.4,
             "cooling_energy_total_kWh": 68.3,
@@ -111,7 +111,7 @@
             "feb_min_idb_c": 22.168,
             "supply_fan_kWh": 8.1
         },
-        "150": {
+        "CE150": {
             "condenser_fan_kWh": 66.2,
             "cooling_energy_compressor_kWh": 999.2,
             "cooling_energy_total_kWh": 1206.5,
@@ -132,7 +132,7 @@
             "feb_min_idb_c": 22.197,
             "supply_fan_kWh": 141.1
         },
-        "160": {
+        "CE160": {
             "condenser_fan_kWh": 60.7,
             "cooling_energy_compressor_kWh": 949.1,
             "cooling_energy_total_kWh": 1138.9,
@@ -153,7 +153,7 @@
             "feb_min_idb_c": 26.693,
             "supply_fan_kWh": 129.2
         },
-        "165": {
+        "CE165": {
             "condenser_fan_kWh": 70.1,
             "cooling_energy_compressor_kWh": 1280.2,
             "cooling_energy_total_kWh": 1499.6,
@@ -174,7 +174,7 @@
             "feb_min_idb_c": 23.299,
             "supply_fan_kWh": 149.3
         },
-        "170": {
+        "CE170": {
             "condenser_fan_kWh": 34.4,
             "cooling_energy_compressor_kWh": 530.1,
             "cooling_energy_total_kWh": 637.8,
@@ -195,7 +195,7 @@
             "feb_min_idb_c": 22.185,
             "supply_fan_kWh": 73.2
         },
-        "180": {
+        "CE180": {
             "condenser_fan_kWh": 55.7,
             "cooling_energy_compressor_kWh": 907.7,
             "cooling_energy_total_kWh": 1081.9,
@@ -216,7 +216,7 @@
             "feb_min_idb_c": 22.196,
             "supply_fan_kWh": 118.5
         },
-        "185": {
+        "CE185": {
             "condenser_fan_kWh": 65.4,
             "cooling_energy_compressor_kWh": 1338.2,
             "cooling_energy_total_kWh": 1542.9,
@@ -237,7 +237,7 @@
             "feb_min_idb_c": 22.198,
             "supply_fan_kWh": 139.3
         },
-        "190": {
+        "CE190": {
             "condenser_fan_kWh": 8.5,
             "cooling_energy_compressor_kWh": 137.7,
             "cooling_energy_total_kWh": 164.2,
@@ -258,7 +258,7 @@
             "feb_min_idb_c": 22.186,
             "supply_fan_kWh": 18.0
         },
-        "195": {
+        "CE195": {
             "condenser_fan_kWh": 10.6,
             "cooling_energy_compressor_kWh": 216.8,
             "cooling_energy_total_kWh": 250.0,
@@ -279,7 +279,7 @@
             "feb_min_idb_c": 22.188,
             "supply_fan_kWh": 22.6
         },
-        "200": {
+        "CE200": {
             "condenser_fan_kWh": 72.6,
             "cooling_energy_compressor_kWh": 1250.0,
             "cooling_energy_total_kWh": 1477.1,
