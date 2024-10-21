@@ -21,7 +21,7 @@
 $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 
 
-# Table B16.5.1-1a. Space Cooling Energy Consumption - Compressor (kWh,e)
+# Table B16.5.1-1b. Space Cooling Energy Consumption - Compressor (kWh,e)
 | Case                     | CA-SIS/EDF | clim2000/EDF | DOE-2.1E/CIEMAT | DOE-2.1E/NREL | EnergyPlus/GARD | TRNSYS-ideal/TUD | TRNSYS-real/TUD |     |  Min |  Max | Dev % $$ |     | Analytical/TUD | Analytical/HTAL1 | Analytical/HTAL2 |     | TEST 0.0.0 | 
 |:------------------------ | ----------:| ------------:| ---------------:| -------------:| ---------------:| ----------------:| ---------------:| ---:| ----:| ----:| --------:| ---:| --------------:| ----------------:| ----------------:| ---:| ----------:| 
 | CE100 dry lo IDB hi ODB  |       1319 |         1318 |            1307 |          1311 |                 |             1311 |            1303 |     | 1303 | 1319 |      1.2 |     |           1319 |             1319 |             1319 |     |       1307 | 
@@ -42,7 +42,7 @@ $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 
 
-# Table B16.5.1-1a. Space Cooling Energy Consumption - Supply Fan (kWh,e)
+# Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,e)
 | Case                     | CA-SIS/EDF | clim2000/EDF | DOE-2.1E/CIEMAT | DOE-2.1E/NREL | EnergyPlus/GARD | TRNSYS-ideal/TUD | TRNSYS-real/TUD |     | Min | Max | Dev % $$ |     | Analytical/TUD | Analytical/HTAL1 | Analytical/HTAL2 |     | TEST 0.0.0 | 
 |:------------------------ | ----------:| ------------:| ---------------:| -------------:| ---------------:| ----------------:| ---------------:| ---:| ---:| ---:| --------:| ---:| --------------:| ----------------:| ----------------:| ---:| ----------:| 
 | CE100 dry lo IDB hi ODB  |        144 |          144 |             145 |           141 |             144 |              144 |             142 |     | 141 | 145 |      2.9 |     |            144 |              144 |              144 |     |        145 | 
@@ -586,3 +586,6 @@ $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 
 
+![figure 01](images/std140_ce_a_output-section_9_figure_b16_5_1_01.png)
+![figure 02](images/std140_ce_a_output-section_9_figure_b16_5_1_02.png)
+![figure 03](images/std140_ce_a_output-section_9_figure_b16_5_1_03.png)

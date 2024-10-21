@@ -1,4 +1,4 @@
-# Table B16.5.1-1a. Space Cooling Energy Consumption - Supply Fan (kWh,e)
+# Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,e)
 | Case                     | CA-SIS/EDF | clim2000/EDF | DOE-2.1E/CIEMAT | DOE-2.1E/NREL | EnergyPlus/GARD | TRNSYS-ideal/TUD | TRNSYS-real/TUD |     | Min | Max | Dev % $$ |     | Analytical/TUD | Analytical/HTAL1 | Analytical/HTAL2 |     | TEST 0.0.0 | 
 |:------------------------ | ----------:| ------------:| ---------------:| -------------:| ---------------:| ----------------:| ---------------:| ---:| ---:| ---:| --------:| ---:| --------------:| ----------------:| ----------------:| ---:| ----------:| 
 | CE100 dry lo IDB hi ODB  |        144 |          144 |             145 |           141 |             144 |              144 |             142 |     | 141 | 145 |      2.9 |     |            144 |              144 |              144 |     |        145 | 

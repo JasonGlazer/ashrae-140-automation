@@ -8037,10 +8037,11 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_a_table_b16_5_1_02a(self):
-        figure_name = 'section_9_table_b16_5_1_02a'
-        caption = 'Table B16.5.1-2a. COP Mean'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_02a'
+        table_caption = 'Table B16.5.1-2a. COP Mean'
+        chart_name = 'section_9_figure_b16_5_1_01'
+        chart_caption = 'Figure B16.5.1-1. HVAC BESTEST: Mean COP'
+        yaxis_name = 'COP'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8053,14 +8054,15 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['feb_mean_cop'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_02b(self):
-        figure_name = 'section_9_table_b16_5_1_02b'
-        caption = 'Table B16.5.1-2b. COP (Max-Min)/Mean'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        table_name = 'section_9_table_b16_5_1_02b'
+        table_caption = 'Table B16.5.1-2b. COP (Max-Min)/Mean'
+        chart_name = 'section_9_figure_b16_5_1_02'
+        chart_caption = 'Figure B16.5.1-2. HVAC BESTEST: (Maximum - Minimum)/Mean COP'
         yaxis_name = 'Electricity Consumption  (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
@@ -8080,8 +8082,8 @@ class GraphicsRenderer(Logger):
                     row.append((max_value - min_value) / mean_value)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_03a(self):
@@ -8439,36 +8441,40 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_a_table_b16_5_1_08a(self):
-        figure_name = 'section_9_table_b16_5_1_08a'
-        caption = 'Table B16.5.1-8a. Sensitivities COP (kWh,t)'
+        table_name = 'section_9_table_b16_5_1_08a'
+        table_caption = 'Table B16.5.1-8a. Sensitivities COP (kWh,t)'
+        chart_name = 'section_9_figure_b16_5_1_03'
+        chart_caption = 'Figure B16.5.1-2. HVAC BESTEST: Mean COP Sensitivities'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2]  for c in sensitivity_cases]
+        yaxis_name = 'delta COP'
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _ )  in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['feb_mean_cop']
@@ -8479,7 +8485,8 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_08b(self):
