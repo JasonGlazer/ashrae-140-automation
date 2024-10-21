@@ -8613,3 +8613,51 @@ class GraphicsRenderer(Logger):
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
+
+    def render_section_ce_a_table_b16_5_1_09a(self):
+        figure_name = 'section_9_table_b16_5_1_09a'
+        caption = 'Table B16.5.1-9a. Indoor Drybulb Temperature: Mean (C)'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['feb_mean_idb_c'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_09b(self):
+        figure_name = 'section_9_table_b16_5_1_09b'
+        caption = 'Table B16.5.1-9b. Indoor Drybulb Temperature (Max-Min)/Mean'
+        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                min_value = json_obj['main_table'][case]['feb_min_idb_c']
+                max_value = json_obj['main_table'][case]['feb_max_idb_c']
+                mean_value = json_obj['main_table'][case]['feb_mean_idb_c']
+                if math.isnan(min_value) or math.isnan(max_value) or math.isnan(mean_value):
+                    row.append(math.nan)
+                else:
+                    row.append((max_value - min_value) / mean_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        return
