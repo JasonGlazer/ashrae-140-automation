@@ -8261,3 +8261,180 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
+
+    def render_section_ce_a_table_b16_5_1_07a(self):
+        figure_name = 'section_9_table_b16_5_1_07a'
+        caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricty Consumption Delta Qtot (kWh,e)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['cooling_energy_total_kWh']
+                case_b_value = json_obj['main_table'][case_b]['cooling_energy_total_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_a_table_b16_5_1_07b(self):
+        figure_name = 'section_9_table_b16_5_1_07b'
+        caption = 'Table B16.5.1-7b. Sensitivities for Space Cooling Electricty Consumption Delta Qcomp (kWh,e)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['cooling_energy_compressor_kWh']
+                case_b_value = json_obj['main_table'][case_b]['cooling_energy_compressor_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_a_table_b16_5_1_07c(self):
+        figure_name = 'section_9_table_b16_5_1_07c'
+        caption = 'Table B16.5.1-7c. Sensitivities for Space Cooling Electricty Consumption Delta Q IDfan (kWh,e)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['supply_fan_kWh']
+                case_b_value = json_obj['main_table'][case_b]['supply_fan_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_a_table_b16_5_1_07d(self):
+        figure_name = 'section_9_table_b16_5_1_07d'
+        caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricty Consumption Delta Q ODfan (kWh,e)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['condenser_fan_kWh']
+                case_b_value = json_obj['main_table'][case_b]['condenser_fan_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
