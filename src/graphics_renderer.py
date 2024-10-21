@@ -8438,3 +8438,178 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         return
 
+    def render_section_ce_a_table_b16_5_1_08a(self):
+        figure_name = 'section_9_table_b16_5_1_08a'
+        caption = 'Table B16.5.1-8a. Sensitivities COP (kWh,t)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['feb_mean_cop']
+                case_b_value = json_obj['main_table'][case_b]['feb_mean_cop']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_a_table_b16_5_1_08b(self):
+        figure_name = 'section_9_table_b16_5_1_08b'
+        caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Total (kWh,t)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['evaporator_load_total_kWh']
+                case_b_value = json_obj['main_table'][case_b]['evaporator_load_total_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_a_table_b16_5_1_08c(self):
+        figure_name = 'section_9_table_b16_5_1_08c'
+        caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Sensible (kWh,t)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['evaporator_load_sensible_kWh']
+                case_b_value = json_obj['main_table'][case_b]['evaporator_load_sensible_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_a_table_b16_5_1_08d(self):
+        figure_name = 'section_9_table_b16_5_1_08d'
+        caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Latent (kWh,t)'
+        sensitivity_cases = [
+            ('CE110', 'CE100'),
+            ('CE120', 'CE110'),
+            ('CE120', 'CE100'),
+            ('CE130', 'CE100'),
+            ('CE140', 'CE130'),
+            ('CE140', 'CE110'),
+            ('CE150', 'CE110'),
+            ('CE160', 'CE150'),
+            ('CE165', 'CE160'),
+            ('CE170', 'CE150'),
+            ('CE180', 'CE150'),
+            ('CE180', 'CE170'),
+            ('CE185', 'CE180'),
+            ('CE190', 'CE180'),
+            ('CE190', 'CE140'),
+            ('CE195', 'CE190'),
+            ('CE195', 'CE185'),
+            ('CE195', 'CE130'),
+            ('CE200', 'CE100'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['evaporator_load_latent_kWh']
+                case_b_value = json_obj['main_table'][case_b]['evaporator_load_latent_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        return
