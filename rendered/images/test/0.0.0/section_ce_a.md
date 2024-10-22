@@ -320,7 +320,7 @@ $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
-# Table B16.5.1-7b. Sensitivities for Space Cooling Electricty Consumption Delta Qcomp (kWh,e)
+# Table B16.5.1-7b. Sensitivities for Space Cooling Electricity Consumption Delta Qcomp (kWh,e)
 | Case        | CA-SIS/EDF | clim2000/EDF | DOE-2.1E/CIEMAT | DOE-2.1E/NREL | EnergyPlus/GARD | TRNSYS-ideal/TUD | TRNSYS-real/TUD |     |   Min |   Max | Dev % $$ |     | Analytical/TUD | Analytical/HTAL1 | Analytical/HTAL2 |     | TEST 0.0.0 | 
 |:----------- | ----------:| ------------:| ---------------:| -------------:| ---------------:| ----------------:| ---------------:| ---:| -----:| -----:| --------:| ---:| --------------:| ----------------:| ----------------:| ---:| ----------:| 
 | CE110-CE100 |       -430 |         -419 |            -442 |          -428 |                 |             -432 |            -427 |     |  -442 |  -419 |      5.3 |     |           -431 |             -430 |             -430 |     |       -442 | 
@@ -346,7 +346,7 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
-# Table B16.5.1-7c. Sensitivities for Space Cooling Electricty Consumption Delta Q IDfan (kWh,e)
+# Table B16.5.1-7c. Sensitivities for Space Cooling Electricity Consumption Delta Q IDfan (kWh,e)
 | Case        | CA-SIS/EDF | clim2000/EDF | DOE-2.1E/CIEMAT | DOE-2.1E/NREL | EnergyPlus/GARD | TRNSYS-ideal/TUD | TRNSYS-real/TUD |     |  Min |  Max | Dev % $$ |     | Analytical/TUD | Analytical/HTAL1 | Analytical/HTAL2 |     | TEST 0.0.0 | 
 |:----------- | ----------:| ------------:| ---------------:| -------------:| ---------------:| ----------------:| ---------------:| ---:| ----:| ----:| --------:| ---:| --------------:| ----------------:| ----------------:| ---:| ----------:| 
 | CE110-CE100 |        -16 |          -15 |             -12 |           -19 |             -16 |              -16 |             -16 |     |  -19 |  -12 |     41.9 |     |            -16 |              -16 |              -16 |     |        -12 | 
@@ -589,3 +589,26 @@ $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 ![figure 01](images/std140_ce_a_output-section_9_figure_b16_5_1_01.png)
 ![figure 02](images/std140_ce_a_output-section_9_figure_b16_5_1_02.png)
 ![figure 03](images/std140_ce_a_output-section_9_figure_b16_5_1_03.png)
+![figure 04](images/std140_ce_a_output-section_9_figure_b16_5_1_04.png)
+![figure 05](images/std140_ce_a_output-section_9_figure_b16_5_1_05.png)
+![figure 06](images/std140_ce_a_output-section_9_figure_b16_5_1_06.png)
+![figure 07](images/std140_ce_a_output-section_9_figure_b16_5_1_07.png)
+![figure 08](images/std140_ce_a_output-section_9_figure_b16_5_1_08.png)
+![figure 09](images/std140_ce_a_output-section_9_figure_b16_5_1_09.png)
+![figure 10](images/std140_ce_a_output-section_9_figure_b16_5_1_10.png)
+![figure 11](images/std140_ce_a_output-section_9_figure_b16_5_1_11.png)
+![figure 12](images/std140_ce_a_output-section_9_figure_b16_5_1_12.png)
+![figure 13](images/std140_ce_a_output-section_9_figure_b16_5_1_13.png)
+![figure 14](images/std140_ce_a_output-section_9_figure_b16_5_1_14.png)
+![figure 15](images/std140_ce_a_output-section_9_figure_b16_5_1_15.png)
+![figure 16](images/std140_ce_a_output-section_9_figure_b16_5_1_16.png)
+![figure 17](images/std140_ce_a_output-section_9_figure_b16_5_1_17.png)
+![figure 18](images/std140_ce_a_output-section_9_figure_b16_5_1_18.png)
+![figure 19](images/std140_ce_a_output-section_9_figure_b16_5_1_19.png)
+![figure 20](images/std140_ce_a_output-section_9_figure_b16_5_1_20.png)
+![figure 21](images/std140_ce_a_output-section_9_figure_b16_5_1_21.png)
+![figure 22](images/std140_ce_a_output-section_9_figure_b16_5_1_22.png)
+![figure 23](images/std140_ce_a_output-section_9_figure_b16_5_1_23.png)
+![figure 24](images/std140_ce_a_output-section_9_figure_b16_5_1_24.png)
+![figure 25](images/std140_ce_a_output-section_9_figure_b16_5_1_25.png)
+![figure 26](images/std140_ce_a_output-section_9_figure_b16_5_1_26.png)

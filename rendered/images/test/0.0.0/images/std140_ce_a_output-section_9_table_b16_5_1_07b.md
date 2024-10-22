@@ -1,4 +1,4 @@
-# Table B16.5.1-7b. Sensitivities for Space Cooling Electricty Consumption Delta Qcomp (kWh,e)
+# Table B16.5.1-7b. Sensitivities for Space Cooling Electricity Consumption Delta Qcomp (kWh,e)
 | Case        | CA-SIS/EDF | clim2000/EDF | DOE-2.1E/CIEMAT | DOE-2.1E/NREL | EnergyPlus/GARD | TRNSYS-ideal/TUD | TRNSYS-real/TUD |     |   Min |   Max | Dev % $$ |     | Analytical/TUD | Analytical/HTAL1 | Analytical/HTAL2 |     | TEST 0.0.0 | 
 |:----------- | ----------:| ------------:| ---------------:| -------------:| ---------------:| ----------------:| ---------------:| ---:| -----:| -----:| --------:| ---:| --------------:| ----------------:| ----------------:| ---:| ----------:| 
 | CE110-CE100 |       -430 |         -419 |            -442 |          -428 |                 |             -432 |            -427 |     |  -442 |  -419 |      5.3 |     |           -431 |             -430 |             -430 |     |       -442 | 

@@ -7953,9 +7953,10 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_a_table_b16_5_1_01a(self):
-        figure_name = 'section_9_table_b16_5_1_01a'
-        caption = 'Table B16.5.1-1a. Space Cooling Energy Consumption - Total (kWh,e)'
-        figure_caption = 'Figure B16.5.1-4. Total Space Cooling Electricity Consumption'
+        table_name = 'section_9_table_b16_5_1_01a'
+        table_caption = 'Table B16.5.1-1a. Space Cooling Energy Consumption - Total (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_04'
+        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
@@ -7969,14 +7970,15 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['cooling_energy_total_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_01b(self):
-        figure_name = 'section_9_table_b16_5_1_01b'
-        caption = 'Table B16.5.1-1b. Space Cooling Energy Consumption - Compressor (kWh,e)'
-        figure_caption = 'Figure B16.5.1-4. Compressor Space Cooling Electricity Consumption'
+        table_name = 'section_9_table_b16_5_1_01b'
+        table_caption = 'Table B16.5.1-1b. Space Cooling Energy Consumption - Compressor (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_06'
+        chart_caption = 'Figure B16.5.1-6. HVAC BESTEST: Compressor Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
@@ -7990,14 +7992,15 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['cooling_energy_compressor_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_01c(self):
-        figure_name = 'section_9_table_b16_5_1_01c'
-        caption = 'Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,e)'
-        figure_caption = 'Figure B16.5.1-4. Supply Fan Space Cooling Electricity Consumption'
+        table_name = 'section_9_table_b16_5_1_01c'
+        table_caption = 'Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_08'
+        chart_caption = 'Figure B16.5.1-8. HVAC BESTEST: Total Indoor (Supply) Fan Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
@@ -8011,14 +8014,15 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['supply_fan_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_01d(self):
-        figure_name = 'section_9_table_b16_5_1_01d'
-        caption = 'Table B16.5.1-1d. Space Cooling Energy Consumption - Condenser Fan (kWh,e)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
+        table_name = 'section_9_table_b16_5_1_01d'
+        table_caption = 'Table B16.5.1-1d. Space Cooling Energy Consumption - Condenser Fan (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_10'
+        chart_caption = 'Figure B16.5.1-10. HVAC BESTEST: Outdoor (Condenser) Fan Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
@@ -8032,8 +8036,8 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['condenser_fan_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_02a(self):
@@ -8087,10 +8091,11 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_a_table_b16_5_1_03a(self):
-        figure_name = 'section_9_table_b16_5_1_03a'
-        caption = 'Table B16.5.1-3a. Coil Loads, Total (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_03a'
+        table_caption = 'Table B16.5.1-3a. Coil Loads, Total (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_12'
+        chart_caption = 'Figure B16.5.1-12. HVAC BESTEST: Total Coil Load'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8103,15 +8108,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['evaporator_load_total_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_03b(self):
-        figure_name = 'section_9_table_b16_5_1_03b'
-        caption = 'Table B16.5.1-3b. Coil Loads, Sensible (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_03b'
+        table_caption = 'Table B16.5.1-3b. Coil Loads, Sensible (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_14'
+        chart_caption = 'Figure B16.5.1-14. HVAC BESTEST: Sensible Coil Load'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8124,15 +8130,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['evaporator_load_sensible_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_03c(self):
-        figure_name = 'section_9_table_b16_5_1_03c'
-        caption = 'Table B16.5.1-3c. Coil Loads, Latent (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_03c'
+        table_caption = 'Table B16.5.1-3c. Coil Loads, Latent (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_16'
+        chart_caption = 'Figure B16.5.1-16. HVAC BESTEST: Latent Coil Load'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8145,15 +8152,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['evaporator_load_latent_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_04(self):
-        figure_name = 'section_9_table_b16_5_1_04'
-        caption = 'Table B16.5.1-4. Sensible Coil Load minus Zone Load (Fan Heat) (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_04'
+        table_caption = 'Table B16.5.1-4. Sensible Coil Load minus Zone Load (Fan Heat) (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_25'
+        chart_caption = 'Figure B16.5.1-25. HVAC BESTEST: Sensible Coil Load - Zone Load (Fan Heat)'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8171,15 +8179,16 @@ class GraphicsRenderer(Logger):
                     row.append(sensible_coil_value - zone_load_value)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_05a(self):
-        figure_name = 'section_9_table_b16_5_1_05a'
-        caption = 'Table B16.5.1-5a. Zone Loads, Total (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_05a'
+        table_caption = 'Table B16.5.1-5a. Zone Loads, Total (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_22'
+        chart_caption = 'Figure B16.5.1-22. HVAC BESTEST: Total Zone Load'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8192,15 +8201,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['envelope_load_total_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_05b(self):
-        figure_name = 'section_9_table_b16_5_1_05b'
-        caption = 'Table B16.5.1-5b. Zone Loads, Sensible (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_05b'
+        table_caption = 'Table B16.5.1-5b. Zone Loads, Sensible (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_23'
+        chart_caption = 'Figure B16.5.1-23. HVAC BESTEST: Sensible Zone Load'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8213,15 +8223,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['envelope_load_sensible_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_05c(self):
-        figure_name = 'section_9_table_b16_5_1_05c'
-        caption = 'Table B16.5.1-5c. Zone Loads, Latent (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_05c'
+        table_caption = 'Table B16.5.1-5c. Zone Loads, Latent (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_24'
+        chart_caption = 'Figure B16.5.1-24. HVAC BESTEST: Latent Zone Load'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8234,15 +8245,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['envelope_load_latent_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_06(self):
-        figure_name = 'section_9_table_b16_5_1_06'
-        caption = 'Table B16.5.1-6. Latent Coil Load minus Zone Load (Should be 0) (kWh,thermal)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_06'
+        table_caption = 'Table B16.5.1-6. Latent Coil Load minus Zone Load (Should be 0) (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_26'
+        chart_caption = 'Figure B16.5.1-26. HVAC BESTEST: Latent Coil Load - Latent Zone Load (Should = 0)'
+        yaxis_name = 'Load (kWh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8260,41 +8272,45 @@ class GraphicsRenderer(Logger):
                     row.append(latent_coil_value - zone_load_value)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_07a(self):
-        figure_name = 'section_9_table_b16_5_1_07a'
-        caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricty Consumption Delta Qtot (kWh,e)'
+        table_name = 'section_9_table_b16_5_1_07a'
+        table_caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricty Consumption Delta Qtot (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_05'
+        chart_caption = 'Figure B16.5.1-5. HVAC BESTEST: Total Space Cooling Electricity Sensitivies'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['cooling_energy_total_kWh']
@@ -8305,40 +8321,45 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_07b(self):
-        figure_name = 'section_9_table_b16_5_1_07b'
-        caption = 'Table B16.5.1-7b. Sensitivities for Space Cooling Electricty Consumption Delta Qcomp (kWh,e)'
+        table_name = 'section_9_table_b16_5_1_07b'
+        table_caption = 'Table B16.5.1-7b. Sensitivities for Space Cooling Electricity Consumption Delta Qcomp (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_07'
+        chart_caption = 'Figure B16.5.1-7. HVAC BESTEST: Total Compressor Electricity Consumption'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['cooling_energy_compressor_kWh']
@@ -8349,40 +8370,45 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_07c(self):
-        figure_name = 'section_9_table_b16_5_1_07c'
-        caption = 'Table B16.5.1-7c. Sensitivities for Space Cooling Electricty Consumption Delta Q IDfan (kWh,e)'
+        table_name = 'section_9_table_b16_5_1_07c'
+        table_caption = 'Table B16.5.1-7c. Sensitivities for Space Cooling Electricity Consumption Delta Q IDfan (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_09'
+        chart_caption = 'Figure B16.5.1-9. HVAC BESTEST: Indoor (Supply) Fan Electricity Sensitivities'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['supply_fan_kWh']
@@ -8393,40 +8419,45 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_07d(self):
-        figure_name = 'section_9_table_b16_5_1_07d'
-        caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricty Consumption Delta Q ODfan (kWh,e)'
+        table_name = 'section_9_table_b16_5_1_07d'
+        table_caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricty Consumption Delta Q ODfan (kWh,e)'
+        chart_name = 'section_9_figure_b16_5_1_11'
+        chart_caption = 'Figure B16.5.1-11. HVAC BESTEST: Outdoor (Condenser) Fan Electricity Sensitivities'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['condenser_fan_kWh']
@@ -8437,7 +8468,8 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_08a(self):
@@ -8469,12 +8501,12 @@ class GraphicsRenderer(Logger):
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
-        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2]  for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         yaxis_name = 'delta COP'
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b, _ )  in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['feb_mean_cop']
@@ -8490,36 +8522,40 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_a_table_b16_5_1_08b(self):
-        figure_name = 'section_9_table_b16_5_1_08b'
-        caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Total (kWh,t)'
+        table_name = 'section_9_table_b16_5_1_08b'
+        table_caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Total (kWh,t)'
+        chart_name = 'section_9_figure_b16_5_1_13'
+        chart_caption = 'Figure B16.5.1-13. HVAC BESTEST: Total Coil Load Sensitivities'
+        yaxis_name = 'delta Load  (kWh thermal)'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['evaporator_load_total_kWh']
@@ -8530,40 +8566,45 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_08c(self):
-        figure_name = 'section_9_table_b16_5_1_08c'
-        caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Sensible (kWh,t)'
+        table_name = 'section_9_table_b16_5_1_08c'
+        table_caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Sensible (kWh,t)'
+        chart_name = 'section_9_figure_b16_5_1_15'
+        chart_caption = 'Figure B16.5.1-15. HVAC BESTEST: Sensible Coil Load Sensitivities'
+        yaxis_name = 'delta Load  (kWh thermal)'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['evaporator_load_sensible_kWh']
@@ -8574,40 +8615,45 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_08d(self):
-        figure_name = 'section_9_table_b16_5_1_08d'
-        caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Latent (kWh,t)'
+        table_name = 'section_9_table_b16_5_1_08d'
+        table_caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Latent (kWh,t)'
+        chart_name = 'section_9_figure_b16_5_1_17'
+        chart_caption = 'Figure B16.5.1-17. HVAC BESTEST: Latent Coil Load Sensitivities'
+        yaxis_name = 'delta Load  (kWh thermal)'
         sensitivity_cases = [
-            ('CE110', 'CE100'),
-            ('CE120', 'CE110'),
-            ('CE120', 'CE100'),
-            ('CE130', 'CE100'),
-            ('CE140', 'CE130'),
-            ('CE140', 'CE110'),
-            ('CE150', 'CE110'),
-            ('CE160', 'CE150'),
-            ('CE165', 'CE160'),
-            ('CE170', 'CE150'),
-            ('CE180', 'CE150'),
-            ('CE180', 'CE170'),
-            ('CE185', 'CE180'),
-            ('CE190', 'CE180'),
-            ('CE190', 'CE140'),
-            ('CE195', 'CE190'),
-            ('CE195', 'CE185'),
-            ('CE195', 'CE130'),
-            ('CE200', 'CE100'),
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
         ]
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_column_name'])
-        for (case_a, case_b) in sensitivity_cases:
+        for (case_a, case_b, _) in sensitivity_cases:
             row = []
             for tst, json_obj in self.json_data.items():
                 case_a_value = json_obj['main_table'][case_a]['evaporator_load_latent_kWh']
@@ -8618,14 +8664,16 @@ class GraphicsRenderer(Logger):
                     row.append(float(case_a_value) - float(case_b_value))
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_09a(self):
-        figure_name = 'section_9_table_b16_5_1_09a'
-        caption = 'Table B16.5.1-9a. Indoor Drybulb Temperature: Mean (C)'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_09a'
+        table_caption = 'Table B16.5.1-9a. Indoor Drybulb Temperature: Mean (C)'
+        chart_name = 'section_9_figure_b16_5_1_18'
+        chart_caption = 'Figure B16.5.1-18. HVAC BESTEST: Mean Indoor Drybulb Temperature'
+        yaxis_name = 'Temperature (C)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8638,15 +8686,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['feb_mean_idb_c'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_09b(self):
-        figure_name = 'section_9_table_b16_5_1_09b'
-        caption = 'Table B16.5.1-9b. Indoor Drybulb Temperature (Max-Min)/Mean'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_09b'
+        table_caption = 'Table B16.5.1-9b. Indoor Drybulb Temperature (Max-Min)/Mean'
+        chart_name = 'section_9_figure_b16_5_1_19'
+        chart_caption = 'Figure B16.5.1-19. HVAC BESTEST: (Maximum - Minimum)/Mean Indoor Temperature'
+        yaxis_name = 'Fractional Variation'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8665,15 +8714,16 @@ class GraphicsRenderer(Logger):
                     row.append((max_value - min_value) / mean_value)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_10a(self):
-        figure_name = 'section_9_table_b16_5_1_10a'
-        caption = 'Table B16.5.1-10a. Humidity Ratio: Mean'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_10a'
+        table_caption = 'Table B16.5.1-10a. Humidity Ratio: Mean'
+        chart_name = 'section_9_figure_b16_5_1_20'
+        chart_caption = 'Figure B16.5.1-20. HVAC BESTEST: Mean Indoor Humidity Ratio'
+        yaxis_name = 'Humidity Ratio (kg/kg)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8686,15 +8736,16 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['main_table'][case]['feb_mean_hum_ratio_kg_kg'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=4)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def render_section_ce_a_table_b16_5_1_10b(self):
-        figure_name = 'section_9_table_b16_5_1_10b'
-        caption = 'Table B16.5.1-10b. Humidity Ratio (Max-Min)/Mean'
-        figure_caption = 'Figure B16.5.1-4. Condenser Fan Space Cooling Electricity Consumption'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        table_name = 'section_9_table_b16_5_1_10b'
+        table_caption = 'Table B16.5.1-10b. Humidity Ratio (Max-Min)/Mean'
+        chart_name = 'section_9_figure_b16_5_1_21'
+        chart_caption = 'Figure B16.5.1-21. HVAC BESTEST: (Maximum - Minimum)/Mean Indoor Humidity Ratio'
+        yaxis_name = 'Fractional Variation'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8713,6 +8764,6 @@ class GraphicsRenderer(Logger):
                     row.append((max_value - min_value) / mean_value)
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
-        self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
-        # self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
