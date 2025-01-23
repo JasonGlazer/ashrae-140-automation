@@ -1324,13 +1324,13 @@
     },
     "annual_weather_data_ce300": {
         "outdoor_drybulb_max_c": 35.0,
-        "outdoor_drybulb_max_day": 20.0,
-        "outdoor_drybulb_max_hour": 15.0,
-        "outdoor_drybulb_max_month": 7.0,
-        "outdoor_humidity_ratio_max_day": 2.0,
-        "outdoor_humidity_ratio_max_hour": 9.0,
+        "outdoor_drybulb_max_day": 20,
+        "outdoor_drybulb_max_hour": 15,
+        "outdoor_drybulb_max_month": 7,
+        "outdoor_humidity_ratio_max_day": 2,
+        "outdoor_humidity_ratio_max_hour": 9,
         "outdoor_humidity_ratio_max_kg_kg": 0.0223,
-        "outdoor_humidity_ratio_max_month": 10.0
+        "outdoor_humidity_ratio_max_month": 10
     },
     "ce500_avg_daily": {
         "April 30": {
