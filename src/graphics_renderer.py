@@ -848,6 +848,10 @@ class GraphicsRenderer(Logger):
             final_column_headings.append(column_headings[-2])
             final_column_headings.append('')
             final_column_headings.append(column_headings[-1])
+        elif self.section_type == 'CE_b':
+            final_column_headings = column_headings[:-1]
+            final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
+            final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
             row = [row_headings[row_index], ]  # first add the heading for the row
@@ -862,6 +866,10 @@ class GraphicsRenderer(Logger):
                     reference_data_row = self._scrub_number_list(data_row[:-2])  # remove the last item which is the tested software
                 elif self.section_type == 'CE_a':
                     for item in data_row[:-4]:
+                        row.append(formatting_string.format(item))
+                    reference_data_row = self._scrub_number_list(data_row[:-4])  # remove the last item which is the tested software
+                elif self.section_type == 'CE_b':
+                    for item in data_row[:-1]:
                         row.append(formatting_string.format(item))
                     reference_data_row = self._scrub_number_list(data_row[:-4])  # remove the last item which is the tested software
                 row.append('')
@@ -894,6 +902,8 @@ class GraphicsRenderer(Logger):
                     row.append(formatting_string.format(data_row[-2]))
                     row.append('')
                     row.append(formatting_string.format(data_row[-1]))
+                elif self.section_type == 'CE_b':
+                    row.append(formatting_string.format(data_row[-1]))  # now add the last column back
             text_table_with_stats.append(row)
         # now add the rows with time stamps
         if time_stamps:
