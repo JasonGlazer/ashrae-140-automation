@@ -8809,7 +8809,7 @@ class GraphicsRenderer(Logger):
 #        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
 #        yaxis_name = 'Electricity Consumption  (kWh)'
         data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -8833,7 +8833,7 @@ class GraphicsRenderer(Logger):
 #        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
 #        yaxis_name = 'Electricity Consumption  (kWh)'
         data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = list(self.case_map.values())
         column_headings = ['Case']
         for _, json_obj in self.json_data.items():
@@ -8846,6 +8846,240 @@ class GraphicsRenderer(Logger):
                 row.append(json_obj['annual_sums_means'][case]['cooling_energy_compressor_kWh'])
             data_table.append(row)
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_02a(self):
+        table_name = 'section_9_table_b16_5_2_02a'
+        table_caption = 'Table B16.5.2-2a. Annual Space Cooling Electricity Consumption - Supply Fan (kWh,e)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['indoor_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_02b(self):
+        table_name = 'section_9_table_b16_5_2_02b'
+        table_caption = 'Table B16.5.2-2b. Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,e)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['condenser_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_03a(self):
+        table_name = 'section_9_table_b16_5_2_03a'
+        table_caption = 'Table B16.5.2-3a. Weather Data Checks, CE300 Only, Annual Outdoor Dry Bulb'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_info = {
+            'ODB-Mean':
+                {'heading': 'Mean (C)',
+                 'table': 'annual_means_ce300',
+                 'keyname': 'outdoor_drybulb_c'},
+            'ODB-Max':
+                {'heading': 'Hourly Integrated Maxima (C)',
+                 'table': 'annual_weather_data_ce300',
+                 'keyname': 'outdoor_drybulb_max_c'},
+        }
+        row_headings = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for k, v in row_info.items():
+            row = []
+            row_headings.append(v['heading'])
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj[v['table']][v['keyname']])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_03b(self):
+        table_name = 'section_9_table_b16_5_2_03b'
+        table_caption = 'Table B16.5.2-3b. Weather Data Checks, CE300 Only, Annual Humidity Ratio'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_info = {
+            'OHR-Mean':
+                {'heading': 'Mean (kg/kg)',
+                 'table': 'annual_means_ce300',
+                 'keyname': 'outdoor_humidity_ratio_kg_kg'},
+            'OHR-Max':
+                {'heading': 'Hourly Integrated Maxima (kg/kg)',
+                 'table': 'annual_weather_data_ce300',
+                 'keyname': 'outdoor_humidity_ratio_max_kg_kg'},
+        }
+        row_headings = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for k, v in row_info.items():
+            row = []
+            row_headings.append(v['heading'])
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj[v['table']][v['keyname']])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=5)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_04a(self):
+        table_name = 'section_9_table_b16_5_2_04a'
+        table_caption = 'Table B16.5.2-4a. Annual Space Cooling Coil Loads - Total Sensible + Latent (kWh,thermal)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['evaporator_load_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_04b(self):
+        table_name = 'section_9_table_b16_5_2_04b'
+        table_caption = 'Table B16.5.2-4b. Annual Space Cooling Coil Loads - Sensible (kWh,thermal)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['evaporator_load_sensible_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_05(self):
+        table_name = 'section_9_table_b16_5_2_05'
+        table_caption = 'Table B16.5.2-5. Annual Space Cooling Coil Loads - Latent (kWh,thermal)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['evaporator_load_latent_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_06a(self):
+        table_name = 'section_9_table_b16_5_2_06a'
+        table_caption = 'Table B16.5.2-6a. Various Annual Means - COP2'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['cop2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_06b(self):
+        table_name = 'section_9_table_b16_5_2_06b'
+        table_caption = 'Table B16.5.2-6b. Various Annual Means - Indoor Dry Bulb (C)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['indoor_dry_bulb_c'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
         self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
 #        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
