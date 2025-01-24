@@ -168,27 +168,27 @@ class GraphicsRenderer(Logger):
         elif self.section_type == 'CE_b':
             self.case_detailed_df = pd.DataFrame.from_dict(
                 {
-                    'CE300': ['CE300 Base, 15% OA', 1],
-                    'CE310': ['CE310 High Latent', 2],
-                    'CE320': ['CE320 High Infiltration', 3],
-                    'CE330': ['CE330 100% OA', 4],
-                    'CE340': ['CE340 50% OA, 50% Infl', 5],
-                    'CE350': ['CE350 Tstat Set Up', 6],
-                    'CE360': ['CE360 Undersized System', 7],
-                    'CE400': ['CE400 Ec. Temp. Ctrl.', 8],
-                    'CE410': ['CE410 Ec. Comp. Lockout', 9],
-                    'CE420': ['CE420 Ec. ODB Limit', 10],
-                    'CE430': ['CE430 Ec. Enthalpy Ctrl.', 11],
-                    'CE440': ['CE440 Ec. Enthalpy Limit', 12],
-                    'CE500': ['CE500 Base w/ 0%OA', 13],
-                    'CE500 May-Sep': ['CE500 May-Sep', 14],
-                    'CE510': ['CE510 May-Sep, High PLR', 15],
-                    'CE520': ['CE520 EDB = 15°C', 16],
-                    'CE522': ['CE522 EDB = 20°C', 17],
-                    'CE525': ['CE525 EDB = 35°C', 18],
-                    'CE530': ['CE530 Dry Coil', 19],
-                    'CE540': ['CE540 Dry, EDB = 15°C', 20],
-                    'CE545': ['CE545 Dry, EDB = 35°C', 21]
+                    'E300': ['CE300 Base, 15% OA', 1],
+                    'E310': ['CE310 High Latent', 2],
+                    'E320': ['CE320 High Infiltration', 3],
+                    'E330': ['CE330 100% OA', 4],
+                    'E340': ['CE340 50% OA, 50% Infl', 5],
+                    'E350': ['CE350 Tstat Set Up', 6],
+                    'E360': ['CE360 Undersized System', 7],
+                    'E400': ['CE400 Ec. Temp. Ctrl.', 8],
+                    'E410': ['CE410 Ec. Comp. Lockout', 9],
+                    'E420': ['CE420 Ec. ODB Limit', 10],
+                    'E430': ['CE430 Ec. Enthalpy Ctrl.', 11],
+                    'E440': ['CE440 Ec. Enthalpy Limit', 12],
+                    'E500': ['CE500 Base w/ 0%OA', 13],
+                    'E500 May-Sep': ['CE500 May-Sep', 14],
+                    'E510': ['CE510 May-Sep, High PLR', 15],
+                    'E520': ['CE520 EDB = 15°C', 16],
+                    'E522': ['CE522 EDB = 20°C', 17],
+                    'E525': ['CE525 EDB = 35°C', 18],
+                    'E530': ['CE530 Dry Coil', 19],
+                    'E540': ['CE540 Dry, EDB = 15°C', 20],
+                    'E545': ['CE545 Dry, EDB = 35°C', 21]
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
@@ -371,28 +371,52 @@ class GraphicsRenderer(Logger):
             }
         elif self.section_type == 'CE_b':
             self.case_map = {
-                'CE300': 'CE300 Base, 15% OA',
-                'CE310': 'CE310 High Latent',
-                'CE320': 'CE320 High Infiltration',
-                'CE330': 'CE330 100% OA',
-                'CE340': 'CE340 50% OA, 50% Infl',
-                'CE350': 'CE350 Tstat Set Up',
-                'CE360': 'CE360 Undersized System',
-                'CE400': 'CE400 Ec. Temp. Ctrl.',
-                'CE410': 'CE410 Ec. Comp. Lockout',
-                'CE420': 'CE420 Ec. ODB Limit',
-                'CE430': 'CE430 Ec. Enthalpy Ctrl.',
-                'CE440': 'CE440 Ec. Enthalpy Limit',
-                'CE500': 'CE500 Base w/ 0%OA',
-                'CE500 May-Sep': 'CE500 May-Sep',
-                'CE510': 'CE510 May-Sep, High PLR',
-                'CE520': 'CE520 EDB = 15°C',
-                'CE522': 'CE522 EDB = 20°C',
-                'CE525': 'CE525 EDB = 35°C',
-                'CE530': 'CE530 Dry Coil',
-                'CE540': 'CE540 Dry, EDB = 15°C',
-                'CE545': 'CE545 Dry, EDB = 35°C',
+                'E300': 'CE300',
+                'E310': 'CE310',
+                'E320': 'CE320',
+                'E330': 'CE330',
+                'E340': 'CE340',
+                'E350': 'CE350',
+                'E360': 'CE360',
+                'E400': 'CE400',
+                'E410': 'CE410',
+                'E420': 'CE420',
+                'E430': 'CE430',
+                'E440': 'CE440',
+                'E500': 'CE500',
+                'E500 May-Sep': 'CE500 May-Sep',
+                'E510 May-Sep': 'CE510 May-Sep',
+                'E520': 'CE520',
+                'E522': 'CE522',
+                'E525': 'CE525',
+                'E530': 'CE530',
+                'E540': 'CE540',
+                'E545': 'CE545',
             }
+        self.case_map_charts = {
+            'E300': 'CE300 Base, 15% OA',
+            'E310': 'CE310 High Latent',
+            'E320': 'CE320 High Infiltration',
+            'E330': 'CE330 100% OA',
+            'E340': 'CE340 50% OA, 50% Infl',
+            'E350': 'CE350 Tstat Set Up',
+            'E360': 'CE360 Undersized System',
+            'E400': 'CE400 Ec. Temp. Ctrl.',
+            'E410': 'CE410 Ec. Comp. Lockout',
+            'E420': 'CE420 Ec. ODB Limit',
+            'E430': 'CE430 Ec. Enthalpy Ctrl.',
+            'E440': 'CE440 Ec. Enthalpy Limit',
+            'E500': 'CE500 Base w/ 0%OA',
+            'E500 May-Sep': 'CE500 May-Sep',
+            'E510': 'CE510 High PLR',
+            'E510 May-Sep': 'CE510 May-Sep High PLR',
+            'E520': 'CE520 EDB = 15°C',
+            'E522': 'CE522 EDB = 20°C',
+            'E525': 'CE525 EDB = 35°C',
+            'E530': 'CE530 Dry Coil',
+            'E540': 'CE540 Dry, EDB = 15°C',
+            'E545': 'CE545 Dry, EDB = 35°C',
+        }
         # some test suites do not include the software names of the reference cases using the same term as the column headings
         if self.section_type == 'CE_a':
             software_column_name_map = {
@@ -871,7 +895,7 @@ class GraphicsRenderer(Logger):
                 elif self.section_type == 'CE_b':
                     for item in data_row[:-1]:
                         row.append(formatting_string.format(item))
-                    reference_data_row = self._scrub_number_list(data_row[:-4])  # remove the last item which is the tested software
+                    reference_data_row = self._scrub_number_list(data_row[:-1])  # remove the last item which is the tested software
                 row.append('')
                 row_min = min(reference_data_row)
                 row.append(formatting_string.format(row_min))
@@ -8776,4 +8800,52 @@ class GraphicsRenderer(Logger):
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
         self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
         self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_01a(self):
+        table_name = 'section_9_table_b16_5_2_01a'
+        table_caption = 'Table B16.5.2-1a. Annual Space Cooling Electricity Consumption - Total (kWh,e)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['cooling_energy_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_01b(self):
+        table_name = 'section_9_table_b16_5_2_01b'
+        table_caption = 'Table B16.5.2-1b. Annual Space Cooling Electricity Consumption - Compressor (kWh,e)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['cooling_energy_compressor_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return

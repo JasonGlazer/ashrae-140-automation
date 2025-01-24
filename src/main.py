@@ -154,7 +154,10 @@ def create_markdown(input_file):
 
     # write to markdown files
     md_file = open(pathlib.Path.joinpath(destination_directory, 'section_' + section + '.md'), 'w')
-    md_file.write('# Section Thermal Fabric\n')
+    if section == 'ce_b':
+        md_file.write('# Section 9 - HVAC Equipment Performance Tests CE300 through CE545\n')
+    else:
+        md_file.write('# Section Thermal Fabric\n')
 
     # append each mark down file to the end
     md_table_files.sort()

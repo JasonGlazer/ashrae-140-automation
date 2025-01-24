@@ -842,7 +842,18 @@ class ExcelProcessor(Logger):
         :return: Class attributes identifying software program.
         """
         df = self._get_data('identifying_information')
-        self.software_name = df.iloc[0, 0]
+        id_line = df.iloc[0, 0]
+        if "," in id_line:
+            name = id_line.split(',')[0]
+        elif ";" in id_line:
+            name = id_line.split(';')[0]
+        else:
+            name = id_line
+        if "received" in name:
+            name = name.split(' received')[0]
+        if "results" in name:
+            name = name.split(' results')[0]
+        self.software_name = name
         data_d = {
             'software_name': self.software_name,
         }
