@@ -9132,13 +9132,11 @@ class GraphicsRenderer(Logger):
 #        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
         return
 
-    def render_section_ce_b_table_b16_5_2_08a(self):
-        table_name = 'section_9_table_b16_5_2_08a'
-        table_caption = ('Table B16.5.2-8a. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
-                         'Energy Consumption, Compressor + Both Fan (Wh,e)')
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
+    def general_ce_b_table_08_09(self, table_letter, caption_end, json_key, sig_digits):
+        '''Function that handles any table from ce_b 8 or 9 '''
+        table_name = f'section_9_table_b16_5_2_0{table_letter}'
+        table_caption = (f'Table B16.5.2-{table_letter}. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
+                         f'{caption_end}')
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = []
@@ -9150,8 +9148,8 @@ class GraphicsRenderer(Logger):
             june_25_row = []
             diff_row = []
             for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30']['cooling_energy_total_kWh']
-                june_25_value = json_obj[test_name + '_avg_daily']['June 25']['cooling_energy_total_kWh']
+                april_30_value= json_obj[test_name + '_avg_daily']['April 30'][json_key]
+                june_25_value = json_obj[test_name + '_avg_daily']['June 25'][json_key]
                 diff_value = june_25_value - april_30_value
                 april_30_row.append(april_30_value)
                 june_25_row.append(june_25_value)
@@ -9162,217 +9160,42 @@ class GraphicsRenderer(Logger):
             row_headings.append(test_name.upper() + ' April 30')
             row_headings.append(test_name.upper() + ' June 25')
             row_headings.append('Delta ' + test_name.upper())
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits)
         self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_08a(self):
+        self.general_ce_b_table_08_09('8a', 'Energy Consumption, Compressor + Both Fan (Wh,e)',
+                                      'cooling_energy_total_kWh', 0)
         return
 
     def render_section_ce_b_table_b16_5_2_08b(self):
-        table_name = 'section_9_table_b16_5_2_08b'
-        table_caption = ('Table B16.5.2-8b. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
-                         'Energy Consumption, Compressor (Wh,e)')
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
-        data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = []
-        column_headings = ['Case']
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        for test_name in ['ce500', 'ce530']:
-            april_30_row = []
-            june_25_row = []
-            diff_row = []
-            for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30']['cooling_energy_compressor_kWh']
-                june_25_value = json_obj[test_name + '_avg_daily']['June 25']['cooling_energy_compressor_kWh']
-                diff_value = june_25_value - april_30_value
-                april_30_row.append(april_30_value)
-                june_25_row.append(june_25_value)
-                diff_row.append(diff_value)
-            data_table.append(april_30_row)
-            data_table.append(june_25_row)
-            data_table.append(diff_row)
-            row_headings.append(test_name.upper() + ' April 30')
-            row_headings.append(test_name.upper() + ' June 25')
-            row_headings.append('Delta ' + test_name.upper())
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        self.general_ce_b_table_08_09('8b', 'Energy Consumption, Compressor (Wh,e)',
+                                      'cooling_energy_compressor_kWh', 0)
         return
 
     def render_section_ce_b_table_b16_5_2_08c(self):
-        table_name = 'section_9_table_b16_5_2_08c'
-        table_caption = ('Table B16.5.2-8c. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
-                         'Energy Consumption, Condenser Fan (Wh,e)')
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
-        data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = []
-        column_headings = ['Case']
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        for test_name in ['ce500', 'ce530']:
-            april_30_row = []
-            june_25_row = []
-            diff_row = []
-            for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30']['condenser_fan_kWh']
-                june_25_value = json_obj[test_name + '_avg_daily']['June 25']['condenser_fan_kWh']
-                diff_value = june_25_value - april_30_value
-                april_30_row.append(april_30_value)
-                june_25_row.append(june_25_value)
-                diff_row.append(diff_value)
-            data_table.append(april_30_row)
-            data_table.append(june_25_row)
-            data_table.append(diff_row)
-            row_headings.append(test_name.upper() + ' April 30')
-            row_headings.append(test_name.upper() + ' June 25')
-            row_headings.append('Delta ' + test_name.upper())
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        self.general_ce_b_table_08_09('8c', 'Energy Consumption, Condenser Fan (Wh,e)',
+                                      'condenser_fan_kWh', 0)
         return
 
     def render_section_ce_b_table_b16_5_2_08d(self):
-        table_name = 'section_9_table_b16_5_2_08d'
-        table_caption = ('Table B16.5.2-8d. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
-                         'Energy Consumption, Supply Fan (Wh,e)')
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
-        data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = []
-        column_headings = ['Case']
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        for test_name in ['ce500', 'ce530']:
-            april_30_row = []
-            june_25_row = []
-            diff_row = []
-            for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30']['indoor_fan_kWh']
-                june_25_value = json_obj[test_name + '_avg_daily']['June 25']['indoor_fan_kWh']
-                diff_value = june_25_value - april_30_value
-                april_30_row.append(april_30_value)
-                june_25_row.append(june_25_value)
-                diff_row.append(diff_value)
-            data_table.append(april_30_row)
-            data_table.append(june_25_row)
-            data_table.append(diff_row)
-            row_headings.append(test_name.upper() + ' April 30')
-            row_headings.append(test_name.upper() + ' June 25')
-            row_headings.append('Delta ' + test_name.upper())
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        self.general_ce_b_table_08_09('8d', 'Energy Consumption, Supply Fan (Wh,e)',
+                                      'indoor_fan_kWh', 0)
         return
 
     def render_section_ce_b_table_b16_5_2_08e(self):
-        table_name = 'section_9_table_b16_5_2_08e'
-        table_caption = ('Table B16.5.2-8e. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
-                         'Sensible + Latent Coil Load (Wh,th)')
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
-        data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = []
-        column_headings = ['Case']
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        for test_name in ['ce500', 'ce530']:
-            april_30_row = []
-            june_25_row = []
-            diff_row = []
-            for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30']['evaporator_load_total_kWh']
-                june_25_value = json_obj[test_name + '_avg_daily']['June 25']['evaporator_load_total_kWh']
-                diff_value = june_25_value - april_30_value
-                april_30_row.append(april_30_value)
-                june_25_row.append(june_25_value)
-                diff_row.append(diff_value)
-            data_table.append(april_30_row)
-            data_table.append(june_25_row)
-            data_table.append(diff_row)
-            row_headings.append(test_name.upper() + ' April 30')
-            row_headings.append(test_name.upper() + ' June 25')
-            row_headings.append('Delta ' + test_name.upper())
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        self.general_ce_b_table_08_09('8e', 'Sensible + Latent Coil Load (Wh,th)',
+                                      'evaporator_load_total_kWh', 0)
         return
 
     def render_section_ce_b_table_b16_5_2_08f(self):
-        table_name = 'section_9_table_b16_5_2_08f'
-        table_caption = ('Table B16.5.2-8f. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
-                         'Sensible Coil Load (Wh,th)')
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
-        data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = []
-        column_headings = ['Case']
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        for test_name in ['ce500', 'ce530']:
-            april_30_row = []
-            june_25_row = []
-            diff_row = []
-            for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30']['evaporator_load_sensible_kWh']
-                june_25_value = json_obj[test_name + '_avg_daily']['June 25']['evaporator_load_sensible_kWh']
-                diff_value = june_25_value - april_30_value
-                april_30_row.append(april_30_value)
-                june_25_row.append(june_25_value)
-                diff_row.append(diff_value)
-            data_table.append(april_30_row)
-            data_table.append(june_25_row)
-            data_table.append(diff_row)
-            row_headings.append(test_name.upper() + ' April 30')
-            row_headings.append(test_name.upper() + ' June 25')
-            row_headings.append('Delta ' + test_name.upper())
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        self.general_ce_b_table_08_09('8f', 'Sensible Coil Load (Wh,th)',
+                                      'evaporator_load_sensible_kWh', 0)
         return
 
+
     def render_section_ce_b_table_b16_5_2_08g(self):
-        table_name = 'section_9_table_b16_5_2_08g'
-        table_caption = ('Table B16.5.2-8g. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
-                         'Latent Coil Load (Wh,th)')
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
-        data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = []
-        column_headings = ['Case']
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        for test_name in ['ce500', 'ce530']:
-            april_30_row = []
-            june_25_row = []
-            diff_row = []
-            for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30']['evaporator_load_latent_kWh']
-                june_25_value = json_obj[test_name + '_avg_daily']['June 25']['evaporator_load_latent_kWh']
-                diff_value = june_25_value - april_30_value
-                april_30_row.append(april_30_value)
-                june_25_row.append(june_25_value)
-                diff_row.append(diff_value)
-            data_table.append(april_30_row)
-            data_table.append(june_25_row)
-            data_table.append(diff_row)
-            row_headings.append(test_name.upper() + ' April 30')
-            row_headings.append(test_name.upper() + ' June 25')
-            row_headings.append('Delta ' + test_name.upper())
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        self.general_ce_b_table_08_09('8g', 'Latent Coil Load (Wh,th)',
+                                      'evaporator_load_latent_kWh', 0)
         return
