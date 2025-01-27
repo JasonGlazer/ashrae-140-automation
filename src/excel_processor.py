@@ -911,7 +911,7 @@ class ExcelProcessor(Logger):
                       'evaporator_sensible_Wh', 'evaporator_sensible_date', 'evaporator_sensible_hour',
                       'evaporator_latent_Wh', 'evaporator_latent_date', 'evaporator_latent_hour',
                       'evaporator_total_Wh', 'evaporator_total_date', 'evaporator_total_hour']
-        df['cases'] = df['cases'].astype(str)
+        df['cases'] = df['cases'].astype(str).str.strip()
         df = self._convert_to_month_day(df, 'compressors_plus_fans_date')
         df = self._convert_to_month_day(df, 'evaporator_sensible_date')
         df = self._convert_to_month_day(df, 'evaporator_latent_date')
@@ -1005,7 +1005,7 @@ class ExcelProcessor(Logger):
                       'indoor_hum_rat_min_kg_kg', 'indoor_hum_rat_min_date', 'indoor_hum_rat_min_hour',
                       'indoor_rel_hum_max_perc', 'indoor_rel_hum_max_date', 'indoor_rel_hum_max_hour',
                       'indoor_rel_hum_min_perc', 'indoor_rel_hum_min_date', 'indoor_rel_hum_min_hour']
-        df['cases'] = df['cases'].astype(str)
+        df['cases'] = df['cases'].astype(str).str.strip()
         df = self._convert_to_month_day(df, 'cop2_max_date')
         df = self._convert_to_month_day(df, 'cop2_min_date')
         df = self._convert_to_month_day(df, 'indoor_db_max_date')

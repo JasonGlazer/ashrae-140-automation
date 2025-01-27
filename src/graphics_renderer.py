@@ -393,6 +393,28 @@ class GraphicsRenderer(Logger):
                 'E540': 'CE540',
                 'E545': 'CE545',
             }
+        self.case_map_max = {
+            'E300': 'CE300',
+            'E310': 'CE310',
+            'E320': 'CE320',
+            'E330': 'CE330',
+            'E340': 'CE340',
+            'E350': 'CE350',
+            'E360': 'CE360',
+            'E400': 'CE400',
+            'E410': 'CE410',
+            'E420': 'CE420',
+            'E430': 'CE430',
+            'E440': 'CE440',
+            'E500': 'CE500',
+            'E510': 'CE510',
+            'E520': 'CE520',
+            'E522': 'CE522',
+            'E525': 'CE525',
+            'E530': 'CE530',
+            'E540': 'CE540',
+            'E545': 'CE545',
+        }
         self.case_map_charts = {
             'E300': 'CE300 Base, 15% OA',
             'E310': 'CE310 High Latent',
@@ -9133,7 +9155,7 @@ class GraphicsRenderer(Logger):
         return
 
     def general_ce_b_table_08_09(self, table_letter, caption_end, json_key, sig_digits):
-        '''Function that handles any table from ce_b 8 or 9 '''
+        """Function that handles any table from ce_b 8 or 9 """
         table_name = f'section_9_table_b16_5_2_0{table_letter}'
         table_caption = (f'Table B16.5.2-{table_letter}. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
                          f'{caption_end}')
@@ -9199,3 +9221,114 @@ class GraphicsRenderer(Logger):
         self.general_ce_b_table_08_09('8g', 'Latent Coil Load (Wh,th)',
                                       'evaporator_load_latent_kWh', 0)
         return
+
+    def render_section_ce_b_table_b16_5_2_09a(self):
+        self.general_ce_b_table_08_09('9a', 'Humidity Ratio (kg/kg)',
+                                      'zone_humidity_ratio_kg_kg', 4)
+        return
+
+    def render_section_ce_b_table_b16_5_2_09b(self):
+        self.general_ce_b_table_08_09('9b', 'COP2',
+                                      'cop2', 3)
+        return
+
+    def render_section_ce_b_table_b16_5_2_09c(self):
+        self.general_ce_b_table_08_09('9c', 'ODB (C)',
+                                      'outdoor_drybulb_c', 2)
+        return
+
+    def render_section_ce_b_table_b16_5_2_09d(self):
+        self.general_ce_b_table_08_09('9d', 'ODB (C)',
+                                      'outdoor_drybulb_c', 2)
+        return
+
+    def general_ce_b_table_max_min(self, include_min, table_letter, caption_end, json_dict, json_key, key_suffix,
+                                   sig_digits):
+        table_name = f'section_9_table_b16_5_2_{table_letter}'
+        maxmin = 'Maxima'
+        if include_min:
+            maxmin = 'Maxima and Minima'
+        table_caption = f'Table B16.5.2-{table_letter}. Hourly Integrated {maxmin} {caption_end}'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map_max.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map_max.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj[json_dict][case]
+                row.append(case_json[f'{json_key}_{key_suffix}'])
+                month = self._int_0_if_nan(case_json[f'{json_key}_month'])
+                day = self._int_0_if_nan(case_json[f'{json_key}_day'])
+                hour = self._int_0_if_nan(case_json[f'{json_key}_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits,
+                                                         time_stamps=time_stamp_table)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_b_table_b16_5_2_10a(self):
+        self.general_ce_b_table_max_min(False, '10a',
+                                        'Total Cooling Energy Consumption, Compressor + Both Fans (Wh,e)',
+                                        'annual_load_maxima', 'compressors_plus_fans', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_10b(self):
+        self.general_ce_b_table_max_min(False, '10b',
+                                        'Total Coil Load - Sensible + Latent Coil Load  (Wh,th)',
+                                        'annual_load_maxima', 'evaporator_total', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_11a(self):
+        self.general_ce_b_table_max_min(False, '11a',
+                                        'Sensible Coil Load  (Wh,th)',
+                                        'annual_load_maxima', 'evaporator_sensible', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_11b(self):
+        self.general_ce_b_table_max_min(False, '11b',
+                                        'Latent Coil Load  (Wh,th)',
+                                        'annual_load_maxima', 'evaporator_latent', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_12a(self):
+        self.general_ce_b_table_max_min(True, '12a',
+                                        'Maximum COP2',
+                                        'annual_cop_zone', 'cop2_max', 'value', 3)
+
+    def render_section_ce_b_table_b16_5_2_12b(self):
+        self.general_ce_b_table_max_min(True, '12b',
+                                        'Minimum COP2',
+                                        'annual_cop_zone', 'cop2_min', 'value', 3)
+
+    def render_section_ce_b_table_b16_5_2_13a(self):
+        self.general_ce_b_table_max_min(True, '13a',
+                                        '- Maximum Indoor Dry Bulb (C)',
+                                        'annual_cop_zone', 'indoor_db_max', 'c', 2)
+
+    def render_section_ce_b_table_b16_5_2_13b(self):
+        self.general_ce_b_table_max_min(True, '13b',
+                                        '- Minimum Indoor Dry Bulb (C)',
+                                        'annual_cop_zone', 'indoor_db_min', 'c', 2)
+
+    def render_section_ce_b_table_b16_5_2_14a(self):
+        self.general_ce_b_table_max_min(True, '14a',
+                                        '- Maximum Zone Humidity Ratio (kg/kg)',
+                                        'annual_cop_zone', 'indoor_hum_rat_max', 'kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_14b(self):
+        self.general_ce_b_table_max_min(True, '14b',
+                                        '- Minimum Zone Humidity Ratio (kg/kg)',
+                                        'annual_cop_zone', 'indoor_hum_rat_min', 'kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_15a(self):
+        self.general_ce_b_table_max_min(True, '15a',
+                                        '- Maximum Relative Humidity (%)',
+                                        'annual_cop_zone', 'indoor_rel_hum_max', 'perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_15b(self):
+        self.general_ce_b_table_max_min(True, '15b',
+                                        '- Minimum Relative Humidity (%)',
+                                        'annual_cop_zone', 'indoor_rel_hum_min', 'perc', 2)

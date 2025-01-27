@@ -408,7 +408,7 @@
             "indoor_rel_hum_min_month": NaN,
             "indoor_rel_hum_min_perc": NaN
         },
-        "E500 ": {
+        "E500": {
             "cop2_max_day": 16.0,
             "cop2_max_hour": 10.0,
             "cop2_max_month": 3.0,
@@ -898,7 +898,7 @@
             "evaporator_total_hour": NaN,
             "evaporator_total_month": NaN
         },
-        "E500 ": {
+        "E500": {
             "compressors_plus_fans_Wh": 10177.0,
             "compressors_plus_fans_day": 20.0,
             "compressors_plus_fans_hour": 15.0,
