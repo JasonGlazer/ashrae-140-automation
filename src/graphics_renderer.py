@@ -9332,3 +9332,68 @@ class GraphicsRenderer(Logger):
         self.general_ce_b_table_max_min(True, '15b',
                                         '- Minimum Relative Humidity (%)',
                                         'annual_cop_zone', 'indoor_rel_hum_min', 'perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_29(self):
+        """ Generate tables that are like Table B16.4.2-16 but are comparative """
+        table_name = 'section_9_table_b16_5_2_29'
+        table_caption = 'Table B16.5.2-29a. June 28 Hourly Output - Case CE300 - Compressor Energy Consumption (Wh)'
+#        chart_name = 'section_9_figure_b16_5_1_04'
+#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+#        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [str(hr) for hr in range(1, 25)]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['june28_hourly'][str(hour)]['compressor_Wh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def general_ce_b_table_29(self, table_letter, caption_end, json_key, sig_digits):
+        """Generate tables that are like Table B16.4.2-16 but are comparative """
+        table_name = f'section_9_table_b16_5_2_29{table_letter}'
+        table_caption = f'Table B16.5.2-29{table_letter}. June 28 Hourly Output - Case CE300 - {caption_end}'
+        data_table = []
+        row_headings = [str(hr) for hr in range(1, 25)]
+        column_headings = ['Hour']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['june28_hourly'][str(hour)][json_key])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, '')
+        return
+
+    def render_section_ce_b_table_b16_5_2_29a(self):
+        self.general_ce_b_table_29('a','Compressor Energy Consumption (Wh)',
+                                        'compressor_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29b(self):
+        self.general_ce_b_table_29('b','Condenser Fan Energy Consumption (Wh)',
+                                        'condenser_fans_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29c(self):
+        self.general_ce_b_table_29('c','Total Evaporator Coil Load (Wh)',
+                                        'evaporator_total_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29d(self):
+        self.general_ce_b_table_29('d','Sensible Evaporator Coil Load (Wh)',
+                                        'evaporator_sensible_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29e(self):
+        self.general_ce_b_table_29('e','Latent Evaporator Coil Load (Wh)',
+                                        'evaporator_latent_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29f(self):
+        self.general_ce_b_table_29('f','Zone Humidity Ratio (kg/kg)',
+                                        'zone_humidity_ratio_kg_kg', 4)
