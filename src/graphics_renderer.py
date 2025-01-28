@@ -9333,29 +9333,6 @@ class GraphicsRenderer(Logger):
                                         '- Minimum Relative Humidity (%)',
                                         'annual_cop_zone', 'indoor_rel_hum_min', 'perc', 2)
 
-    def render_section_ce_b_table_b16_5_2_29(self):
-        """ Generate tables that are like Table B16.4.2-16 but are comparative """
-        table_name = 'section_9_table_b16_5_2_29'
-        table_caption = 'Table B16.5.2-29a. June 28 Hourly Output - Case CE300 - Compressor Energy Consumption (Wh)'
-#        chart_name = 'section_9_figure_b16_5_1_04'
-#        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
-#        yaxis_name = 'Electricity Consumption  (kWh)'
-        data_table = []
-        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
-        row_headings = [str(hr) for hr in range(1, 25)]
-        column_headings = ['Case']
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
-        for hour in range(1, 25):
-            row = []
-            for tst, json_obj in self.json_data.items():
-                row.append(json_obj['june28_hourly'][str(hour)]['compressor_Wh'])
-            data_table.append(row)
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
-        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
-#        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
-        return
-
     def general_ce_b_table_29(self, table_letter, caption_end, json_key, sig_digits):
         """Generate tables that are like Table B16.4.2-16 but are comparative """
         table_name = f'section_9_table_b16_5_2_29{table_letter}'
@@ -9370,7 +9347,7 @@ class GraphicsRenderer(Logger):
             for tst, json_obj in self.json_data.items():
                 row.append(json_obj['june28_hourly'][str(hour)][json_key])
             data_table.append(row)
-        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits)
         self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, '')
         return
 
@@ -9397,3 +9374,61 @@ class GraphicsRenderer(Logger):
     def render_section_ce_b_table_b16_5_2_29f(self):
         self.general_ce_b_table_29('f','Zone Humidity Ratio (kg/kg)',
                                         'zone_humidity_ratio_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_29g(self):
+        self.general_ce_b_table_29('g', 'COP2',
+                                   'cop2', 3)
+
+    def render_section_ce_b_table_b16_5_2_29h(self):
+        self.general_ce_b_table_29('h','Outdoor Dry Bulb Temperature (C)',
+                                        'outdoor_drybulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_29i(self):
+        self.general_ce_b_table_29('i','Entering Dry Bulb Temperature (C)',
+                                        'entering_drybulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_29j(self):
+        self.general_ce_b_table_29('j','Entering Wet Bulb Temperature (C)',
+                                        'entering_wetbulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_29k(self):
+        self.general_ce_b_table_29('k','Outdoor Humidity Ratio (kg/kg)',
+                                        'outdoor_humidity_ratio_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_16(self):
+        for index, (_, json_obj) in enumerate(self.json_data.items()):
+            table_letter = chr(index + 97)
+            table_name = f'section_9_table_b16_5_2_16{table_letter}'
+            software_name = json_obj['identifying_information']['software_name']
+            table_caption = f'Table B16.5.2-16{table_letter}. June 28 Hourly Output - Case CE300 - {software_name}'
+            data_table = []
+            #row_headings = [str(hr) for hr in range(1, 25)]
+            column_dict = {'Compressor (Wh)': ('compressor_Wh', 0),
+                          'Condenser Fan (Wh)': ('condenser_fans_Wh', 0),
+                          'Evaporator Total (Wh)': ('evaporator_total_Wh', 0),
+                          'Evaporator Sensible (Wh)': ('evaporator_sensible_Wh', 0),
+                          'Evaporator Latent (Wh)': ('evaporator_latent_Wh', 0),
+                          'Zone Humidity Ratio (kg/kg)': ('zone_humidity_ratio_kg_kg', 4),
+                          'COP2': ('cop2', 3),
+                          'Outdoor Drybulb (C)': ('outdoor_drybulb_c', 2),
+                          'Entering Drybulb (C)': ('entering_drybulb_c', 2),
+                          'Entering Wetbulb (C)': ('entering_wetbulb_c', 2),
+                          'Outdoor Humidity Ratio (kg/kg)': ('outdoor_humidity_ratio_kg_kg', 4),
+                          }
+            column_headings = ['Hour', ]
+            column_headings.extend(column_dict.keys())
+            for hour in range(1, 25):
+                row = [str(hour), ]
+                for json_key, _ in column_dict.values():
+                    row.append(json_obj['june28_hourly'][str(hour)][json_key])
+                data_table.append(row)
+            formatted_table = [column_headings, ]
+            for data_row in data_table:
+                formatted_row = [data_row[0], ]
+                for column_index, (_, digits) in enumerate(column_dict.values()):
+                    formatting_string = '{:.' + str(digits) + 'f}'
+                    formatted_row.append(formatting_string.format(data_row[column_index + 1]))
+                formatted_table.append(formatted_row)
+#             text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+            self._make_markdown_from_table(table_name, table_caption, formatted_table, '')
+        return
