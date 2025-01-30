@@ -9170,7 +9170,7 @@ class GraphicsRenderer(Logger):
             june_25_row = []
             diff_row = []
             for tst, json_obj in self.json_data.items():
-                april_30_value= json_obj[test_name + '_avg_daily']['April 30'][json_key]
+                april_30_value = json_obj[test_name + '_avg_daily']['April 30'][json_key]
                 june_25_value = json_obj[test_name + '_avg_daily']['June 25'][json_key]
                 diff_value = june_25_value - april_30_value
                 april_30_row.append(april_30_value)
@@ -9215,7 +9215,6 @@ class GraphicsRenderer(Logger):
         self.general_ce_b_table_08_09('8f', 'Sensible Coil Load (Wh,th)',
                                       'evaporator_load_sensible_kWh', 0)
         return
-
 
     def render_section_ce_b_table_b16_5_2_08g(self):
         self.general_ce_b_table_08_09('8g', 'Latent Coil Load (Wh,th)',
@@ -9342,19 +9341,18 @@ class GraphicsRenderer(Logger):
             software_name = json_obj['identifying_information']['software_name']
             table_caption = f'Table B16.5.2-16{table_letter}. June 28 Hourly Output - Case CE300 - {software_name}'
             data_table = []
-            #row_headings = [str(hr) for hr in range(1, 25)]
             column_dict = {'Compressor (Wh)': ('compressor_Wh', 0),
-                          'Condenser Fan (Wh)': ('condenser_fans_Wh', 0),
-                          'Evaporator Total (Wh)': ('evaporator_total_Wh', 0),
-                          'Evaporator Sensible (Wh)': ('evaporator_sensible_Wh', 0),
-                          'Evaporator Latent (Wh)': ('evaporator_latent_Wh', 0),
-                          'Zone Humidity Ratio (kg/kg)': ('zone_humidity_ratio_kg_kg', 4),
-                          'COP2': ('cop2', 3),
-                          'Outdoor Drybulb (C)': ('outdoor_drybulb_c', 2),
-                          'Entering Drybulb (C)': ('entering_drybulb_c', 2),
-                          'Entering Wetbulb (C)': ('entering_wetbulb_c', 2),
-                          'Outdoor Humidity Ratio (kg/kg)': ('outdoor_humidity_ratio_kg_kg', 4),
-                          }
+                           'Condenser Fan (Wh)': ('condenser_fans_Wh', 0),
+                           'Evaporator Total (Wh)': ('evaporator_total_Wh', 0),
+                           'Evaporator Sensible (Wh)': ('evaporator_sensible_Wh', 0),
+                           'Evaporator Latent (Wh)': ('evaporator_latent_Wh', 0),
+                           'Zone Humidity Ratio (kg/kg)': ('zone_humidity_ratio_kg_kg', 4),
+                           'COP2': ('cop2', 3),
+                           'Outdoor Drybulb (C)': ('outdoor_drybulb_c', 2),
+                           'Entering Drybulb (C)': ('entering_drybulb_c', 2),
+                           'Entering Wetbulb (C)': ('entering_wetbulb_c', 2),
+                           'Outdoor Humidity Ratio (kg/kg)': ('outdoor_humidity_ratio_kg_kg', 4),
+                           }
             column_headings = ['Hour', ]
             column_headings.extend(column_dict.keys())
             for hour in range(1, 25):
@@ -9420,11 +9418,11 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_b_table_b16_5_2_17a(self):
-        self.general_ce_b_table_delta('17a','Annual Space Cooling Electricity Consumption - Total (kWh,e)',
+        self.general_ce_b_table_delta('17a', 'Annual Space Cooling Electricity Consumption - Total (kWh,e)',
                                       'annual_sums_means', 'cooling_energy_total_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_17b(self):
-        self.general_ce_b_table_delta('17b','Annual Space Cooling Electricity Consumption - Compressors (kWh,e)',
+        self.general_ce_b_table_delta('17b', 'Annual Space Cooling Electricity Consumption - Compressors (kWh,e)',
                                       'annual_sums_means', 'cooling_energy_compressor_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_18a(self):
@@ -9526,45 +9524,45 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_b_table_b16_5_2_29a(self):
-        self.general_ce_b_table_29('a','Compressor Energy Consumption (Wh)',
-                                        'compressor_Wh', 0)
+        self.general_ce_b_table_29('a', 'Compressor Energy Consumption (Wh)',
+                                   'compressor_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_29b(self):
-        self.general_ce_b_table_29('b','Condenser Fan Energy Consumption (Wh)',
-                                        'condenser_fans_Wh', 0)
+        self.general_ce_b_table_29('b', 'Condenser Fan Energy Consumption (Wh)',
+                                   'condenser_fans_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_29c(self):
-        self.general_ce_b_table_29('c','Total Evaporator Coil Load (Wh)',
-                                        'evaporator_total_Wh', 0)
+        self.general_ce_b_table_29('c', 'Total Evaporator Coil Load (Wh)',
+                                   'evaporator_total_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_29d(self):
-        self.general_ce_b_table_29('d','Sensible Evaporator Coil Load (Wh)',
-                                        'evaporator_sensible_Wh', 0)
+        self.general_ce_b_table_29('d', 'Sensible Evaporator Coil Load (Wh)',
+                                   'evaporator_sensible_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_29e(self):
-        self.general_ce_b_table_29('e','Latent Evaporator Coil Load (Wh)',
-                                        'evaporator_latent_Wh', 0)
+        self.general_ce_b_table_29('e', 'Latent Evaporator Coil Load (Wh)',
+                                   'evaporator_latent_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_29f(self):
-        self.general_ce_b_table_29('f','Zone Humidity Ratio (kg/kg)',
-                                        'zone_humidity_ratio_kg_kg', 4)
+        self.general_ce_b_table_29('f', 'Zone Humidity Ratio (kg/kg)',
+                                   'zone_humidity_ratio_kg_kg', 4)
 
     def render_section_ce_b_table_b16_5_2_29g(self):
         self.general_ce_b_table_29('g', 'COP2',
                                    'cop2', 3)
 
     def render_section_ce_b_table_b16_5_2_29h(self):
-        self.general_ce_b_table_29('h','Outdoor Dry Bulb Temperature (C)',
-                                        'outdoor_drybulb_c', 2)
+        self.general_ce_b_table_29('h', 'Outdoor Dry Bulb Temperature (C)',
+                                   'outdoor_drybulb_c', 2)
 
     def render_section_ce_b_table_b16_5_2_29i(self):
-        self.general_ce_b_table_29('i','Entering Dry Bulb Temperature (C)',
-                                        'entering_drybulb_c', 2)
+        self.general_ce_b_table_29('i', 'Entering Dry Bulb Temperature (C)',
+                                   'entering_drybulb_c', 2)
 
     def render_section_ce_b_table_b16_5_2_29j(self):
-        self.general_ce_b_table_29('j','Entering Wet Bulb Temperature (C)',
-                                        'entering_wetbulb_c', 2)
+        self.general_ce_b_table_29('j', 'Entering Wet Bulb Temperature (C)',
+                                   'entering_wetbulb_c', 2)
 
     def render_section_ce_b_table_b16_5_2_29k(self):
-        self.general_ce_b_table_29('k','Outdoor Humidity Ratio (kg/kg)',
-                                        'outdoor_humidity_ratio_kg_kg', 4)
+        self.general_ce_b_table_29('k', 'Outdoor Humidity Ratio (kg/kg)',
+                                   'outdoor_humidity_ratio_kg_kg', 4)
