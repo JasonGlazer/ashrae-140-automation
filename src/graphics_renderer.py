@@ -9333,6 +9333,180 @@ class GraphicsRenderer(Logger):
                                         '- Minimum Relative Humidity (%)',
                                         'annual_cop_zone', 'indoor_rel_hum_min', 'perc', 2)
 
+    def render_section_ce_b_table_b16_5_2_16(self):
+        # unlike almost all other table rendering methods, this one generates one table for each
+        # software and so it is set up very different looping through the software
+        for index, (_, json_obj) in enumerate(self.json_data.items()):
+            table_letter = chr(index + 97)
+            table_name = f'section_9_table_b16_5_2_16{table_letter}'
+            software_name = json_obj['identifying_information']['software_name']
+            table_caption = f'Table B16.5.2-16{table_letter}. June 28 Hourly Output - Case CE300 - {software_name}'
+            data_table = []
+            #row_headings = [str(hr) for hr in range(1, 25)]
+            column_dict = {'Compressor (Wh)': ('compressor_Wh', 0),
+                          'Condenser Fan (Wh)': ('condenser_fans_Wh', 0),
+                          'Evaporator Total (Wh)': ('evaporator_total_Wh', 0),
+                          'Evaporator Sensible (Wh)': ('evaporator_sensible_Wh', 0),
+                          'Evaporator Latent (Wh)': ('evaporator_latent_Wh', 0),
+                          'Zone Humidity Ratio (kg/kg)': ('zone_humidity_ratio_kg_kg', 4),
+                          'COP2': ('cop2', 3),
+                          'Outdoor Drybulb (C)': ('outdoor_drybulb_c', 2),
+                          'Entering Drybulb (C)': ('entering_drybulb_c', 2),
+                          'Entering Wetbulb (C)': ('entering_wetbulb_c', 2),
+                          'Outdoor Humidity Ratio (kg/kg)': ('outdoor_humidity_ratio_kg_kg', 4),
+                          }
+            column_headings = ['Hour', ]
+            column_headings.extend(column_dict.keys())
+            for hour in range(1, 25):
+                row = [str(hour), ]
+                for json_key, _ in column_dict.values():
+                    row.append(json_obj['june28_hourly'][str(hour)][json_key])
+                data_table.append(row)
+            formatted_table = [column_headings, ]
+            for data_row in data_table:
+                formatted_row = [data_row[0], ]
+                for column_index, (_, digits) in enumerate(column_dict.values()):
+                    formatting_string = '{:.' + str(digits) + 'f}'
+                    formatted_row.append(formatting_string.format(data_row[column_index + 1]))
+                formatted_table.append(formatted_row)
+#             text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+            self._make_markdown_from_table(table_name, table_caption, formatted_table, '')
+        return
+
+    def general_ce_b_table_delta(self, table_code, caption_end, json_dict, json_key, sig_digits):
+        table_name = f'section_9_table_b16_5_2_{table_code}'
+        table_caption = f'Table B16.5.2-{table_code}. Delta {caption_end}'
+        delta_cases = [
+            ('CE310', 'CE300', 'E310', 'E300'),
+            ('CE320', 'CE300', 'E320', 'E300'),
+            ('CE330', 'CE300', 'E330', 'E300'),
+            ('CE330', 'CE320', 'E330', 'E320'),
+            ('CE340', 'CE300', 'E340', 'E300'),
+            ('CE330', 'CE340', 'E330', 'E340'),
+            ('CE350', 'CE300', 'E350', 'E300'),
+            ('CE360', 'CE300', 'E360', 'E300'),
+            ('CE400', 'CE300', 'E400', 'E300'),
+            ('CE410', 'CE300', 'E410', 'E300'),
+            ('CE420', 'CE300', 'E420', 'E300'),
+            ('CE430', 'CE300', 'E430', 'E300'),
+            ('CE440', 'CE300', 'E440', 'E300'),
+            ('CE500', 'CE300', 'E500', 'E300'),
+            ('CE510', 'CE500', 'E510 May-Sep', 'E500 May-Sep'),
+            ('CE525', 'CE520', 'E525', 'E520'),
+            ('CE530', 'CE500', 'E530', 'E500'),
+            ('CE545', 'CE540', 'E545', 'E540'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in delta_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case_a, case_b, case_a_lookup, case_b_lookup in delta_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                if json_dict != 'annual_sums_means':
+                    case_a_lookup = case_a_lookup[:4]
+                    case_b_lookup = case_b_lookup[:4]
+                case_a_value = json_obj[json_dict][case_a_lookup][json_key]
+                case_b_value = json_obj[json_dict][case_b_lookup][json_key]
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_b_table_b16_5_2_17a(self):
+        self.general_ce_b_table_delta('17a','Annual Space Cooling Electricity Consumption - Total (kWh,e)',
+                                      'annual_sums_means', 'cooling_energy_total_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_17b(self):
+        self.general_ce_b_table_delta('17b','Annual Space Cooling Electricity Consumption - Compressors (kWh,e)',
+                                      'annual_sums_means', 'cooling_energy_compressor_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_18a(self):
+        self.general_ce_b_table_delta('18a', 'Annual Space Cooling Electricity Consumption - Supply Fan (kWh,e)',
+                                      'annual_sums_means', 'indoor_fan_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_18b(self):
+        self.general_ce_b_table_delta('18b', 'Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,e)',
+                                      'annual_sums_means', 'condenser_fan_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_19a(self):
+        self.general_ce_b_table_delta('19a', 'Annual Cooling Sensible Coil Load (kWh,th)',
+                                      'annual_sums_means', 'evaporator_load_sensible_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_19b(self):
+        self.general_ce_b_table_delta('19b', 'Annual Cooling Latent Coil Load (kWh,th)',
+                                      'annual_sums_means', 'evaporator_load_latent_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_20a(self):
+        self.general_ce_b_table_delta('20a', 'Annual Annual Mean - COP2',
+                                      'annual_sums_means', 'cop2', 3)
+
+    def render_section_ce_b_table_b16_5_2_20b(self):
+        self.general_ce_b_table_delta('20b', 'Annual Annual Mean - Indoor Dry Bulb Temperature (C)',
+                                      'annual_sums_means', 'indoor_dry_bulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_21a(self):
+        self.general_ce_b_table_delta('21a', 'Annual Annual Mean - Zone Humidity Ratio (kg/kg)',
+                                      'annual_sums_means', 'zone_humidity_ratio_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_21b(self):
+        self.general_ce_b_table_delta('21b', 'Annual Annual Mean - Zone Relative Humidity (%)',
+                                      'annual_sums_means', 'zone_relative_humidity_perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_22(self):
+        self.general_ce_b_table_delta('22', 'Hourly Integrated Maximum Total Consumption (Wh,e)',
+                                      'annual_load_maxima', 'compressors_plus_fans_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_23a(self):
+        self.general_ce_b_table_delta('23a', 'Hourly Integrated Maximum Total Coil Load (Wh,th)',
+                                      'annual_load_maxima', 'evaporator_total_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_23b(self):
+        self.general_ce_b_table_delta('23b', 'Hourly Integrated Maximum Sensible Coil Load (Wh,th)',
+                                      'annual_load_maxima', 'evaporator_sensible_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_24(self):
+        self.general_ce_b_table_delta('24', 'Hourly Integrated Maximum Latent Coil Load (Wh,th)',
+                                      'annual_load_maxima', 'evaporator_latent_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_25a(self):
+        self.general_ce_b_table_delta('25a', 'Hourly Integrated Maximum COP2',
+                                      'annual_cop_zone', 'cop2_max_value', 3)
+
+    def render_section_ce_b_table_b16_5_2_25b(self):
+        self.general_ce_b_table_delta('25b', 'Hourly Integrated Minimum COP2',
+                                      'annual_cop_zone', 'cop2_min_value', 3)
+
+    def render_section_ce_b_table_b16_5_2_26a(self):
+        self.general_ce_b_table_delta('26a', 'Hourly Integrated Maximum Indoor Dry Bulb Temperature (C)',
+                                      'annual_cop_zone', 'indoor_db_max_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_26b(self):
+        self.general_ce_b_table_delta('26b', 'Hourly Integrated Minimum Indoor Dry Bulb Temperature (C)',
+                                      'annual_cop_zone', 'indoor_db_min_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_27a(self):
+        self.general_ce_b_table_delta('27a', 'Hourly Integrated Maximum Zone Humidity Ratio (kg/kg)',
+                                      'annual_cop_zone', 'indoor_hum_rat_max_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_27b(self):
+        self.general_ce_b_table_delta('27b', 'Hourly Integrated Minimum Zone Humidity Ratio (kg/kg)',
+                                      'annual_cop_zone', 'indoor_hum_rat_min_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_28a(self):
+        self.general_ce_b_table_delta('28a', 'Hourly Integrated Maximum Zone Relative Humidity (%)',
+                                      'annual_cop_zone', 'indoor_rel_hum_max_perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_28b(self):
+        self.general_ce_b_table_delta('28b', 'Hourly Integrated Minimum Zone Relative Humidity (%)',
+                                      'annual_cop_zone', 'indoor_rel_hum_min_perc', 2)
+
     def general_ce_b_table_29(self, table_letter, caption_end, json_key, sig_digits):
         """Generate tables that are like Table B16.4.2-16 but are comparative """
         table_name = f'section_9_table_b16_5_2_29{table_letter}'
@@ -9394,41 +9568,3 @@ class GraphicsRenderer(Logger):
     def render_section_ce_b_table_b16_5_2_29k(self):
         self.general_ce_b_table_29('k','Outdoor Humidity Ratio (kg/kg)',
                                         'outdoor_humidity_ratio_kg_kg', 4)
-
-    def render_section_ce_b_table_b16_5_2_16(self):
-        for index, (_, json_obj) in enumerate(self.json_data.items()):
-            table_letter = chr(index + 97)
-            table_name = f'section_9_table_b16_5_2_16{table_letter}'
-            software_name = json_obj['identifying_information']['software_name']
-            table_caption = f'Table B16.5.2-16{table_letter}. June 28 Hourly Output - Case CE300 - {software_name}'
-            data_table = []
-            #row_headings = [str(hr) for hr in range(1, 25)]
-            column_dict = {'Compressor (Wh)': ('compressor_Wh', 0),
-                          'Condenser Fan (Wh)': ('condenser_fans_Wh', 0),
-                          'Evaporator Total (Wh)': ('evaporator_total_Wh', 0),
-                          'Evaporator Sensible (Wh)': ('evaporator_sensible_Wh', 0),
-                          'Evaporator Latent (Wh)': ('evaporator_latent_Wh', 0),
-                          'Zone Humidity Ratio (kg/kg)': ('zone_humidity_ratio_kg_kg', 4),
-                          'COP2': ('cop2', 3),
-                          'Outdoor Drybulb (C)': ('outdoor_drybulb_c', 2),
-                          'Entering Drybulb (C)': ('entering_drybulb_c', 2),
-                          'Entering Wetbulb (C)': ('entering_wetbulb_c', 2),
-                          'Outdoor Humidity Ratio (kg/kg)': ('outdoor_humidity_ratio_kg_kg', 4),
-                          }
-            column_headings = ['Hour', ]
-            column_headings.extend(column_dict.keys())
-            for hour in range(1, 25):
-                row = [str(hour), ]
-                for json_key, _ in column_dict.values():
-                    row.append(json_obj['june28_hourly'][str(hour)][json_key])
-                data_table.append(row)
-            formatted_table = [column_headings, ]
-            for data_row in data_table:
-                formatted_row = [data_row[0], ]
-                for column_index, (_, digits) in enumerate(column_dict.values()):
-                    formatting_string = '{:.' + str(digits) + 'f}'
-                    formatted_row.append(formatting_string.format(data_row[column_index + 1]))
-                formatted_table.append(formatted_row)
-#             text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
-            self._make_markdown_from_table(table_name, table_caption, formatted_table, '')
-        return
