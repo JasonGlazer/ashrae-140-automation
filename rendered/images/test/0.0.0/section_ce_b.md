@@ -25,7 +25,7 @@
 | CE540         |      19430 |         19878 |              19874 |      19061 |   19537 |   20164 |     | 19061 | 20164 | 19657 |      5.6 |     |      19874 | 
 | CE545         |      15687 |         15802 |              15791 |      16636 |   15791 |   16339 |     | 15687 | 16636 | 16008 |      5.9 |     |      15791 | 
 
-$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
 # Table B16.5.2-1b. Annual Space Cooling Electricity Consumption - Compressor (kWh,e)
@@ -53,7 +53,7 @@ $$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
 | CE540         |      15021 |         15680 |              15677 |      16752 |   15164 |   15664 |     | 15021 | 16752 | 15660 |     11.1 |     |      15677 | 
 | CE545         |      12622 |         12967 |              12957 |      14765 |   12751 |   13215 |     | 12622 | 14765 | 13213 |     16.2 |     |      12957 | 
 
-$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
 # Table B16.5.2-2a. Annual Space Cooling Electricity Consumption - Supply Fan (kWh,e)
@@ -2141,3 +2141,14 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 | 24   |     0.0171 |        0.0178 |             0.0178 |     0.0171 |  0.0173 |  0.0173 |     | 0.0171 | 0.0178 | 0.0174 |      4.3 |     |     0.0178 | 
 
 
+![figure 01](images/std140_ce_b_output-section_9_figure_b16_5_2_01.png)
+![figure 05](images/std140_ce_b_output-section_9_figure_b16_5_2_05.png)
+![figure 07](images/std140_ce_b_output-section_9_figure_b16_5_2_07.png)
+![figure 09](images/std140_ce_b_output-section_9_figure_b16_5_2_09.png)
+![figure 11](images/std140_ce_b_output-section_9_figure_b16_5_2_11.png)
+![figure 14](images/std140_ce_b_output-section_9_figure_b16_5_2_14.png)
+![figure 17](images/std140_ce_b_output-section_9_figure_b16_5_2_17.png)
+![figure 21](images/std140_ce_b_output-section_9_figure_b16_5_2_21.png)
+![figure 27](images/std140_ce_b_output-section_9_figure_b16_5_2_27.png)
+![figure 32](images/std140_ce_b_output-section_9_figure_b16_5_2_32.png)
+![figure 37](images/std140_ce_b_output-section_9_figure_b16_5_2_37.png)

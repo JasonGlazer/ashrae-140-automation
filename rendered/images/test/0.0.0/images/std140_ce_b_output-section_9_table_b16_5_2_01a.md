@@ -23,6 +23,6 @@
 | CE540         |      19430 |         19878 |              19874 |      19061 |   19537 |   20164 |     | 19061 | 20164 | 19657 |      5.6 |     |      19874 | 
 | CE545         |      15687 |         15802 |              15791 |      16636 |   15791 |   16339 |     | 15687 | 16636 | 16008 |      5.9 |     |      15791 | 
 
-$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]
+$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
