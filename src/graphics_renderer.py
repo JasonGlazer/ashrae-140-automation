@@ -9580,3 +9580,272 @@ class GraphicsRenderer(Logger):
     def render_section_ce_b_table_b16_5_2_29k(self):
         self.general_ce_b_table_29('k', 'Outdoor Humidity Ratio (kg/kg)',
                                    'outdoor_humidity_ratio_kg_kg', 4)
+
+    def general_ce_b_figure(self, chart_number, caption_end, yaxis, json_dict, json_key, key_suffix):
+        chart_name = f'section_9_figure_b16_5_2_{chart_number:02d}'
+        chart_caption = f'Figure B16.5.2-{chart_number}. HVAC BESTEST: CE300 - CE545 {caption_end}'
+        data_table = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map_max.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj[json_dict][case]
+                row.append(case_json[f'{json_key}_{key_suffix}'])
+            data_table.append(row)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE500 May-Sep')
+        chart_row_headings.remove('CE510 May-Sep High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_chart_b16_5_2_3(self):
+        self.general_ce_b_figure(3, 'Peak Hour Total Electricity Consumption',
+                                 'Electricity Consumption (Wh/h)', 'annual_load_maxima',
+                                 'compressors_plus_fans', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_12(self):
+        self.general_ce_b_figure(12, 'Peak Hour Total Coil Load',
+                                 'Load (Wh/h thermal)', 'annual_load_maxima',
+                                 'evaporator_total', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_16(self):
+        self.general_ce_b_figure(16, 'Peak Hour Sensible Coil Load',
+                                 'Load (Wh/h thermal)', 'annual_load_maxima',
+                                 'evaporator_sensible', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_19(self):
+        self.general_ce_b_figure(19, 'Peak Hour Latent Coil Load',
+                                 'Load (Wh/h thermal)', 'annual_load_maxima',
+                                 'evaporator_latent', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_23(self):
+        self.general_ce_b_figure(23, 'Hourly Maximum COP2',
+                                 'COP2', 'annual_cop_zone',
+                                 'cop2_max', 'value')
+
+    def render_section_ce_b_chart_b16_5_2_25(self):
+        self.general_ce_b_figure(25, 'Hourly Minimum COP2',
+                                 'COP2', 'annual_cop_zone',
+                                 'cop2_min', 'value')
+
+    def render_section_ce_b_chart_b16_5_2_29(self):
+        self.general_ce_b_figure(29, 'Hourly Maximum Indoor Dry-Bulb Temperature',
+                                 'Temperature (C)', 'annual_cop_zone',
+                                 'indoor_db_max', 'c')
+
+    def render_section_ce_b_chart_b16_5_2_31(self):
+        self.general_ce_b_figure(31, 'Hourly Minimum Indoor Dry-Bulb Temperature',
+                                 'Temperature (C)', 'annual_cop_zone',
+                                 'indoor_db_min', 'c')
+
+    def render_section_ce_b_chart_b16_5_2_34(self):
+        self.general_ce_b_figure(34, 'Hourly Maximum Zone Humidity Ratio',
+                                 'Humidity Ratio (kg/kg)', 'annual_cop_zone',
+                                 'indoor_hum_rat_max', 'kg_kg')
+
+    def render_section_ce_b_chart_b16_5_2_36(self):
+        self.general_ce_b_figure(36, 'Hourly Minimum Zone Humidity Ratio',
+                                 'Humidity Ratio (kg/kg)', 'annual_cop_zone',
+                                 'indoor_hum_rat_min', 'kg_kg')
+
+    def render_section_ce_b_chart_b16_5_2_39(self):
+        self.general_ce_b_figure(39, 'Hourly Maximum Zone Relative Humidity',
+                                 'Relative Humidity (%)', 'annual_cop_zone',
+                                 'indoor_rel_hum_max', 'perc')
+
+    def render_section_ce_b_chart_b16_5_2_41(self):
+        self.general_ce_b_figure(41, 'Hourly Minimum Zone Relative Humidity',
+                                 'Relative Humidity (%)', 'annual_cop_zone',
+                                 'indoor_rel_hum_min', 'perc')
+
+
+    def general_ce_b_figure_delta(self, chart_number, caption_end, yaxis, json_dict, json_key, divide=True):
+        chart_name = f'section_9_figure_b16_5_2_{chart_number:02d}'
+        chart_caption = f'Figure B16.5.2-{chart_number}. HVAC BESTEST: CE300 - CE545 <br>{caption_end}'
+        delta_cases = [
+            ('E310', 'E300', 'CE310-CE300, Latent Gains', '', 1.),
+            ('E320', 'E300', 'CE320-CE300, Infiltration', '', 1.),
+            ('E330', 'E300', 'CE330-CE300, 100% OA', '', 1.),
+            ('E330', 'E320', 'CE330-CE320, OA-Infl', '', 1.),
+            ('E340', 'E300', 'CE340-CE300, 50/50 OA/inf', '', 1.),
+            ('E330', 'E340', 'CE330-CE340, OA-50/50', '', 1.),
+            ('E350', 'E300', 'CE350-CE300, Tstat Set Up', '', 1.),
+            ('E360', 'E300', '(CE360-CE300)/4, Overload', 'CE360-CE300, Overload', 4.),
+            ('E400', 'E300', 'CE400-CE300, Ec. T Ctrl', '', 1.),
+            ('E410', 'E300', 'CE410-CE300, Ec. No Compr.', '', 1.),
+            ('E420', 'E300', 'CE420-CE300, Ec. ODB Lim.', '', 1.),
+            ('E430', 'E300', 'CE430-CE300, Ec. Enth Ctrl', '', 1.),
+            ('E440', 'E300', 'CE440-CE300, Ec. Enth Lim', '', 1.),
+            ('E500', 'E300', '(CE500-CE300)/2, 0%OA', 'CE500-CE300, 0%OA', 2.),
+            ('E510 May-Sep', 'E500 May-Sep', '(CE510-CE500)/4, PLR', 'CE510-CE500, PLR', 4.),
+            ('E525', 'E520', 'CE525-CE520, EDB', '', 1.),
+            ('E530', 'E500', 'CE530-CE500, Dry Coil', '', 1.),
+            ('E545', 'E540', 'CE545-CE540, EDB (Dry)', '', 1.),
+        ]
+        data_table = []
+        row_headings = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case_a_lookup, case_b_lookup, case_name, no_divide_case_name, divisor in delta_cases:
+            row = []
+            if not divide and no_divide_case_name:
+                row_headings.append(no_divide_case_name)
+            else:
+                row_headings.append(case_name)
+            for tst, json_obj in self.json_data.items():
+                if json_dict != 'annual_sums_means':
+                    case_a_lookup = case_a_lookup[:4]
+                    case_b_lookup = case_b_lookup[:4]
+                case_a_value = json_obj[json_dict][case_a_lookup][json_key]
+                case_b_value = json_obj[json_dict][case_b_lookup][json_key]
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    if not divide:
+                        divisor = 1.
+                    row.append((float(case_a_value) - float(case_b_value)) / divisor)
+            data_table.append(row)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_chart_b16_5_2_2(self):
+        self.general_ce_b_figure_delta(2,
+                                       'Annual Total Space Cooling Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'cooling_energy_total_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_6(self):
+        self.general_ce_b_figure_delta(6,
+                                       'Annual Compressor Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'cooling_energy_compressor_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_8(self):
+        self.general_ce_b_figure_delta(8,
+                                       'Annual Indoor (Supply) Fan Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'indoor_fan_kWh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_10(self):
+        self.general_ce_b_figure_delta(10,
+                                       'Annual Outdoor (Condenser) Fan Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'condenser_fan_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_15(self):
+        self.general_ce_b_figure_delta(15,
+                                       'Annual Sensible Cooling Load Sensitivities',
+                                       'Load (kWh thermal)',
+                                       'annual_sums_means',
+                                       'evaporator_load_sensible_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_18(self):
+        self.general_ce_b_figure_delta(18,
+                                       'Annual Latent Cooling Load Sensitivities',
+                                       'Load (kWh thermal)',
+                                       'annual_sums_means',
+                                       'evaporator_load_latent_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_22(self):
+        self.general_ce_b_figure_delta(22,
+                                       'Annual Mean COP2 Sensitivities',
+                                       'COP2',
+                                       'annual_sums_means',
+                                       'cop2',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_28(self):
+        self.general_ce_b_figure_delta(28,
+                                       'Annual Mean IDB Sensitivities',
+                                       'Temperature (C)',
+                                       'annual_sums_means',
+                                       'indoor_dry_bulb_c',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_33(self):
+        self.general_ce_b_figure_delta(33,
+                                       'Annual Mean Humidity Ratio Sensitivities',
+                                       'Humidity Ratio (kg/kg)',
+                                       'annual_sums_means',
+                                       'zone_humidity_ratio_kg_kg',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_38(self):
+        self.general_ce_b_figure_delta(38,
+                                       'Annual Mean Relative Humidity Sensitivities',
+                                       'Relative Humidity (%)',
+                                       'annual_sums_means',
+                                       'zone_relative_humidity_perc',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_4(self):
+        self.general_ce_b_figure_delta(4,
+                                       'Hourly Maximum Total Space Cooling Consumption Sensitivities',
+                                       'Electricity Consumption (Wh/h)',
+                                       'annual_load_maxima',
+                                       'compressors_plus_fans_Wh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_13(self):
+        self.general_ce_b_figure_delta(13,
+                                       'Hourly Maximum Total Coil Load Sensitivities',
+                                       'Load (Wh/h thermal)',
+                                       'annual_load_maxima',
+                                       'evaporator_total_Wh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_20(self):
+        self.general_ce_b_figure_delta(20,
+                                       'Hourly Maximum Latent Coil Load Sensitivities',
+                                       'Load (Wh/h thermal)',
+                                       'annual_load_maxima',
+                                       'evaporator_latent_Wh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_24(self):
+        self.general_ce_b_figure_delta(24,
+                                       'Hourly Maximum COP2 Sensitivities',
+                                       'COP2',
+                                       'annual_cop_zone',
+                                       'cop2_max_value',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_26(self):
+        self.general_ce_b_figure_delta(26,
+                                       'Hourly Minimum COP2 Sensitivities',
+                                       'COP2',
+                                       'annual_cop_zone',
+                                       'cop2_min_value',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_30(self):
+        self.general_ce_b_figure_delta(30,
+                                       'Hourly Maximum IDB Sensitivities',
+                                       'Temperature (C)',
+                                       'annual_cop_zone',
+                                       'indoor_db_max_c',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_35(self):
+        self.general_ce_b_figure_delta(35,
+                                       'Hourly Maximum Humidity Ratio Sensitivities',
+                                       'Humidity Ratio (kg/kg)',
+                                       'annual_cop_zone',
+                                       'indoor_hum_rat_max_kg_kg',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_40(self):
+        self.general_ce_b_figure_delta(40,
+                                       'Hourly Maximum Relative Humidity Sensitivities',
+                                       'Relative Humidity (%)',
+                                       'annual_cop_zone',
+                                       'indoor_rel_hum_max_perc',
+                                       divide=False)
