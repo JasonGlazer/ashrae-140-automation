@@ -9660,7 +9660,6 @@ class GraphicsRenderer(Logger):
                                  'Relative Humidity (%)', 'annual_cop_zone',
                                  'indoor_rel_hum_min', 'perc')
 
-
     def general_ce_b_figure_delta(self, chart_number, caption_end, yaxis, json_dict, json_key, divide=True):
         chart_name = f'section_9_figure_b16_5_2_{chart_number:02d}'
         chart_caption = f'Figure B16.5.2-{chart_number}. HVAC BESTEST: CE300 - CE545 <br>{caption_end}'
