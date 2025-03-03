@@ -2182,3 +2182,8 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 ![figure 39](images/std140_ce_b_output-section_9_figure_b16_5_2_39.png)
 ![figure 40](images/std140_ce_b_output-section_9_figure_b16_5_2_40.png)
 ![figure 41](images/std140_ce_b_output-section_9_figure_b16_5_2_41.png)
+![figure 46](images/std140_ce_b_output-section_9_figure_b16_5_2_46.png)
+![figure 48](images/std140_ce_b_output-section_9_figure_b16_5_2_48.png)
+![figure 49](images/std140_ce_b_output-section_9_figure_b16_5_2_49.png)
+![figure 51](images/std140_ce_b_output-section_9_figure_b16_5_2_51.png)
+![figure 52](images/std140_ce_b_output-section_9_figure_b16_5_2_52.png)

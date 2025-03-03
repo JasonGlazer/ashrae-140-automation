@@ -1056,6 +1056,49 @@ class GraphicsRenderer(Logger):
         # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
 
+    def _create_plotly_line(self, file_name, table, row_headings, column_headings, yaxis_title, caption):
+        """"
+        Create a plotly bar chart from a data table.
+
+        :param file_name: name of the figure to be used as a file name without any extension
+        :param table: a list of list data without headings
+        :param row_headings: a list of headings for each row of the table
+        :param column_headings: a list of headings for each colum of the table
+        :param yaxis_title: a string for the title of the y-axis
+        :param caption: the caption to be used as the title of the chart
+        """
+        program_name = self.model_results_file.parts[-3].lower()
+        version = self.model_results_file.parts[-2].lower()
+        destination_directory = root_directory.joinpath('rendered', 'images')
+        img_directory = destination_directory.joinpath(
+            program_name,
+            version,
+            'images')
+        pathlib.Path(img_directory).mkdir(parents=True, exist_ok=True)
+        img_name = img_directory.joinpath(
+            '.'.join(
+                [
+                    '-'.join(
+                        [
+                            self.model_results_file.stem,
+                            file_name,
+                        ]),
+                    'png'
+                ]))
+        table_with_row_headings = []
+        for count, row in enumerate(table):
+            row_with_heading = [row_headings[count], ]
+            row_with_heading.extend(row)
+            table_with_row_headings.append(row_with_heading)
+        df = pd.DataFrame(table_with_row_headings, columns=column_headings)
+        fig = px.line(df, x="Hour", y=column_headings[1:], markers=True)
+        fig.update_layout(barmode='group', title=dict(text=caption, font=dict(size=25), xanchor='center', x=0.5),
+                          yaxis_title=yaxis_title, xaxis_title="")
+        # fig.show() # for debugging purposes shows the figure in the browser
+        # fig.write_html(file_name + '.html') # save the interactive version of the chart
+        fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
+
+
     def render_section_tf_figure_b8_1(self):
         """
         Render Section Thermal Fabric Figure B8-1 by modifying fig an ax inputs from matplotlib
@@ -9166,6 +9209,7 @@ class GraphicsRenderer(Logger):
         chart_row_headings = list(self.case_map_charts.values())
         chart_row_headings.remove('CE510 High PLR')
         self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        # self._create_plotly_line('section_9_line_b16_5_2_37', data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
     def general_ce_b_table_08_09(self, table_letter, caption_end, json_key, sig_digits):
@@ -9848,3 +9892,103 @@ class GraphicsRenderer(Logger):
                                        'annual_cop_zone',
                                        'indoor_rel_hum_max_perc',
                                        divide=False)
+
+    def general_ce_b_figure_24hr(self, chart_code, caption_end, yaxis, json_key):
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
+        chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
+        data_table = []
+        column_headings = ['Hour',]
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        row_headings = [str(x) for x in range(1, 25)]
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                hour_value = json_obj['june28_hourly'][str(hour)][json_key]
+                row.append(hour_value)
+            data_table.append(row)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_chart_b16_5_2_48(self):
+        self.general_ce_b_figure_24hr('48',
+                                      'COP2',
+                                      'COP2',
+                                      'cop2')
+
+    def render_section_ce_b_chart_b16_5_2_49(self):
+        self.general_ce_b_figure_24hr('49',
+                                      'Zone Humidity Ratio',
+                                      'Humidity Ratio (kg/kg)',
+                                      'zone_humidity_ratio_kg_kg')
+
+    def render_section_ce_b_chart_b16_5_2_51(self):
+        self.general_ce_b_figure_24hr('51',
+                                      'Outdoor Dry-Bulb Temperature',
+                                      'Temperature (C)',
+                                      'outdoor_drybulb_c')
+
+    def render_section_ce_b_chart_b16_5_2_52(self):
+        self.general_ce_b_figure_24hr('52',
+                                      'Outdoor Humidity Ratio',
+                                      'Humidity Ratio (kg/kg)',
+                                      'outdoor_humidity_ratio_kg_kg')
+
+    def general_ce_b_figure_24hr_sum(self, chart_code, caption_end, yaxis, json_key_a, json_key_b):
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
+        chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
+        data_table = []
+        column_headings = ['Hour',]
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        row_headings = [str(x) for x in range(1, 25)]
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                hour_value_a = json_obj['june28_hourly'][str(hour)][json_key_a]
+                hour_value_b = json_obj['june28_hourly'][str(hour)][json_key_b]
+                row.append(hour_value_a + hour_value_b)
+            data_table.append(row)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_chart_b16_5_2_46(self):
+        self.general_ce_b_figure_24hr_sum('46',
+                                      'Electricity Consumption (Compressor + OD Fan)',
+                                      'Electricity Consumption (Wh/h)',
+                                      'compressor_Wh', 'condenser_fans_Wh')
+
+    def general_ce_b_figure_24hr_two_series(self, chart_code, caption_end, yaxis, json_key_a, json_key_b):
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
+        chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
+        data_table = []
+        column_headings = ['Hour',]
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        row_headings = [str(x) for x in range(1, 25)]
+        row_headings = row_headings.extend([str(x) for x in range(1, 25)])
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                hour_value = json_obj['june28_hourly'][str(hour)][json_key_a]
+                row.append(hour_value)
+            for tst, json_obj in self.json_data.items():
+                hour_value = json_obj['june28_hourly'][str(hour)][json_key_b]
+                row.append(hour_value)
+            data_table.append(row)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_chart_b16_5_2_47(self):
+        self.general_ce_b_figure_24hr_two_series('47',
+                                                 'Hourly Coil Loads',
+                                                 'Load (Wh/h thermal)',
+                                                 'evaporator_sensible_Wh',
+                                                 'evaporator_latent_Wh')
+
+
+    def render_section_ce_b_chart_b16_5_2_53(self):
+        self.general_ce_b_figure_24hr('53',
+                                      'Hourly Latent Coil Loads',
+                                      'Load (Wh/h thermal)',
+                                      'evaporator_latent_Wh', '')
