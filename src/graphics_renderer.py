@@ -1098,7 +1098,6 @@ class GraphicsRenderer(Logger):
         # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
 
-
     def render_section_tf_figure_b8_1(self):
         """
         Render Section Thermal Fabric Figure B8-1 by modifying fig an ax inputs from matplotlib
@@ -9910,7 +9909,7 @@ class GraphicsRenderer(Logger):
         chart_name = f'section_9_figure_b16_5_2_{chart_code}'
         chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
         data_table = []
-        column_headings = ['Hour',]
+        column_headings = ['Hour', ]
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_name'])
         row_headings = [str(x) for x in range(1, 25)]
@@ -9951,7 +9950,7 @@ class GraphicsRenderer(Logger):
         chart_name = f'section_9_figure_b16_5_2_{chart_code}'
         chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
         data_table = []
-        column_headings = ['Hour',]
+        column_headings = ['Hour', ]
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_name'])
         row_headings = [str(x) for x in range(1, 25)]
@@ -9967,16 +9966,16 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_chart_b16_5_2_46(self):
         self.general_ce_b_figure_24hr_sum('46',
-                                      'Electricity Consumption (Compressor + OD Fan)',
-                                      'Electricity Consumption (Wh/h)',
-                                      'compressor_Wh', 'condenser_fans_Wh')
+                                          'Electricity Consumption (Compressor + OD Fan)',
+                                          'Electricity Consumption (Wh/h)',
+                                          'compressor_Wh', 'condenser_fans_Wh')
 
     def general_ce_b_figure_24hr_two_series(self, chart_code, caption_end, yaxis, name_a, name_b, json_key_a,
                                             json_key_b):
         chart_name = f'section_9_figure_b16_5_2_{chart_code}'
         chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
         data_table = []
-        column_headings = ['Hour',]
+        column_headings = ['Hour', ]
         row_headings = [str(x) for x in range(1, 25)]
         for _, json_obj in self.json_data.items():
             column_headings.append(json_obj['identifying_information']['software_name'] + ' ' + name_a)
@@ -10011,6 +10010,3 @@ class GraphicsRenderer(Logger):
                                                  'EWB',
                                                  'entering_drybulb_c',
                                                  'entering_wetbulb_c')
-
-
-
