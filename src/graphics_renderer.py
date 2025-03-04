@@ -9212,11 +9212,14 @@ class GraphicsRenderer(Logger):
         # self._create_plotly_line('section_9_line_b16_5_2_37', data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
         return
 
-    def general_ce_b_table_08_09(self, table_letter, caption_end, json_key, sig_digits):
+    def general_ce_b_table_08_09(self, table_letter, caption_end, json_key, sig_digits, chart_code='', yaxis=''):
         """Function that handles any table from ce_b 8 or 9 """
         table_name = f'section_9_table_b16_5_2_0{table_letter}'
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
         table_caption = (f'Table B16.5.2-{table_letter}. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
                          f'{caption_end}')
+        chart_caption = (f'Figure B16.5.2-{chart_code}. HVAC BESTEST: f(ODB) for CE500, CE530'
+                         f'<br>Specific Day {caption_end}')
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_headings = []
@@ -9242,11 +9245,14 @@ class GraphicsRenderer(Logger):
             row_headings.append('Delta ' + test_name.upper())
         text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits)
         self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        if chart_code and yaxis:
+            self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
         return
 
     def render_section_ce_b_table_b16_5_2_08a(self):
-        self.general_ce_b_table_08_09('8a', 'Energy Consumption, Compressor + Both Fan (Wh,e)',
-                                      'cooling_energy_total_kWh', 0)
+        self.general_ce_b_table_08_09('8a', 'Energy Consumption, Compressor + Both Fans (Wh,e)',
+                                      'cooling_energy_total_kWh', 0,
+                                      '42a', 'Consumption (Wh/h)')
         return
 
     def render_section_ce_b_table_b16_5_2_08b(self):
@@ -9256,37 +9262,44 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_08c(self):
         self.general_ce_b_table_08_09('8c', 'Energy Consumption, Condenser Fan (Wh,e)',
-                                      'condenser_fan_kWh', 0)
+                                      'condenser_fan_kWh', 0,
+                                      '42b', 'Consumption (Wh/h)')
         return
 
     def render_section_ce_b_table_b16_5_2_08d(self):
         self.general_ce_b_table_08_09('8d', 'Energy Consumption, Supply Fan (Wh,e)',
-                                      'indoor_fan_kWh', 0)
+                                      'indoor_fan_kWh', 0,
+                                      '42c', 'Consumption (Wh/h)')
         return
 
     def render_section_ce_b_table_b16_5_2_08e(self):
         self.general_ce_b_table_08_09('8e', 'Sensible + Latent Coil Load (Wh,th)',
-                                      'evaporator_load_total_kWh', 0)
+                                      'evaporator_load_total_kWh', 0,
+                                      '43a', 'Daily Load (Wh/h thermal)')
         return
 
     def render_section_ce_b_table_b16_5_2_08f(self):
         self.general_ce_b_table_08_09('8f', 'Sensible Coil Load (Wh,th)',
-                                      'evaporator_load_sensible_kWh', 0)
+                                      'evaporator_load_sensible_kWh', 0,
+                                      '43b', 'Daily Load (Wh/h thermal)')
         return
 
     def render_section_ce_b_table_b16_5_2_08g(self):
         self.general_ce_b_table_08_09('8g', 'Latent Coil Load (Wh,th)',
-                                      'evaporator_load_latent_kWh', 0)
+                                      'evaporator_load_latent_kWh', 0,
+                                      '43c', 'Daily Load (Wh/h thermal)')
         return
 
     def render_section_ce_b_table_b16_5_2_09a(self):
         self.general_ce_b_table_08_09('9a', 'Humidity Ratio (kg/kg)',
-                                      'zone_humidity_ratio_kg_kg', 4)
+                                      'zone_humidity_ratio_kg_kg', 4,
+                                      '45', 'Humidity Ratio (kg/kg)')
         return
 
     def render_section_ce_b_table_b16_5_2_09b(self):
         self.general_ce_b_table_08_09('9b', 'COP2',
-                                      'cop2', 3)
+                                      'cop2', 3,
+                                      '44', 'COP2')
         return
 
     def render_section_ce_b_table_b16_5_2_09c(self):
@@ -9958,15 +9971,17 @@ class GraphicsRenderer(Logger):
                                       'Electricity Consumption (Wh/h)',
                                       'compressor_Wh', 'condenser_fans_Wh')
 
-    def general_ce_b_figure_24hr_two_series(self, chart_code, caption_end, yaxis, json_key_a, json_key_b):
+    def general_ce_b_figure_24hr_two_series(self, chart_code, caption_end, yaxis, name_a, name_b, json_key_a,
+                                            json_key_b):
         chart_name = f'section_9_figure_b16_5_2_{chart_code}'
         chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
         data_table = []
         column_headings = ['Hour',]
-        for _, json_obj in self.json_data.items():
-            column_headings.append(json_obj['identifying_information']['software_name'])
         row_headings = [str(x) for x in range(1, 25)]
-        row_headings = row_headings.extend([str(x) for x in range(1, 25)])
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'] + ' ' + name_a)
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'] + ' ' + name_b)
         for hour in range(1, 25):
             row = []
             for tst, json_obj in self.json_data.items():
@@ -9981,14 +9996,21 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_chart_b16_5_2_47(self):
         self.general_ce_b_figure_24hr_two_series('47',
-                                                 'Hourly Coil Loads',
+                                                 'Coil Loads',
                                                  'Load (Wh/h thermal)',
+                                                 'Sensible',
+                                                 'Latent',
                                                  'evaporator_sensible_Wh',
                                                  'evaporator_latent_Wh')
 
+    def render_section_ce_b_chart_b16_5_2_50(self):
+        self.general_ce_b_figure_24hr_two_series('50',
+                                                 'Entering Dry- and Wet-Bulb',
+                                                 'Temperature (C)',
+                                                 'EDB',
+                                                 'EWB',
+                                                 'entering_drybulb_c',
+                                                 'entering_wetbulb_c')
 
-    def render_section_ce_b_chart_b16_5_2_53(self):
-        self.general_ce_b_figure_24hr('53',
-                                      'Hourly Latent Coil Loads',
-                                      'Load (Wh/h thermal)',
-                                      'evaporator_latent_Wh', '')
+
+

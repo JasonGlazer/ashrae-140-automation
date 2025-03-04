@@ -1,4 +1,4 @@
-# Table B16.5.2-8a. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, Energy Consumption, Compressor + Both Fan (Wh,e)
+# Table B16.5.2-8a. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, Energy Consumption, Compressor + Both Fans (Wh,e)
 | Case           | TRNSYS-TUD | DOE-2.2 NT42j | DOE-2.1E ESTSC 120 | ENERGYPLUS | CODYRUN | HOT3000 |     |  Min |  Max | Mean | Dev % $$ |     | TEST 0.0.0 | 
 |:-------------- | ----------:| -------------:| ------------------:| ----------:| -------:| -------:| ---:| ----:| ----:| ----:| --------:| ---:| ----------:| 
 | CE500 April 30 |       3893 |          3975 |               3975 |       4029 |    3901 |    4073 |     | 3893 | 4073 | 3974 |      4.5 |     |       3975 | 

@@ -326,7 +326,7 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 
 
-# Table B16.5.2-8a. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, Energy Consumption, Compressor + Both Fan (Wh,e)
+# Table B16.5.2-8a. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, Energy Consumption, Compressor + Both Fans (Wh,e)
 | Case           | TRNSYS-TUD | DOE-2.2 NT42j | DOE-2.1E ESTSC 120 | ENERGYPLUS | CODYRUN | HOT3000 |     |  Min |  Max | Mean | Dev % $$ |     | TEST 0.0.0 | 
 |:-------------- | ----------:| -------------:| ------------------:| ----------:| -------:| -------:| ---:| ----:| ----:| ----:| --------:| ---:| ----------:| 
 | CE500 April 30 |       3893 |          3975 |               3975 |       4029 |    3901 |    4073 |     | 3893 | 4073 | 3974 |      4.5 |     |       3975 | 
@@ -2182,8 +2182,18 @@ $$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]
 ![figure 39](images/std140_ce_b_output-section_9_figure_b16_5_2_39.png)
 ![figure 40](images/std140_ce_b_output-section_9_figure_b16_5_2_40.png)
 ![figure 41](images/std140_ce_b_output-section_9_figure_b16_5_2_41.png)
+![figure 42a](images/std140_ce_b_output-section_9_figure_b16_5_2_42a.png)
+![figure 42b](images/std140_ce_b_output-section_9_figure_b16_5_2_42b.png)
+![figure 42c](images/std140_ce_b_output-section_9_figure_b16_5_2_42c.png)
+![figure 43a](images/std140_ce_b_output-section_9_figure_b16_5_2_43a.png)
+![figure 43b](images/std140_ce_b_output-section_9_figure_b16_5_2_43b.png)
+![figure 43c](images/std140_ce_b_output-section_9_figure_b16_5_2_43c.png)
+![figure 44](images/std140_ce_b_output-section_9_figure_b16_5_2_44.png)
+![figure 45](images/std140_ce_b_output-section_9_figure_b16_5_2_45.png)
 ![figure 46](images/std140_ce_b_output-section_9_figure_b16_5_2_46.png)
+![figure 47](images/std140_ce_b_output-section_9_figure_b16_5_2_47.png)
 ![figure 48](images/std140_ce_b_output-section_9_figure_b16_5_2_48.png)
 ![figure 49](images/std140_ce_b_output-section_9_figure_b16_5_2_49.png)
+![figure 50](images/std140_ce_b_output-section_9_figure_b16_5_2_50.png)
 ![figure 51](images/std140_ce_b_output-section_9_figure_b16_5_2_51.png)
 ![figure 52](images/std140_ce_b_output-section_9_figure_b16_5_2_52.png)

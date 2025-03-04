@@ -135,7 +135,8 @@ def create_markdown(input_file):
         img_files = []
         md_table_files = []
 
-    img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
+#    img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
+    img_files.sort()
 
     sorted_files = []
     # get all tables and figures in folder
