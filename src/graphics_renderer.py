@@ -9001,7 +9001,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_03b(self):
         table_name = 'section_9_table_b16_5_2_03b'
-        table_caption = 'Table B16.5.2-3b. Weather Data Checks, CE300 Only, Annual Humidity Ratio'
+        table_caption = 'Table B16.5.2-3b. Weather Data Checks, CE300 Only, Annual Outdoor Humidity Ratio'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
         row_info = {
@@ -9307,8 +9307,8 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_b_table_b16_5_2_09d(self):
-        self.general_ce_b_table_08_09('9d', 'ODB (C)',
-                                      'outdoor_drybulb_c', 2)
+        self.general_ce_b_table_08_09('9d', 'EDB (C)',
+                                      'entering_drybulb_c', 2)
         return
 
     def general_ce_b_table_max_min(self, include_min, table_letter, caption_end, json_dict, json_key, key_suffix,
@@ -9364,12 +9364,12 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_12a(self):
         self.general_ce_b_table_max_min(True, '12a',
-                                        'Maximum COP2',
+                                        '- Maximum COP2',
                                         'annual_cop_zone', 'cop2_max', 'value', 3)
 
     def render_section_ce_b_table_b16_5_2_12b(self):
         self.general_ce_b_table_max_min(True, '12b',
-                                        'Minimum COP2',
+                                        '- Minimum COP2',
                                         'annual_cop_zone', 'cop2_min', 'value', 3)
 
     def render_section_ce_b_table_b16_5_2_13a(self):
@@ -9512,19 +9512,19 @@ class GraphicsRenderer(Logger):
                                       'annual_sums_means', 'evaporator_load_latent_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_20a(self):
-        self.general_ce_b_table_delta('20a', 'Annual Annual Mean - COP2',
+        self.general_ce_b_table_delta('20a', 'Annual Mean - COP2',
                                       'annual_sums_means', 'cop2', 3)
 
     def render_section_ce_b_table_b16_5_2_20b(self):
-        self.general_ce_b_table_delta('20b', 'Annual Annual Mean - Indoor Dry Bulb Temperature (C)',
+        self.general_ce_b_table_delta('20b', 'Annual Mean - Indoor Dry Bulb Temperature (C)',
                                       'annual_sums_means', 'indoor_dry_bulb_c', 2)
 
     def render_section_ce_b_table_b16_5_2_21a(self):
-        self.general_ce_b_table_delta('21a', 'Annual Annual Mean - Zone Humidity Ratio (kg/kg)',
+        self.general_ce_b_table_delta('21a', 'Annual Mean - Zone Humidity Ratio (kg/kg)',
                                       'annual_sums_means', 'zone_humidity_ratio_kg_kg', 4)
 
     def render_section_ce_b_table_b16_5_2_21b(self):
-        self.general_ce_b_table_delta('21b', 'Annual Annual Mean - Zone Relative Humidity (%)',
+        self.general_ce_b_table_delta('21b', 'Annual Mean - Zone Relative Humidity (%)',
                                       'annual_sums_means', 'zone_relative_humidity_perc', 2)
 
     def render_section_ce_b_table_b16_5_2_22(self):
