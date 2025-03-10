@@ -8572,7 +8572,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08a(self):
         table_name = 'section_9_table_b16_5_1_08a'
-        table_caption = 'Table B16.5.1-8a. Sensitivities COP (kWh,t)'
+        table_caption = 'Table B16.5.1-8a. Sensitivities Delta COP (kWh,t)'
         chart_name = 'section_9_figure_b16_5_1_03'
         chart_caption = 'Figure B16.5.1-2. HVAC BESTEST: Mean COP Sensitivities'
         sensitivity_cases = [
@@ -8621,7 +8621,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08b(self):
         table_name = 'section_9_table_b16_5_1_08b'
-        table_caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Total (kWh,t)'
+        table_caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Delta Total (kWh,t)'
         chart_name = 'section_9_figure_b16_5_1_13'
         chart_caption = 'Figure B16.5.1-13. HVAC BESTEST: Total Coil Load Sensitivities'
         yaxis_name = 'delta Load  (kWh thermal)'
@@ -8670,7 +8670,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08c(self):
         table_name = 'section_9_table_b16_5_1_08c'
-        table_caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Sensible (kWh,t)'
+        table_caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Delta Sensible (kWh,t)'
         chart_name = 'section_9_figure_b16_5_1_15'
         chart_caption = 'Figure B16.5.1-15. HVAC BESTEST: Sensible Coil Load Sensitivities'
         yaxis_name = 'delta Load  (kWh thermal)'
@@ -8719,7 +8719,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08d(self):
         table_name = 'section_9_table_b16_5_1_08d'
-        table_caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Latent (kWh,t)'
+        table_caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Delta Latent (kWh,t)'
         chart_name = 'section_9_figure_b16_5_1_17'
         chart_caption = 'Figure B16.5.1-17. HVAC BESTEST: Latent Coil Load Sensitivities'
         yaxis_name = 'delta Load  (kWh thermal)'
