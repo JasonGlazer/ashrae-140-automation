@@ -8165,7 +8165,7 @@ class GraphicsRenderer(Logger):
         table_caption = 'Table B16.5.1-2b. COP (Max-Min)/Mean'
         chart_name = 'section_9_figure_b16_5_1_02'
         chart_caption = 'Figure B16.5.1-2. HVAC BESTEST: (Maximum - Minimum)/Mean COP'
-        yaxis_name = 'Electricity Consumption  (kWh)'
+        yaxis_name = 'Fractional Variation'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8286,7 +8286,7 @@ class GraphicsRenderer(Logger):
         table_caption = 'Table B16.5.1-5a. Zone Loads, Total (kWh,thermal)'
         chart_name = 'section_9_figure_b16_5_1_22'
         chart_caption = 'Figure B16.5.1-22. HVAC BESTEST: Total Zone Load'
-        yaxis_name = 'Load (kWh thermal)'
+        yaxis_name = 'Load (Wh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8308,7 +8308,7 @@ class GraphicsRenderer(Logger):
         table_caption = 'Table B16.5.1-5b. Zone Loads, Sensible (kWh,thermal)'
         chart_name = 'section_9_figure_b16_5_1_23'
         chart_caption = 'Figure B16.5.1-23. HVAC BESTEST: Sensible Zone Load'
-        yaxis_name = 'Load (kWh thermal)'
+        yaxis_name = 'Load (Wh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8330,7 +8330,7 @@ class GraphicsRenderer(Logger):
         table_caption = 'Table B16.5.1-5c. Zone Loads, Latent (kWh,thermal)'
         chart_name = 'section_9_figure_b16_5_1_24'
         chart_caption = 'Figure B16.5.1-24. HVAC BESTEST: Latent Zone Load'
-        yaxis_name = 'Load (kWh thermal)'
+        yaxis_name = 'Load (Wh thermal)'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
         row_headings = list(self.case_map.values())
@@ -8427,7 +8427,7 @@ class GraphicsRenderer(Logger):
         table_name = 'section_9_table_b16_5_1_07b'
         table_caption = 'Table B16.5.1-7b. Sensitivities for Space Cooling Electricity Consumption Delta Qcomp (kWh,e)'
         chart_name = 'section_9_figure_b16_5_1_07'
-        chart_caption = 'Figure B16.5.1-7. HVAC BESTEST: Total Compressor Electricity Consumption'
+        chart_caption = 'Figure B16.5.1-7. HVAC BESTEST: Total Compressor Electricity Sensitivities'
         yaxis_name = 'delta Electricity Consumption  (kWh)'
         sensitivity_cases = [
             ('CE110', 'CE100', 'ODB'),
@@ -8574,7 +8574,7 @@ class GraphicsRenderer(Logger):
         table_name = 'section_9_table_b16_5_1_08a'
         table_caption = 'Table B16.5.1-8a. Sensitivities Delta COP (kWh,t)'
         chart_name = 'section_9_figure_b16_5_1_03'
-        chart_caption = 'Figure B16.5.1-2. HVAC BESTEST: Mean COP Sensitivities'
+        chart_caption = 'Figure B16.5.1-3. HVAC BESTEST: Mean COP Sensitivities'
         sensitivity_cases = [
             ('CE110', 'CE100', 'ODB'),
             ('CE120', 'CE110', 'IDB'),
@@ -8792,7 +8792,7 @@ class GraphicsRenderer(Logger):
         table_name = 'section_9_table_b16_5_1_09b'
         table_caption = 'Table B16.5.1-9b. Indoor Drybulb Temperature (Max-Min)/Mean'
         chart_name = 'section_9_figure_b16_5_1_19'
-        chart_caption = 'Figure B16.5.1-19. HVAC BESTEST: (Maximum - Minimum)/Mean Indoor Temperature'
+        chart_caption = 'Figure B16.5.1-19. HVAC BESTEST: (Maximum - Minimum)/Mean Indoor Drybulb Temperature'
         yaxis_name = 'Fractional Variation'
         data_table = []
         footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
