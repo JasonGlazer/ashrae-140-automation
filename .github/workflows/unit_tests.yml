@@ -7,10 +7,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-20.04
+          - os: ubuntu-24.04
             python: python3
             pip_arg: ""
-          - os: macos-12
+          - os: macos-14
             python: python3
             pip_arg: ""
           - os: windows-2019
