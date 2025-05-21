@@ -1,6 +1,6 @@
 {
     "annual_cop_zone": {
-        "E300": {
+        "CE300": {
             "cop2_max_day": 30,
             "cop2_max_hour": 16,
             "cop2_max_month": 4,
@@ -34,7 +34,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.94
         },
-        "E310": {
+        "CE310": {
             "cop2_max_day": 30,
             "cop2_max_hour": 15,
             "cop2_max_month": 4,
@@ -68,7 +68,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 15.93
         },
-        "E320": {
+        "CE320": {
             "cop2_max_day": 18,
             "cop2_max_hour": 3,
             "cop2_max_month": 12,
@@ -102,7 +102,7 @@
             "indoor_rel_hum_min_month": 12,
             "indoor_rel_hum_min_perc": 12.92
         },
-        "E330": {
+        "CE330": {
             "cop2_max_day": 17,
             "cop2_max_hour": 16,
             "cop2_max_month": 6,
@@ -136,7 +136,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.94
         },
-        "E340": {
+        "CE340": {
             "cop2_max_day": 16,
             "cop2_max_hour": 16,
             "cop2_max_month": 9,
@@ -170,7 +170,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.94
         },
-        "E350": {
+        "CE350": {
             "cop2_max_day": 30,
             "cop2_max_hour": 16,
             "cop2_max_month": 4,
@@ -204,7 +204,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.94
         },
-        "E360": {
+        "CE360": {
             "cop2_max_day": 4,
             "cop2_max_hour": 24,
             "cop2_max_month": 10,
@@ -238,7 +238,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.94
         },
-        "E400": {
+        "CE400": {
             "cop2_max_day": 17,
             "cop2_max_hour": 16,
             "cop2_max_month": 6,
@@ -272,7 +272,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.57
         },
-        "E410": {
+        "CE410": {
             "cop2_max_day": 21,
             "cop2_max_hour": 15,
             "cop2_max_month": 5,
@@ -306,7 +306,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.58
         },
-        "E420": {
+        "CE420": {
             "cop2_max_day": 21,
             "cop2_max_hour": 13,
             "cop2_max_month": 5,
@@ -340,7 +340,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.59
         },
-        "E430": {
+        "CE430": {
             "cop2_max_day": 30,
             "cop2_max_hour": 13,
             "cop2_max_month": 4,
@@ -374,7 +374,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.58
         },
-        "E440": {
+        "CE440": {
             "cop2_max_day": 30,
             "cop2_max_hour": 15,
             "cop2_max_month": 4,
@@ -408,7 +408,7 @@
             "indoor_rel_hum_min_month": 11,
             "indoor_rel_hum_min_perc": 14.54
         },
-        "E500": {
+        "CE500": {
             "cop2_max_day": 30,
             "cop2_max_hour": 16,
             "cop2_max_month": 4,
@@ -442,7 +442,7 @@
             "indoor_rel_hum_min_month": 10,
             "indoor_rel_hum_min_perc": 52.83
         },
-        "E510": {
+        "CE510": {
             "cop2_max_day": 4,
             "cop2_max_hour": 3,
             "cop2_max_month": 5,
@@ -476,7 +476,7 @@
             "indoor_rel_hum_min_month": 5,
             "indoor_rel_hum_min_perc": 53.15
         },
-        "E520": {
+        "CE520": {
             "cop2_max_day": 30,
             "cop2_max_hour": 16,
             "cop2_max_month": 4,
@@ -510,7 +510,7 @@
             "indoor_rel_hum_min_month": 7,
             "indoor_rel_hum_min_perc": 61.9
         },
-        "E522": {
+        "CE522": {
             "cop2_max_day": 30,
             "cop2_max_hour": 16,
             "cop2_max_month": 4,
@@ -544,7 +544,7 @@
             "indoor_rel_hum_min_month": 10,
             "indoor_rel_hum_min_perc": 57.97
         },
-        "E525": {
+        "CE525": {
             "cop2_max_day": 16,
             "cop2_max_hour": 10,
             "cop2_max_month": 3,
@@ -578,7 +578,7 @@
             "indoor_rel_hum_min_month": 10,
             "indoor_rel_hum_min_perc": 44.4
         },
-        "E530": {
+        "CE530": {
             "cop2_max_day": 16,
             "cop2_max_hour": 10,
             "cop2_max_month": 3,
@@ -612,7 +612,7 @@
             "indoor_rel_hum_min_month": 4,
             "indoor_rel_hum_min_perc": 33.68
         },
-        "E540": {
+        "CE540": {
             "cop2_max_day": 17,
             "cop2_max_hour": 5,
             "cop2_max_month": 10,
@@ -646,7 +646,7 @@
             "indoor_rel_hum_min_month": 10,
             "indoor_rel_hum_min_perc": 39.74
         },
-        "E545": {
+        "CE545": {
             "cop2_max_day": 16,
             "cop2_max_hour": 10,
             "cop2_max_month": 3,
@@ -682,7 +682,7 @@
         }
     },
     "annual_load_maxima": {
-        "E300": {
+        "CE300": {
             "compressors_plus_fans_Wh": 11548,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 15,
@@ -700,7 +700,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 7
         },
-        "E310": {
+        "CE310": {
             "compressors_plus_fans_Wh": 12162,
             "compressors_plus_fans_day": 16,
             "compressors_plus_fans_hour": 16,
@@ -718,7 +718,7 @@
             "evaporator_total_hour": 16,
             "evaporator_total_month": 9
         },
-        "E320": {
+        "CE320": {
             "compressors_plus_fans_Wh": 12875,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 14,
@@ -736,7 +736,7 @@
             "evaporator_total_hour": 16,
             "evaporator_total_month": 9
         },
-        "E330": {
+        "CE330": {
             "compressors_plus_fans_Wh": 13335,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 15,
@@ -754,7 +754,7 @@
             "evaporator_total_hour": 11,
             "evaporator_total_month": 7
         },
-        "E340": {
+        "CE340": {
             "compressors_plus_fans_Wh": 13101,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 14,
@@ -772,7 +772,7 @@
             "evaporator_total_hour": 16,
             "evaporator_total_month": 9
         },
-        "E350": {
+        "CE350": {
             "compressors_plus_fans_Wh": 11546,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 15,
@@ -790,7 +790,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 7
         },
-        "E360": {
+        "CE360": {
             "compressors_plus_fans_Wh": 12762,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 14,
@@ -808,7 +808,7 @@
             "evaporator_total_hour": 10,
             "evaporator_total_month": 10
         },
-        "E400": {
+        "CE400": {
             "compressors_plus_fans_Wh": 11519,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 15,
@@ -826,7 +826,7 @@
             "evaporator_total_hour": 14,
             "evaporator_total_month": 9
         },
-        "E410": {
+        "CE410": {
             "compressors_plus_fans_Wh": 11549,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 15,
@@ -844,7 +844,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 7
         },
-        "E420": {
+        "CE420": {
             "compressors_plus_fans_Wh": 11548,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 15,
@@ -862,7 +862,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 7
         },
-        "E430": {
+        "CE430": {
             "compressors_plus_fans_Wh": 11548,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 15,
@@ -880,7 +880,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 7
         },
-        "E440": {
+        "CE440": {
             "compressors_plus_fans_Wh": 11461,
             "compressors_plus_fans_day": 16,
             "compressors_plus_fans_hour": 16,
@@ -898,7 +898,7 @@
             "evaporator_total_hour": 16,
             "evaporator_total_month": 7
         },
-        "E500": {
+        "CE500": {
             "compressors_plus_fans_Wh": 10274,
             "compressors_plus_fans_day": 4,
             "compressors_plus_fans_hour": 15,
@@ -916,7 +916,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 6
         },
-        "E510": {
+        "CE510": {
             "compressors_plus_fans_Wh": 11344,
             "compressors_plus_fans_day": 20,
             "compressors_plus_fans_hour": 14,
@@ -934,7 +934,7 @@
             "evaporator_total_hour": 13,
             "evaporator_total_month": 6
         },
-        "E520": {
+        "CE520": {
             "compressors_plus_fans_Wh": 10684,
             "compressors_plus_fans_day": 4,
             "compressors_plus_fans_hour": 15,
@@ -952,7 +952,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 5
         },
-        "E522": {
+        "CE522": {
             "compressors_plus_fans_Wh": 10747,
             "compressors_plus_fans_day": 16,
             "compressors_plus_fans_hour": 15,
@@ -970,7 +970,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 6
         },
-        "E525": {
+        "CE525": {
             "compressors_plus_fans_Wh": 9585,
             "compressors_plus_fans_day": 16,
             "compressors_plus_fans_hour": 15,
@@ -988,7 +988,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 6
         },
-        "E530": {
+        "CE530": {
             "compressors_plus_fans_Wh": 8089,
             "compressors_plus_fans_day": 16,
             "compressors_plus_fans_hour": 15,
@@ -1006,7 +1006,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 7
         },
-        "E540": {
+        "CE540": {
             "compressors_plus_fans_Wh": 8985,
             "compressors_plus_fans_day": 16,
             "compressors_plus_fans_hour": 15,
@@ -1024,7 +1024,7 @@
             "evaporator_total_hour": 15,
             "evaporator_total_month": 8
         },
-        "E545": {
+        "CE545": {
             "compressors_plus_fans_Wh": 7471,
             "compressors_plus_fans_day": 4,
             "compressors_plus_fans_hour": 15,
@@ -1048,7 +1048,7 @@
         "outdoor_humidity_ratio_kg_kg": 0.0116
     },
     "annual_sums_means": {
-        "E300": {
+        "CE300": {
             "condenser_fan_kWh": 2323,
             "cooling_energy_compressor_kWh": 21876,
             "cooling_energy_total_kWh": 35070,
@@ -1061,7 +1061,7 @@
             "zone_humidity_ratio_kg_kg": 0.0092,
             "zone_relative_humidity_perc": 47.93
         },
-        "E310": {
+        "CE310": {
             "condenser_fan_kWh": 2691,
             "cooling_energy_compressor_kWh": 26053,
             "cooling_energy_total_kWh": 39608,
@@ -1074,7 +1074,7 @@
             "zone_humidity_ratio_kg_kg": 0.0111,
             "zone_relative_humidity_perc": 57.8
         },
-        "E320": {
+        "CE320": {
             "condenser_fan_kWh": 2681,
             "cooling_energy_compressor_kWh": 25912,
             "cooling_energy_total_kWh": 39457,
@@ -1087,7 +1087,7 @@
             "zone_humidity_ratio_kg_kg": 0.0099,
             "zone_relative_humidity_perc": 49.94
         },
-        "E330": {
+        "CE330": {
             "condenser_fan_kWh": 2693,
             "cooling_energy_compressor_kWh": 26775,
             "cooling_energy_total_kWh": 40330,
@@ -1100,7 +1100,7 @@
             "zone_humidity_ratio_kg_kg": 0.0099,
             "zone_relative_humidity_perc": 50.7
         },
-        "E340": {
+        "CE340": {
             "condenser_fan_kWh": 2684,
             "cooling_energy_compressor_kWh": 26400,
             "cooling_energy_total_kWh": 39947,
@@ -1113,7 +1113,7 @@
             "zone_humidity_ratio_kg_kg": 0.0099,
             "zone_relative_humidity_perc": 50.78
         },
-        "E350": {
+        "CE350": {
             "condenser_fan_kWh": 1970,
             "cooling_energy_compressor_kWh": 18891,
             "cooling_energy_total_kWh": 31742,
@@ -1126,7 +1126,7 @@
             "zone_humidity_ratio_kg_kg": 0.00977,
             "zone_relative_humidity_perc": 44.56
         },
-        "E360": {
+        "CE360": {
             "condenser_fan_kWh": 4272,
             "cooling_energy_compressor_kWh": 39941,
             "cooling_energy_total_kWh": 55068,
@@ -1139,7 +1139,7 @@
             "zone_humidity_ratio_kg_kg": 0.00858,
             "zone_relative_humidity_perc": 41.21
         },
-        "E400": {
+        "CE400": {
             "condenser_fan_kWh": 1902,
             "cooling_energy_compressor_kWh": 18629,
             "cooling_energy_total_kWh": 31413,
@@ -1152,7 +1152,7 @@
             "zone_humidity_ratio_kg_kg": 0.01,
             "zone_relative_humidity_perc": 52.01
         },
-        "E410": {
+        "CE410": {
             "condenser_fan_kWh": 1936,
             "cooling_energy_compressor_kWh": 18685,
             "cooling_energy_total_kWh": 31503,
@@ -1165,7 +1165,7 @@
             "zone_humidity_ratio_kg_kg": 0.0095,
             "zone_relative_humidity_perc": 49.75
         },
-        "E420": {
+        "CE420": {
             "condenser_fan_kWh": 2115,
             "cooling_energy_compressor_kWh": 20214,
             "cooling_energy_total_kWh": 33208,
@@ -1178,7 +1178,7 @@
             "zone_humidity_ratio_kg_kg": 0.0093,
             "zone_relative_humidity_perc": 48.76
         },
-        "E430": {
+        "CE430": {
             "condenser_fan_kWh": 1970,
             "cooling_energy_compressor_kWh": 18966,
             "cooling_energy_total_kWh": 31818,
@@ -1191,7 +1191,7 @@
             "zone_humidity_ratio_kg_kg": 0.0094,
             "zone_relative_humidity_perc": 49.17
         },
-        "E440": {
+        "CE440": {
             "condenser_fan_kWh": 2120,
             "cooling_energy_compressor_kWh": 20249,
             "cooling_energy_total_kWh": 33248,
@@ -1204,7 +1204,7 @@
             "zone_humidity_ratio_kg_kg": 0.0092,
             "zone_relative_humidity_perc": 48.23
         },
-        "E500": {
+        "CE500": {
             "condenser_fan_kWh": 1976,
             "cooling_energy_compressor_kWh": 18522,
             "cooling_energy_total_kWh": 23138,
@@ -1217,7 +1217,7 @@
             "zone_humidity_ratio_kg_kg": 0.0107,
             "zone_relative_humidity_perc": 63.73
         },
-        "E500 May-Sep": {
+        "CE500 May-Sep": {
             "condenser_fan_kWh": 1524,
             "cooling_energy_compressor_kWh": 14491,
             "cooling_energy_total_kWh": 18051,
@@ -1230,7 +1230,7 @@
             "zone_humidity_ratio_kg_kg": 0.0109,
             "zone_relative_humidity_perc": 55.13
         },
-        "E510 May-Sep": {
+        "CE510 May-Sep": {
             "condenser_fan_kWh": 3050,
             "cooling_energy_compressor_kWh": 28721,
             "cooling_energy_total_kWh": 35845,
@@ -1243,7 +1243,7 @@
             "zone_humidity_ratio_kg_kg": 0.0109,
             "zone_relative_humidity_perc": 55.24
         },
-        "E520": {
+        "CE520": {
             "condenser_fan_kWh": 2396,
             "cooling_energy_compressor_kWh": 20185,
             "cooling_energy_total_kWh": 25781,
@@ -1256,7 +1256,7 @@
             "zone_humidity_ratio_kg_kg": 0.00763,
             "zone_relative_humidity_perc": 72.17
         },
-        "E522": {
+        "CE522": {
             "condenser_fan_kWh": 2174,
             "cooling_energy_compressor_kWh": 19281,
             "cooling_energy_total_kWh": 24360,
@@ -1269,7 +1269,7 @@
             "zone_humidity_ratio_kg_kg": 0.00901,
             "zone_relative_humidity_perc": 68.11
         },
-        "E525": {
+        "CE525": {
             "condenser_fan_kWh": 1663,
             "cooling_energy_compressor_kWh": 17443,
             "cooling_energy_total_kWh": 21323,
@@ -1282,7 +1282,7 @@
             "zone_humidity_ratio_kg_kg": 0.0151,
             "zone_relative_humidity_perc": 57.37
         },
-        "E530": {
+        "CE530": {
             "condenser_fan_kWh": 1585,
             "cooling_energy_compressor_kWh": 14172,
             "cooling_energy_total_kWh": 17875,
@@ -1295,7 +1295,7 @@
             "zone_humidity_ratio_kg_kg": 0.00667,
             "zone_relative_humidity_perc": 39.6
         },
-        "E540": {
+        "CE540": {
             "condenser_fan_kWh": 1926,
             "cooling_energy_compressor_kWh": 15664,
             "cooling_energy_total_kWh": 20164,
@@ -1308,7 +1308,7 @@
             "zone_humidity_ratio_kg_kg": 0.00463,
             "zone_relative_humidity_perc": 43.82
         },
-        "E545": {
+        "CE545": {
             "condenser_fan_kWh": 1337,
             "cooling_energy_compressor_kWh": 13215,
             "cooling_energy_total_kWh": 16339,
