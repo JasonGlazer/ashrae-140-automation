@@ -25,8 +25,11 @@ class Logger:
             reset_stream=False):
         # prevent re-calling same logger handlers once initialized
         # also prevent bad logger name from being called
-        global loggers
-        global stream
+
+        # due to flake8 error F824 these next two lines are disabled
+        # global loggers
+        # global stream
+
         # noinspection PyBroadException
         # Use a different file for testing logger
         # When packaged, the logs file is under the src/ directorey, so change the directory based on mode
