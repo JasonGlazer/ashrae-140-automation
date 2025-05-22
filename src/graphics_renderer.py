@@ -1059,7 +1059,8 @@ class GraphicsRenderer(Logger):
         # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
 
-    def _create_plotly_line(self, file_name, table, row_headings, column_headings, yaxis_title, caption):
+    def _create_plotly_line(self, file_name, table, row_headings, column_headings, yaxis_title, caption,
+                            xaxis_title=""):
         """"
         Create a plotly bar chart from a data table.
 
@@ -1096,7 +1097,7 @@ class GraphicsRenderer(Logger):
         df = pd.DataFrame(table_with_row_headings, columns=column_headings)
         fig = px.line(df, x="Hour", y=column_headings[1:], markers=True)
         fig.update_layout(barmode='group', title=dict(text=caption, font=dict(size=25), xanchor='center', x=0.5),
-                          yaxis_title=yaxis_title, xaxis_title="")
+                          yaxis_title=yaxis_title, xaxis_title=xaxis_title, legend_title=None)
         # fig.show() # for debugging purposes shows the figure in the browser
         # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
@@ -9922,7 +9923,8 @@ class GraphicsRenderer(Logger):
                 hour_value = json_obj['june28_hourly'][str(hour)][json_key]
                 row.append(hour_value)
             data_table.append(row)
-        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption,
+                                 xaxis_title="Hour")
         return
 
     def render_section_ce_b_chart_b16_5_2_48(self):
@@ -9964,7 +9966,8 @@ class GraphicsRenderer(Logger):
                 hour_value_b = json_obj['june28_hourly'][str(hour)][json_key_b]
                 row.append(hour_value_a + hour_value_b)
             data_table.append(row)
-        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption,
+                                 xaxis_title="Hour")
         return
 
     def render_section_ce_b_chart_b16_5_2_46(self):
@@ -9993,7 +9996,8 @@ class GraphicsRenderer(Logger):
                 hour_value = json_obj['june28_hourly'][str(hour)][json_key_b]
                 row.append(hour_value)
             data_table.append(row)
-        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption,
+                                 xaxis_title="Hour")
         return
 
     def render_section_ce_b_chart_b16_5_2_47(self):
