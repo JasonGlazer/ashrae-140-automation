@@ -933,7 +933,10 @@ class GraphicsRenderer(Logger):
                     row.append(formatting_string.format(row_mean))
                 if row_mean != 0:
                     row_dev = abs((row_max - row_min) / row_mean) * 100
-                    row.append('{:.1f}'.format(row_dev))
+                    if row_dev < 250:
+                        row.append('{:.1f}'.format(row_dev))
+                    else:
+                        row.append('-')
                 else:
                     row.append('-')
                 row.append('')
