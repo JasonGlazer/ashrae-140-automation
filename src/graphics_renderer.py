@@ -9249,42 +9249,42 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_b_table_b16_5_2_08a(self):
-        self.general_ce_b_table_08_09('8a', 'Energy Consumption, Compressor + Both Fans (Wh,e)',
+        self.general_ce_b_table_08_09('8a', 'Energy Consumption, Compressor + Both Fans (Wh,electrical)',
                                       'cooling_energy_total_kWh', 0,
                                       '42a', 'Consumption (Wh/h)')
         return
 
     def render_section_ce_b_table_b16_5_2_08b(self):
-        self.general_ce_b_table_08_09('8b', 'Energy Consumption, Compressor (Wh,e)',
+        self.general_ce_b_table_08_09('8b', 'Energy Consumption, Compressor (Wh,electrical)',
                                       'cooling_energy_compressor_kWh', 0)
         return
 
     def render_section_ce_b_table_b16_5_2_08c(self):
-        self.general_ce_b_table_08_09('8c', 'Energy Consumption, Condenser Fan (Wh,e)',
+        self.general_ce_b_table_08_09('8c', 'Energy Consumption, Condenser Fan (Wh,electrical)',
                                       'condenser_fan_kWh', 0,
                                       '42b', 'Consumption (Wh/h)')
         return
 
     def render_section_ce_b_table_b16_5_2_08d(self):
-        self.general_ce_b_table_08_09('8d', 'Energy Consumption, Supply Fan (Wh,e)',
+        self.general_ce_b_table_08_09('8d', 'Energy Consumption, Supply Fan (Wh,electrical)',
                                       'indoor_fan_kWh', 0,
                                       '42c', 'Consumption (Wh/h)')
         return
 
     def render_section_ce_b_table_b16_5_2_08e(self):
-        self.general_ce_b_table_08_09('8e', 'Sensible + Latent Coil Load (Wh,th)',
+        self.general_ce_b_table_08_09('8e', 'Sensible + Latent Coil Load (Wh,thermal)',
                                       'evaporator_load_total_kWh', 0,
                                       '43a', 'Daily Load (Wh/h thermal)')
         return
 
     def render_section_ce_b_table_b16_5_2_08f(self):
-        self.general_ce_b_table_08_09('8f', 'Sensible Coil Load (Wh,th)',
+        self.general_ce_b_table_08_09('8f', 'Sensible Coil Load (Wh,thermal)',
                                       'evaporator_load_sensible_kWh', 0,
                                       '43b', 'Daily Load (Wh/h thermal)')
         return
 
     def render_section_ce_b_table_b16_5_2_08g(self):
-        self.general_ce_b_table_08_09('8g', 'Latent Coil Load (Wh,th)',
+        self.general_ce_b_table_08_09('8g', 'Latent Coil Load (Wh,thermal)',
                                       'evaporator_load_latent_kWh', 0,
                                       '43c', 'Daily Load (Wh/h thermal)')
         return
@@ -9344,22 +9344,22 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_10a(self):
         self.general_ce_b_table_max_min(False, '10a',
-                                        'Total Cooling Energy Consumption, Compressor + Both Fans (Wh,e)',
+                                        'Total Cooling Energy Consumption, Compressor + Both Fans (Wh,electrical)',
                                         'annual_load_maxima', 'compressors_plus_fans', 'Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_10b(self):
         self.general_ce_b_table_max_min(False, '10b',
-                                        'Total Coil Load - Sensible + Latent Coil Load  (Wh,th)',
+                                        'Total Coil Load - Sensible + Latent Coil Load  (Wh,thermal)',
                                         'annual_load_maxima', 'evaporator_total', 'Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_11a(self):
         self.general_ce_b_table_max_min(False, '11a',
-                                        'Sensible Coil Load  (Wh,th)',
+                                        'Sensible Coil Load  (Wh,thermal)',
                                         'annual_load_maxima', 'evaporator_sensible', 'Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_11b(self):
         self.general_ce_b_table_max_min(False, '11b',
-                                        'Latent Coil Load  (Wh,th)',
+                                        'Latent Coil Load  (Wh,thermal)',
                                         'annual_load_maxima', 'evaporator_latent', 'Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_12a(self):
@@ -9528,19 +9528,19 @@ class GraphicsRenderer(Logger):
                                       'annual_sums_means', 'zone_relative_humidity_perc', 2)
 
     def render_section_ce_b_table_b16_5_2_22(self):
-        self.general_ce_b_table_delta('22', 'Hourly Integrated Maximum Total Consumption (Wh,e)',
+        self.general_ce_b_table_delta('22', 'Hourly Integrated Maximum Total Consumption (Wh,electrical)',
                                       'annual_load_maxima', 'compressors_plus_fans_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_23a(self):
-        self.general_ce_b_table_delta('23a', 'Hourly Integrated Maximum Total Coil Load (Wh,th)',
+        self.general_ce_b_table_delta('23a', 'Hourly Integrated Maximum Total Coil Load (Wh,thermal)',
                                       'annual_load_maxima', 'evaporator_total_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_23b(self):
-        self.general_ce_b_table_delta('23b', 'Hourly Integrated Maximum Sensible Coil Load (Wh,th)',
+        self.general_ce_b_table_delta('23b', 'Hourly Integrated Maximum Sensible Coil Load (Wh,thermal)',
                                       'annual_load_maxima', 'evaporator_sensible_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_24(self):
-        self.general_ce_b_table_delta('24', 'Hourly Integrated Maximum Latent Coil Load (Wh,th)',
+        self.general_ce_b_table_delta('24', 'Hourly Integrated Maximum Latent Coil Load (Wh,thermal)',
                                       'annual_load_maxima', 'evaporator_latent_Wh', 0)
 
     def render_section_ce_b_table_b16_5_2_25a(self):
