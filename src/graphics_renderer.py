@@ -30,6 +30,10 @@ class SectionType:
             obj._section_type = 'GC'
         elif re.match(r'.*Std140_HE_Output\..*$', str(value), re.IGNORECASE):
             obj._section_type = 'HE'
+        elif re.match(r'.*Std140_CE_a_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'CE_a'
+        elif re.match(r'.*Std140_CE_b_Output\..*$', str(value), re.IGNORECASE):
+            obj._section_type = 'CE_b'
         else:
             obj.logger.error('Error: The file name ({}) did not match formatting guidelines or '
                              'the referenced section at the beginning of the name is not supported'
@@ -141,6 +145,53 @@ class GraphicsRenderer(Logger):
                 },
                 orient='index',
                 columns=['case_name', 'case_order'])
+        elif self.section_type == 'CE_a':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    'CE100': ['CE100 dry lo IDB hi ODB', 1],
+                    'CE110': ['CE110 as 100 lo ODB', 2],
+                    'CE120': ['CE120 as 100 hi IDB', 3],
+                    'CE130': ['CE130 as 100 lo PLR', 4],
+                    'CE140': ['CE140 as 130 lo ODB', 5],
+                    'CE150': ['CE150 as 110 hi SHR', 6],
+                    'CE160': ['CE160 as 150 hi IDB', 7],
+                    'CE165': ['CE165 as 150 m IDB m ODB', 8],
+                    'CE170': ['CE170 as 150 m SHR m PLR', 9],
+                    'CE180': ['CE180 as 150 lo SHR', 10],
+                    'CE185': ['CE185 lo SHR hi ODB', 11],
+                    'CE190': ['CE190 as 180 lo PLR', 12],
+                    'CE195': ['CE195 as 185 lo PLR', 13],
+                    'CE200': ['CE200 ARI  PLR=1 hi SHR', 14]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
+        elif self.section_type == 'CE_b':
+            self.case_detailed_df = pd.DataFrame.from_dict(
+                {
+                    'CE300': ['CE300 Base, 15% OA', 1],
+                    'CE310': ['CE310 High Latent', 2],
+                    'CE320': ['CE320 High Infiltration', 3],
+                    'CE330': ['CE330 100% OA', 4],
+                    'CE340': ['CE340 50% OA, 50% Infl', 5],
+                    'CE350': ['CE350 Tstat Set Up', 6],
+                    'CE360': ['CE360 Undersized System', 7],
+                    'CE400': ['CE400 Ec. Temp. Ctrl.', 8],
+                    'CE410': ['CE410 Ec. Comp. Lockout', 9],
+                    'CE420': ['CE420 Ec. ODB Limit', 10],
+                    'CE430': ['CE430 Ec. Enthalpy Ctrl.', 11],
+                    'CE440': ['CE440 Ec. Enthalpy Limit', 12],
+                    'CE500': ['CE500 Base w/ 0%OA', 13],
+                    'CE500 May-Sep': ['CE500 May-Sep', 14],
+                    'CE510': ['CE510 May-Sep, High PLR', 15],
+                    'CE520': ['CE520 EDB = 15°C', 16],
+                    'CE522': ['CE522 EDB = 20°C', 17],
+                    'CE525': ['CE525 EDB = 35°C', 18],
+                    'CE530': ['CE530 Dry Coil', 19],
+                    'CE540': ['CE540 Dry, EDB = 15°C', 20],
+                    'CE545': ['CE545 Dry, EDB = 35°C', 21]
+                },
+                orient='index',
+                columns=['case_name', 'case_order'])
         if not processed_file_directory:
             self.processed_file_directory = root_directory.joinpath('processed')
         else:
@@ -173,6 +224,28 @@ class GraphicsRenderer(Logger):
                     root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_he_output.json'),
                     root_directory.joinpath('processed', 'analytical', '0', 'std140_he_output.json')
                 ]
+            elif self.section_type == 'CE_a':
+                self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'ca-sis', 'v1', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'clim2000', '2.1.6', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', '88', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', 'c133', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.0.0.023', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '14.02.id', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'trnsys', '14.02.re', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-tud', '0', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-htal1', '0', 'std140_ce_a_output.json'),
+                    root_directory.joinpath('processed', 'analytical-htal2', '0', 'std140_ce_a_output.json')
+                ]
+            elif self.section_type == 'CE_b':
+                self.baseline_model_list = [
+                    root_directory.joinpath('processed', 'trnsys', '14.02.re', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'doe22', '42', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'doe21e', '120', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'energyplus', '1.1.0.020', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'codyrun', '1', 'std140_ce_b_output.json'),
+                    root_directory.joinpath('processed', 'hot3000', '1', 'std140_ce_b_output.json')
+                ]
         else:
             self.baseline_model_list = base_model_list
         if isinstance(model_results_file, str):
@@ -197,6 +270,14 @@ class GraphicsRenderer(Logger):
         elif self.section_type == 'HE':
             self.table_lookup = [
                 ('furnace_input', ['program_name', ])
+            ]
+        elif self.section_type == 'CE_a':
+            self.table_lookup = [
+                ('february_results', ['program_name', ])
+            ]
+        elif self.section_type == 'CE_b':
+            self.table_lookup = [
+                ('annual_sums_means', ['program_name', ])
             ]
         # dictionary to map file names to clean model names.  This dictionary is filled on data loading.
         self.cleansed_model_names = {}
@@ -271,6 +352,115 @@ class GraphicsRenderer(Logger):
                 'HE220': 'HE220 Setback Thermostat',
                 'HE230': 'HE230 Undersized Furnace'
             }
+        elif self.section_type == 'CE_a':
+            self.case_map = {
+                'CE100': 'CE100 dry lo IDB hi ODB',
+                'CE110': 'CE110 as 100 lo ODB',
+                'CE120': 'CE120 as 100 hi IDB',
+                'CE130': 'CE130 as 100 lo PLR',
+                'CE140': 'CE140 as 130 lo ODB',
+                'CE150': 'CE150 as 110 hi SHR',
+                'CE160': 'CE160 as 150 hi IDB',
+                'CE165': 'CE165 as 150 m IDB m ODB',
+                'CE170': 'CE170 as 150 m SHR m PLR',
+                'CE180': 'CE180 as 150 lo SHR',
+                'CE185': 'CE185 lo SHR hi ODB',
+                'CE190': 'CE190 as 180 lo PLR',
+                'CE195': 'CE195 as 185 lo PLR',
+                'CE200': 'CE200 ARI  PLR=1 hi SHR'
+            }
+        elif self.section_type == 'CE_b':
+            self.case_map = {
+                'CE300': 'CE300',
+                'CE310': 'CE310',
+                'CE320': 'CE320',
+                'CE330': 'CE330',
+                'CE340': 'CE340',
+                'CE350': 'CE350',
+                'CE360': 'CE360',
+                'CE400': 'CE400',
+                'CE410': 'CE410',
+                'CE420': 'CE420',
+                'CE430': 'CE430',
+                'CE440': 'CE440',
+                'CE500': 'CE500',
+                'CE500 May-Sep': 'CE500 May-Sep',
+                'CE510 May-Sep': 'CE510 May-Sep',
+                'CE520': 'CE520',
+                'CE522': 'CE522',
+                'CE525': 'CE525',
+                'CE530': 'CE530',
+                'CE540': 'CE540',
+                'CE545': 'CE545',
+            }
+        self.case_map_max = {
+            'CE300': 'CE300',
+            'CE310': 'CE310',
+            'CE320': 'CE320',
+            'CE330': 'CE330',
+            'CE340': 'CE340',
+            'CE350': 'CE350',
+            'CE360': 'CE360',
+            'CE400': 'CE400',
+            'CE410': 'CE410',
+            'CE420': 'CE420',
+            'CE430': 'CE430',
+            'CE440': 'CE440',
+            'CE500': 'CE500',
+            'CE510': 'CE510',
+            'CE520': 'CE520',
+            'CE522': 'CE522',
+            'CE525': 'CE525',
+            'CE530': 'CE530',
+            'CE540': 'CE540',
+            'CE545': 'CE545',
+        }
+        self.case_map_charts = {
+            'CE300': 'CE300 Base, 15% OA',
+            'CE310': 'CE310 High Latent',
+            'CE320': 'CE320 High Infiltration',
+            'CE330': 'CE330 100% OA',
+            'CE340': 'CE340 50% OA, 50% Infl',
+            'CE350': 'CE350 Tstat Set Up',
+            'CE360': 'CE360 Undersized System',
+            'CE400': 'CE400 Ec. Temp. Ctrl.',
+            'CE410': 'CE410 Ec. Comp. Lockout',
+            'CE420': 'CE420 Ec. ODB Limit',
+            'CE430': 'CE430 Ec. Enthalpy Ctrl.',
+            'CE440': 'CE440 Ec. Enthalpy Limit',
+            'CE500': 'CE500 Base w/ 0%OA',
+            'CE500 May-Sep': 'CE500 May-Sep',
+            'CE510': 'CE510 High PLR',
+            'CE510 May-Sep': 'CE510 May-Sep High PLR',
+            'CE520': 'CE520 EDB = 15°C',
+            'CE522': 'CE522 EDB = 20°C',
+            'CE525': 'CE525 EDB = 35°C',
+            'CE530': 'CE530 Dry Coil',
+            'CE540': 'CE540 Dry, EDB = 15°C',
+            'CE545': 'CE545 Dry, EDB = 35°C',
+        }
+        # some test suites do not include the software names of the reference cases using the same term as the column headings
+        if self.section_type == 'CE_a':
+            software_column_name_map = {
+                'doe21e-88': 'DOE-2.1E/CIEMAT',
+                'doe21e-c133': 'DOE-2.1E/NREL',
+                'trnsys-14.02.id': 'TRNSYS-ideal/TUD',
+                'trnsys-14.02.re': 'TRNSYS-real/TUD',
+                'clim2000-2.1.6': 'clim2000/EDF',
+                'ca-sis-v1': 'CA-SIS/EDF',
+                'energyplus-1.0.0.023': 'EnergyPlus/GARD',
+                'analytical-tud-0': 'Analytical/TUD',
+                'analytical-htal1-0': 'Analytical/HTAL1',
+                'analytical-htal2-0': 'Analytical/HTAL2'
+            }
+            for name, json_obj in self.json_data.items():
+                id_info = json_obj['identifying_information']
+                if name in software_column_name_map:
+                    id_info['software_column_name'] = software_column_name_map[name]
+                elif id_info['software_name'] != 'None':
+                    id_info['software_column_name'] = id_info['software_name']
+                else:
+                    id_info['software_column_name'] = name
         return
 
     def _get_data(self):
@@ -686,7 +876,7 @@ class GraphicsRenderer(Logger):
         :param time_stamps: a list of lists where the outer list contains rows and each row list contains time stamps
         :return: merged table (list of lists) containing text for every column and row formatted and merged
         """
-        formatting_string = '{:.' + str(digits) + 'f}'
+        formatting_string = '{:z.' + str(digits) + 'f}'
         if self.section_type == 'TF':
             final_column_headings = column_headings[:-1]
             final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
@@ -695,6 +885,18 @@ class GraphicsRenderer(Logger):
             final_column_headings = column_headings[:-2]
             final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
             final_column_headings.append(column_headings[-2])
+            final_column_headings.append(column_headings[-1])
+        elif self.section_type == 'CE_a':
+            final_column_headings = column_headings[:-4]
+            final_column_headings.extend(['', 'Min', 'Max', 'Dev % $$', ''])
+            final_column_headings.append(column_headings[-4])
+            final_column_headings.append(column_headings[-3])
+            final_column_headings.append(column_headings[-2])
+            final_column_headings.append('')
+            final_column_headings.append(column_headings[-1])
+        elif self.section_type == 'CE_b':
+            final_column_headings = column_headings[:-1]
+            final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
             final_column_headings.append(column_headings[-1])
         text_table_with_stats = [final_column_headings, ]  # list of rows with each row being a list
         for row_index, data_row in enumerate(data_table):
@@ -708,6 +910,14 @@ class GraphicsRenderer(Logger):
                     for item in data_row[:-2]:
                         row.append(formatting_string.format(item))
                     reference_data_row = self._scrub_number_list(data_row[:-2])  # remove the last item which is the tested software
+                elif self.section_type == 'CE_a':
+                    for item in data_row[:-4]:
+                        row.append(formatting_string.format(item))
+                    reference_data_row = self._scrub_number_list(data_row[:-4])  # remove the last item which is the tested software
+                elif self.section_type == 'CE_b':
+                    for item in data_row[:-1]:
+                        row.append(formatting_string.format(item))
+                    reference_data_row = self._scrub_number_list(data_row[:-1])  # remove the last item which is the tested software
                 row.append('')
                 row_min = min(reference_data_row)
                 row.append(formatting_string.format(row_min))
@@ -717,11 +927,16 @@ class GraphicsRenderer(Logger):
                 if self.section_type == 'HE' and 'HE1' in row_headings[row_index]:
                     row_mean = data_row[-2]  # substitute the analytical value for mean
                     row.append('')  # leave the "mean" column empty
+                elif self.section_type == 'CE_a':
+                    row_mean = sum(data_row[-4:-1]) / 3  # use the average of the three analytical test results
                 else:
                     row.append(formatting_string.format(row_mean))
                 if row_mean != 0:
                     row_dev = abs((row_max - row_min) / row_mean) * 100
-                    row.append('{:.1f}'.format(row_dev))
+                    if row_dev < 250:
+                        row.append('{:.1f}'.format(row_dev))
+                    else:
+                        row.append('-')
                 else:
                     row.append('-')
                 row.append('')
@@ -729,6 +944,14 @@ class GraphicsRenderer(Logger):
                     row.append(formatting_string.format(data_row[-1]))  # now add the last column back
                 elif self.section_type == 'HE':
                     row.append(formatting_string.format(data_row[-2]))  # now add the last column back
+                    row.append(formatting_string.format(data_row[-1]))  # now add the last column back
+                elif self.section_type == 'CE_a':
+                    row.append(formatting_string.format(data_row[-4]))
+                    row.append(formatting_string.format(data_row[-3]))
+                    row.append(formatting_string.format(data_row[-2]))
+                    row.append('')
+                    row.append(formatting_string.format(data_row[-1]))
+                elif self.section_type == 'CE_b':
                     row.append(formatting_string.format(data_row[-1]))  # now add the last column back
             text_table_with_stats.append(row)
         # now add the rows with time stamps
@@ -831,7 +1054,50 @@ class GraphicsRenderer(Logger):
         df = pd.DataFrame(table_with_row_headings, columns=column_headings)
         fig = px.bar(df, x="Case", y=column_headings[1:], text_auto='.2f')
         fig.update_layout(barmode='group', title=dict(text=caption, font=dict(size=25), xanchor='center', x=0.5),
-                          yaxis_title=yaxis_title, xaxis_title="")
+                          yaxis_title=yaxis_title, xaxis_title="", legend_title=None)
+        # fig.show() # for debugging purposes shows the figure in the browser
+        # fig.write_html(file_name + '.html') # save the interactive version of the chart
+        fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
+
+    def _create_plotly_line(self, file_name, table, row_headings, column_headings, yaxis_title, caption,
+                            xaxis_title=""):
+        """"
+        Create a plotly bar chart from a data table.
+
+        :param file_name: name of the figure to be used as a file name without any extension
+        :param table: a list of list data without headings
+        :param row_headings: a list of headings for each row of the table
+        :param column_headings: a list of headings for each colum of the table
+        :param yaxis_title: a string for the title of the y-axis
+        :param caption: the caption to be used as the title of the chart
+        """
+        program_name = self.model_results_file.parts[-3].lower()
+        version = self.model_results_file.parts[-2].lower()
+        destination_directory = root_directory.joinpath('rendered', 'images')
+        img_directory = destination_directory.joinpath(
+            program_name,
+            version,
+            'images')
+        pathlib.Path(img_directory).mkdir(parents=True, exist_ok=True)
+        img_name = img_directory.joinpath(
+            '.'.join(
+                [
+                    '-'.join(
+                        [
+                            self.model_results_file.stem,
+                            file_name,
+                        ]),
+                    'png'
+                ]))
+        table_with_row_headings = []
+        for count, row in enumerate(table):
+            row_with_heading = [row_headings[count], ]
+            row_with_heading.extend(row)
+            table_with_row_headings.append(row_with_heading)
+        df = pd.DataFrame(table_with_row_headings, columns=column_headings)
+        fig = px.line(df, x="Hour", y=column_headings[1:], markers=True)
+        fig.update_layout(barmode='group', title=dict(text=caption, font=dict(size=25), xanchor='center', x=0.5),
+                          yaxis_title=yaxis_title, xaxis_title=xaxis_title, legend_title=None)
         # fig.show() # for debugging purposes shows the figure in the browser
         # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
@@ -7787,3 +8053,1967 @@ class GraphicsRenderer(Logger):
         self._make_markdown_from_table(figure_name, caption, text_table_with_stats, footnotes)
         self._create_plotly_bar(figure_name, data_table, row_headings, column_headings, yaxis_name, figure_caption)
         return
+
+    def render_section_ce_a_table_b16_5_1_01a(self):
+        table_name = 'section_9_table_b16_5_1_01a'
+        table_caption = 'Table B16.5.1-1a. Space Cooling Energy Consumption - Total (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_04'
+        chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['cooling_energy_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01b(self):
+        table_name = 'section_9_table_b16_5_1_01b'
+        table_caption = 'Table B16.5.1-1b. Space Cooling Energy Consumption - Compressor (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_06'
+        chart_caption = 'Figure B16.5.1-6. HVAC BESTEST: Compressor Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['cooling_energy_compressor_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01c(self):
+        table_name = 'section_9_table_b16_5_1_01c'
+        table_caption = 'Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_08'
+        chart_caption = 'Figure B16.5.1-8. HVAC BESTEST: Total Indoor (Supply) Fan Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['supply_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_01d(self):
+        table_name = 'section_9_table_b16_5_1_01d'
+        table_caption = 'Table B16.5.1-1d. Space Cooling Energy Consumption - Condenser Fan (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_10'
+        chart_caption = 'Figure B16.5.1-10. HVAC BESTEST: Outdoor (Condenser) Fan Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['condenser_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_02a(self):
+        table_name = 'section_9_table_b16_5_1_02a'
+        table_caption = 'Table B16.5.1-2a. COP Mean'
+        chart_name = 'section_9_figure_b16_5_1_01'
+        chart_caption = 'Figure B16.5.1-1. HVAC BESTEST: Mean COP'
+        yaxis_name = 'COP'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['feb_mean_cop'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_02b(self):
+        table_name = 'section_9_table_b16_5_1_02b'
+        table_caption = 'Table B16.5.1-2b. COP (Max-Min)/Mean'
+        chart_name = 'section_9_figure_b16_5_1_02'
+        chart_caption = 'Figure B16.5.1-2. HVAC BESTEST: (Maximum - Minimum)/Mean COP'
+        yaxis_name = 'Fractional Variation'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                min_value = json_obj['main_table'][case]['feb_min_cop']
+                max_value = json_obj['main_table'][case]['feb_max_cop']
+                mean_value = json_obj['main_table'][case]['feb_mean_cop']
+                if math.isnan(min_value) or math.isnan(max_value) or math.isnan(mean_value):
+                    row.append(math.nan)
+                else:
+                    row.append((max_value - min_value) / mean_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_03a(self):
+        table_name = 'section_9_table_b16_5_1_03a'
+        table_caption = 'Table B16.5.1-3a. Coil Loads, Total (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_12'
+        chart_caption = 'Figure B16.5.1-12. HVAC BESTEST: Total Coil Load'
+        yaxis_name = 'Load (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['evaporator_load_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_03b(self):
+        table_name = 'section_9_table_b16_5_1_03b'
+        table_caption = 'Table B16.5.1-3b. Coil Loads, Sensible (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_14'
+        chart_caption = 'Figure B16.5.1-14. HVAC BESTEST: Sensible Coil Load'
+        yaxis_name = 'Load (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['evaporator_load_sensible_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_03c(self):
+        table_name = 'section_9_table_b16_5_1_03c'
+        table_caption = 'Table B16.5.1-3c. Coil Loads, Latent (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_16'
+        chart_caption = 'Figure B16.5.1-16. HVAC BESTEST: Latent Coil Load'
+        yaxis_name = 'Load (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['evaporator_load_latent_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_04(self):
+        table_name = 'section_9_table_b16_5_1_04'
+        table_caption = 'Table B16.5.1-4. Sensible Coil Load minus Zone Load (Fan Heat) (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_25'
+        chart_caption = 'Figure B16.5.1-25. HVAC BESTEST: Sensible Coil Load - Zone Load (Fan Heat)'
+        yaxis_name = 'Load (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                sensible_coil_value = json_obj['main_table'][case]['evaporator_load_sensible_kWh']
+                zone_load_value = json_obj['main_table'][case]['envelope_load_sensible_kWh']
+                if math.isnan(sensible_coil_value) or math.isnan(zone_load_value):
+                    row.append(math.nan)
+                else:
+                    row.append(sensible_coil_value - zone_load_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_05a(self):
+        table_name = 'section_9_table_b16_5_1_05a'
+        table_caption = 'Table B16.5.1-5a. Zone Loads, Total (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_22'
+        chart_caption = 'Figure B16.5.1-22. HVAC BESTEST: Total Zone Load'
+        yaxis_name = 'Load (Wh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['envelope_load_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_05b(self):
+        table_name = 'section_9_table_b16_5_1_05b'
+        table_caption = 'Table B16.5.1-5b. Zone Loads, Sensible (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_23'
+        chart_caption = 'Figure B16.5.1-23. HVAC BESTEST: Sensible Zone Load'
+        yaxis_name = 'Load (Wh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['envelope_load_sensible_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_05c(self):
+        table_name = 'section_9_table_b16_5_1_05c'
+        table_caption = 'Table B16.5.1-5c. Zone Loads, Latent (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_24'
+        chart_caption = 'Figure B16.5.1-24. HVAC BESTEST: Latent Zone Load'
+        yaxis_name = 'Load (Wh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['envelope_load_latent_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_06(self):
+        table_name = 'section_9_table_b16_5_1_06'
+        table_caption = 'Table B16.5.1-6. Latent Coil Load minus Zone Load (Should be 0) (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_26'
+        chart_caption = 'Figure B16.5.1-26. HVAC BESTEST: Latent Coil Load - Latent Zone Load (Should = 0)'
+        yaxis_name = 'Load (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                latent_coil_value = json_obj['main_table'][case]['evaporator_load_latent_kWh']
+                zone_load_value = json_obj['main_table'][case]['envelope_load_latent_kWh']
+                if math.isnan(latent_coil_value) or math.isnan(zone_load_value):
+                    row.append(math.nan)
+                else:
+                    row.append(latent_coil_value - zone_load_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_07a(self):
+        table_name = 'section_9_table_b16_5_1_07a'
+        table_caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricty Consumption Delta Qtot (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_05'
+        chart_caption = 'Figure B16.5.1-5. HVAC BESTEST: Total Space Cooling Electricity Sensitivies'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['cooling_energy_total_kWh']
+                case_b_value = json_obj['main_table'][case_b]['cooling_energy_total_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_07b(self):
+        table_name = 'section_9_table_b16_5_1_07b'
+        table_caption = 'Table B16.5.1-7b. Sensitivities for Space Cooling Electricity Consumption Delta Qcomp (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_07'
+        chart_caption = 'Figure B16.5.1-7. HVAC BESTEST: Total Compressor Electricity Sensitivities'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['cooling_energy_compressor_kWh']
+                case_b_value = json_obj['main_table'][case_b]['cooling_energy_compressor_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_07c(self):
+        table_name = 'section_9_table_b16_5_1_07c'
+        table_caption = 'Table B16.5.1-7c. Sensitivities for Space Cooling Electricity Consumption Delta Q IDfan (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_09'
+        chart_caption = 'Figure B16.5.1-9. HVAC BESTEST: Indoor (Supply) Fan Electricity Sensitivities'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['supply_fan_kWh']
+                case_b_value = json_obj['main_table'][case_b]['supply_fan_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_07d(self):
+        table_name = 'section_9_table_b16_5_1_07d'
+        table_caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricty Consumption Delta Q ODfan (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_1_11'
+        chart_caption = 'Figure B16.5.1-11. HVAC BESTEST: Outdoor (Condenser) Fan Electricity Sensitivities'
+        yaxis_name = 'delta Electricity Consumption  (kWh)'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['condenser_fan_kWh']
+                case_b_value = json_obj['main_table'][case_b]['condenser_fan_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_08a(self):
+        table_name = 'section_9_table_b16_5_1_08a'
+        table_caption = 'Table B16.5.1-8a. Sensitivities Delta COP (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_03'
+        chart_caption = 'Figure B16.5.1-3. HVAC BESTEST: Mean COP Sensitivities'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        yaxis_name = 'delta COP'
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['feb_mean_cop']
+                case_b_value = json_obj['main_table'][case_b]['feb_mean_cop']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_08b(self):
+        table_name = 'section_9_table_b16_5_1_08b'
+        table_caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Delta Total (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_13'
+        chart_caption = 'Figure B16.5.1-13. HVAC BESTEST: Total Coil Load Sensitivities'
+        yaxis_name = 'delta Load  (kWh thermal)'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['evaporator_load_total_kWh']
+                case_b_value = json_obj['main_table'][case_b]['evaporator_load_total_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_08c(self):
+        table_name = 'section_9_table_b16_5_1_08c'
+        table_caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Delta Sensible (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_15'
+        chart_caption = 'Figure B16.5.1-15. HVAC BESTEST: Sensible Coil Load Sensitivities'
+        yaxis_name = 'delta Load  (kWh thermal)'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['evaporator_load_sensible_kWh']
+                case_b_value = json_obj['main_table'][case_b]['evaporator_load_sensible_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_08d(self):
+        table_name = 'section_9_table_b16_5_1_08d'
+        table_caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Delta Latent (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_1_17'
+        chart_caption = 'Figure B16.5.1-17. HVAC BESTEST: Latent Coil Load Sensitivities'
+        yaxis_name = 'delta Load  (kWh thermal)'
+        sensitivity_cases = [
+            ('CE110', 'CE100', 'ODB'),
+            ('CE120', 'CE110', 'IDB'),
+            ('CE120', 'CE100', 'IDB+ODB'),
+            ('CE130', 'CE100', 'PLR'),
+            ('CE140', 'CE130', 'ODB @lowPLR'),
+            ('CE140', 'CE110', 'PLR @loODB'),
+            ('CE150', 'CE110', 'hiSHR v. dry'),
+            ('CE160', 'CE150', 'IDB @hiSHR'),
+            ('CE165', 'CE160', 'IDB+ODB @hiSH'),
+            ('CE170', 'CE150', 'sens x 0.39'),
+            ('CE180', 'CE150', 'SHR'),
+            ('CE180', 'CE170', 'lat x 4'),
+            ('CE185', 'CE180', 'ODB @loSHR'),
+            ('CE190', 'CE180', 'PLR @loSHR'),
+            ('CE190', 'CE140', 'lat @loPLR'),
+            ('CE195', 'CE190', 'ODB @loPLloSH'),
+            ('CE195', 'CE185', 'PLR @loSHR'),
+            ('CE195', 'CE130', 'lat @loPLR'),
+            ('CE200', 'CE100', 'ARI v dry'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in sensitivity_cases]
+        chart_row_headings = [c[0] + '-' + c[1] + ' ' + c[2] for c in sensitivity_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for (case_a, case_b, _) in sensitivity_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_a_value = json_obj['main_table'][case_a]['evaporator_load_latent_kWh']
+                case_b_value = json_obj['main_table'][case_b]['evaporator_load_latent_kWh']
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_09a(self):
+        table_name = 'section_9_table_b16_5_1_09a'
+        table_caption = 'Table B16.5.1-9a. Indoor Drybulb Temperature: Mean (C)'
+        chart_name = 'section_9_figure_b16_5_1_18'
+        chart_caption = 'Figure B16.5.1-18. HVAC BESTEST: Mean Indoor Drybulb Temperature'
+        yaxis_name = 'Temperature (C)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['feb_mean_idb_c'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=1)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_09b(self):
+        table_name = 'section_9_table_b16_5_1_09b'
+        table_caption = 'Table B16.5.1-9b. Indoor Drybulb Temperature (Max-Min)/Mean'
+        chart_name = 'section_9_figure_b16_5_1_19'
+        chart_caption = 'Figure B16.5.1-19. HVAC BESTEST: (Maximum - Minimum)/Mean Indoor Drybulb Temperature'
+        yaxis_name = 'Fractional Variation'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                min_value = json_obj['main_table'][case]['feb_min_idb_c']
+                max_value = json_obj['main_table'][case]['feb_max_idb_c']
+                mean_value = json_obj['main_table'][case]['feb_mean_idb_c']
+                if math.isnan(min_value) or math.isnan(max_value) or math.isnan(mean_value):
+                    row.append(math.nan)
+                else:
+                    row.append((max_value - min_value) / mean_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_10a(self):
+        table_name = 'section_9_table_b16_5_1_10a'
+        table_caption = 'Table B16.5.1-10a. Humidity Ratio: Mean'
+        chart_name = 'section_9_figure_b16_5_1_20'
+        chart_caption = 'Figure B16.5.1-20. HVAC BESTEST: Mean Indoor Humidity Ratio'
+        yaxis_name = 'Humidity Ratio (kg/kg)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['main_table'][case]['feb_mean_hum_ratio_kg_kg'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=4)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_a_table_b16_5_1_10b(self):
+        table_name = 'section_9_table_b16_5_1_10b'
+        table_caption = 'Table B16.5.1-10b. Humidity Ratio (Max-Min)/Mean'
+        chart_name = 'section_9_figure_b16_5_1_21'
+        chart_caption = 'Figure B16.5.1-21. HVAC BESTEST: (Maximum - Minimum)/Mean Indoor Humidity Ratio'
+        yaxis_name = 'Fractional Variation'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Analytical Solutions)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_column_name'])
+        for case in self.case_map.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                min_value = json_obj['main_table'][case]['feb_min_hum_ratio_kg_kg']
+                max_value = json_obj['main_table'][case]['feb_max_hum_ratio_kg_kg']
+                mean_value = json_obj['main_table'][case]['feb_mean_hum_ratio_kg_kg']
+                if math.isnan(min_value) or math.isnan(max_value) or math.isnan(mean_value):
+                    row.append(math.nan)
+                else:
+                    row.append((max_value - min_value) / mean_value)
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_01a(self):
+        table_name = 'section_9_table_b16_5_2_01a'
+        table_caption = 'Table B16.5.2-1a. Annual Space Cooling Electricity Consumption - Total (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_2_01'
+        chart_caption = 'Figure B16.5.2-1. HVAC BESTEST: CE300 - CE545 Annual Total Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['cooling_energy_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_01b(self):
+        table_name = 'section_9_table_b16_5_2_01b'
+        table_caption = 'Table B16.5.2-1b. Annual Space Cooling Electricity Consumption - Compressor (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_2_05'
+        chart_caption = 'Figure B16.5.2-5. HVAC BESTEST: CE300 - CE545 Annual Compressor Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['cooling_energy_compressor_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_02a(self):
+        table_name = 'section_9_table_b16_5_2_02a'
+        table_caption = 'Table B16.5.2-2a. Annual Space Cooling Electricity Consumption - Supply Fan (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_2_07'
+        chart_caption = 'Figure B16.5.2-7. HVAC BESTEST: CE300 - CE545 Annual Indoor (Supply) Fan Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['indoor_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_02b(self):
+        table_name = 'section_9_table_b16_5_2_02b'
+        table_caption = 'Table B16.5.2-2b. Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,electrical)'
+        chart_name = 'section_9_figure_b16_5_2_09'
+        chart_caption = 'Figure B16.5.2-9. HVAC BESTEST: CE300 - CE545 Annual Outdoor (Condenser) Fan Electricity Consumption'
+        yaxis_name = 'Electricity Consumption  (kWh)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['condenser_fan_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_03a(self):
+        table_name = 'section_9_table_b16_5_2_03a'
+        table_caption = 'Table B16.5.2-3a. Weather Data Checks, CE300 Only, Annual Outdoor Dry Bulb'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_info = {
+            'ODB-Mean':
+                {'heading': 'Mean (C)',
+                 'table': 'annual_means_ce300',
+                 'keyname': 'outdoor_drybulb_c'},
+            'ODB-Max':
+                {'heading': 'Hourly Integrated Maxima (C)',
+                 'table': 'annual_weather_data_ce300',
+                 'keyname': 'outdoor_drybulb_max_c'},
+        }
+        row_headings = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for k, v in row_info.items():
+            row = []
+            row_headings.append(v['heading'])
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj[v['table']][v['keyname']])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_b_table_b16_5_2_03b(self):
+        table_name = 'section_9_table_b16_5_2_03b'
+        table_caption = 'Table B16.5.2-3b. Weather Data Checks, CE300 Only, Annual Outdoor Humidity Ratio'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_info = {
+            'OHR-Mean':
+                {'heading': 'Mean (kg/kg)',
+                 'table': 'annual_means_ce300',
+                 'keyname': 'outdoor_humidity_ratio_kg_kg'},
+            'OHR-Max':
+                {'heading': 'Hourly Integrated Maxima (kg/kg)',
+                 'table': 'annual_weather_data_ce300',
+                 'keyname': 'outdoor_humidity_ratio_max_kg_kg'},
+        }
+        row_headings = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for k, v in row_info.items():
+            row = []
+            row_headings.append(v['heading'])
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj[v['table']][v['keyname']])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=5)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_b_table_b16_5_2_04a(self):
+        table_name = 'section_9_table_b16_5_2_04a'
+        table_caption = 'Table B16.5.2-4a. Annual Space Cooling Coil Loads - Total Sensible + Latent (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_2_11'
+        chart_caption = 'Figure B16.5.2-11. HVAC BESTEST: CE300 - CE545 Annual Total Coil Load'
+        yaxis_name = 'Load  (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['evaporator_load_total_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_04b(self):
+        table_name = 'section_9_table_b16_5_2_04b'
+        table_caption = 'Table B16.5.2-4b. Annual Space Cooling Coil Loads - Sensible (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_2_14'
+        chart_caption = 'Figure B16.5.2-14. HVAC BESTEST: CE300 - CE545 Annual Sensible Coil Load'
+        yaxis_name = 'Load  (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['evaporator_load_sensible_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_05(self):
+        table_name = 'section_9_table_b16_5_2_05'
+        table_caption = 'Table B16.5.2-5. Annual Space Cooling Coil Loads - Latent (kWh,thermal)'
+        chart_name = 'section_9_figure_b16_5_2_17'
+        chart_caption = 'Figure B16.5.2-17. HVAC BESTEST: CE300 - CE545 Annual Latent Coil Load'
+        yaxis_name = 'Load  (kWh thermal)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['evaporator_load_latent_kWh'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=0)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_06a(self):
+        table_name = 'section_9_table_b16_5_2_06a'
+        table_caption = 'Table B16.5.2-6a. Various Annual Means - COP2'
+        chart_name = 'section_9_figure_b16_5_2_21'
+        chart_caption = 'Figure B16.5.2-21. HVAC BESTEST: CE300 - CE545 Annual Mean COP2'
+        yaxis_name = 'COP2'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['cop2'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=3)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_06b(self):
+        table_name = 'section_9_table_b16_5_2_06b'
+        table_caption = 'Table B16.5.2-6b. Various Annual Means - Indoor Dry Bulb (C)'
+        chart_name = 'section_9_figure_b16_5_2_27'
+        chart_caption = 'Figure B16.5.2-27. HVAC BESTEST: CE300 - CE545 Annual Mean Indoor Dry-Bulb Temperature'
+        yaxis_name = 'Temperature (C)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['indoor_dry_bulb_c'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_07a(self):
+        table_name = 'section_9_table_b16_5_2_07a'
+        table_caption = 'Table B16.5.2-7a. Various Annual Means - Zone Humidity Ratio (kg/kg)'
+        chart_name = 'section_9_figure_b16_5_2_32'
+        chart_caption = 'Figure B16.5.2-32. HVAC BESTEST: CE300 - CE545 Annual Mean Zone Humidity Ratio'
+        yaxis_name = 'Humidity Ratio (kg/kg)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['zone_humidity_ratio_kg_kg'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=4)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_07b(self):
+        table_name = 'section_9_table_b16_5_2_07b'
+        table_caption = 'Table B16.5.2-7b. Various Annual Means - Zone Relative Humidity (%)'
+        chart_name = 'section_9_figure_b16_5_2_37'
+        chart_caption = 'Figure B16.5.2-37. HVAC BESTEST: CE300 - CE545 Annual Mean Relative Humidity'
+        yaxis_name = 'Relative Humidity (%)'
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map.keys():
+            if case == 'E510':
+                continue
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['annual_sums_means'][case]['zone_relative_humidity_perc'])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE510 High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        # self._create_plotly_line('section_9_line_b16_5_2_37', data_table, chart_row_headings, column_headings, yaxis_name, chart_caption)
+        return
+
+    def general_ce_b_table_08_09(self, table_letter, caption_end, json_key, sig_digits, chart_code='', yaxis=''):
+        """Function that handles any table from ce_b 8 or 9 """
+        table_name = f'section_9_table_b16_5_2_0{table_letter}'
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
+        table_caption = (f'Table B16.5.2-{table_letter}. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
+                         f'{caption_end}')
+        chart_caption = (f'Figure B16.5.2-{chart_code}. HVAC BESTEST: f(ODB) for CE500, CE530'
+                         f'<br>Specific Day {caption_end}')
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for test_name in ['ce500', 'ce530']:
+            april_30_row = []
+            june_25_row = []
+            diff_row = []
+            for tst, json_obj in self.json_data.items():
+                april_30_value = json_obj[test_name + '_avg_daily']['April 30'][json_key]
+                june_25_value = json_obj[test_name + '_avg_daily']['June 25'][json_key]
+                diff_value = june_25_value - april_30_value
+                april_30_row.append(april_30_value)
+                june_25_row.append(june_25_value)
+                diff_row.append(diff_value)
+            data_table.append(april_30_row)
+            data_table.append(june_25_row)
+            data_table.append(diff_row)
+            row_headings.append(test_name.upper() + ' April 30')
+            row_headings.append(test_name.upper() + ' June 25')
+            row_headings.append('Delta ' + test_name.upper())
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        if chart_code and yaxis:
+            self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_table_b16_5_2_08a(self):
+        self.general_ce_b_table_08_09('8a', 'Energy Consumption, Compressor + Both Fans (Wh,electrical)',
+                                      'cooling_energy_total_kWh', 0,
+                                      '42a', 'Consumption (Wh/h)')
+        return
+
+    def render_section_ce_b_table_b16_5_2_08b(self):
+        self.general_ce_b_table_08_09('8b', 'Energy Consumption, Compressor (Wh,electrical)',
+                                      'cooling_energy_compressor_kWh', 0)
+        return
+
+    def render_section_ce_b_table_b16_5_2_08c(self):
+        self.general_ce_b_table_08_09('8c', 'Energy Consumption, Condenser Fan (Wh,electrical)',
+                                      'condenser_fan_kWh', 0,
+                                      '42b', 'Consumption (Wh/h)')
+        return
+
+    def render_section_ce_b_table_b16_5_2_08d(self):
+        self.general_ce_b_table_08_09('8d', 'Energy Consumption, Supply Fan (Wh,electrical)',
+                                      'indoor_fan_kWh', 0,
+                                      '42c', 'Consumption (Wh/h)')
+        return
+
+    def render_section_ce_b_table_b16_5_2_08e(self):
+        self.general_ce_b_table_08_09('8e', 'Sensible + Latent Coil Load (Wh,thermal)',
+                                      'evaporator_load_total_kWh', 0,
+                                      '43a', 'Daily Load (Wh/h thermal)')
+        return
+
+    def render_section_ce_b_table_b16_5_2_08f(self):
+        self.general_ce_b_table_08_09('8f', 'Sensible Coil Load (Wh,thermal)',
+                                      'evaporator_load_sensible_kWh', 0,
+                                      '43b', 'Daily Load (Wh/h thermal)')
+        return
+
+    def render_section_ce_b_table_b16_5_2_08g(self):
+        self.general_ce_b_table_08_09('8g', 'Latent Coil Load (Wh,thermal)',
+                                      'evaporator_load_latent_kWh', 0,
+                                      '43c', 'Daily Load (Wh/h thermal)')
+        return
+
+    def render_section_ce_b_table_b16_5_2_09a(self):
+        self.general_ce_b_table_08_09('9a', 'Humidity Ratio (kg/kg)',
+                                      'zone_humidity_ratio_kg_kg', 4,
+                                      '45', 'Humidity Ratio (kg/kg)')
+        return
+
+    def render_section_ce_b_table_b16_5_2_09b(self):
+        self.general_ce_b_table_08_09('9b', 'COP2',
+                                      'cop2', 3,
+                                      '44', 'COP2')
+        return
+
+    def render_section_ce_b_table_b16_5_2_09c(self):
+        self.general_ce_b_table_08_09('9c', 'ODB (C)',
+                                      'outdoor_drybulb_c', 2)
+        return
+
+    def render_section_ce_b_table_b16_5_2_09d(self):
+        self.general_ce_b_table_08_09('9d', 'EDB (C)',
+                                      'entering_drybulb_c', 2)
+        return
+
+    def general_ce_b_table_max_min(self, include_min, table_letter, caption_end, json_dict, json_key, key_suffix,
+                                   sig_digits):
+        table_name = f'section_9_table_b16_5_2_{table_letter}'
+        maxmin = 'Maxima'
+        if include_min:
+            maxmin = 'Maxima and Minima'
+        table_caption = f'Table B16.5.2-{table_letter}. Hourly Integrated {maxmin} {caption_end}'
+        data_table = []
+        time_stamp_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = list(self.case_map_max.values())
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map_max.keys():
+            row = []
+            time_stamp_row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj[json_dict][case]
+                row.append(case_json[f'{json_key}_{key_suffix}'])
+                month = self._int_0_if_nan(case_json[f'{json_key}_month'])
+                day = self._int_0_if_nan(case_json[f'{json_key}_day'])
+                hour = self._int_0_if_nan(case_json[f'{json_key}_hour'])
+                time_stamp_row.append(f'{month} {day}-{hour}')
+            data_table.append(row)
+            time_stamp_table.append(time_stamp_row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits,
+                                                         time_stamps=time_stamp_table)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_b_table_b16_5_2_10a(self):
+        self.general_ce_b_table_max_min(False, '10a',
+                                        'Total Cooling Energy Consumption, Compressor + Both Fans (Wh,electrical)',
+                                        'annual_load_maxima', 'compressors_plus_fans', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_10b(self):
+        self.general_ce_b_table_max_min(False, '10b',
+                                        'Total Coil Load - Sensible + Latent Coil Load  (Wh,thermal)',
+                                        'annual_load_maxima', 'evaporator_total', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_11a(self):
+        self.general_ce_b_table_max_min(False, '11a',
+                                        'Sensible Coil Load  (Wh,thermal)',
+                                        'annual_load_maxima', 'evaporator_sensible', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_11b(self):
+        self.general_ce_b_table_max_min(False, '11b',
+                                        'Latent Coil Load  (Wh,thermal)',
+                                        'annual_load_maxima', 'evaporator_latent', 'Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_12a(self):
+        self.general_ce_b_table_max_min(True, '12a',
+                                        '- Maximum COP2',
+                                        'annual_cop_zone', 'cop2_max', 'value', 3)
+
+    def render_section_ce_b_table_b16_5_2_12b(self):
+        self.general_ce_b_table_max_min(True, '12b',
+                                        '- Minimum COP2',
+                                        'annual_cop_zone', 'cop2_min', 'value', 3)
+
+    def render_section_ce_b_table_b16_5_2_13a(self):
+        self.general_ce_b_table_max_min(True, '13a',
+                                        '- Maximum Indoor Dry Bulb (C)',
+                                        'annual_cop_zone', 'indoor_db_max', 'c', 2)
+
+    def render_section_ce_b_table_b16_5_2_13b(self):
+        self.general_ce_b_table_max_min(True, '13b',
+                                        '- Minimum Indoor Dry Bulb (C)',
+                                        'annual_cop_zone', 'indoor_db_min', 'c', 2)
+
+    def render_section_ce_b_table_b16_5_2_14a(self):
+        self.general_ce_b_table_max_min(True, '14a',
+                                        '- Maximum Zone Humidity Ratio (kg/kg)',
+                                        'annual_cop_zone', 'indoor_hum_rat_max', 'kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_14b(self):
+        self.general_ce_b_table_max_min(True, '14b',
+                                        '- Minimum Zone Humidity Ratio (kg/kg)',
+                                        'annual_cop_zone', 'indoor_hum_rat_min', 'kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_15a(self):
+        self.general_ce_b_table_max_min(True, '15a',
+                                        '- Maximum Relative Humidity (%)',
+                                        'annual_cop_zone', 'indoor_rel_hum_max', 'perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_15b(self):
+        self.general_ce_b_table_max_min(True, '15b',
+                                        '- Minimum Relative Humidity (%)',
+                                        'annual_cop_zone', 'indoor_rel_hum_min', 'perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_16(self):
+        # unlike almost all other table rendering methods, this one generates one table for each
+        # software and so it is set up very different looping through the software
+        for index, (_, json_obj) in enumerate(self.json_data.items()):
+            table_letter = chr(index + 97)
+            table_name = f'section_9_table_b16_5_2_16{table_letter}'
+            software_name = json_obj['identifying_information']['software_name']
+            table_caption = f'Table B16.5.2-16{table_letter}. June 28 Hourly Output - Case CE300 - {software_name}'
+            data_table = []
+            column_dict = {'Compressor (Wh)': ('compressor_Wh', 0),
+                           'Condenser Fan (Wh)': ('condenser_fans_Wh', 0),
+                           'Evaporator Total (Wh)': ('evaporator_total_Wh', 0),
+                           'Evaporator Sensible (Wh)': ('evaporator_sensible_Wh', 0),
+                           'Evaporator Latent (Wh)': ('evaporator_latent_Wh', 0),
+                           'Zone Humidity Ratio (kg/kg)': ('zone_humidity_ratio_kg_kg', 4),
+                           'COP2': ('cop2', 3),
+                           'Outdoor Drybulb (C)': ('outdoor_drybulb_c', 2),
+                           'Entering Drybulb (C)': ('entering_drybulb_c', 2),
+                           'Entering Wetbulb (C)': ('entering_wetbulb_c', 2),
+                           'Outdoor Humidity Ratio (kg/kg)': ('outdoor_humidity_ratio_kg_kg', 4),
+                           }
+            column_headings = ['Hour', ]
+            column_headings.extend(column_dict.keys())
+            for hour in range(1, 25):
+                row = [str(hour), ]
+                for json_key, _ in column_dict.values():
+                    row.append(json_obj['june28_hourly'][str(hour)][json_key])
+                data_table.append(row)
+            formatted_table = [column_headings, ]
+            for data_row in data_table:
+                formatted_row = [data_row[0], ]
+                for column_index, (_, digits) in enumerate(column_dict.values()):
+                    formatting_string = '{:.' + str(digits) + 'f}'
+                    formatted_row.append(formatting_string.format(data_row[column_index + 1]))
+                formatted_table.append(formatted_row)
+#             text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=2)
+            self._make_markdown_from_table(table_name, table_caption, formatted_table, '')
+        return
+
+    def general_ce_b_table_delta(self, table_code, caption_end, json_dict, json_key, sig_digits):
+        table_name = f'section_9_table_b16_5_2_{table_code}'
+        table_caption = f'Table B16.5.2-{table_code}. Delta {caption_end}'
+        delta_cases = [
+            ('CE310', 'CE300', 'CE310', 'CE300'),
+            ('CE320', 'CE300', 'CE320', 'CE300'),
+            ('CE330', 'CE300', 'CE330', 'CE300'),
+            ('CE330', 'CE320', 'CE330', 'CE320'),
+            ('CE340', 'CE300', 'CE340', 'CE300'),
+            ('CE330', 'CE340', 'CE330', 'CE340'),
+            ('CE350', 'CE300', 'CE350', 'CE300'),
+            ('CE360', 'CE300', 'CE360', 'CE300'),
+            ('CE400', 'CE300', 'CE400', 'CE300'),
+            ('CE410', 'CE300', 'CE410', 'CE300'),
+            ('CE420', 'CE300', 'CE420', 'CE300'),
+            ('CE430', 'CE300', 'CE430', 'CE300'),
+            ('CE440', 'CE300', 'CE440', 'CE300'),
+            ('CE500', 'CE300', 'CE500', 'CE300'),
+            ('CE510', 'CE500', 'CE510 May-Sep', 'CE500 May-Sep'),
+            ('CE525', 'CE520', 'CE525', 'CE520'),
+            ('CE530', 'CE500', 'CE530', 'CE500'),
+            ('CE545', 'CE540', 'CE545', 'CE540'),
+        ]
+        data_table = []
+        footnotes = ['$$ ABS[ (Max-Min) / (Mean of Example Simulation Results)]', ]
+        row_headings = [c[0] + '-' + c[1] for c in delta_cases]
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case_a, case_b, case_a_lookup, case_b_lookup in delta_cases:
+            row = []
+            for tst, json_obj in self.json_data.items():
+                if json_dict != 'annual_sums_means':
+                    case_a_lookup = case_a_lookup[:5]
+                    case_b_lookup = case_b_lookup[:5]
+                case_a_value = json_obj[json_dict][case_a_lookup][json_key]
+                case_b_value = json_obj[json_dict][case_b_lookup][json_key]
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    row.append(float(case_a_value) - float(case_b_value))
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, footnotes)
+        return
+
+    def render_section_ce_b_table_b16_5_2_17a(self):
+        self.general_ce_b_table_delta('17a', 'Annual Space Cooling Electricity Consumption - Total (kWh,electrical)',
+                                      'annual_sums_means', 'cooling_energy_total_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_17b(self):
+        self.general_ce_b_table_delta('17b', 'Annual Space Cooling Electricity Consumption - Compressors (kWh,electrical)',
+                                      'annual_sums_means', 'cooling_energy_compressor_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_18a(self):
+        self.general_ce_b_table_delta('18a', 'Annual Space Cooling Electricity Consumption - Supply Fan (kWh,electrical)',
+                                      'annual_sums_means', 'indoor_fan_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_18b(self):
+        self.general_ce_b_table_delta('18b', 'Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,electrical)',
+                                      'annual_sums_means', 'condenser_fan_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_19a(self):
+        self.general_ce_b_table_delta('19a', 'Annual Cooling Sensible Coil Load (kWh,thermal)',
+                                      'annual_sums_means', 'evaporator_load_sensible_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_19b(self):
+        self.general_ce_b_table_delta('19b', 'Annual Cooling Latent Coil Load (kWh,thermal)',
+                                      'annual_sums_means', 'evaporator_load_latent_kWh', 0)
+
+    def render_section_ce_b_table_b16_5_2_20a(self):
+        self.general_ce_b_table_delta('20a', 'Annual Mean - COP2',
+                                      'annual_sums_means', 'cop2', 3)
+
+    def render_section_ce_b_table_b16_5_2_20b(self):
+        self.general_ce_b_table_delta('20b', 'Annual Mean - Indoor Dry Bulb Temperature (C)',
+                                      'annual_sums_means', 'indoor_dry_bulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_21a(self):
+        self.general_ce_b_table_delta('21a', 'Annual Mean - Zone Humidity Ratio (kg/kg)',
+                                      'annual_sums_means', 'zone_humidity_ratio_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_21b(self):
+        self.general_ce_b_table_delta('21b', 'Annual Mean - Zone Relative Humidity (%)',
+                                      'annual_sums_means', 'zone_relative_humidity_perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_22(self):
+        self.general_ce_b_table_delta('22', 'Hourly Integrated Maximum Total Consumption (Wh,electrical)',
+                                      'annual_load_maxima', 'compressors_plus_fans_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_23a(self):
+        self.general_ce_b_table_delta('23a', 'Hourly Integrated Maximum Total Coil Load (Wh,thermal)',
+                                      'annual_load_maxima', 'evaporator_total_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_23b(self):
+        self.general_ce_b_table_delta('23b', 'Hourly Integrated Maximum Sensible Coil Load (Wh,thermal)',
+                                      'annual_load_maxima', 'evaporator_sensible_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_24(self):
+        self.general_ce_b_table_delta('24', 'Hourly Integrated Maximum Latent Coil Load (Wh,thermal)',
+                                      'annual_load_maxima', 'evaporator_latent_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_25a(self):
+        self.general_ce_b_table_delta('25a', 'Hourly Integrated Maximum COP2',
+                                      'annual_cop_zone', 'cop2_max_value', 3)
+
+    def render_section_ce_b_table_b16_5_2_25b(self):
+        self.general_ce_b_table_delta('25b', 'Hourly Integrated Minimum COP2',
+                                      'annual_cop_zone', 'cop2_min_value', 3)
+
+    def render_section_ce_b_table_b16_5_2_26a(self):
+        self.general_ce_b_table_delta('26a', 'Hourly Integrated Maximum Indoor Dry Bulb Temperature (C)',
+                                      'annual_cop_zone', 'indoor_db_max_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_26b(self):
+        self.general_ce_b_table_delta('26b', 'Hourly Integrated Minimum Indoor Dry Bulb Temperature (C)',
+                                      'annual_cop_zone', 'indoor_db_min_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_27a(self):
+        self.general_ce_b_table_delta('27a', 'Hourly Integrated Maximum Zone Humidity Ratio (kg/kg)',
+                                      'annual_cop_zone', 'indoor_hum_rat_max_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_27b(self):
+        self.general_ce_b_table_delta('27b', 'Hourly Integrated Minimum Zone Humidity Ratio (kg/kg)',
+                                      'annual_cop_zone', 'indoor_hum_rat_min_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_28a(self):
+        self.general_ce_b_table_delta('28a', 'Hourly Integrated Maximum Zone Relative Humidity (%)',
+                                      'annual_cop_zone', 'indoor_rel_hum_max_perc', 2)
+
+    def render_section_ce_b_table_b16_5_2_28b(self):
+        self.general_ce_b_table_delta('28b', 'Hourly Integrated Minimum Zone Relative Humidity (%)',
+                                      'annual_cop_zone', 'indoor_rel_hum_min_perc', 2)
+
+    def general_ce_b_table_29(self, table_letter, caption_end, json_key, sig_digits):
+        """Generate tables that are like Table B16.4.2-16 but are comparative """
+        table_name = f'section_9_table_b16_5_2_29{table_letter}'
+        table_caption = f'Table B16.5.2-29{table_letter}. June 28 Hourly Output - Case CE300 - {caption_end}'
+        data_table = []
+        row_headings = [str(hr) for hr in range(1, 25)]
+        column_headings = ['Hour']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                row.append(json_obj['june28_hourly'][str(hour)][json_key])
+            data_table.append(row)
+        text_table_with_stats = self._add_stats_to_table(row_headings, column_headings, data_table, digits=sig_digits)
+        self._make_markdown_from_table(table_name, table_caption, text_table_with_stats, '')
+        return
+
+    def render_section_ce_b_table_b16_5_2_29a(self):
+        self.general_ce_b_table_29('a', 'Compressor Energy Consumption (Wh)',
+                                   'compressor_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29b(self):
+        self.general_ce_b_table_29('b', 'Condenser Fan Energy Consumption (Wh)',
+                                   'condenser_fans_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29c(self):
+        self.general_ce_b_table_29('c', 'Total Evaporator Coil Load (Wh)',
+                                   'evaporator_total_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29d(self):
+        self.general_ce_b_table_29('d', 'Sensible Evaporator Coil Load (Wh)',
+                                   'evaporator_sensible_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29e(self):
+        self.general_ce_b_table_29('e', 'Latent Evaporator Coil Load (Wh)',
+                                   'evaporator_latent_Wh', 0)
+
+    def render_section_ce_b_table_b16_5_2_29f(self):
+        self.general_ce_b_table_29('f', 'Zone Humidity Ratio (kg/kg)',
+                                   'zone_humidity_ratio_kg_kg', 4)
+
+    def render_section_ce_b_table_b16_5_2_29g(self):
+        self.general_ce_b_table_29('g', 'COP2',
+                                   'cop2', 3)
+
+    def render_section_ce_b_table_b16_5_2_29h(self):
+        self.general_ce_b_table_29('h', 'Outdoor Dry Bulb Temperature (C)',
+                                   'outdoor_drybulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_29i(self):
+        self.general_ce_b_table_29('i', 'Entering Dry Bulb Temperature (C)',
+                                   'entering_drybulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_29j(self):
+        self.general_ce_b_table_29('j', 'Entering Wet Bulb Temperature (C)',
+                                   'entering_wetbulb_c', 2)
+
+    def render_section_ce_b_table_b16_5_2_29k(self):
+        self.general_ce_b_table_29('k', 'Outdoor Humidity Ratio (kg/kg)',
+                                   'outdoor_humidity_ratio_kg_kg', 4)
+
+    def general_ce_b_figure(self, chart_number, caption_end, yaxis, json_dict, json_key, key_suffix):
+        chart_name = f'section_9_figure_b16_5_2_{chart_number:02d}'
+        chart_caption = f'Figure B16.5.2-{chart_number}. HVAC BESTEST: CE300 - CE545 {caption_end}'
+        data_table = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case in self.case_map_max.keys():
+            row = []
+            for tst, json_obj in self.json_data.items():
+                case_json = json_obj[json_dict][case]
+                row.append(case_json[f'{json_key}_{key_suffix}'])
+            data_table.append(row)
+        chart_row_headings = list(self.case_map_charts.values())
+        chart_row_headings.remove('CE500 May-Sep')
+        chart_row_headings.remove('CE510 May-Sep High PLR')
+        self._create_plotly_bar(chart_name, data_table, chart_row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_chart_b16_5_2_3(self):
+        self.general_ce_b_figure(3, 'Peak Hour Total Electricity Consumption',
+                                 'Electricity Consumption (Wh/h)', 'annual_load_maxima',
+                                 'compressors_plus_fans', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_12(self):
+        self.general_ce_b_figure(12, 'Peak Hour Total Coil Load',
+                                 'Load (Wh/h thermal)', 'annual_load_maxima',
+                                 'evaporator_total', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_16(self):
+        self.general_ce_b_figure(16, 'Peak Hour Sensible Coil Load',
+                                 'Load (Wh/h thermal)', 'annual_load_maxima',
+                                 'evaporator_sensible', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_19(self):
+        self.general_ce_b_figure(19, 'Peak Hour Latent Coil Load',
+                                 'Load (Wh/h thermal)', 'annual_load_maxima',
+                                 'evaporator_latent', 'Wh')
+
+    def render_section_ce_b_chart_b16_5_2_23(self):
+        self.general_ce_b_figure(23, 'Hourly Maximum COP2',
+                                 'COP2', 'annual_cop_zone',
+                                 'cop2_max', 'value')
+
+    def render_section_ce_b_chart_b16_5_2_25(self):
+        self.general_ce_b_figure(25, 'Hourly Minimum COP2',
+                                 'COP2', 'annual_cop_zone',
+                                 'cop2_min', 'value')
+
+    def render_section_ce_b_chart_b16_5_2_29(self):
+        self.general_ce_b_figure(29, 'Hourly Maximum Indoor Dry-Bulb Temperature',
+                                 'Temperature (C)', 'annual_cop_zone',
+                                 'indoor_db_max', 'c')
+
+    def render_section_ce_b_chart_b16_5_2_31(self):
+        self.general_ce_b_figure(31, 'Hourly Minimum Indoor Dry-Bulb Temperature',
+                                 'Temperature (C)', 'annual_cop_zone',
+                                 'indoor_db_min', 'c')
+
+    def render_section_ce_b_chart_b16_5_2_34(self):
+        self.general_ce_b_figure(34, 'Hourly Maximum Zone Humidity Ratio',
+                                 'Humidity Ratio (kg/kg)', 'annual_cop_zone',
+                                 'indoor_hum_rat_max', 'kg_kg')
+
+    def render_section_ce_b_chart_b16_5_2_36(self):
+        self.general_ce_b_figure(36, 'Hourly Minimum Zone Humidity Ratio',
+                                 'Humidity Ratio (kg/kg)', 'annual_cop_zone',
+                                 'indoor_hum_rat_min', 'kg_kg')
+
+    def render_section_ce_b_chart_b16_5_2_39(self):
+        self.general_ce_b_figure(39, 'Hourly Maximum Zone Relative Humidity',
+                                 'Relative Humidity (%)', 'annual_cop_zone',
+                                 'indoor_rel_hum_max', 'perc')
+
+    def render_section_ce_b_chart_b16_5_2_41(self):
+        self.general_ce_b_figure(41, 'Hourly Minimum Zone Relative Humidity',
+                                 'Relative Humidity (%)', 'annual_cop_zone',
+                                 'indoor_rel_hum_min', 'perc')
+
+    def general_ce_b_figure_delta(self, chart_number, caption_end, yaxis, json_dict, json_key, divide=True):
+        chart_name = f'section_9_figure_b16_5_2_{chart_number:02d}'
+        chart_caption = f'Figure B16.5.2-{chart_number}. HVAC BESTEST: CE300 - CE545 <br>{caption_end}'
+        delta_cases = [
+            ('CE310', 'CE300', 'CE310-CE300, Latent Gains', '', 1.),
+            ('CE320', 'CE300', 'CE320-CE300, Infiltration', '', 1.),
+            ('CE330', 'CE300', 'CE330-CE300, 100% OA', '', 1.),
+            ('CE330', 'CE320', 'CE330-CE320, OA-Infl', '', 1.),
+            ('CE340', 'CE300', 'CE340-CE300, 50/50 OA/inf', '', 1.),
+            ('CE330', 'CE340', 'CE330-CE340, OA-50/50', '', 1.),
+            ('CE350', 'CE300', 'CE350-CE300, Tstat Set Up', '', 1.),
+            ('CE360', 'CE300', '(CE360-CE300)/4, Overload', 'CE360-CE300, Overload', 4.),
+            ('CE400', 'CE300', 'CE400-CE300, Ec. T Ctrl', '', 1.),
+            ('CE410', 'CE300', 'CE410-CE300, Ec. No Compr.', '', 1.),
+            ('CE420', 'CE300', 'CE420-CE300, Ec. ODB Lim.', '', 1.),
+            ('CE430', 'CE300', 'CE430-CE300, Ec. Enth Ctrl', '', 1.),
+            ('CE440', 'CE300', 'CE440-CE300, Ec. Enth Lim', '', 1.),
+            ('CE500', 'CE300', '(CE500-CE300)/2, 0%OA', 'CE500-CE300, 0%OA', 2.),
+            ('CE510 May-Sep', 'CE500 May-Sep', '(CE510-CE500)/4, PLR', 'CE510-CE500, PLR', 4.),
+            ('CE525', 'CE520', 'CE525-CE520, EDB', '', 1.),
+            ('CE530', 'CE500', 'CE530-CE500, Dry Coil', '', 1.),
+            ('CE545', 'CE540', 'CE545-CE540, EDB (Dry)', '', 1.),
+        ]
+        data_table = []
+        row_headings = []
+        column_headings = ['Case']
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        for case_a_lookup, case_b_lookup, case_name, no_divide_case_name, divisor in delta_cases:
+            row = []
+            if not divide and no_divide_case_name:
+                row_headings.append(no_divide_case_name)
+            else:
+                row_headings.append(case_name)
+            for tst, json_obj in self.json_data.items():
+                if json_dict != 'annual_sums_means':
+                    case_a_lookup = case_a_lookup[:5]
+                    case_b_lookup = case_b_lookup[:5]
+                case_a_value = json_obj[json_dict][case_a_lookup][json_key]
+                case_b_value = json_obj[json_dict][case_b_lookup][json_key]
+                if math.isnan(case_a_value) or math.isnan(case_b_value):
+                    row.append(math.nan)
+                else:
+                    if not divide:
+                        divisor = 1.
+                    row.append((float(case_a_value) - float(case_b_value)) / divisor)
+            data_table.append(row)
+        self._create_plotly_bar(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption)
+        return
+
+    def render_section_ce_b_chart_b16_5_2_2(self):
+        self.general_ce_b_figure_delta(2,
+                                       'Annual Total Space Cooling Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'cooling_energy_total_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_6(self):
+        self.general_ce_b_figure_delta(6,
+                                       'Annual Compressor Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'cooling_energy_compressor_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_8(self):
+        self.general_ce_b_figure_delta(8,
+                                       'Annual Indoor (Supply) Fan Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'indoor_fan_kWh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_10(self):
+        self.general_ce_b_figure_delta(10,
+                                       'Annual Outdoor (Condenser) Fan Electricity Consumption Sensitivities',
+                                       'Electricity Consumption (kWh)',
+                                       'annual_sums_means',
+                                       'condenser_fan_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_15(self):
+        self.general_ce_b_figure_delta(15,
+                                       'Annual Sensible Cooling Load Sensitivities',
+                                       'Load (kWh thermal)',
+                                       'annual_sums_means',
+                                       'evaporator_load_sensible_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_18(self):
+        self.general_ce_b_figure_delta(18,
+                                       'Annual Latent Cooling Load Sensitivities',
+                                       'Load (kWh thermal)',
+                                       'annual_sums_means',
+                                       'evaporator_load_latent_kWh')
+
+    def render_section_ce_b_chart_b16_5_2_22(self):
+        self.general_ce_b_figure_delta(22,
+                                       'Annual Mean COP2 Sensitivities',
+                                       'COP2',
+                                       'annual_sums_means',
+                                       'cop2',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_28(self):
+        self.general_ce_b_figure_delta(28,
+                                       'Annual Mean IDB Sensitivities',
+                                       'Temperature (C)',
+                                       'annual_sums_means',
+                                       'indoor_dry_bulb_c',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_33(self):
+        self.general_ce_b_figure_delta(33,
+                                       'Annual Mean Humidity Ratio Sensitivities',
+                                       'Humidity Ratio (kg/kg)',
+                                       'annual_sums_means',
+                                       'zone_humidity_ratio_kg_kg',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_38(self):
+        self.general_ce_b_figure_delta(38,
+                                       'Annual Mean Relative Humidity Sensitivities',
+                                       'Relative Humidity (%)',
+                                       'annual_sums_means',
+                                       'zone_relative_humidity_perc',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_4(self):
+        self.general_ce_b_figure_delta(4,
+                                       'Hourly Maximum Total Space Cooling Consumption Sensitivities',
+                                       'Electricity Consumption (Wh/h)',
+                                       'annual_load_maxima',
+                                       'compressors_plus_fans_Wh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_13(self):
+        self.general_ce_b_figure_delta(13,
+                                       'Hourly Maximum Total Coil Load Sensitivities',
+                                       'Load (Wh/h thermal)',
+                                       'annual_load_maxima',
+                                       'evaporator_total_Wh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_20(self):
+        self.general_ce_b_figure_delta(20,
+                                       'Hourly Maximum Latent Coil Load Sensitivities',
+                                       'Load (Wh/h thermal)',
+                                       'annual_load_maxima',
+                                       'evaporator_latent_Wh',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_24(self):
+        self.general_ce_b_figure_delta(24,
+                                       'Hourly Maximum COP2 Sensitivities',
+                                       'COP2',
+                                       'annual_cop_zone',
+                                       'cop2_max_value',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_26(self):
+        self.general_ce_b_figure_delta(26,
+                                       'Hourly Minimum COP2 Sensitivities',
+                                       'COP2',
+                                       'annual_cop_zone',
+                                       'cop2_min_value',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_30(self):
+        self.general_ce_b_figure_delta(30,
+                                       'Hourly Maximum IDB Sensitivities',
+                                       'Temperature (C)',
+                                       'annual_cop_zone',
+                                       'indoor_db_max_c',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_35(self):
+        self.general_ce_b_figure_delta(35,
+                                       'Hourly Maximum Humidity Ratio Sensitivities',
+                                       'Humidity Ratio (kg/kg)',
+                                       'annual_cop_zone',
+                                       'indoor_hum_rat_max_kg_kg',
+                                       divide=False)
+
+    def render_section_ce_b_chart_b16_5_2_40(self):
+        self.general_ce_b_figure_delta(40,
+                                       'Hourly Maximum Relative Humidity Sensitivities',
+                                       'Relative Humidity (%)',
+                                       'annual_cop_zone',
+                                       'indoor_rel_hum_max_perc',
+                                       divide=False)
+
+    def general_ce_b_figure_24hr(self, chart_code, caption_end, yaxis, json_key):
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
+        chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
+        data_table = []
+        column_headings = ['Hour', ]
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        row_headings = [str(x) for x in range(1, 25)]
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                hour_value = json_obj['june28_hourly'][str(hour)][json_key]
+                row.append(hour_value)
+            data_table.append(row)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption,
+                                 xaxis_title="Hour")
+        return
+
+    def render_section_ce_b_chart_b16_5_2_48(self):
+        self.general_ce_b_figure_24hr('48',
+                                      'COP2',
+                                      'COP2',
+                                      'cop2')
+
+    def render_section_ce_b_chart_b16_5_2_49(self):
+        self.general_ce_b_figure_24hr('49',
+                                      'Zone Humidity Ratio',
+                                      'Humidity Ratio (kg/kg)',
+                                      'zone_humidity_ratio_kg_kg')
+
+    def render_section_ce_b_chart_b16_5_2_51(self):
+        self.general_ce_b_figure_24hr('51',
+                                      'Outdoor Dry-Bulb Temperature',
+                                      'Temperature (C)',
+                                      'outdoor_drybulb_c')
+
+    def render_section_ce_b_chart_b16_5_2_52(self):
+        self.general_ce_b_figure_24hr('52',
+                                      'Outdoor Humidity Ratio',
+                                      'Humidity Ratio (kg/kg)',
+                                      'outdoor_humidity_ratio_kg_kg')
+
+    def general_ce_b_figure_24hr_sum(self, chart_code, caption_end, yaxis, json_key_a, json_key_b):
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
+        chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
+        data_table = []
+        column_headings = ['Hour', ]
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'])
+        row_headings = [str(x) for x in range(1, 25)]
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                hour_value_a = json_obj['june28_hourly'][str(hour)][json_key_a]
+                hour_value_b = json_obj['june28_hourly'][str(hour)][json_key_b]
+                row.append(hour_value_a + hour_value_b)
+            data_table.append(row)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption,
+                                 xaxis_title="Hour")
+        return
+
+    def render_section_ce_b_chart_b16_5_2_46(self):
+        self.general_ce_b_figure_24hr_sum('46',
+                                          'Electricity Consumption (Compressor + OD Fan)',
+                                          'Electricity Consumption (Wh/h)',
+                                          'compressor_Wh', 'condenser_fans_Wh')
+
+    def general_ce_b_figure_24hr_two_series(self, chart_code, caption_end, yaxis, name_a, name_b, json_key_a,
+                                            json_key_b):
+        chart_name = f'section_9_figure_b16_5_2_{chart_code}'
+        chart_caption = f'Figure B16.5.2-{chart_code}. HVAC BESTEST: CE300 June 28 Hourly {caption_end}'
+        data_table = []
+        column_headings = ['Hour', ]
+        row_headings = [str(x) for x in range(1, 25)]
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'] + ' ' + name_a)
+        for _, json_obj in self.json_data.items():
+            column_headings.append(json_obj['identifying_information']['software_name'] + ' ' + name_b)
+        for hour in range(1, 25):
+            row = []
+            for tst, json_obj in self.json_data.items():
+                hour_value = json_obj['june28_hourly'][str(hour)][json_key_a]
+                row.append(hour_value)
+            for tst, json_obj in self.json_data.items():
+                hour_value = json_obj['june28_hourly'][str(hour)][json_key_b]
+                row.append(hour_value)
+            data_table.append(row)
+        self._create_plotly_line(chart_name, data_table, row_headings, column_headings, yaxis, chart_caption,
+                                 xaxis_title="Hour")
+        return
+
+    def render_section_ce_b_chart_b16_5_2_47(self):
+        self.general_ce_b_figure_24hr_two_series('47',
+                                                 'Coil Loads',
+                                                 'Load (Wh/h thermal)',
+                                                 'Sensible',
+                                                 'Latent',
+                                                 'evaporator_sensible_Wh',
+                                                 'evaporator_latent_Wh')
+
+    def render_section_ce_b_chart_b16_5_2_50(self):
+        self.general_ce_b_figure_24hr_two_series('50',
+                                                 'Entering Dry- and Wet-Bulb',
+                                                 'Temperature (C)',
+                                                 'EDB',
+                                                 'EWB',
+                                                 'entering_drybulb_c',
+                                                 'entering_wetbulb_c')
