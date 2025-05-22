@@ -1054,7 +1054,7 @@ class GraphicsRenderer(Logger):
         df = pd.DataFrame(table_with_row_headings, columns=column_headings)
         fig = px.bar(df, x="Case", y=column_headings[1:], text_auto='.2f')
         fig.update_layout(barmode='group', title=dict(text=caption, font=dict(size=25), xanchor='center', x=0.5),
-                          yaxis_title=yaxis_title, xaxis_title="")
+                          yaxis_title=yaxis_title, xaxis_title="", legend_title=None)
         # fig.show() # for debugging purposes shows the figure in the browser
         # fig.write_html(file_name + '.html') # save the interactive version of the chart
         fig.write_image(img_name, engine='kaleido', width=1400, height=1000)
