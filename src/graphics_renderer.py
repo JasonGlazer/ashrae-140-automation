@@ -8052,7 +8052,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_01a(self):
         table_name = 'section_9_table_b16_5_1_01a'
-        table_caption = 'Table B16.5.1-1a. Space Cooling Energy Consumption - Total (kWh,e)'
+        table_caption = 'Table B16.5.1-1a. Space Cooling Energy Consumption - Total (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_04'
         chart_caption = 'Figure B16.5.1-4. HVAC BESTEST: Total Space Cooling Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -8074,7 +8074,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_01b(self):
         table_name = 'section_9_table_b16_5_1_01b'
-        table_caption = 'Table B16.5.1-1b. Space Cooling Energy Consumption - Compressor (kWh,e)'
+        table_caption = 'Table B16.5.1-1b. Space Cooling Energy Consumption - Compressor (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_06'
         chart_caption = 'Figure B16.5.1-6. HVAC BESTEST: Compressor Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -8096,7 +8096,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_01c(self):
         table_name = 'section_9_table_b16_5_1_01c'
-        table_caption = 'Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,e)'
+        table_caption = 'Table B16.5.1-1c. Space Cooling Energy Consumption - Supply Fan (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_08'
         chart_caption = 'Figure B16.5.1-8. HVAC BESTEST: Total Indoor (Supply) Fan Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -8118,7 +8118,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_01d(self):
         table_name = 'section_9_table_b16_5_1_01d'
-        table_caption = 'Table B16.5.1-1d. Space Cooling Energy Consumption - Condenser Fan (kWh,e)'
+        table_caption = 'Table B16.5.1-1d. Space Cooling Energy Consumption - Condenser Fan (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_10'
         chart_caption = 'Figure B16.5.1-10. HVAC BESTEST: Outdoor (Condenser) Fan Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -8376,7 +8376,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_07a(self):
         table_name = 'section_9_table_b16_5_1_07a'
-        table_caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricty Consumption Delta Qtot (kWh,e)'
+        table_caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricty Consumption Delta Qtot (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_05'
         chart_caption = 'Figure B16.5.1-5. HVAC BESTEST: Total Space Cooling Electricity Sensitivies'
         yaxis_name = 'delta Electricity Consumption  (kWh)'
@@ -8425,7 +8425,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_07b(self):
         table_name = 'section_9_table_b16_5_1_07b'
-        table_caption = 'Table B16.5.1-7b. Sensitivities for Space Cooling Electricity Consumption Delta Qcomp (kWh,e)'
+        table_caption = 'Table B16.5.1-7b. Sensitivities for Space Cooling Electricity Consumption Delta Qcomp (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_07'
         chart_caption = 'Figure B16.5.1-7. HVAC BESTEST: Total Compressor Electricity Sensitivities'
         yaxis_name = 'delta Electricity Consumption  (kWh)'
@@ -8474,7 +8474,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_07c(self):
         table_name = 'section_9_table_b16_5_1_07c'
-        table_caption = 'Table B16.5.1-7c. Sensitivities for Space Cooling Electricity Consumption Delta Q IDfan (kWh,e)'
+        table_caption = 'Table B16.5.1-7c. Sensitivities for Space Cooling Electricity Consumption Delta Q IDfan (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_09'
         chart_caption = 'Figure B16.5.1-9. HVAC BESTEST: Indoor (Supply) Fan Electricity Sensitivities'
         yaxis_name = 'delta Electricity Consumption  (kWh)'
@@ -8523,7 +8523,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_07d(self):
         table_name = 'section_9_table_b16_5_1_07d'
-        table_caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricty Consumption Delta Q ODfan (kWh,e)'
+        table_caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricty Consumption Delta Q ODfan (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_11'
         chart_caption = 'Figure B16.5.1-11. HVAC BESTEST: Outdoor (Condenser) Fan Electricity Sensitivities'
         yaxis_name = 'delta Electricity Consumption  (kWh)'
@@ -8572,7 +8572,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08a(self):
         table_name = 'section_9_table_b16_5_1_08a'
-        table_caption = 'Table B16.5.1-8a. Sensitivities Delta COP (kWh,t)'
+        table_caption = 'Table B16.5.1-8a. Sensitivities Delta COP (kWh,thermal)'
         chart_name = 'section_9_figure_b16_5_1_03'
         chart_caption = 'Figure B16.5.1-3. HVAC BESTEST: Mean COP Sensitivities'
         sensitivity_cases = [
@@ -8621,7 +8621,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08b(self):
         table_name = 'section_9_table_b16_5_1_08b'
-        table_caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Delta Total (kWh,t)'
+        table_caption = 'Table B16.5.1-8b. Sensitivities Coil Loads, Delta Total (kWh,thermal)'
         chart_name = 'section_9_figure_b16_5_1_13'
         chart_caption = 'Figure B16.5.1-13. HVAC BESTEST: Total Coil Load Sensitivities'
         yaxis_name = 'delta Load  (kWh thermal)'
@@ -8670,7 +8670,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08c(self):
         table_name = 'section_9_table_b16_5_1_08c'
-        table_caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Delta Sensible (kWh,t)'
+        table_caption = 'Table B16.5.1-8c. Sensitivities Coil Loads, Delta Sensible (kWh,thermal)'
         chart_name = 'section_9_figure_b16_5_1_15'
         chart_caption = 'Figure B16.5.1-15. HVAC BESTEST: Sensible Coil Load Sensitivities'
         yaxis_name = 'delta Load  (kWh thermal)'
@@ -8719,7 +8719,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08d(self):
         table_name = 'section_9_table_b16_5_1_08d'
-        table_caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Delta Latent (kWh,t)'
+        table_caption = 'Table B16.5.1-8d. Sensitivities Coil Loads, Delta Latent (kWh,thermal)'
         chart_name = 'section_9_figure_b16_5_1_17'
         chart_caption = 'Figure B16.5.1-17. HVAC BESTEST: Latent Coil Load Sensitivities'
         yaxis_name = 'delta Load  (kWh thermal)'
@@ -8868,7 +8868,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_01a(self):
         table_name = 'section_9_table_b16_5_2_01a'
-        table_caption = 'Table B16.5.2-1a. Annual Space Cooling Electricity Consumption - Total (kWh,e)'
+        table_caption = 'Table B16.5.2-1a. Annual Space Cooling Electricity Consumption - Total (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_2_01'
         chart_caption = 'Figure B16.5.2-1. HVAC BESTEST: CE300 - CE545 Annual Total Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -8894,7 +8894,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_01b(self):
         table_name = 'section_9_table_b16_5_2_01b'
-        table_caption = 'Table B16.5.2-1b. Annual Space Cooling Electricity Consumption - Compressor (kWh,e)'
+        table_caption = 'Table B16.5.2-1b. Annual Space Cooling Electricity Consumption - Compressor (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_2_05'
         chart_caption = 'Figure B16.5.2-5. HVAC BESTEST: CE300 - CE545 Annual Compressor Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -8920,7 +8920,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_02a(self):
         table_name = 'section_9_table_b16_5_2_02a'
-        table_caption = 'Table B16.5.2-2a. Annual Space Cooling Electricity Consumption - Supply Fan (kWh,e)'
+        table_caption = 'Table B16.5.2-2a. Annual Space Cooling Electricity Consumption - Supply Fan (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_2_07'
         chart_caption = 'Figure B16.5.2-7. HVAC BESTEST: CE300 - CE545 Annual Indoor (Supply) Fan Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -8946,7 +8946,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_b_table_b16_5_2_02b(self):
         table_name = 'section_9_table_b16_5_2_02b'
-        table_caption = 'Table B16.5.2-2b. Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,e)'
+        table_caption = 'Table B16.5.2-2b. Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_2_09'
         chart_caption = 'Figure B16.5.2-9. HVAC BESTEST: CE300 - CE545 Annual Outdoor (Condenser) Fan Electricity Consumption'
         yaxis_name = 'Electricity Consumption  (kWh)'
@@ -9488,27 +9488,27 @@ class GraphicsRenderer(Logger):
         return
 
     def render_section_ce_b_table_b16_5_2_17a(self):
-        self.general_ce_b_table_delta('17a', 'Annual Space Cooling Electricity Consumption - Total (kWh,e)',
+        self.general_ce_b_table_delta('17a', 'Annual Space Cooling Electricity Consumption - Total (kWh,electrical)',
                                       'annual_sums_means', 'cooling_energy_total_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_17b(self):
-        self.general_ce_b_table_delta('17b', 'Annual Space Cooling Electricity Consumption - Compressors (kWh,e)',
+        self.general_ce_b_table_delta('17b', 'Annual Space Cooling Electricity Consumption - Compressors (kWh,electrical)',
                                       'annual_sums_means', 'cooling_energy_compressor_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_18a(self):
-        self.general_ce_b_table_delta('18a', 'Annual Space Cooling Electricity Consumption - Supply Fan (kWh,e)',
+        self.general_ce_b_table_delta('18a', 'Annual Space Cooling Electricity Consumption - Supply Fan (kWh,electrical)',
                                       'annual_sums_means', 'indoor_fan_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_18b(self):
-        self.general_ce_b_table_delta('18b', 'Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,e)',
+        self.general_ce_b_table_delta('18b', 'Annual Space Cooling Electricity Consumption - Condenser Fan (kWh,electrical)',
                                       'annual_sums_means', 'condenser_fan_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_19a(self):
-        self.general_ce_b_table_delta('19a', 'Annual Cooling Sensible Coil Load (kWh,th)',
+        self.general_ce_b_table_delta('19a', 'Annual Cooling Sensible Coil Load (kWh,thermal)',
                                       'annual_sums_means', 'evaporator_load_sensible_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_19b(self):
-        self.general_ce_b_table_delta('19b', 'Annual Cooling Latent Coil Load (kWh,th)',
+        self.general_ce_b_table_delta('19b', 'Annual Cooling Latent Coil Load (kWh,thermal)',
                                       'annual_sums_means', 'evaporator_load_latent_kWh', 0)
 
     def render_section_ce_b_table_b16_5_2_20a(self):
