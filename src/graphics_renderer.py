@@ -9474,8 +9474,8 @@ class GraphicsRenderer(Logger):
             row = []
             for tst, json_obj in self.json_data.items():
                 if json_dict != 'annual_sums_means':
-                    case_a_lookup = case_a_lookup[:4]
-                    case_b_lookup = case_b_lookup[:4]
+                    case_a_lookup = case_a_lookup[:5]
+                    case_b_lookup = case_b_lookup[:5]
                 case_a_value = json_obj[json_dict][case_a_lookup][json_key]
                 case_b_value = json_obj[json_dict][case_b_lookup][json_key]
                 if math.isnan(case_a_value) or math.isnan(case_b_value):
@@ -9752,8 +9752,8 @@ class GraphicsRenderer(Logger):
                 row_headings.append(case_name)
             for tst, json_obj in self.json_data.items():
                 if json_dict != 'annual_sums_means':
-                    case_a_lookup = case_a_lookup[:4]
-                    case_b_lookup = case_b_lookup[:4]
+                    case_a_lookup = case_a_lookup[:5]
+                    case_b_lookup = case_b_lookup[:5]
                 case_a_value = json_obj[json_dict][case_a_lookup][json_key]
                 case_b_value = json_obj[json_dict][case_b_lookup][json_key]
                 if math.isnan(case_a_value) or math.isnan(case_b_value):
