@@ -876,7 +876,7 @@ class GraphicsRenderer(Logger):
         :param time_stamps: a list of lists where the outer list contains rows and each row list contains time stamps
         :return: merged table (list of lists) containing text for every column and row formatted and merged
         """
-        formatting_string = '{:.' + str(digits) + 'f}'
+        formatting_string = '{:z.' + str(digits) + 'f}'
         if self.section_type == 'TF':
             final_column_headings = column_headings[:-1]
             final_column_headings.extend(['', 'Min', 'Max', 'Mean', 'Dev % $$', ''])
