@@ -101,7 +101,7 @@ class GraphicsRenderer(Logger):
                     '220': ['220 In-Depth Base Case', 26],
                     '230': ['230 Infiltration', 27],
                     '240': ['240 Internal Gains', 28],
-                    '250': ['250 Exterior Shortwave Absoptance', 29],
+                    '250': ['250 Exterior Shortwave Absorptance', 29],
                     '270': ['270 South Solar Windows', 30],
                     '280': ['280 Cavity Albedo', 31],
                     '290': ['290 South Shading', 32],
@@ -112,12 +112,12 @@ class GraphicsRenderer(Logger):
                     '400': ['400 Low Mass High Cond. Wall Elements', 37],
                     '410': ['410 Low Mass Infiltration', 38],
                     '420': ['420 Low Mass Internal Gains', 39],
-                    '430': ['430 Low Mass Ext. Shortwave Absoptance', 40],
+                    '430': ['430 Low Mass Ext. Shortwave Absorptance', 40],
                     '440': ['440 Low Mass Cavity Albedo', 41],
                     '450': ['450 Constant Interior and Exterior Surf Coeffs', 42],
                     '460': ['460 Constant Interior Surface Coefficients', 43],
                     '470': ['470 Constant Exterior Surface Coefficients', 44],
-                    '800': ['800 High Mass Hig Cond. Wall Elements', 45],
+                    '800': ['800 High Mass High-Cond. Wall Elements', 45],
                     '810': ['810 HIgh Mass Cavity Albedo', 46],
                     '600FF': ['600FF - Low Mass Building with South Windows', 47],
                     '650FF': ['650FF - Case 600FF with Night Ventilation', 48],
@@ -320,7 +320,7 @@ class GraphicsRenderer(Logger):
                 '220': '220 In-Depth Base Case',
                 '230': '230 Infiltration',
                 '240': '240 Internal Gains',
-                '250': '250 Exterior Shortwave Absoptance',
+                '250': '250 Exterior Shortwave Absorptance',
                 '270': '270 South Solar Windows',
                 '280': '280 Cavity Albedo',
                 '290': '290 South Shading',
@@ -331,12 +331,12 @@ class GraphicsRenderer(Logger):
                 '400': '400 Low Mass High Cond. Wall Elements',
                 '410': '410 Low Mass Infiltration',
                 '420': '420 Low Mass Internal Gains',
-                '430': '430 Low Mass Ext. Shortwave Absoptance',
+                '430': '430 Low Mass Ext. Shortwave Absorptance',
                 '440': '440 Low Mass Cavity Albedo',
                 '450': '450 Constant Interior and Exterior Surf Coeffs',
                 '460': '460 Constant Interior Surface Coefficients',
                 '470': '470 Constant Exterior Surface Coefficients',
-                '800': '800 High Mass Hig Cond. Wall Elements',
+                '800': '800 High Mass High-Cond. Wall Elements',
                 '810': '810 High Mass Cavity Albedo'}
         elif self.section_type == 'HE':
             self.case_map = {
@@ -1746,8 +1746,8 @@ class GraphicsRenderer(Logger):
                 [
                     '630-620 Low Mass. E&W Shd., Heating',
                     '630-620 Low Mass. E&W Shd., Cooling',
-                    '930-920 Low Mass. E&W Shd., Heating',
-                    '930-920 Low Mass. E&W Shd., Cooling',
+                    '930-920 High Mass, E&W Shd., Heating',
+                    '930-920 High Mass, E&W Shd., Cooling',
                 ]
             ],
             ylabel='Load Difference (MWh)',
@@ -1883,8 +1883,8 @@ class GraphicsRenderer(Logger):
                 [
                     '630-620 Low Mass. E&W Shd., Heating',
                     '630-620 Low Mass. E&W Shd., Cooling',
-                    '930-920 Low Mass. E&W Shd., Heating',
-                    '930-920 Low Mass. E&W Shd., Cooling',
+                    '930-920 High Mass, E&W Shd., Heating',
+                    '930-920 High Mass, E&W Shd., Cooling',
                 ]
             ],
             ylabel='Load Difference (MWh)',
@@ -2135,7 +2135,7 @@ class GraphicsRenderer(Logger):
                 '900-600 Mass, Heating',
                 '900-600 Mass, Cooling',
                 '940-640 Mass, Heating w/ Heating Setback',
-                '950-650 Mass, Cooling w/ Cooling Setback'
+                '950-650 Mass, Cooling w/ Night Vent'
             ],
             ylabel='Load Difference (MWh)',
             y_plot_pad=0.3,
@@ -2205,7 +2205,7 @@ class GraphicsRenderer(Logger):
                 '900-600 Mass, Heating',
                 '900-600 Mass, Cooling',
                 '940-640 Mass, Heating w/ Heating Setback',
-                '950-650 Mass, Cooling w/ Cooling Setback'
+                '950-650 Mass, Cooling w/ Night Vent'
             ],
             ylabel='Load Difference (KWh/h)',
             y_plot_pad=0.3,
@@ -2776,7 +2776,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_split_bar_plot(
             data=data_lists,
             programs=programs,
-            title='Figure B8-29. Basic: Window Types (Delta) Annual Heating and Sensible Cooling',
+            title='Figure B8-29. Basic: Insulation (Delta) Annual Heating and Sensible Cooling',
             sub_titles=[
                 'Low Mass',
                 'High Mass'
@@ -2907,7 +2907,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_split_bar_plot(
             data=data_lists,
             programs=programs,
-            title='Figure B8-30. Basic: Window Types (Delta) Peak Heating and Sensible Cooling',
+            title='Figure B8-30. Basic: Insulation (Delta) Peak Heating and Sensible Cooling',
             sub_titles=[
                 'Low Mass',
                 'High Mass'
@@ -2993,7 +2993,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_bar_plot(
             data=data,
             programs=programs,
-            title='Figure B8-31. Basic and In-Depth: Insulation, Mass Effect (Delta) '
+            title='Figure B8-31. Basic: Insulation, Mass Effect (Delta) '
                   'Annual Heating and Sensible Cooling',
             xticklabels=[
                 '980-680 Mass, Heating with Greater Insulation',
@@ -3064,7 +3064,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_bar_plot(
             data=data,
             programs=programs,
-            title='Figure B8-32. Basic and In-Depth: Insulation, Mass Effect (Delta) Peak Heating and Sensible Cooling',
+            title='Figure B8-32. Basic: Insulation, Mass Effect (Delta) Peak Heating and Sensible Cooling',
             xticklabels=[
                 '980-680 Mass, Heating with Greater Insulation',
                 '980-680 Mass, Cooling with Greater Insulation',
@@ -3458,9 +3458,9 @@ class GraphicsRenderer(Logger):
                 '200-195\nHeating\nSurface\nConvection',
                 '200-195\nCooling\nSurface\nConvection',
                 '210-200\nHeating\nExt IR\n(Int IR "off")',
-                '220-215\nCooling\nExt IR\n(Int IR "off")',
-                '215-200\nHeating\nExt IR\n(Int IR "on")',
-                '215-200\nCooling\nExt IR\n(Int IR "on")',
+                '210-200\nCooling\nExt IR\n(Int IR "off")',
+                '220-215\nHeating\nExt IR\n(Int IR "on")',
+                '220-215\nCooling\nExt IR\n(Int IR "on")',
                 '215-200\nHeating\nInt IR\n(Ext IR "off")',
                 '220-210\nHeating\nInt IR\n(Ext IR "on")'
             ],
@@ -3531,7 +3531,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_bar_plot(
             data=data,
             programs=programs,
-            title='Figure B8-45. Cases 195 to 220 (Delta) Peak Heating and Sensible Cooling',
+            title='Figure B8-45. In-Depth: Cases 195 to 220 (Delta) Peak Heating and Sensible Cooling',
             xticklabels=[
                 '200-195\nHeating\nSurface\nConvection',
                 '200-195\nCooling\nSurface\nConvection',
@@ -3610,7 +3610,7 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_bar_plot(
             data=data,
             programs=programs,
-            title='Figure B8-46. Cases 220 to 270 (Delta) Annual Heating and Sensible Cooling',
+            title='Figure B8-46. In-Depth: Cases 220 to 270 (Delta) Annual Heating and Sensible Cooling',
             xticklabels=[
                 '230-220\nHeating\nInfiltration',
                 '230-220\nCooling\nInfiltration',
@@ -3677,13 +3677,13 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_bar_plot(
             data=data,
             programs=programs,
-            title='Figure B8-47. Cases 220 to 270 (Delta) Peak Heating and Sensible Cooling',
+            title='Figure B8-47. In-Depth: Cases 220 to 270 (Delta) Peak Heating and Sensible Cooling',
             xticklabels=[
                 '230-220\nHeating\nInfiltration',
                 '230-220\nCooling\nInfiltration',
                 '240-220\nHeating\nInternal\nGains',
                 '240-220\nCooling\nInternal\nGains',
-                '250-220\nHeating\nExt Solar\nAbsorptance',
+                '250-220\nCooling\nExt Solar\nAbsorptance',
                 '270-220\nCooling\nSouth\nWindows',
             ],
             ylabel='Load Difference (kWh/h)',
@@ -3748,12 +3748,12 @@ class GraphicsRenderer(Logger):
         fig, ax = self._create_bar_plot(
             data=data,
             programs=programs,
-            title='Figure B8-48. Cases 270 to 320 (Delta) Annual Heating and Sensible Cooling',
+            title='Figure B8-48. In-Depth: Cases 270 to 320 (Delta) Annual Heating and Sensible Cooling',
             xticklabels=[
                 '280-270\nCooling\nCavity Albedo',
                 '320-270\nHeating\nThermostat',
                 '320-270\nCooling\nThermostat',
-                '290-270\nCooling\nCooling\nSouth Shading',
+                '290-270\nCooling\nSouth Shading',
                 '300-270\nCooling\nE&W Windows',
                 '310-300\nHeating\nE&W Shading',
                 '310-300\nCooling\nE&W Shading'
@@ -4116,8 +4116,8 @@ class GraphicsRenderer(Logger):
                 '400-395\nLow Mass,\nCooling\nSurf. Conv.\n& IR',
                 '410-400\nLow Mass,\nHeating\nInfiltration',
                 '410-400\nLow Mass,\nCooling\nInfiltration',
-                '420-410\nLow Mass,\nHeating\nHeating\nInt. Gains',
-                '420-410\nLow Mass,\nCooling\nHeating\nInt. Gains',
+                '420-410\nLow Mass,\nHeating\nInt. Gains',
+                '420-410\nLow Mass,\nCooling\nInt. Gains',
                 '430-420\nLow Mass,\nCooling\nExt. Solar\nAbs.',
                 '600-430\nLow Mass,\nCooling\nS. Window',
                 '440-600\nLow Mass,\nCooling\nCavity\nAlbedo',
@@ -4521,7 +4521,7 @@ class GraphicsRenderer(Logger):
             data=data,
             programs=programs,
             title='Figure B8-M4.\n'
-                  'Monthly Peak Cooling\n'
+                  'Monthly Peak Sensible Cooling\n'
                   'Case 600',
             xticklabels=months,
             ylabel='Monthly Peak Cooling Load (kW)',
@@ -4581,7 +4581,7 @@ class GraphicsRenderer(Logger):
             data=data,
             programs=programs,
             title='Figure B8-M6.\n'
-                  'Monthly Heating\n'
+                  'Monthly Sensible Cooling\n'
                   'Case 900',
             xticklabels=months,
             ylabel='Monthly Cooling Load (kWh)',
@@ -4982,7 +4982,7 @@ class GraphicsRenderer(Logger):
             programs=programs,
             x_min=5,
             x_max=20,
-            title='Figure B8-H5. Case 600, 660, 670\n'
+            title='Figure B8-H5. Cases 600, 660, 670\n'
                   'Hourly Transmitted Solar, Clear/Cold Day (Feb 1)\n'
                   'Double-Pane, Low-E, Single-Pane Windows',
             xlabel=r'Hour of Day',
@@ -5074,7 +5074,7 @@ class GraphicsRenderer(Logger):
             programs=programs,
             x_min=4,
             x_max=21,
-            title='Figure B8-H7. Case 660, 670\n'
+            title='Figure B8-H7. Cases 660, 670\n'
                   'Hourly Transmitted Solar, Cloudy Day (May 4)\n'
                   'Low-E and Single-Pane Windows',
             xlabel=r'Hour of Day',
@@ -5162,9 +5162,9 @@ class GraphicsRenderer(Logger):
             programs=programs,
             x_min=2,
             x_max=22,
-            title='Figure B8-H9. Case 660, 670\n'
+            title='Figure B8-H9. Cases 660, 670\n'
                   'Hourly Transmitted Solar, Clear/Hot Day (July 14)\n'
-                  'Double-Pane Windows',
+                  'Low-E and Single-Pane Windows',
             xlabel=r'Hour of Day',
             ylabel='Transmitted Solar Radiation (Wh/m2)',
             image_name='section_7_figure_b8_h9',
@@ -5431,7 +5431,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H15. Hourly Loads\n'
-                  'Clear Cold Day, Cases 600 (Low Mass, Double-Clear Window)\n'
+                  'Clear Cold Day, Case 600 (Low Mass, Double-Clear Window)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5470,7 +5470,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H16. Hourly Loads\n'
-                  'Clear Hot Day, Cases 600 (Low Mass, Double-Clear Window)\n'
+                  'Clear Hot Day, Case 600 (Low Mass, Double-Clear Window)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5509,7 +5509,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H17. Hourly Loads\n'
-                  'Clear Cold Day, Cases 640 (Low Mass, Night Setback)\n'
+                  'Clear Cold Day, Case 640 (Low Mass, Night Setback)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5591,7 +5591,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H19. Hourly Loads\n'
-                  'Clear Cold Day, Cases 940 (High Mass, Night Setback)\n'
+                  'Clear Cold Day, Case 940 (High Mass, Night Setback)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5673,7 +5673,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H21. Hourly Loads\n'
-                  'Clear Cold Day, Cases 660 (Low-E Window)\n'
+                  'Clear Cold Day, Case 660 (Low-E Window)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5712,7 +5712,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H22. Hourly Loads\n'
-                  'Clear Hot Day, Cases 660 (Low-E Window)\n'
+                  'Clear Hot Day, Case 660 (Low-E Window)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5751,7 +5751,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H23. Hourly Loads\n'
-                  'Clear Cold Day, Cases 670 (Single-Pane Window)\n'
+                  'Clear Cold Day, Case 670 (Single-Pane Window)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5790,7 +5790,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H24. Hourly Loads\n'
-                  'Clear Hot Day, Cases 670 (Single-Pane Window)\n'
+                  'Clear Hot Day, Case 670 (Single-Pane Window)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5829,7 +5829,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H25. Hourly Loads\n'
-                  'Clear Cold Day, Cases 680 (Insulation)\n'
+                  'Clear Cold Day, Case 680 (Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5868,7 +5868,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H26. Hourly Loads\n'
-                  'Clear Hot Day, Cases 680 (Insulation)\n'
+                  'Clear Hot Day, Case 680 (Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5907,7 +5907,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H27. Hourly Loads\n'
-                  'Clear Cold Day, Cases 685 (20/20 Tstat)\n'
+                  'Clear Cold Day, Case 685 (20/20 Tstat)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5946,7 +5946,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H28. Hourly Loads\n'
-                  'Clear Hot Day, Cases 685 (20/20 Tstat)\n'
+                  'Clear Hot Day, Case 685 (20/20 Tstat)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -5985,7 +5985,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H29. Hourly Loads\n'
-                  'Clear Cold Day, Cases 695 (20/20, Insulation)\n'
+                  'Clear Cold Day, Case 695 (20/20, Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6024,7 +6024,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H30. Hourly Loads\n'
-                  'Clear Hot Day, Cases 695 (20/20, Insulation)\n'
+                  'Clear Hot Day, Case 695 (20/20, Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6063,7 +6063,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H31. Hourly Loads\n'
-                  'Clear Cold Day, Cases 900 (High Mass)\n'
+                  'Clear Cold Day, Case 900 (High Mass)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6102,7 +6102,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H32. Hourly Loads\n'
-                  'Clear Hot Day, Cases 900 (High Mass)\n'
+                  'Clear Hot Day, Case 900 (High Mass)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6141,7 +6141,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H33. Hourly Loads\n'
-                  'Clear Cold Day, Cases 980 (High Mass, Insulation)\n'
+                  'Clear Cold Day, Case 980 (High Mass, Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6180,7 +6180,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H34. Hourly Loads\n'
-                  'Clear Hour Day, Cases 980 (High Mass, Insulation)\n'
+                  'Clear Hot Day, Case 980 (High Mass, Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6219,7 +6219,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H35. Hourly Loads\n'
-                  'Clear Cold Day, Cases 985 (High Mass, 20/20 Tstat)\n'
+                  'Clear Cold Day, Case 985 (High Mass, 20/20 Tstat)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6258,7 +6258,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H36. Hourly Loads\n'
-                  'Clear Hot Day, Cases 985 (High Mass, 20/20 Tstat)\n'
+                  'Clear Hot Day, Case 985 (High Mass, 20/20 Tstat)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6297,7 +6297,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H37. Hourly Loads\n'
-                  'Clear Cold Day, Cases 995 (High Mass, 20/20, Insulation)\n'
+                  'Clear Cold Day, Case 995 (High Mass, 20/20, Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -6336,7 +6336,7 @@ class GraphicsRenderer(Logger):
             data_y=data_y,
             programs=programs,
             title='Figure B8-H38. Hourly Loads\n'
-                  'Clear Hot Day, Cases 995 (High Mass, 20/20, Insulation)\n'
+                  'Clear Hot Day, Case 995 (High Mass, 20/20, Insulation)\n'
                   'Heating (+), Sensible Cooling (-)',
             ylabel=r'Heating or Sensible Cooling Load (kWh/h)',
             xlabel=r'Hour of Day',
@@ -7327,7 +7327,7 @@ class GraphicsRenderer(Logger):
             ('920', '620'): '920-620 Mass, w/ E&W Win.',
             ('930', '630'): '930-630 Mass, w/ E&W Shade',
             ('940', '640'): '940-640 Mass, w/ Htg. Setback',
-            ('950', '650'): '940-640 Mass, w/ Night Vent',
+            ('950', '650'): '950-650 Mass, w/ Night Vent',
             ('980', '680'): '980-680 Mass, w/ Insulation 20/27',
             ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
             ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
@@ -7396,7 +7396,7 @@ class GraphicsRenderer(Logger):
             ('920', '620'): '920-620 Mass, w/ E&W Win.',
             ('930', '630'): '930-630 Mass, w/ E&W Shade',
             ('940', '640'): '940-640 Mass, w/ Htg. Setback',
-            ('950', '650'): '940-640 Mass, w/ Night Vent',
+            ('950', '650'): '950-650 Mass, w/ Night Vent',
             ('980', '680'): '980-680 Mass, w/ Insulation 20/27',
             ('985', '685'): '985-685 Mass, w/ 20/20 Tstat',
             ('995', '695'): '995-695 Mass, w/ Insulation 20/20'}
@@ -7921,7 +7921,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_he_table_b16_6_3(self):
         figure_name = 'section_10_table_b16_6_03'
-        caption = 'Table B16.6-3. Fuel Consumption (m3/2)'
+        caption = 'Table B16.6-3. Fuel Consumption (m3/s)'
         figure_caption = 'Figure B16.6-3. Comparison of the Fuel Consumed for the Fuel-Fired Furnace Test Cases'
         yaxis_name = 'Fuel Consumption (m3/s)'
         data_table = []
@@ -8380,9 +8380,9 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_07a(self):
         table_name = 'section_9_table_b16_5_1_07a'
-        table_caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricty Consumption Delta Qtot (kWh,electrical)'
+        table_caption = 'Table B16.5.1-7a. Sensitivities for Space Cooling Electricity Consumption Delta Qtot (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_05'
-        chart_caption = 'Figure B16.5.1-5. HVAC BESTEST: Total Space Cooling Electricity Sensitivies'
+        chart_caption = 'Figure B16.5.1-5. HVAC BESTEST: Total Space Cooling Electricity Sensitivities'
         yaxis_name = 'delta Electricity Consumption  (kWh)'
         sensitivity_cases = [
             ('CE110', 'CE100', 'ODB'),
@@ -8527,7 +8527,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_07d(self):
         table_name = 'section_9_table_b16_5_1_07d'
-        table_caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricty Consumption Delta Q ODfan (kWh,electrical)'
+        table_caption = 'Table B16.5.1-7d. Sensitivities for Space Cooling Electricity Consumption Delta Q ODfan (kWh,electrical)'
         chart_name = 'section_9_figure_b16_5_1_11'
         chart_caption = 'Figure B16.5.1-11. HVAC BESTEST: Outdoor (Condenser) Fan Electricity Sensitivities'
         yaxis_name = 'delta Electricity Consumption  (kWh)'
@@ -8576,7 +8576,7 @@ class GraphicsRenderer(Logger):
 
     def render_section_ce_a_table_b16_5_1_08a(self):
         table_name = 'section_9_table_b16_5_1_08a'
-        table_caption = 'Table B16.5.1-8a. Sensitivities Delta COP (kWh,thermal)'
+        table_caption = 'Table B16.5.1-8a. Sensitivities Delta COP'
         chart_name = 'section_9_figure_b16_5_1_03'
         chart_caption = 'Figure B16.5.1-3. HVAC BESTEST: Mean COP Sensitivities'
         sensitivity_cases = [
@@ -9219,7 +9219,7 @@ class GraphicsRenderer(Logger):
         """Function that handles any table from ce_b 8 or 9 """
         table_name = f'section_9_table_b16_5_2_0{table_letter}'
         chart_name = f'section_9_figure_b16_5_2_{chart_code}'
-        table_caption = (f'Table B16.5.2-{table_letter}. f(ODB) Sensitivity CE500 and CE530, April 30 and July 25, '
+        table_caption = (f'Table B16.5.2-{table_letter}. f(ODB) Sensitivity CE500 and CE530, April 30 and June 25, '
                          f'{caption_end}')
         chart_caption = (f'Figure B16.5.2-{chart_code}. HVAC BESTEST: f(ODB) for CE500, CE530'
                          f'<br>Specific Day {caption_end}')
