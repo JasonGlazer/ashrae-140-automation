@@ -114,6 +114,8 @@ def create_markdown(input_file):
     input_file_path_parts = input_file.parts
     folder_parts = input_file_path_parts[-3:-1]
     section = input_file_path_parts[-1].split('_')[1]
+    if section == 'ce':  # for the CE since there is CE_a and CE_b add back the a or b
+        section = section + '_' + input_file_path_parts[-1].split('_')[2]
     section_string = '_' + section + '_'
 
     # folder_name = '/'.join(str(input_file).split(str(root_directory))[1].split('processed')[1].split('/')[1:-1])
@@ -133,7 +135,8 @@ def create_markdown(input_file):
         img_files = []
         md_table_files = []
 
-    img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
+#    img_files.sort(key=lambda x: int(re.split(r'(\d.*)', x.split('_')[-1].split('.png')[0])[1]))
+    img_files.sort()
 
     sorted_files = []
     # get all tables and figures in folder
@@ -152,7 +155,10 @@ def create_markdown(input_file):
 
     # write to markdown files
     md_file = open(pathlib.Path.joinpath(destination_directory, 'section_' + section + '.md'), 'w')
-    md_file.write('# Section Thermal Fabric\n')
+    if section == 'ce_b':
+        md_file.write('# Section 9 - HVAC Equipment Performance Tests CE300 through CE545\n')
+    else:
+        md_file.write('# Section Thermal Fabric\n')
 
     # append each mark down file to the end
     md_table_files.sort()
